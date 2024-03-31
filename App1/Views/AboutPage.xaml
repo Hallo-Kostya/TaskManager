@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.AboutPage"
+             xmlns:vm="clr-namespace:App1.ViewModels"
+             Title="{Binding Title}">
+    
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <StackLayout.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="0,1">
+                <GradientStop Color="#50006D" Offset="0.1"/>
+                <GradientStop Color="Black" Offset="1.0"/>
+            </LinearGradientBrush>
+        </StackLayout.Background>
+        <Frame BackgroundColor="Black" CornerRadius="50" Margin="-15">
+            <StackLayout>
+                <Label Text="Месяц" TextColor="AliceBlue" HorizontalOptions="Center" FontSize="15"/>
+                <Label Text="Сегодня" TextColor="AliceBlue" HorizontalOptions="Center" FontSize="25"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <StackLayout>
+                        <Label Text="Вc" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="24" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Пн" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="25" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Вт" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="26" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Ср" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="27" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Чт" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="28" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Пт" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="29" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Сб" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                        <Button Text="30" FontSize="19"  TextColor="AliceBlue" BackgroundColor="#000000" CornerRadius="50" WidthRequest="45" HeightRequest="45"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="Black" CornerRadius="50" Margin="15,50">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/4712/4712429.png" WidthRequest="25" HeightRequest="25"/>
+                <Label Text="Придумать дизайн приложения" FontSize="16" TextColor="AliceBlue"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="Black" CornerRadius="50" Margin="45,-45" WidthRequest="250">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/4712/4712429.png" WidthRequest="22" HeightRequest="22"/>
+                <Label Text="Придумать дизайн приложения" FontSize="14" TextColor="AliceBlue"/>
+            </StackLayout>
+        </Frame>
+        <StackLayout>
+            <Image Source="https://cdn-icons-png.flaticon.com/512/4712/4712429.png" Margin="65" WidthRequest="100" HeightRequest="100"/>
+            <Label Text="На этот день у вас пока нет планов" FontSize="30" HorizontalOptions="Center"/>
+        </StackLayout>
+        <Button x:Name="newItemButton"  Clicked="OnButtonClicked" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Text="+" FontSize="50"  TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="100" HeightRequest="100"/>
+    </StackLayout>
+</ContentPage>
+
