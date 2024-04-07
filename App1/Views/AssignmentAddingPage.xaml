@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App1.ViewModels"
+             x:Class="App1.Views.AssignmentAddingPage">
+    <ContentPage.BindingContext>
+        <local:AssignmentAddingViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
+            <Entry Text="{Binding Assignment.ID, Mode=TwoWay}" FontSize="Medium" IsEnabled="False"/>
+            <Label Text="Text" FontSize="Medium"/>
+            <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium"/>
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

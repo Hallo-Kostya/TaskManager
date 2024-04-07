@@ -1,32 +1,29 @@
-﻿using App1.Models;
-using App1.ViewModels;
-using App1.Views;
+﻿using App1.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace App1.Views
 {
-    public partial class ItemsPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AssignmentPage : ContentPage
     {
-        ItemsViewModel _viewModel;
-
-        public ItemsPage()
+        AssignmentViewModel assignmentViewModel;
+        public AssignmentPage()
         {
             InitializeComponent();
-
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = assignmentViewModel = new AssignmentViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
+            assignmentViewModel.OnAppearing();
         }
     }
 }
