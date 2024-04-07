@@ -20,5 +20,14 @@ namespace App1.Views
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel();
         }
+        public AssignmentAddingPage(Assignment assignment)
+        {
+            InitializeComponent();
+            BindingContext = new AssignmentAddingViewModel();
+            if (assignment != null)
+            {
+                ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
+            }
+        }
     }
 }

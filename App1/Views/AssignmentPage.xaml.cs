@@ -17,7 +17,7 @@ namespace App1.Views
         public AssignmentPage()
         {
             InitializeComponent();
-            BindingContext = assignmentViewModel = new AssignmentViewModel();
+            BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
         }
 
         protected override void OnAppearing()
