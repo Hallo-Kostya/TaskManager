@@ -9,6 +9,7 @@
         <Style TargetType="TabBar">
             <Setter Property="Shell.BackgroundColor" Value="Black" />
             <Setter Property="Shell.TabBarUnselectedColor" Value="AliceBlue" />
+            <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
         </Style>
     </Shell.Resources>
 
@@ -19,7 +20,6 @@
         </ShellContent>
 
         <ShellContent Route="assignmentPage"
-                      Shell.TabBarBackgroundColor="#952EAF"
                       Icon="calendar_days.png"
                       ContentTemplate="{DataTemplate local:AssignmentPage}">
         </ShellContent>

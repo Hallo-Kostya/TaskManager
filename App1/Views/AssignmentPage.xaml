@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models"
              x:Class="App1.Views.AssignmentPage">
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -30,8 +30,6 @@
 
 
     <StackLayout>
-
-
         <Grid x:Name="mainGrid" BackgroundColor="#952EAF">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -101,7 +99,8 @@
                                     <Frame CornerRadius="50" HasShadow="True" BackgroundColor="Black">
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout>
-                                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"></Label>
+                                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <!--<Button x:Name="Delete" x:DataType="local:AssignmentViewModel" Command="{Binding DeleteAssignmentCommand}" Text="X" TextColor="Red" BackgroundColor="AliceBlue" />-->
                                                 <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
                                             </StackLayout>
                                         </StackLayout>
