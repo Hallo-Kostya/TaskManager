@@ -4,9 +4,34 @@
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models"
              x:Class="App1.Views.AssignmentPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="AliceBlue"/>
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="AliceBlue"/>
+                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="BackgroundColor" Value="#000000"/>
+                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="WidthRequest" Value="45"/>
+                <Setter Property="HeightRequest" Value="45"/>
+            </Style>
+            <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#952EAF" Offset="0.0"/>
+                <GradientStop Color="#1D0027" Offset="0.65"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddAssignmentCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
             <RefreshView x:DataType="local:AssignmentViewModel" 
@@ -18,8 +43,8 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout x:DataType="model:Assignment">
-                                <Grid Padding="5">
-                                    <Frame CornerRadius="10" HasShadow="True">
+                                <Grid Padding="5" Margin="0,10">
+                                    <Frame CornerRadius="10" HasShadow="True" BackgroundColor="Black">
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout>
                                                 <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="End"></Label>
@@ -35,4 +60,61 @@
             </RefreshView>
         </StackLayout>
     </ContentPage.Content>
+    
+    <Grid x:Name="mainGrid" BackgroundColor="#952EAF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Верхний Frame -->
+        <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="80" Margin="-25">
+            <StackLayout>
+                <Label Text="Апрель" Style="{StaticResource LabelStyle}"/>
+                <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+
+                    <StackLayout>
+                        <Label Text="Пн" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek1" Text="1" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Вт" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek2" Text="2" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Ср" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek3" Text="3" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Чт" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek4" Text="4" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Пт" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek5" Text="5" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Сб" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek6" Text="6" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Вc" Style="{StaticResource LabelStyle}"/>
+                        <Button x:Name="DayWeek7" Text="7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+        <!-- Центральные элементы -->
+        <ScrollView Grid.Row="1" Background = "{StaticResource GradientBrush}" Margin="0,20,0,0">
+            <StackLayout Padding="0,100,0,0">
+                <Image x:Name="image1" Source="calendar.png" HeightRequest="60" HorizontalOptions="Center"/>
+                <Label x:Name="label1" Text="На этот день у вас пока нет планов" FontSize="17" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                <Label x:Name="label2" Text="Нажмите &quot;+&quot;, чтобы добавить" FontSize="15" TextColor="AliceBlue" HorizontalOptions="Center"/>
+                <Label x:Name="label3" Text="задачу в список на день" FontSize="15" TextColor="AliceBlue" HorizontalOptions="Center" Margin="-8"/>
+            </StackLayout>
+        </ScrollView>
+        <Button x:Name="AddTask" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,20,40"/>
+    </Grid>
 </ContentPage>

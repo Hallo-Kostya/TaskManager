@@ -4,21 +4,31 @@
        xmlns:local="clr-namespace:App1.Views"
        Title="App1"
        x:Class="App1.AppShell">
+
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <Setter Property="Shell.BackgroundColor" Value="Black" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="AliceBlue" />
+            <Setter Property="Shell.FlyoutHeight" Value="2" />
+            <Setter Property="Shell.FlyoutHeight" Value="2" />
+        </Style>
+    </Shell.Resources>
+
     <TabBar>
-        <ShellContent
-            Icon="layout_grid.png"
-            ContentTemplate="{DataTemplate local:EizenhaurPage}">
+        <ShellContent Route="eizenhaurPage"
+                      Icon="layout_grid.png"
+                      ContentTemplate="{DataTemplate local:EizenhaurPage}">
         </ShellContent>
-        
-        <ShellContent
-            Icon="Frame25.png"
-            ContentTemplate="{DataTemplate local:AssignmentPage}">
+
+        <ShellContent Route="assignmentPage"
+                      Shell.TabBarBackgroundColor="#952EAF"
+                      Icon="calendar_days.png"
+                      ContentTemplate="{DataTemplate local:AssignmentPage}">
         </ShellContent>
-        
-        <ShellContent
-            Icon="Settings.png"
-            ContentTemplate="{DataTemplate local:SettingsPage}">
+
+        <ShellContent Route="settingsPage"
+                      Icon="settings.png"
+                      ContentTemplate="{DataTemplate local:SettingsPage}">
         </ShellContent>
     </TabBar>
-
 </Shell>

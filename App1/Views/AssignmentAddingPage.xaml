@@ -7,15 +7,20 @@
         <local:AssignmentAddingViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
-            <Entry Text="{Binding Assignment.ID, Mode=TwoWay}" FontSize="Medium" IsEnabled="False"/>
-            <Label Text="Text" FontSize="Medium"/>
-            <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium"/>
+        <StackLayout BackgroundColor="Black" Padding="20">
+            <Frame BackgroundColor="#952EAF" CornerRadius="50">
+                <StackLayout>
+                    <Label Text="ID" FontSize="Medium" IsEnabled="False" TextColor="AliceBlue" />
+                    <Entry Text="{Binding Assignment.ID, Mode=TwoWay}" FontSize="Medium" IsEnabled="False" BackgroundColor="#952EAF"/>
 
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Label Text="Text" FontSize="Medium" TextColor="AliceBlue"/>
+                    <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF"/>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal" Margin="0,20">
+                <Button Text="Save" Command="{Binding SaveCommand}" BackgroundColor="#952EAF" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="#8b6c96" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
