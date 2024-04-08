@@ -9,8 +9,6 @@
         <Style TargetType="TabBar">
             <Setter Property="Shell.BackgroundColor" Value="Black" />
             <Setter Property="Shell.TabBarUnselectedColor" Value="AliceBlue" />
-            <Setter Property="Shell.FlyoutHeight" Value="2" />
-            <Setter Property="Shell.FlyoutHeight" Value="2" />
         </Style>
     </Shell.Resources>
 
