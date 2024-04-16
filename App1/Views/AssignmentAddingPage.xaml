@@ -8,11 +8,11 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
-            <Entry Text="{Binding Assignment.ID, Mode=TwoWay}" FontSize="Medium" IsEnabled="False"/>
             <Label Text="Text" FontSize="Medium"/>
             <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium"/>
-
+            <Label Text="Description" FontSize="Small"/>
+            <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Small"/>
+            <Button Text="low Priority" FontSize="small" Command="{Binding SetLowPriority}"></Button>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>

@@ -10,11 +10,18 @@ namespace App1.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public DateTime ExecutionDate { get; set; }
-        public int Priority { get; set; }
+        public EnumPriority Priority { get; set; }
+
+        public enum EnumPriority
+        {
+            Without = 0,
+            LowPriority,
+            MediumPriority,
+            HighPriority
+        }
+
         public bool IsCompleted { get; set; }
-        public bool IsRepetitive { get; set; }
-
-
     }
 }

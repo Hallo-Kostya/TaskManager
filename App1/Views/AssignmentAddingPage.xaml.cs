@@ -15,8 +15,11 @@ namespace App1.Views
     public partial class AssignmentAddingPage : ContentPage
     {
         public Assignment Assignment { get; set; }
+        public static readonly BindableProperty TagProperty = BindableProperty.Create("Tag",
+        typeof(string), typeof(Assignment));
         public AssignmentAddingPage()
         {
+            SetBinding(TagProperty, new Binding(@"Tag", BindingMode.OneWayToSource));
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel();
         }
@@ -27,6 +30,14 @@ namespace App1.Views
             if (assignment != null)
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
+            }
+        }
+        public string Tag
+        {
+            get => (string)GetValue(TagProperty);
+            set
+            {
+                SetValue(TagProperty, value);
             }
         }
     }
