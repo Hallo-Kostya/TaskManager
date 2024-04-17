@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
@@ -84,7 +84,7 @@
                     <Label x:Name="label3" Text="задачу в список на день" FontSize="15" TextColor="AliceBlue" HorizontalOptions="Center" Margin="-8"/>
                 </StackLayout>
             </StackLayout>
-            
+
             <!--ЗАДАЧИ-->
             <StackLayout Grid.Row="1" Margin="0,260,0,0">
                 <RefreshView x:DataType="local:AssignmentViewModel" 
@@ -100,9 +100,14 @@
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout>
                                                 <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <!--<Button x:Name="Delete" x:DataType="local:AssignmentViewModel" Command="{Binding DeleteAssignmentCommand}" Text="X" TextColor="Red" BackgroundColor="AliceBlue" />-->
+                                                <CheckBox IsChecked="{Binding IsCompleted}"/>
                                                 <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
+                                                <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                    Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                                <Button Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+    Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
                                             </StackLayout>
+                                            
                                         </StackLayout>
                                     </Frame>
                                 </ScrollView>
