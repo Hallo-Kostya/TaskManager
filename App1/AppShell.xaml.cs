@@ -16,7 +16,7 @@ namespace App1
             Routing.RegisterRoute(nameof(AssignmentAddingPage), typeof(AssignmentAddingPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private async void OnMenuItemClicked(object bender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//LoginPage");
         }
