@@ -2,11 +2,59 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Views.EizenhaurPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#952EAF" Offset="0.0"/>
+                <GradientStop Color="#1D0027" Offset="0.65"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Background="{StaticResource GradientBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Black" CornerRadius="50" Margin="-15,-50,-15,0">
+            <Label Text="Матрица Эйзенхауэра" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" Margin="0,30,0,0"/>
+        </Frame>
+        <Frame Grid.Column="0" Grid.Row="1" BackgroundColor="Black" CornerRadius="20" Margin="20,20,10,10" >
+            <StackLayout>
+                <Frame BackgroundColor="#bf0232" CornerRadius="50" HorizontalOptions="Fill" Margin="-10,-10,-10,0" Padding="0">
+                    <Label Text="Срочно и важно" FontSize="12" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+        
+        <Frame Grid.Column="1" Grid.Row="1" BackgroundColor="Black" CornerRadius="20" Margin="10,20,20,10" >
+            <StackLayout>
+                <Frame BackgroundColor="#d58d01" CornerRadius="50" HorizontalOptions="Fill" Margin="-10,-10,-10,0" Padding="0">
+                    <Label Text="Не срочно, но важно" FontSize="12" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+        
+        <Frame Grid.Column="0" Grid.Row="2" BackgroundColor="Black" CornerRadius="20" Margin="20,10,10,20" >
+            <StackLayout>
+                <Frame BackgroundColor="#3551be" CornerRadius="50" HorizontalOptions="Fill" Margin="-10,-10,-10,0" Padding="0">
+                    <Label Text="Срочно, но не важно" FontSize="12" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+
+        <Frame Grid.Column="1" Grid.Row="2" BackgroundColor="Black" CornerRadius="20" Margin="10,10,20,20" >
+            <StackLayout>
+                <Frame BackgroundColor="#16937b" CornerRadius="50" HorizontalOptions="Fill" Margin="-10,-10,-10,0" Padding="0">
+                    <Label Text="Не срочно и не важно" FontSize="12" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+    </Grid>
 </ContentPage>

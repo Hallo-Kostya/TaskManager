@@ -2,11 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Views.SettingsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#952EAF" Offset="0.0"/>
+                    <GradientStop Color="#1D0027" Offset="0.65"/>
+                </LinearGradientBrush>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+
+    <Grid Background="{StaticResource GradientBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Black" CornerRadius="50" Margin="-15,-50,-15,0">
+            <Label Text="Настройки" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" Margin="0,30,0,0"/>
+        </Frame>
+    </Grid>
 </ContentPage>

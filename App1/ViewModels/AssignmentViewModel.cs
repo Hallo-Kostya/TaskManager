@@ -1,4 +1,4 @@
-﻿using App1.Data;
+using App1.Data;
 using App1.Models;
 using App1.Views;
 using System;
