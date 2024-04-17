@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
@@ -10,11 +10,10 @@
         <StackLayout BackgroundColor="Black" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="50">
                 <StackLayout>
-                    <Label Text="ID" FontSize="Medium" IsEnabled="False" TextColor="AliceBlue" />
-                    <Entry Text="{Binding Assignment.ID, Mode=TwoWay}" FontSize="Medium" IsEnabled="False" BackgroundColor="#952EAF"/>
-
                     <Label Text="Text" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF"/>
+                    <Label Text="Description" FontSize="Medium" TextColor="AliceBlue"/>
+                    <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF"/>
                 </StackLayout>
             </Frame>
 
