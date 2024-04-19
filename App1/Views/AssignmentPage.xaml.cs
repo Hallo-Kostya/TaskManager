@@ -41,5 +41,14 @@ namespace App1.Views
             if (clickedButton != DayWeek1)
                 DayWeek1.BackgroundColor = Color.Black;
         }
+
+        private void AddTask_Clicked(object sender, EventArgs e)
+        {
+            var noTasks = this.FindByName<StackLayout>("NoTasks");
+            if (noTasks != null)
+            {
+                noTasks.IsVisible = false;
+            }
+        }
     }
 }

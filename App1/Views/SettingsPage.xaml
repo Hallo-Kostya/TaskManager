@@ -1,25 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App1.Views.SettingsPage">
+             x:Class="App1.Views.SettingsPage"
+             BackgroundImageSource="background.png">
 
-        <ContentPage.Resources>
-            <ResourceDictionary>
-                <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#952EAF" Offset="0.0"/>
-                    <GradientStop Color="#1D0027" Offset="0.65"/>
-                </LinearGradientBrush>
-            </ResourceDictionary>
-        </ContentPage.Resources>
-
-    <Grid Background="{StaticResource GradientBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Black" CornerRadius="50" Margin="-15,-50,-15,0">
+    <StackLayout>
+        <Frame BackgroundColor="Black" CornerRadius="50" Margin="-15,-50,-15,0">
             <Label Text="Настройки" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" Margin="0,30,0,0"/>
         </Frame>
-    </Grid>
+
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10, 5, 10, 0" HeightRequest="40">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="user.png" BackgroundColor="#D9D9D9"/>
+                <Label Text="Имя Фамилия" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center" Margin="10"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10, 17, 10, 0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="bell.png"/>
+                <Label Text="Звуки и уведомления" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="clock.png"/>
+                <Label Text="Дата и время" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="ellipsis.png"/>
+                <Label Text="Общие" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25"  Margin="10,17,10,0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="phone.png"/>
+                <Label Text="Помощь и обратная связь" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="users.png"/>
+                <Label Text="Наши соцсети!" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="notebook.png"/>
+                <Label Text="О приложении" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="40">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Выйти из аккаунта" TextColor="Red" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
 </ContentPage>

@@ -22,6 +22,8 @@ namespace App1
             
         }
 
+        public static bool IsNoTasksVisible { get; set; } = true;
+
         public App()
         {
             InitializeComponent();
