@@ -14,31 +14,31 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AssignmentAddingPage : ContentPage
     {
-        public Assignment Assignment { get; set; }
-        public static readonly BindableProperty TagProperty = BindableProperty.Create("Tag",
-        typeof(string), typeof(Assignment));
+        public AssignmentModel Assignment { get; set; }
         public AssignmentAddingPage()
         {
-            SetBinding(TagProperty, new Binding(@"Tag", BindingMode.OneWayToSource));
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel();
         }
-        public AssignmentAddingPage(Assignment assignment)
+        public AssignmentAddingPage(AssignmentModel assignment)
         {
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel();
-            if (assignment != null)
+            if (assignment != null) 
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
             }
+
         }
-        public string Tag
+
+        private void DatePickerDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            get => (string)GetValue(TagProperty);
-            set
-            {
-                SetValue(TagProperty, value);
-            }
+
+        }
+        private void picker_SelectedIndexChanged(object sender, DateChangedEventArgs e)
+        {
+            
+
         }
     }
 }

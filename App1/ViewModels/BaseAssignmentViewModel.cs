@@ -1,17 +1,22 @@
 ﻿using App1.Models;
+using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Schema;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 
 namespace App1.ViewModels
 {
     public class BaseAssignmentViewModel: INotifyPropertyChanged
     {
-        private Assignment _assignment;
-        public Assignment Assignment
+        private AssignmentModel _assignment;
+        public string Title { get; set; }
+        public LayoutState MainState { get; set; }
+        public AssignmentModel Assignment
         {
             get { return _assignment; }
             set { _assignment = value; }

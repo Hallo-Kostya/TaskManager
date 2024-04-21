@@ -30,18 +30,18 @@ namespace App1.ViewModels
 
 
 
-        //private IDateService _dateService;
-        //private DayModel _selectedDay;
-        //public ObservableCollection<DayModel> DaysList { get; set; }
-        //public ObservableCollection<AssignmentModel> TaskList { get; set; }
-        //public LayoutState TaskListState { get; set; }
-        //public string Name { get; set; }
-        //public WeekModel Week { get; set; }
-        //public string Filter { get; set; }
-        //public ICommand DayCommand { get; set; }
-        //public ICommand PreviousWeekCommand { get; set; }
-        //public ICommand NextWeekCommand { get; set; }
-        //public DateService dateService { get; set; }
+        private IDateService _dateService;
+        private DayModel _selectedDay;
+        public ObservableCollection<DayModel> DaysList { get; set; }
+        public ObservableCollection<AssignmentModel> TaskList { get; set; }
+        public LayoutState TaskListState { get; set; }
+        public string Name { get; set; }
+        public WeekModel Week { get; set; }
+        public string Filter { get; set; }
+        public ICommand DayCommand { get; set; }
+        public ICommand PreviousWeekCommand { get; set; }
+        public ICommand NextWeekCommand { get; set; }
+        public DateService dateService { get; set; }
 
 
         public AssignmentViewModel(INavigation _navigation)
@@ -76,50 +76,50 @@ namespace App1.ViewModels
 
 
 
-        //private void DayCommandHandler(DayModel day)
-        //{
-        //    SetActiveDay(day);
-        //    ///CreateQueryForTasks(day.Date);
-        //}
-        //private void PreviousWeekCommandHandler(DateTime startDate)
-        //{
-        //    Week = _dateService.GetWeek(startDate.AddDays(-1));
-        //    DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
-        //    SetActiveDay();
-        //}
-        //private void NextWeekCommandHandler(DateTime lastDate)
-        //{
-        //    Week = _dateService.GetWeek(lastDate.AddDays(1));
-        //    DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
-        //    SetActiveDay();
-        //}
+        private void DayCommandHandler(DayModel day)
+        {
+            SetActiveDay(day);
+            ///CreateQueryForTasks(day.Date);
+        }
+        private void PreviousWeekCommandHandler(DateTime startDate)
+        {
+            Week = _dateService.GetWeek(startDate.AddDays(-1));
+            DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
+            SetActiveDay();
+        }
+        private void NextWeekCommandHandler(DateTime lastDate)
+        {
+            Week = _dateService.GetWeek(lastDate.AddDays(1));
+            DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
+            SetActiveDay();
+        }
        
-        //private void SetActiveDay(DayModel day = null)
-        //{
-        //    ResetActiveDay();
-        //    if (day != null)
-        //    {
-        //        _selectedDay = day;
-        //        day.State = DayStateEnum.Active;
-        //    }
-        //    else
-        //    {
-        //        var selectedDate = DaysList.FirstOrDefault(d => d.Date == _selectedDay.Date);
-        //        if (selectedDate != null)
-        //        {
-        //            selectedDate.State = DayStateEnum.Active;
-        //        }
-        //    }
-        //}
+        private void SetActiveDay(DayModel day = null)
+        {
+            ResetActiveDay();
+            if (day != null)
+            {
+                _selectedDay = day;
+                day.State = DayStateEnum.Active;
+            }
+            else
+            {
+                var selectedDate = DaysList.FirstOrDefault(d => d.Date == _selectedDay.Date);
+                if (selectedDate != null)
+                {
+                    selectedDate.State = DayStateEnum.Active;
+                }
+            }
+        }
 
-        //private void ResetActiveDay()
-        //{
-        //    var selectedDay = DaysList?.FirstOrDefault(d => d.State.Equals(DayStateEnum.Active));
-        //    if (selectedDay != null)
-        //    {
-        //        selectedDay.State = selectedDay.Date < DateTime.Now.Date ? DayStateEnum.Past : DayStateEnum.Normal;
-        //    }
-        //}
+        private void ResetActiveDay()
+        {
+            var selectedDay = DaysList?.FirstOrDefault(d => d.State.Equals(DayStateEnum.Active));
+            if (selectedDay != null)
+            {
+                selectedDay.State = selectedDay.Date < DateTime.Now.Date ? DayStateEnum.Past : DayStateEnum.Normal;
+            }
+        }
 
         private async Task<ILookup<string, AssignmentModel>> GetGroupByIsCompleted()
         {
@@ -156,8 +156,7 @@ namespace App1.ViewModels
             {
                 return;
             }
-            assignment.IsCompleted = !assignment.IsCompleted;
-            await App.AssignmentsDB.AddItemAsync(assignment);
+            await App.AssignmentsDB.ChangeItemIsCompleted(assignment);
             await ExecuteLoadAssignmentCommand();
         }
         private async void OnAddAssignment(object obj)

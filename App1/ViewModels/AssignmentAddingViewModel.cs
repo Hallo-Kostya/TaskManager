@@ -10,24 +10,18 @@ namespace App1.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public Command SetLowPriority { get; }
 
         public  AssignmentAddingViewModel() 
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            SetLowPriority = new Command(OnLowPriority);
             this.PropertyChanged += (_,__) => SaveCommand.ChangeCanExecute();
-            Assignment = new Assignment();
-        }
-        private void OnLowPriority()
-        {
-            Assignment.Priority = Assignment.EnumPriority.LowPriority;
+            Assignment = new AssignmentModel();
         }
         private async void OnSave()
         {
             var assignment = Assignment;
-            await App.AssignmentsDB.AddAssignmentAsync(assignment);
+            await App.AssignmentsDB.AddItemAsync(assignment);
             await Shell.Current.GoToAsync("..");
         }
         private async void OnCancel()

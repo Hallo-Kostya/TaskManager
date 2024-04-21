@@ -1,4 +1,6 @@
-﻿using App1.ViewModels;
+﻿using App1.Models;
+using App1.Services;
+using App1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace App1.Views
     {
         AssignmentViewModel assignmentViewModel;
         Button previousButton;
+        public DateTime tempDate;
         public AssignmentPage()
         {
             InitializeComponent();
@@ -27,8 +30,9 @@ namespace App1.Views
             base.OnAppearing();
             assignmentViewModel.OnAppearing();
         }
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
+            tempDate=DateTime.Now; ///заглушка
             Button clickedButton = (Button)sender;
 
             if (previousButton != null && previousButton != DayWeek1)
@@ -40,6 +44,7 @@ namespace App1.Views
 
             if (clickedButton != DayWeek1)
                 DayWeek1.BackgroundColor = Color.Black;
+            await Navigation.PushAsync(new AssignmentPage());
         }
 
         private void AddTask_Clicked(object sender, EventArgs e)

@@ -2,10 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
-             xmlns:model="clr-namespace:App1.Models"
-             x:Class="App1.Views.AssignmentPage"
-             BackgroundImageSource="background.png">
-
+             xmlns:model="clr-namespace:App1.Models" 
+             x:DataType="local:AssignmentViewModel"
+             x:Class="App1.Views.AssignmentPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -24,7 +23,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
 
     <StackLayout>
         <Grid x:Name="mainGrid">
@@ -83,34 +81,44 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout x:Name="Tasks" Grid.Row="1" Margin="0,20,0,0">
+            <StackLayout Grid.Row="1" Margin="0,260,0,0">
+                <!--<SearchBar>
+                    <corcav:Interaction.Behaviors>
+                        <corcav:BehaviorCollection>
+                            <corcav:EventToCommand EventName="TextChanged" Command="{Binding Path=SearchBarTextChangedCommand}" PassEventArgument="True"/>
+                        </corcav:BehaviorCollection>
+                    </corcav:Interaction.Behaviors>
+                </SearchBar>-->
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-                    <CollectionView
+
+                    <CollectionView x:Name="ToDo"
                         ItemsSource="{Binding assignments}"
                         SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <ScrollView x:DataType="model:Assignment" Padding="10, 10, 10, 0">
-                                    <Frame CornerRadius="25" BackgroundColor="Black">
+                                <ScrollView x:DataType="model:AssignmentModel" Padding="20">
+                                    <Frame CornerRadius="50" HasShadow="True" BackgroundColor="Black">
                                         <StackLayout Orientation="Horizontal">
-                                            <StackLayout Orientation="Horizontal" WidthRequest="310">
-                                                 <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                 <Label Grid.Column="1" Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                 <Label Grid.Column="1" Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                 <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                            <StackLayout>
+                                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <Label Grid.Column="1" Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <Label Grid.Column="1" Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                               <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <CheckBox IsChecked="{Binding IsCompleted}">
+                                                    <CheckBox.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                    Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
+                                                    </CheckBox.GestureRecognizers>
+                                                </CheckBox>
                                                 <Label Grid.Column="1" Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                 <CheckBox IsChecked="{Binding IsCompleted}">
-                                                     <CheckBox.GestureRecognizers>
-                                                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
-                                                     Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
-                                                     </CheckBox.GestureRecognizers>
-                                                 </CheckBox>
-                                                <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
-                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
-                                                <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
-                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                                <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
+                                                <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                    Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                                <Button Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+    Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
                                             </StackLayout>
                                             
                                         </StackLayout>
