@@ -22,6 +22,21 @@
                 <Setter Property="WidthRequest" Value="45"/>
                 <Setter Property="HeightRequest" Value="45"/>
             </Style>
+            <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="Command" Value="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}"/>
+                <Setter Property="CommandParameter" Value="{Binding .}"/>
+                <Style.Triggers>
+                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
+                        <Setter Property="Source" Value="done.png"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="False">
+                        <Setter Property="Source" Value="circle.png"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -33,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <!-- Верхний Frame -->
-            <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="80" Margin="-25">
+            <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="32" Margin="0, -25, 0, 0">
                 <StackLayout>
                     <Label x:Name="labelMonth" Style="{StaticResource LabelStyle}"/>
                     <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20"/>
@@ -82,7 +97,7 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout Grid.Row="1" Margin="0,20,0,0">
+            <StackLayout Grid.Row="1">
                 <!--<SearchBar>
                     <corcav:Interaction.Behaviors>
                         <corcav:BehaviorCollection>
@@ -99,22 +114,17 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
-                                    <Frame CornerRadius="25" BackgroundColor="Black">
+                                    <Frame CornerRadius="25" BackgroundColor="Black" HeightRequest="40">
                                         <StackLayout Orientation="Horizontal" WidthRequest="310">
-                                            
-                                            <Label Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                            <Label Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                            <Label Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                            <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                            <Label Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                            <CheckBox IsChecked="{Binding IsCompleted}">
-                                                <CheckBox.GestureRecognizers>
-                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
-                                                        Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
-                                                </CheckBox.GestureRecognizers>
-                                            </CheckBox>
-                                            
-                                            <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
+                                            <ImageButton x:Name="Complited" Style="{StaticResource ImageButtonStyle}" WidthRequest="24"/>
+                                            <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                                                <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
+                                                <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
+                                                <StackLayout Orientation="Horizontal" Margin="-5, -25, 0, 0">
+                                                    <Label Text="{Binding Priority}" TextColor="AliceBlue" FontSize="12"/>
+                                                    <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12"/>
+                                                </StackLayout>
+                                            </StackLayout>
                                             <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
                                             <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
