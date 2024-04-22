@@ -47,12 +47,5 @@ namespace App1.Data
         {
             throw new NotImplementedException();
         }
-       
-        public async Task<bool> ChangeItemIsCompleted(AssignmentModel assignment)
-        {
-            assignment.IsCompleted = !assignment.IsCompleted;
-            await db.UpdateAsync(assignment);
-            return await Task.FromResult(true);
-        }
     }
 }
