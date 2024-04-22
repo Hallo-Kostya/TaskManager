@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
-             x:Class="App1.Views.AssignmentAddingPage">
+             x:Class="App1.Views.AssignmentAddingPage"
+             BackgroundImageSource="background.png">
     <ContentPage.BindingContext>
         <local:AssignmentAddingViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Black" Padding="20">
+        <StackLayout BackgroundColor="#80000000" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="50">
                 <StackLayout>
                     <Label Text="Название задачи" FontSize="Medium" TextColor="AliceBlue"/>
