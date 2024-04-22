@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using App1.Data;
 using App1.Models;
 using Xamarin.Forms;
 
@@ -11,6 +13,7 @@ namespace App1.ViewModels
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
+        
         public  AssignmentAddingViewModel() 
         {
             SaveCommand = new Command(OnSave);
@@ -21,6 +24,7 @@ namespace App1.ViewModels
         private async void OnSave()
         {
             var assignment = Assignment;
+            Archive.Add(assignment);
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Shell.Current.GoToAsync("..");
         }

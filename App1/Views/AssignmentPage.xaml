@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models" 
+             xmlns:behaviors="clr-namespace:App1.Behaviors"
              x:DataType="local:AssignmentViewModel"
              x:Class="App1.Views.AssignmentPage"
              BackgroundImageSource="background.png">
@@ -98,13 +99,7 @@
 
             <!--ЗАДАЧИ-->
             <StackLayout Grid.Row="1">
-                <!--<SearchBar>
-                    <corcav:Interaction.Behaviors>
-                        <corcav:BehaviorCollection>
-                            <corcav:EventToCommand EventName="TextChanged" Command="{Binding Path=SearchBarTextChangedCommand}" PassEventArgument="True"/>
-                        </corcav:BehaviorCollection>
-                    </corcav:Interaction.Behaviors>
-                </SearchBar>-->
+                <Button Text="Search for Task" Command="{Binding SearchCommand}"></Button>
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">

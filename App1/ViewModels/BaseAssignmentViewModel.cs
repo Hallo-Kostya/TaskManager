@@ -1,6 +1,7 @@
 ﻿using App1.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -10,6 +11,7 @@ namespace App1.ViewModels
     public class BaseAssignmentViewModel: INotifyPropertyChanged
     {
         private AssignmentModel _assignment;
+        public List<AssignmentModel> Archive { get; set; } = new List<AssignmentModel>();
         public string Title { get; set; }
         public LayoutState MainState { get; set; }
         public AssignmentModel Assignment

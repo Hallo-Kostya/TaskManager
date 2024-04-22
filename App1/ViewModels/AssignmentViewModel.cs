@@ -12,10 +12,11 @@ namespace App1.ViewModels
     {
 
         public Command LoadAssignmentCommand { get; }
-        public ObservableCollection<AssignmentModel> assignments { get; set; }
+        public ObservableCollection<AssignmentModel> assignments { get; }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
         public Command DeleteAssignmentCommand { get; }
+        public Command SearchCommand { get; }
         public ILookup<string, AssignmentModel> GroupByIsCompleted { get; set; }
         public Command ChangeIsCompletedCommand { get; set; }
         public INavigation Navigation { get; set; }
@@ -47,8 +48,7 @@ namespace App1.ViewModels
             Navigation = _navigation;
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
-            
-
+            SearchCommand = new Command(OnSearchAssignment);
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
@@ -141,6 +141,10 @@ namespace App1.ViewModels
         private async void OnAddAssignment(object obj)
         {
             await Shell.Current.GoToAsync(nameof(AssignmentAddingPage));
+        }
+        private async void OnSearchAssignment(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(SearchPage));
         }
         private async void OnEditAssignment(AssignmentModel assignment)
         {

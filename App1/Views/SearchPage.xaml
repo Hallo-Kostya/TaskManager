@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App1.ViewModels"
+             xmlns:model="clr-namespace:App1.Models" 
+             xmlns:corcav="clr-namespace:Corcav.Behaviors;assembly=Corcav.Behaviors"
+             x:Class="App1.Views.SearchPage">
+    <ContentPage.BindingContext>
+        <local:SearchPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar>
+                <corcav:Interaction.Behaviors>
+                    <corcav:BehaviorCollection>
+                        <corcav:EventToCommand EventName="TextChanged" Command="{Binding Path=SearchBarTextChangedCommand}" PassEventArgument="True"/>
+                    </corcav:BehaviorCollection>
+                </corcav:Interaction.Behaviors>
+            </SearchBar>
+            <CollectionView x:Name="SearchList"
+    ItemsSource="{Binding SearchedAssignments}"
+    SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                            <Frame CornerRadius="25" BackgroundColor="Black" Padding="15,10,10,10">
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                                        <CheckBox IsChecked="{Binding IsCompleted}"></CheckBox>
+                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
+                                        <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ScrollView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
