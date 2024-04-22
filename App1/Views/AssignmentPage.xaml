@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models" 
              x:DataType="local:AssignmentViewModel"
-             x:Class="App1.Views.AssignmentPage">
+             x:Class="App1.Views.AssignmentPage"
+             BackgroundImageSource="background.png">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -34,37 +35,37 @@
             <!-- Верхний Frame -->
             <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="80" Margin="-25">
                 <StackLayout>
-                    <Label Text="Апрель" Style="{StaticResource LabelStyle}"/>
+                    <Label x:Name="labelMonth" Style="{StaticResource LabelStyle}"/>
                     <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 
                         <StackLayout>
-                            <Label Text="Пн" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek1" Text="1" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek1" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day1" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Вт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek2" Text="2" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek2" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day2" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Ср" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek3" Text="3" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek3" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day3" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Чт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek4" Text="4" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek4" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day4" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Пт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek5" Text="5" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek5" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day5" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Сб" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek6" Text="6" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek6" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day6" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                         <StackLayout>
-                            <Label Text="Вc" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="DayWeek7" Text="7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
+                            <Label x:Name="DayWeek7" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="Day7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -81,7 +82,7 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout Grid.Row="1" Margin="0,260,0,0">
+            <StackLayout Grid.Row="1" Margin="0,20,0,0">
                 <!--<SearchBar>
                     <corcav:Interaction.Behaviors>
                         <corcav:BehaviorCollection>
@@ -97,27 +98,27 @@
                         SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <ScrollView x:DataType="model:AssignmentModel" Padding="20">
-                                    <Frame CornerRadius="50" HasShadow="True" BackgroundColor="Black">
-                                        <StackLayout Orientation="Horizontal">
-                                            <StackLayout>
-                                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <Label Grid.Column="1" Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <Label Grid.Column="1" Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <Label Grid.Column="1" Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                                <CheckBox IsChecked="{Binding IsCompleted}">
-                                                    <CheckBox.GestureRecognizers>
-                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
-                                                    Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
-                                                    </CheckBox.GestureRecognizers>
-                                                </CheckBox>
-                                                <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
-                                                <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
-                                                    Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
-                                                <Button Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
-    Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
-                                            </StackLayout>
+                                <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                                    <Frame CornerRadius="25" BackgroundColor="Black">
+                                        <StackLayout Orientation="Horizontal" WidthRequest="310">
+                                            
+                                            <Label Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
+                                            <Label Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
+                                            <Label Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
+                                            <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
+                                            <Label Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
+                                            <CheckBox IsChecked="{Binding IsCompleted}">
+                                                <CheckBox.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                        Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
+                                                </CheckBox.GestureRecognizers>
+                                            </CheckBox>
+                                            
+                                            <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
+                                            <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                            <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
                                         </StackLayout>
                                     </Frame>
                                 </ScrollView>
