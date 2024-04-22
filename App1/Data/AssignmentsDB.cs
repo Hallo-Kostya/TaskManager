@@ -1,48 +1,49 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SQLite;
 using App1.Models;
 using System.Threading.Tasks;
 using App1.Services;
+using System.Linq;
 
 namespace App1.Data
 {
-    public class AssignmentsDB : IAssignmentRepository
+    public class AssignmentsDB : IAssignmentRepository<AssignmentModel>
     {
         public SQLiteAsyncConnection db;
         public AssignmentsDB(string dbPath)
         {
             db = new SQLiteAsyncConnection(dbPath);
-            db.CreateTableAsync<Assignment>().Wait();
+            db.CreateTableAsync<AssignmentModel>().Wait();
         }
-        public async Task<bool> AddAssignmentAsync(Assignment assignment)
+        public async Task<bool> AddItemAsync(AssignmentModel assignment)
         {
             if (assignment.ID > 0)
             {
                 await db.UpdateAsync(assignment);
             }
             else 
-                await db.InsertAsync(assignment);
+                 await db.InsertAsync(assignment);
+            return  await Task.FromResult(true);
+        }
+
+        public async  Task<bool> DeleteItemAsync(int id)
+        {
+            await db.DeleteAsync<AssignmentModel>(id);
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteAssignmentAsync(int id)
+        public async Task<AssignmentModel> GetItemtAsync(int id)
         {
-            await db.DeleteAsync<Assignment>(id);
-            return await Task.FromResult(true);
+            return await db.Table<AssignmentModel>().Where(x => x.ID == id).FirstOrDefaultAsync();
         }
 
-        public async Task<Assignment> GetAssignmentAsync(int id)
+        public async Task<IEnumerable<AssignmentModel>> GetItemsAsync()
         {
-            return await db.Table<Assignment>().Where(x => x.ID == id).FirstOrDefaultAsync();
+            return await  Task.FromResult(await db.Table<AssignmentModel>().ToListAsync());
         }
 
-        public async Task<IEnumerable<Assignment>> GetAssignmentsAsync()
-        {
-            return await  Task.FromResult(await db.Table<Assignment>().ToListAsync());
-        }
-
-        public Task<bool> UpdateAssignmentsAsync(Assignment assignment)
+        public  Task<bool> UpdateItemsAsync(AssignmentModel assignment)
         {
             throw new NotImplementedException();
         }
