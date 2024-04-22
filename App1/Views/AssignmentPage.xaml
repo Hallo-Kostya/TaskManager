@@ -96,9 +96,17 @@
                                     <Frame CornerRadius="25" BackgroundColor="Black">
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout Orientation="Horizontal" WidthRequest="310">
-                                                <CheckBox IsChecked="{Binding IsCompleted}"/>
-                                                <Label Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="Center" FontSize="16" Padding="15, 0, 0, 0"/>
-                                                <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
+                                                 <Label Grid.Column="1" Text="{Binding Name}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                 <Label Grid.Column="1" Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                 <Label Grid.Column="1" Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                 <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <Label Grid.Column="1" Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                 <CheckBox IsChecked="{Binding IsCompleted}">
+                                                     <CheckBox.GestureRecognizers>
+                                                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                     Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
+                                                     </CheckBox.GestureRecognizers>
+                                                 </CheckBox>
                                                 <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
                                                 <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
