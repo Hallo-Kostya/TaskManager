@@ -114,15 +114,16 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
-                                    <Frame CornerRadius="25" BackgroundColor="Black" HeightRequest="40">
-                                        <StackLayout Orientation="Horizontal" WidthRequest="310">
-                                            <ImageButton x:Name="Complited" Style="{StaticResource ImageButtonStyle}" WidthRequest="24"/>
+                                    <Frame CornerRadius="25" BackgroundColor="Black" Padding="15,10,10,10">
+                                        <StackLayout Orientation="Horizontal">
+                                            <ImageButton x:Name="Complited" Style="{StaticResource ImageButtonStyle}" WidthRequest="30"/>
                                             <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
                                                 <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
                                                 <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
-                                                <StackLayout Orientation="Horizontal" Margin="-5, -25, 0, 0">
+                                                <StackLayout Orientation="Horizontal" Margin="-3, -25, 0, 0">
                                                     <Label Text="{Binding Priority}" TextColor="AliceBlue" FontSize="12"/>
-                                                    <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12"/>
+                                                    <Image Source="time.png" BackgroundColor="Black" WidthRequest="20"/>
+                                                    <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Margin="-3,3,0,0"/>
                                                 </StackLayout>
                                             </StackLayout>
                                             <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
