@@ -1,13 +1,9 @@
 ﻿using App1.Models;
-using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Xml.Schema;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Essentials;
 
 namespace App1.ViewModels
 {

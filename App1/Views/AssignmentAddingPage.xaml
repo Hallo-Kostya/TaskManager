@@ -20,7 +20,7 @@
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
                     
                     <Label x:Name="priorityPick" Text="Приоритет" FontSize="Medium" />
-                    <Picker x:Name="picker"  SelectedItem="{Binding Assignment.Priority., Mode=TwoWay}">
+                    <Picker x:Name="picker"  SelectedItem="{Binding Assignment.Priority, Mode=TwoWay}">
                         <Picker.Items>
                             <x:String>Without</x:String>
                             <x:String>LowPriority</x:String>

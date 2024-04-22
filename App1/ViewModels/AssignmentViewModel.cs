@@ -1,15 +1,9 @@
 using App1.Models;
-using App1.Services;
 using App1.Views;
-using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.ObjectModel;
-using System.Data.Common;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace App1.ViewModels
@@ -53,11 +47,7 @@ namespace App1.ViewModels
             Navigation = _navigation;
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
-            GetGroupByIsCompleted().ContinueWith(t =>
-            {
-                GroupByIsCompleted = t.Result;
-            });
-            Assignment = new AssignmentModel();
+            
 
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -69,11 +59,6 @@ namespace App1.ViewModels
         {
             IsBusy = true;
         }
-        public async Task RefreshList()
-        {
-            GroupByIsCompleted = await GetGroupByIsCompleted();
-        }
-
 
 
         //private void DayCommandHandler(DayModel day)
@@ -121,20 +106,13 @@ namespace App1.ViewModels
         //    }
         //}
 
-        private async Task<ILookup<string, AssignmentModel>> GetGroupByIsCompleted()
-        {
-            return (await App.AssignmentsDB.GetItemsAsync())
-                                .OrderBy(t => t.IsCompleted)
-                                .ToLookup(t => t.IsCompleted ? "Completed" : "Active");
-        }
-
         async Task ExecuteLoadAssignmentCommand()
         {
             try
             {
                 IsBusy = true;
                 assignments.Clear();
-                var assList = await App.AssignmentsDB.GetItemsAsync(); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
@@ -150,7 +128,7 @@ namespace App1.ViewModels
             }
         }
 
-        private async void HandleChangeIsCompleted(AssignmentModel assignment)
+        private async  void HandleChangeIsCompleted(AssignmentModel assignment)
         {
             if (assignment == null)
             {

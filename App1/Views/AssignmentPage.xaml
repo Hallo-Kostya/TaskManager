@@ -92,7 +92,6 @@
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-
                     <CollectionView x:Name="ToDo"
                         ItemsSource="{Binding assignments}"
                         SelectionMode="None">
@@ -106,21 +105,19 @@
                                                 <Label Grid.Column="1" Text="{Binding Description}" TextColor="AliceBlue" VerticalOptions="End"/>
                                                 <Label Grid.Column="1" Text="{Binding Priority}" TextColor="AliceBlue" VerticalOptions="End"/>
                                                 <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
-                                               <Label Grid.Column="1" Text="{Binding ExecutionDate}" TextColor="AliceBlue" VerticalOptions="End"/>
+                                                <Label Grid.Column="1" Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="End"/>
                                                 <CheckBox IsChecked="{Binding IsCompleted}">
                                                     <CheckBox.GestureRecognizers>
                                                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
                                                     Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}"/>
                                                     </CheckBox.GestureRecognizers>
                                                 </CheckBox>
-                                                <Label Grid.Column="1" Text="{Binding IsCompleted}" TextColor="AliceBlue" VerticalOptions="End"/>
                                                 <!--нужно еще добавить здесь кнопки для приоритета и т.п-->
                                                 <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
                                                     Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
                                                 <Button Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
     Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
                                             </StackLayout>
-                                            
                                         </StackLayout>
                                     </Frame>
                                 </ScrollView>

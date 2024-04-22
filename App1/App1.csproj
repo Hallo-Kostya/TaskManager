@@ -7,13 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <Compile Remove="Data\ListsDB.cs" />
+    <Compile Remove="Models\Assignment.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Corcav.Behaviors" Version="2.3.7" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-    <PackageReference Include="System.Reactive" Version="6.0.0" />
-    <PackageReference Include="System.Reactive.Linq" Version="6.0.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
