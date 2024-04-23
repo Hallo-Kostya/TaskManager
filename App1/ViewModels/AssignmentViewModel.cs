@@ -157,6 +157,7 @@ namespace App1.ViewModels
             {
                 return;
             }
+            await App.ArchiveDB.AddItemAsync(assignment);
             await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await ExecuteLoadAssignmentCommand();
         }

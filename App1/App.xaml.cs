@@ -11,6 +11,7 @@ namespace App1
     public partial class App : Application
     {
         static AssignmentsDB assignmentsDB;
+        static ArchiveDB archiveDB;
         public static AssignmentsDB AssignmentsDB
         {
             get
@@ -20,6 +21,16 @@ namespace App1
                 return assignmentsDB;
             }
             
+        }
+        public static ArchiveDB ArchiveDB
+        {
+            get
+            {
+                if (archiveDB == null)
+                    archiveDB = new ArchiveDB(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ArchiveDatabase.db3"));
+                return archiveDB;
+            }
+
         }
 
         public static bool IsNoTasksVisible { get; set; } = true;

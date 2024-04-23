@@ -12,7 +12,14 @@ namespace App1.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime ExecutionDate { get; set; } = DateTime.Now; 
-        public string Priority { get; set; }
+        public EnumPriority Priority { get; set; }
         public bool IsCompleted { get; set; }
+        public enum EnumPriority
+        {
+            Without=0,
+            LowPriority=1,
+            MediumPriority=2,
+            HighPriority=3
+        }
     }
 }
