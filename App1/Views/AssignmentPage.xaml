@@ -134,6 +134,7 @@
                 </RefreshView>
             </StackLayout>
             <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,20,40"/>
+            <Button x:Name="ToArchive"  Command="{Binding ToArchiveCommand}" Text="Trash" FontSize="30" TextColor="AliceBlue" BackgroundColor="Gray" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,20,40"/>
         </Grid>
     </StackLayout>
 </ContentPage>

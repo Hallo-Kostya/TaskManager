@@ -20,6 +20,7 @@ namespace App1.ViewModels
         public ILookup<string, AssignmentModel> GroupByIsCompleted { get; set; }
         public Command ChangeIsCompletedCommand { get; set; }
         public INavigation Navigation { get; set; }
+        public Command ToArchiveCommand { get; }
 
 
 
@@ -49,6 +50,8 @@ namespace App1.ViewModels
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
+            ToArchiveCommand = new Command(OnArchive);
+
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
@@ -127,7 +130,6 @@ namespace App1.ViewModels
                 IsBusy = false;
             }
         }
-
         private async  void HandleChangeIsCompleted(AssignmentModel assignment)
         {
             if (assignment == null)
@@ -141,6 +143,10 @@ namespace App1.ViewModels
         private async void OnAddAssignment(object obj)
         {
             await Shell.Current.GoToAsync(nameof(AssignmentAddingPage));
+        }
+        private async void OnArchive(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(ArchivePage));
         }
         private async void OnSearchAssignment(object obj)
         {

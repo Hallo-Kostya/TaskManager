@@ -15,6 +15,7 @@ namespace App1
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(AssignmentAddingPage), typeof(AssignmentAddingPage));
             Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
+            Routing.RegisterRoute(nameof(ArchivePage), typeof(ArchivePage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
