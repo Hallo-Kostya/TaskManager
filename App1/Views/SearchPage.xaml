@@ -18,7 +18,7 @@
                 </corcav:Interaction.Behaviors>
             </SearchBar>
             <CollectionView x:Name="SearchList"
-    ItemsSource="{Binding Archive}"
+    ItemsSource="{Binding SearchedAssignments}"
     SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

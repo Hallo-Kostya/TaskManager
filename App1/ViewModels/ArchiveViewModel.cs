@@ -67,6 +67,7 @@ namespace App1.ViewModels
             {
                 await App.AssignmentsDB.DeleteItemAsync(item.ID);
             }
+            await ExecuteLoadArchive();
         }
     }
 }
