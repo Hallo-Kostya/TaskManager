@@ -16,25 +16,27 @@ namespace App1.ViewModels
     {
         public Command SearchBarTextChangedCommand { get; }
         public ObservableCollection<AssignmentModel> SearchedAssignments { get; }
+        private string _searchedText;
+        public string SearchedText
+        {
+            get { return _searchedText; }
+            set { _searchedText = value; OnPropertyChanged(); }
+        }
 
         public SearchPageViewModel()
         {
             SearchedAssignments = new ObservableCollection<AssignmentModel>();
-            SearchBarTextChangedCommand = new Command<object>(OnSearchBarTextChanged);
+            SearchBarTextChangedCommand = new Command(OnSearchBarTextChanged);
         }
 
        
-        private async void OnSearchBarTextChanged(object obj)
-        {
-            if (obj is TextChangedEventArgs args)
+        private async void OnSearchBarTextChanged()
+        {   
+            var archives = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.Name.ToLower().Contains(SearchedText.Trim().ToLower()));
+            SearchedAssignments.Clear();
+            foreach (var item in archives)
             {
-               SearchedAssignments.Clear();
-               string filter = args.NewTextValue;
-               var archives = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.Name.ToLower().Contains(filter.Trim().ToLower()));
-               foreach(var item in archives)
-               {
-                    SearchedAssignments.Add(item);
-                }
+                SearchedAssignments.Add(item);
             }
         }
     }

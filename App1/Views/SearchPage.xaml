@@ -10,13 +10,10 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar>
-                <corcav:Interaction.Behaviors>
-                    <corcav:BehaviorCollection>
-                        <corcav:EventToCommand EventName="TextChanged" Command="{Binding Path=SearchBarTextChangedCommand}" PassEventArgument="True"/>
-                    </corcav:BehaviorCollection>
-                </corcav:Interaction.Behaviors>
-            </SearchBar>
+            <SearchBar x:Name="searchcustomer"
+            Placeholder="Search"
+           Text="{Binding SearchedText, Mode=TwoWay}"
+           SearchCommand="{Binding SearchBarTextChangedCommand}"/>
             <CollectionView x:Name="SearchList"
     ItemsSource="{Binding SearchedAssignments}"
     SelectionMode="Single">
