@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:App1.ViewModels" 
+             xmlns:model="clr-namespace:App1.Models"
+             x:Class="App1.Views.ArchivePage">
+    <ContentPage.BindingContext>
+        <local:ArchiveViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Update" BackgroundColor="Red" Command="{Binding LoadArchiveCommand}"/>
+            <CollectionView x:Name="ToDo"
+    ItemsSource="{Binding Archive}"
+    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                            <Frame CornerRadius="25" BackgroundColor="Black" Padding="15,10,10,10">
+                                <StackLayout Orientation="Horizontal">
+                                    <ImageButton x:Name="Complited" Style="{StaticResource ImageButtonStyle}" WidthRequest="30"/>
+                                    <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
+                                        <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
+                                        <StackLayout Orientation="Horizontal" Margin="-3, -25, 0, 0">
+                                            <Label Text="{Binding Priority}" TextColor="AliceBlue" FontSize="12"/>
+                                            <Image Source="time.png" BackgroundColor="Black" WidthRequest="20"/>
+                                            <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Margin="-3,3,0,0"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <ImageButton x:Name="recover" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=RecoverAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                    <ImageButton x:Name="delete" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=DeleteArchivedAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </Frame>
+                        </ScrollView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Clear Archive" BackgroundColor="Red" Command="{Binding ClearArchiveCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
