@@ -112,7 +112,7 @@ namespace App1.ViewModels
             {
                 IsBusy = true;
                 assignments.Clear();
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
@@ -157,8 +157,9 @@ namespace App1.ViewModels
             {
                 return;
             }
-            await App.ArchiveDB.AddItemAsync(assignment);
-            await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
+            assignment.IsDeleted = true;
+            await App.AssignmentsDB.AddItemAsync(assignment);
+            ///await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await ExecuteLoadAssignmentCommand();
         }
     }

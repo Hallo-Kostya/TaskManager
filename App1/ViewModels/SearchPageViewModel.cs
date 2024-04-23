@@ -16,6 +16,7 @@ namespace App1.ViewModels
     {
         public Command SearchBarTextChangedCommand { get; }
         private List<AssignmentModel> searchedAssignments = new List<AssignmentModel>();
+        public Command ClearArchiveCommand { get; }
         public Command LoadArchiveCommand { get; }
         public List<AssignmentModel> SearchedAssignments { get => searchedAssignments; set { searchedAssignments = value; OnPropertyChanged("SearchedAssignments"); } }
 
@@ -23,16 +24,18 @@ namespace App1.ViewModels
         public SearchPageViewModel()
         {
             SearchBarTextChangedCommand = new Command<object>(OnSearchBarTextChanged);
-            Archive = new ObservableCollection<AssignmentModel>();
+            ClearArchiveCommand = new Command(ClearArchive);
             LoadArchiveCommand = new Command(async () => await ExecuteLoadArchive());
+            Archive = new ObservableCollection<AssignmentModel>();
         }
+
         async Task ExecuteLoadArchive()
         {
             try
             {
                 Archive.Clear();
-                var archiveList = (await App.ArchiveDB.GetItemsAsync()).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
-                foreach (var ass in archiveList)
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);///GetSortedByDate(DateTime date);
+                foreach (var ass in assList)
                 {
                     Archive.Add(ass);
                 }
@@ -42,14 +45,25 @@ namespace App1.ViewModels
                 throw;
             }
         }
-        
-private async void OnSearchBarTextChanged(object obj)
+        private async void ClearArchive()
+        {
+            var deletedAssignments = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);
+            foreach (var item in deletedAssignments)
+            {
+                await App.AssignmentsDB.DeleteItemAsync(item.ID);
+            }
+        }
+        private async void OnSearchBarTextChanged(object obj)
         {
             if (obj is TextChangedEventArgs args)
             {
-                await ExecuteLoadArchive();
+                
                 string filter = args.NewTextValue;
-                SearchedAssignments = Archive.Where(x => x.Name.ToLower().Contains(filter.Trim().ToLower())).ToList();
+                var archives = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.Name.ToLower().Contains(filter.Trim().ToLower()));
+                foreach(var item in archives)
+                {
+                    Archive.Add(item);
+                }
             }
         }
     }

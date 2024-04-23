@@ -14,6 +14,7 @@ namespace App1.Models
         public DateTime ExecutionDate { get; set; } = DateTime.Now; 
         public EnumPriority Priority { get; set; }
         public bool IsCompleted { get; set; }
+        public bool IsDeleted { get; set; }
         public enum EnumPriority
         {
             Without=0,
