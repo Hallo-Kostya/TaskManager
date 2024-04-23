@@ -32,7 +32,7 @@ namespace App1.ViewModels
        
         private async void OnSearchBarTextChanged()
         {   
-            var archives = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.Name.ToLower().Contains(SearchedText.Trim().ToLower()));
+            var archives = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.Name.ToLower().Contains(SearchedText.Trim().ToLower())).OrderBy(t => t.IsCompleted);
             SearchedAssignments.Clear();
             foreach (var item in archives)
             {
