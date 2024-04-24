@@ -3,17 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models" 
-             xmlns:corcav="clr-namespace:Corcav.Behaviors;assembly=Corcav.Behaviors"
+             xmlns:behavior="clr-namespace:App1.Behaviors"
              x:Class="App1.Views.SearchPage">
     <ContentPage.BindingContext>
         <local:SearchPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="searchcustomer"
+            <SearchBar x:Name="searchAssignment"
             Placeholder="Search"
            Text="{Binding SearchedText, Mode=TwoWay}"
-           SearchCommand="{Binding SearchBarTextChangedCommand}"/>
+           SearchCommand="{Binding SearchBarTextChangedCommand}">
+                <SearchBar.Behaviors>
+                    <behavior:EventToCommandBehavior EventName="TextChanged" Command=" {Binding SearchBarTextChangedCommand}" />
+                </SearchBar.Behaviors>
+            </SearchBar>
             <CollectionView x:Name="SearchList"
     ItemsSource="{Binding SearchedAssignments}"
     SelectionMode="Single">
