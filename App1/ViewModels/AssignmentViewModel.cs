@@ -24,19 +24,7 @@ namespace App1.ViewModels
 
 
 
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get
-            {
-                return _isBusy;
-            }
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged("IsBusy");
-            }
-        }
+    
 
         //private IDateService _dateService;
         //private DayModel _selectedDay;
@@ -123,12 +111,11 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            
+            IsBusy = true;
             try
-            {
-                IsBusy = true;
+            { 
                 assignments.Clear();
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
@@ -138,10 +125,7 @@ namespace App1.ViewModels
             {
                 throw;
             }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = false;
             
         }
         private async  void HandleChangeIsCompleted(AssignmentModel assignment)

@@ -18,17 +18,21 @@ namespace App1.ViewModels
             get { return _assignment; }
             set { _assignment = value; }
         }
-        bool isBusy = false;
+        private bool _isBusy;
         public bool IsBusy
         {
-            get { return isBusy; }
+            get
+            {
+                return _isBusy;
+            }
             set
             {
-                SetProperty(ref isBusy, value);
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
             }
         }
 
-        
+
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
