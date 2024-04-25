@@ -18,17 +18,13 @@ namespace App1.ViewModels
             get { return _assignment; }
             set { _assignment = value; }
         }
-        private bool _isBusy;
+        bool isBusy=false;
         public bool IsBusy
         {
-            get
-            {
-                return _isBusy;
-            }
+            get { return isBusy; }
             set
             {
-                _isBusy = value;
-                OnPropertyChanged("IsBusy");
+                SetProperty(ref isBusy, value);
             }
         }
 

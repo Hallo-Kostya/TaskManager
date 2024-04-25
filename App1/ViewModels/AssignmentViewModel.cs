@@ -125,7 +125,11 @@ namespace App1.ViewModels
             {
                 throw;
             }
-            IsBusy = false;
+            finally
+            {
+                IsBusy = false;
+            }
+            
             
         }
         private async  void HandleChangeIsCompleted(AssignmentModel assignment)
