@@ -9,7 +9,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Update" BackgroundColor="Red" Command="{Binding LoadArchiveCommand}"/>
+            
             <CollectionView x:Name="ToDo"
     ItemsSource="{Binding Archive}"
     SelectionMode="None">

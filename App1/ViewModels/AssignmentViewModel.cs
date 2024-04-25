@@ -24,7 +24,19 @@ namespace App1.ViewModels
 
 
 
-
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
+            }
+        }
 
         //private IDateService _dateService;
         //private DayModel _selectedDay;
@@ -51,7 +63,6 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
-            IsBusy = false;
 
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -61,6 +72,7 @@ namespace App1.ViewModels
 
         public  void OnAppearing()
         {
+            IsBusy = true;
         }
 
 
@@ -111,17 +123,26 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            if(!IsBusy)
+            
+            try
             {
                 IsBusy = true;
                 assignments.Clear();
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
                 IsBusy = false;
-            }    
+            }
+            
         }
         private async  void HandleChangeIsCompleted(AssignmentModel assignment)
         {
@@ -162,5 +183,7 @@ namespace App1.ViewModels
             ///await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await ExecuteLoadAssignmentCommand();
         }
+
     }
+
 }
