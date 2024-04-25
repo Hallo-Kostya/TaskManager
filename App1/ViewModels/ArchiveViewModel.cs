@@ -21,7 +21,8 @@ namespace App1.ViewModels
             DeleteArchivedAssignmentCommand = new Command<AssignmentModel>(DeleteAssignment);
             RecoverAssignmentCommand = new Command<AssignmentModel>(RecoverAssignment);
             ClearArchiveCommand = new Command(ClearArchive);
-            LoadArchiveCommand = new Command(async () => await ExecuteLoadArchive());
+            ///LoadArchiveCommand = new Command(async () => await ExecuteLoadArchive());
+            Task.Run(async () => await ExecuteLoadArchive()); 
             Archive = new ObservableCollection<AssignmentModel>();
         }
 

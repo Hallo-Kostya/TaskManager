@@ -51,6 +51,7 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
+            IsBusy = false;
 
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -60,7 +61,6 @@ namespace App1.ViewModels
 
         public  void OnAppearing()
         {
-            IsBusy = true;
         }
 
 
@@ -111,24 +111,17 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            try
+            if(!IsBusy)
             {
                 IsBusy = true;
                 assignments.Clear();
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t=>t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
                 IsBusy = false;
-            }
+            }    
         }
         private async  void HandleChangeIsCompleted(AssignmentModel assignment)
         {
@@ -139,6 +132,7 @@ namespace App1.ViewModels
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
+
         }
         private async void OnAddAssignment(object obj)
         {
