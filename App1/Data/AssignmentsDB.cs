@@ -43,9 +43,10 @@ namespace App1.Data
             return await  Task.FromResult(await db.Table<AssignmentModel>().ToListAsync());
         }
 
-        public  Task<bool> UpdateItemsAsync(AssignmentModel assignment)
+        public async Task<bool> UpdateItemsAsync(AssignmentModel assignment)
         {
-            throw new NotImplementedException();
+            await db.UpdateAsync(assignment);
+            return await Task.FromResult(true);
         }
     }
 }

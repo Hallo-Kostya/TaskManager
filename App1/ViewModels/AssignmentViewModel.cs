@@ -112,11 +112,9 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            if (IsBusy)
-                return;
+            IsBusy = true;
             try
             {
-                IsBusy = true;
                 assignments.Clear();
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
@@ -142,7 +140,9 @@ namespace App1.ViewModels
                 return;
             }
             assignment.IsCompleted = !assignment.IsCompleted;
-            await App.AssignmentsDB.AddItemAsync(assignment);
+            var ass = assignment;
+            await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
+            await App.AssignmentsDB.AddItemAsync(ass);
             await ExecuteLoadAssignmentCommand();
 
         }
