@@ -51,6 +51,7 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
+            
 
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -111,9 +112,11 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            IsBusy = true;
+            if (IsBusy)
+                return;
             try
-            { 
+            {
+                IsBusy = true;
                 assignments.Clear();
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)

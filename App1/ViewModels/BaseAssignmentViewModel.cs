@@ -22,7 +22,7 @@ namespace App1.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            set
+            set 
             {
                 SetProperty(ref isBusy, value);
             }

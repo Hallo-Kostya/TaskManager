@@ -8,8 +8,7 @@
         <local:ArchiveViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            
+        <StackLayout> 
             <CollectionView x:Name="ToDo"
     ItemsSource="{Binding Archive}"
     SelectionMode="None">
