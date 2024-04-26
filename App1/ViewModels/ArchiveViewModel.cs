@@ -22,11 +22,11 @@ namespace App1.ViewModels
             RecoverAssignmentCommand = new Command<AssignmentModel>(RecoverAssignment);
             ClearArchiveCommand = new Command(ClearArchive);
             ///LoadArchiveCommand = new Command(async () => await ExecuteLoadArchive());
-            Task.Run(async () => await ExecuteLoadArchive()); 
+            LoadArchiveCommand=new Command(async () => await ExecuteLoadArchive());
             Archive = new ObservableCollection<AssignmentModel>();
         }
 
-        async Task ExecuteLoadArchive()
+        public async Task ExecuteLoadArchive()
         {
             try
             {

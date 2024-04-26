@@ -12,9 +12,16 @@ namespace App1.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ArchivePage : ContentPage
 	{
+        ArchiveViewModel archiveViewModel;
 		public ArchivePage ()
 		{
 			InitializeComponent ();
+            BindingContext = archiveViewModel = new ArchiveViewModel();
         }
-	}
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as ArchiveViewModel).ExecuteLoadArchive();
+        }
+    }
 }
