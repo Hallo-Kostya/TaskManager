@@ -116,7 +116,7 @@ namespace App1.ViewModels
             try
             {
                 assignments.Clear();
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted).Distinct(); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
                     assignments.Add(ass);
@@ -141,8 +141,7 @@ namespace App1.ViewModels
             }
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
-
-            await ExecuteLoadAssignmentCommand();
+            IsBusy = true;
         }
         private async void OnAddAssignment(object obj)
         {
@@ -169,7 +168,6 @@ namespace App1.ViewModels
             }
             assignment.IsDeleted = true;
             await App.AssignmentsDB.AddItemAsync(assignment);
-            ///await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await ExecuteLoadAssignmentCommand();
         }
 
