@@ -12,7 +12,14 @@ namespace App1.ViewModels
     {
 
         public Command LoadAssignmentCommand { get; }
-        public ObservableCollection<AssignmentModel> assignments { get; }
+        ///public ObservableCollection<AssignmentModel> assignments { get; }
+        private ObservableCollection<AssignmentModel> _assignments;
+        public ObservableCollection<AssignmentModel> assignments
+        {
+            get => _assignments;
+            set => SetProperty(ref _assignments, value);
+
+        }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
         public Command DeleteAssignmentCommand { get; }
@@ -43,7 +50,7 @@ namespace App1.ViewModels
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
-            assignments = new ObservableCollection<AssignmentModel>();
+            //assignments = new ObservableCollection<AssignmentModel>();
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
@@ -115,12 +122,13 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
-                assignments.Clear();
+                //assignments.Clear();
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
-                foreach (var ass in assList)
-                {
-                    assignments.Add(ass);
-                }
+                assignments = new ObservableCollection<AssignmentModel>(assList);
+                //foreach (var ass in assList)
+                //{
+                //    assignments.Add(ass);
+                //}
             }
             catch (Exception)
             {
