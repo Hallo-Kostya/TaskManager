@@ -17,10 +17,10 @@ namespace App1.Models
         public bool IsDeleted { get; set; } = false;
         public enum EnumPriority
         {
-            Without=0,
-            LowPriority=1,
-            MediumPriority=2,
-            HighPriority=3
+            Нет=0,
+            Низкий=1,
+            Средний=2,
+            Высокий=3
         }
     }
 }

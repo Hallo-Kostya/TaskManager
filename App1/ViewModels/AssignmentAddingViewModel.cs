@@ -5,6 +5,7 @@ using System.Text;
 using App1.Data;
 using App1.Models;
 using Xamarin.Forms;
+using static App1.Models.AssignmentModel;
 
 namespace App1.ViewModels
 {
@@ -13,13 +14,14 @@ namespace App1.ViewModels
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         public Command SelectPriorityCommand { get; }
+        public List<AssignmentModel.EnumPriority> Priority { get; set; }
 
-        
         public  AssignmentAddingViewModel() 
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            SelectPriorityCommand = new Command<string>(OnSelected);
+            SelectPriorityCommand = new Command<AssignmentModel.EnumPriority>(OnSelected);
+            Priority = new List<AssignmentModel.EnumPriority> { AssignmentModel.EnumPriority.Нет, AssignmentModel.EnumPriority.Низкий, AssignmentModel.EnumPriority.Средний, AssignmentModel.EnumPriority.Высокий };
             this.PropertyChanged += (_,__) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
         }
@@ -29,17 +31,21 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Shell.Current.GoToAsync("..");
         }
-        private  void OnSelected(string choice)
+        private  void OnSelected(AssignmentModel.EnumPriority choice)
         {
             switch (choice)
             {
-                case "Without": Assignment.Priority = AssignmentModel.EnumPriority.Without;
+                case AssignmentModel.EnumPriority.Нет:
+                    Assignment.Priority = AssignmentModel.EnumPriority.Нет;
                     break;
-                case "LowPriority": Assignment.Priority = AssignmentModel.EnumPriority.LowPriority;
+                case AssignmentModel.EnumPriority.Низкий:
+                    Assignment.Priority = AssignmentModel.EnumPriority.Низкий;
                     break;
-                case "MediumPriority": Assignment.Priority = AssignmentModel.EnumPriority.MediumPriority;
+                case AssignmentModel.EnumPriority.Средний:
+                    Assignment.Priority = AssignmentModel.EnumPriority.Средний;
                     break;
-                case "HighPriority": Assignment.Priority = AssignmentModel.EnumPriority.HighPriority;
+                case AssignmentModel.EnumPriority.Высокий:
+                    Assignment.Priority = AssignmentModel.EnumPriority.Высокий;
                     break;
             }
         }

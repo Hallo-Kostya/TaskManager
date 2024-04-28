@@ -20,15 +20,7 @@
                     <Label x:Name="Datepick" Text="Дата" FontSize="Medium" />
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
 
-                    <Label x:Name="priorityPick" Text="Приоритет" FontSize="Medium" />
-                    <Picker x:Name="picker"  SelectedItem="{Binding SelectPriorityCommand, Mode=TwoWay}">
-                        <Picker.Items>
-                            <x:String>Without</x:String>
-                            <x:String>LowPriority</x:String>
-                            <x:String>MediumPriority</x:String>
-                            <x:String>HighPriority</x:String>
-                        </Picker.Items>
-                    </Picker>
+                    <Picker x:Name="picker" Title="Выберите приоритет" SelectedItem="{Binding SelectPriorityCommand}" ItemsSource="{Binding Priority}"/>
                 </StackLayout>
             </Frame>
 

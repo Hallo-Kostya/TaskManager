@@ -14,6 +14,7 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AssignmentAddingPage : ContentPage
     {
+        
         public AssignmentModel Assignment { get; set; }
         public AssignmentAddingPage()
         {
