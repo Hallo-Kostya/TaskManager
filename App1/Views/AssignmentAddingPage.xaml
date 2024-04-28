@@ -20,7 +20,7 @@
                     <Label x:Name="Datepick" Text="Дата" FontSize="Medium" />
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
 
-                    <Picker x:Name="picker" Title="Выберите приоритет" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
+                    <Picker x:Name="picker" Title="Выберите приоритет" SelectedItem="{Binding Path=SelectedPriority, Mode=TwoWay, Converter={StaticResource IntConverter}}" ItemsSource="{Binding Priority}"/>
                 </StackLayout>
             </Frame>
 

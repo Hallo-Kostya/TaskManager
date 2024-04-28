@@ -13,8 +13,8 @@ namespace App1.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        private EnumPriority selectedPriority { get; set; }
-        public AssignmentModel.EnumPriority SelectedPriority
+        private int selectedPriority { get; set; }
+        public int SelectedPriority
         {
             get { return selectedPriority; }
             set
@@ -26,13 +26,13 @@ namespace App1.ViewModels
                 }
             }
         }
-        public List<AssignmentModel.EnumPriority> Priority { get; set; }
+        public List<string> Priority { get; set; }
 
         public  AssignmentAddingViewModel() 
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            Priority = new List<AssignmentModel.EnumPriority> { AssignmentModel.EnumPriority.Нет, AssignmentModel.EnumPriority.Низкий, AssignmentModel.EnumPriority.Средний, AssignmentModel.EnumPriority.Высокий };
+            Priority = new List<string> { "Нет","Низкий", "Средний", "Высокий" };
             this.PropertyChanged += (_,__) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
         }
