@@ -13,42 +13,54 @@ namespace App1.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public Command SelectPriorityCommand { get; }
+        private EnumPriority selectedPriority { get; set; }
+        public AssignmentModel.EnumPriority SelectedPriority
+        {
+            get { return selectedPriority; }
+            set
+            {
+                if (selectedPriority != value)
+                {
+                    selectedPriority = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public List<AssignmentModel.EnumPriority> Priority { get; set; }
 
         public  AssignmentAddingViewModel() 
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            SelectPriorityCommand = new Command<AssignmentModel.EnumPriority>(OnSelected);
             Priority = new List<AssignmentModel.EnumPriority> { AssignmentModel.EnumPriority.Нет, AssignmentModel.EnumPriority.Низкий, AssignmentModel.EnumPriority.Средний, AssignmentModel.EnumPriority.Высокий };
             this.PropertyChanged += (_,__) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
         }
         private async void OnSave()
         {
+            Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Shell.Current.GoToAsync("..");
         }
-        private  void OnSelected(AssignmentModel.EnumPriority choice)
-        {
-            switch (choice)
-            {
-                case AssignmentModel.EnumPriority.Нет:
-                    Assignment.Priority = AssignmentModel.EnumPriority.Нет;
-                    break;
-                case AssignmentModel.EnumPriority.Низкий:
-                    Assignment.Priority = AssignmentModel.EnumPriority.Низкий;
-                    break;
-                case AssignmentModel.EnumPriority.Средний:
-                    Assignment.Priority = AssignmentModel.EnumPriority.Средний;
-                    break;
-                case AssignmentModel.EnumPriority.Высокий:
-                    Assignment.Priority = AssignmentModel.EnumPriority.Высокий;
-                    break;
-            }
-        }
+        //private  void OnSelected(AssignmentModel.EnumPriority choice)
+        //{
+        //    switch (choice)
+        //    {
+        //        case AssignmentModel.EnumPriority.Нет:
+        //            Assignment.Priority = AssignmentModel.EnumPriority.Нет;
+        //            break;
+        //        case AssignmentModel.EnumPriority.Низкий:
+        //            Assignment.Priority = AssignmentModel.EnumPriority.Низкий;
+        //            break;
+        //        case AssignmentModel.EnumPriority.Средний:
+        //            Assignment.Priority = AssignmentModel.EnumPriority.Средний;
+        //            break;
+        //        case AssignmentModel.EnumPriority.Высокий:
+        //            Assignment.Priority = AssignmentModel.EnumPriority.Высокий;
+        //            break;
+        //    }
+        //}
         private async void OnCancel()
         {
             await Shell.Current.GoToAsync("..");
