@@ -29,9 +29,11 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
         public Command ToArchiveCommand { get; }
 
+        public Command FilterByPriorityCommand { get; }
 
 
-    
+
+
 
         //private IDateService _dateService;
         //private DayModel _selectedDay;
@@ -58,7 +60,7 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
-            
+            FilterByPriorityCommand = new Command(OnFiltered);
 
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -150,6 +152,18 @@ namespace App1.ViewModels
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
+        }
+        private async void OnFiltered()
+        {
+            try
+            {
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted).ThenBy(t=>t.Priority); ///GetSortedByDate(DateTime date);
+                assignments = new ObservableCollection<AssignmentModel>(assList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         private async void OnAddAssignment(object obj)
         {
