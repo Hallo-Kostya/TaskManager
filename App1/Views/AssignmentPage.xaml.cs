@@ -1,4 +1,5 @@
-﻿using App1.ViewModels;
+﻿using App1.Models;
+using App1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -73,5 +74,6 @@ namespace App1.Views
                 noTasks.IsVisible = false;
             }
         }
+
     }
 }

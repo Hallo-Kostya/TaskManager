@@ -109,21 +109,21 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
-                                    <Frame CornerRadius="25" BackgroundColor="Black" Padding="15,10,10,10">
+                                    <Frame CornerRadius="25" BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" Padding="15,10,10,10">
                                         <StackLayout Orientation="Horizontal">
-                                            <ImageButton x:Name="Complited" Style="{StaticResource ImageButtonStyle}" WidthRequest="30"/>
+                                            <ImageButton x:Name="Complited" BackgroundColor="Color.Transparent" Style="{StaticResource ImageButtonStyle}" WidthRequest="30"/>
                                             <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
                                                 <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
                                                 <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
                                                 <StackLayout Orientation="Horizontal" Margin="-3, -25, 0, 0">
                                                     <Label Text="{Binding Priority}" TextColor="AliceBlue" FontSize="12"/>
-                                                    <Image Source="time.png" BackgroundColor="Black" WidthRequest="20"/>
+                                                    <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                                     <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Margin="-3,3,0,0"/>
                                                 </StackLayout>
                                             </StackLayout>
-                                            <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Black" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
+                                            <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
-                                            <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Black" HorizontalOptions="End"
+                                            <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Color.Transparent" HorizontalOptions="End"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
                                         </StackLayout>
                                     </Frame>
