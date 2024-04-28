@@ -157,7 +157,7 @@ namespace App1.ViewModels
         {
             try
             {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted).ThenBy(t=>t.Priority); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => (int)t.Priority).ThenBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
             }
             catch (Exception)
