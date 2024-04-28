@@ -27,7 +27,6 @@ namespace App1.ViewModels
                 }
             }
         }
-        public int SelectedIntPriority { get; set; }
         
         public List<EnumPriority> Priority { get; set; }
 
@@ -35,15 +34,12 @@ namespace App1.ViewModels
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            //SelectPriorityCommand = new Command<AssignmentModel.EnumPriority>(OnSelected);
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
         }
         private async void OnSave()
         {
-            SelectedIntPriority = (int)SelectedPriority;
-            Assignment.PriorityInt = SelectedIntPriority;
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);

@@ -12,7 +12,6 @@ namespace App1.ViewModels
     {
 
         public Command LoadAssignmentCommand { get; }
-        ///public ObservableCollection<AssignmentModel> assignments { get; }
         private ObservableCollection<AssignmentModel> _assignments;
         public ObservableCollection<AssignmentModel> assignments
         {
@@ -52,7 +51,6 @@ namespace App1.ViewModels
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
-            //assignments = new ObservableCollection<AssignmentModel>();
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
@@ -124,13 +122,8 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
-                //assignments.Clear();
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
-                //foreach (var ass in assList)
-                //{
-                //    assignments.Add(ass);
-                //}
             }
             catch (Exception)
             {
@@ -157,7 +150,7 @@ namespace App1.ViewModels
         {
             try
             {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => (int)t.Priority).ThenBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
             }
             catch (Exception)

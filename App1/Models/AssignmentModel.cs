@@ -13,7 +13,6 @@ namespace App1.Models
         public string Description { get; set; }
         public DateTime ExecutionDate { get; set; } = DateTime.Now; 
         public EnumPriority Priority { get; set; }
-        public int PriorityInt { get; set; }
         public enum EnumPriority : int
         {
             Нет = 0,
