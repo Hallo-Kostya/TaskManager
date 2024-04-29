@@ -25,12 +25,10 @@ namespace App1.Views
         {
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel();
-            Assignment = assignment;
-            this.BindingContext = this;
-            //if (assignment != null) 
-            //{
-            //    ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
-            //}
+            if (assignment != null)
+            {
+                ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
+            }
 
         }
 

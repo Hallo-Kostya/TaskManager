@@ -16,7 +16,7 @@ namespace App1.ViewModels
         public AssignmentModel Assignment
         {
             get { return _assignment; }
-            set { _assignment = value; }
+            set { _assignment = value; OnPropertyChanged(); }
         }
         bool isBusy=false;
         public bool IsBusy

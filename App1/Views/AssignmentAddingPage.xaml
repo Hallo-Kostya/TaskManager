@@ -19,8 +19,9 @@
 
                     <Label x:Name="Datepick" Text="Дата" FontSize="Medium" TextColor="AliceBlue"/>
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue"/>
-
-                    <Picker x:Name="picker" Title="Выберите приоритет" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
+                    
+                    <Label x:Name="Datepick" Text="Приоритет" FontSize="Medium" TextColor="AliceBlue"/>
+                    <Picker x:Name="picker" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
                 </StackLayout>
             </Frame>
 
