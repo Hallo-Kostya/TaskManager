@@ -12,7 +12,7 @@
             <Frame BackgroundColor="#952EAF" CornerRadius="50">
                 <StackLayout>
                     <Label Text="Название задачи" FontSize="Medium" TextColor="AliceBlue"/>
-                    <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
+                    <Entry x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
                     
                     <Label Text="Описание" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>

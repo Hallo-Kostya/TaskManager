@@ -40,6 +40,11 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
+            if ((string.IsNullOrEmpty(Assignment.Name)) ||
+    (string.IsNullOrWhiteSpace(Assignment.Name)))
+            {
+                return;
+            }
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
