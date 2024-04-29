@@ -10,9 +10,10 @@ namespace App1.ViewModels
 {
     public class BaseAssignmentViewModel: INotifyPropertyChanged
     {
-        private AssignmentModel _assignment;
+        
         public string Title { get; set; }
         public LayoutState MainState { get; set; }
+        private AssignmentModel _assignment;
         public AssignmentModel Assignment
         {
             get { return _assignment; }

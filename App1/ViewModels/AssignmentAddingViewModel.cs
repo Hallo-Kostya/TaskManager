@@ -46,24 +46,7 @@ namespace App1.ViewModels
             await Shell.Current.GoToAsync("..");
         }
         
-        //private  void OnSelected(AssignmentModel.EnumPriority choice)
-        //{
-        //    switch (choice)
-        //    {
-        //        case AssignmentModel.EnumPriority.Нет:
-        //            Assignment.Priority = AssignmentModel.EnumPriority.Нет;
-        //            break;
-        //        case AssignmentModel.EnumPriority.Низкий:
-        //            Assignment.Priority = AssignmentModel.EnumPriority.Низкий;
-        //            break;
-        //        case AssignmentModel.EnumPriority.Средний:
-        //            Assignment.Priority = AssignmentModel.EnumPriority.Средний;
-        //            break;
-        //        case AssignmentModel.EnumPriority.Высокий:
-        //            Assignment.Priority = AssignmentModel.EnumPriority.Высокий;
-        //            break;
-        //    }
-        //}
+        
         private async void OnCancel()
         {
             await Shell.Current.GoToAsync("..");
