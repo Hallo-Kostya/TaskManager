@@ -19,31 +19,31 @@ namespace App1.Views
         Button previousButton;
         public AssignmentPage()
         {
-            InitializeComponent();
             BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
-            Day1.BackgroundColor = Color.FromHex("#952EAF");
+            InitializeComponent();
+
             DateTime currentDate = DateTime.Now;
+            int today = currentDate.Day;
 
             labelMonth.Text = char.ToUpper(currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
-            SetDayOfWeekText(DayWeek1, currentDate);
-            SetDayOfWeekText(DayWeek2, currentDate.AddDays(1));
-            SetDayOfWeekText(DayWeek3, currentDate.AddDays(2));
-            SetDayOfWeekText(DayWeek4, currentDate.AddDays(3));
-            SetDayOfWeekText(DayWeek5, currentDate.AddDays(4));
-            SetDayOfWeekText(DayWeek6, currentDate.AddDays(5));
-            SetDayOfWeekText(DayWeek7, currentDate.AddDays(6));
-            Day1.Text = currentDate.ToString("dd");
-            Day2.Text = currentDate.AddDays(1).ToString("dd");
-            Day3.Text = currentDate.AddDays(2).ToString("dd");
-            Day4.Text = currentDate.AddDays(3).ToString("dd");
-            Day5.Text = currentDate.AddDays(4).ToString("dd");
-            Day6.Text = currentDate.AddDays(5).ToString("dd");
-            Day7.Text = currentDate.AddDays(6).ToString("dd");
+            DateTime startOfWeek = currentDate.AddDays((int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - (int)currentDate.DayOfWeek);
+            SetDayButtonBackground(Day1, startOfWeek, today);
+            SetDayButtonBackground(Day2, startOfWeek.AddDays(1), today);
+            SetDayButtonBackground(Day3, startOfWeek.AddDays(2), today);
+            SetDayButtonBackground(Day4, startOfWeek.AddDays(3), today);
+            SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
+            SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
+            SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
+
         }
 
-        private void SetDayOfWeekText(Label label, DateTime date)
+        private void SetDayButtonBackground(Button dayButton, DateTime date, int today)
         {
-            label.Text = char.ToUpper(date.ToString("ddd", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + date.ToString("ddd", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
+            if (dayButton != null && today == date.Day)
+            {
+                dayButton.BackgroundColor = Color.FromHex("#952EAF");
+            }
+            dayButton.Text = date.Day.ToString();
         }
 
         protected override void OnAppearing()
@@ -68,11 +68,11 @@ namespace App1.Views
 
         private void AddTask_Clicked(object sender, EventArgs e)
         {
-            var noTasks = this.FindByName<StackLayout>("NoTasks");
-            if (noTasks != null)
-            {
-                noTasks.IsVisible = false;
-            }
+            //var noTasks = this.FindByName<StackLayout>("NoTasks");
+            //if (noTasks != null)
+            //{
+            //    noTasks.IsVisible = false;
+            //}
         }
 
     }

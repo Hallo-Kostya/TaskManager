@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -21,5 +22,22 @@ namespace App1.Converters
         {
             throw new NotImplementedException();
         }
-    }                               
+    }
+
+    public class CollectionEmptyToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is ICollection collection)
+            {
+                return collection.Count == 0 ? true : false;
+            }
+            return true;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

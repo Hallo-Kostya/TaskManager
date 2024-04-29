@@ -12,15 +12,15 @@
             <Frame BackgroundColor="#952EAF" CornerRadius="50">
                 <StackLayout>
                     <Label Text="Название задачи" FontSize="Medium" TextColor="AliceBlue"/>
-                    <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF"/>
+                    <Entry Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
                     
                     <Label Text="Описание" FontSize="Medium" TextColor="AliceBlue"/>
-                    <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF"/>
+                    <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
 
-                    <Label x:Name="Datepick" Text="Дата" FontSize="Medium" />
-                    <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
+                    <Label x:Name="Datepick" Text="Дата" FontSize="Medium" TextColor="AliceBlue"/>
+                    <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue"/>
 
-                    <Picker x:Name="picker" Title="Выберите приоритет" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
+                    <Picker x:Name="picker" Title="Выберите приоритет" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
                 </StackLayout>
             </Frame>
 
