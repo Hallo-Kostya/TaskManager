@@ -74,18 +74,13 @@
                                             </DataTrigger>
                                         </ImageButton.Triggers>
                                     </ImageButton>
-                                    <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                                    <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
                                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
-                                        <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
-                                        <StackLayout Orientation="Horizontal" Margin="-3, -25, 0, 0">
+                                        <StackLayout Orientation="Horizontal">
                                             <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                             <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Margin="-3,3,0,0"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <ImageButton x:Name="recover" Source="recover" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=RecoverAssignmentCommand}" CommandParameter="{Binding .}"/>
-                                    <ImageButton x:Name="delete" Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="End"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=DeleteArchivedAssignmentCommand}" CommandParameter="{Binding .}"/>
                                 </StackLayout>
                             </Frame>
                         </ScrollView>

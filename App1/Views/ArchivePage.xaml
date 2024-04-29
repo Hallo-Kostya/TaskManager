@@ -56,10 +56,9 @@
                                             </DataTrigger>
                                         </ImageButton.Triggers>
                                     </ImageButton>
-                                    <StackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                                    <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
                                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
-                                        <Label Text="{Binding Description}" TextColor="AliceBlue" FontSize="12"/>
-                                        <StackLayout Orientation="Horizontal" Margin="-3, -25, 0, 0">
+                                        <StackLayout Orientation="Horizontal">
                                             <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                             <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Margin="-3,3,0,0"/>
                                         </StackLayout>
