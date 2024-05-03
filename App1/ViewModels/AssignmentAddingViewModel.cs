@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using App1.Data;
 using App1.Models;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
 
@@ -13,7 +14,7 @@ namespace App1.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        
+        public INavigation Navigation { get; set; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
         {
@@ -30,10 +31,11 @@ namespace App1.ViewModels
         
         public List<EnumPriority> Priority { get; set; }
 
-        public AssignmentAddingViewModel()
+        public AssignmentAddingViewModel(INavigation navigation)
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
+            Navigation = navigation;
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
@@ -43,13 +45,14 @@ namespace App1.ViewModels
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
-            await Shell.Current.GoToAsync("..");
+            //await Shell.Current.GoToAsync("..");
+            await Navigation.PopPopupAsync();
         }
         
         
         private async void OnCancel()
         {
-            await Shell.Current.GoToAsync("..");
+            await Navigation.PopPopupAsync();
         }
     }
 }

@@ -1,5 +1,6 @@
 using App1.Models;
 using App1.Views;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -160,7 +161,7 @@ namespace App1.ViewModels
         }
         private async void OnAddAssignment(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(AssignmentAddingPage));
+            await Navigation.PushPopupAsync(new AssignmentAddingPage());
         }
         private async void OnArchive(object obj)
         {
@@ -172,7 +173,7 @@ namespace App1.ViewModels
         }
         private async void OnEditAssignment(AssignmentModel assignment)
         {
-            await Navigation.PushAsync(new AssignmentAddingPage(assignment));
+            await Navigation.PushPopupAsync(new AssignmentAddingPage(assignment));
         }
 
         private async void OnDeleteAssignment(AssignmentModel assignment)

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:App1.ViewModels" xmlns:behavior="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.AssignmentAddingPage"
-             BackgroundImageSource="background.png">
-    <ContentPage.BindingContext>
-        <local:AssignmentAddingViewModel/>
-    </ContentPage.BindingContext>
+             xmlns:local="clr-namespace:App1.ViewModels" 
+             xmlns:behavior="clr-namespace:App1.Behaviors"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="App1.Views.AssignmentAddingPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#80000000" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="50">
@@ -31,4 +29,4 @@
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</pages:PopupPage>

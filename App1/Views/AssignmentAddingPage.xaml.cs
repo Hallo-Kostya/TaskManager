@@ -1,5 +1,6 @@
 ﻿using App1.Models;
 using App1.ViewModels;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,19 @@ using Xamarin.Forms.Xaml;
 namespace App1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AssignmentAddingPage : ContentPage
+    public partial class AssignmentAddingPage : PopupPage
     {
         
         public AssignmentModel Assignment { get; set; }
         public AssignmentAddingPage()
         {
             InitializeComponent();
-            BindingContext = new AssignmentAddingViewModel();
+            BindingContext = new AssignmentAddingViewModel(Navigation);
         }
         public AssignmentAddingPage(AssignmentModel assignment)
         {
             InitializeComponent();
-            BindingContext = new AssignmentAddingViewModel();
+            BindingContext = new AssignmentAddingViewModel(Navigation);
             if (assignment != null)
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
