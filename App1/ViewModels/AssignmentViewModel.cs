@@ -35,6 +35,7 @@ namespace App1.ViewModels
 
 
 
+
         //private IDateService _dateService;
         //private DayModel _selectedDay;
         //public ObservableCollection<DayModel> DaysList { get; set; }
