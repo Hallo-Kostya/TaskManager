@@ -19,6 +19,7 @@ namespace App1.ViewModels
     {
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
+        public Command SetTagCommand { get; }
         public INavigation Navigation { get; set; }
         public bool IsRefreshing { get; set; }
         private ObservableCollection<string> tagList { get; set; }
@@ -49,6 +50,7 @@ namespace App1.ViewModels
             tagList = new ObservableCollection<string>();
             LoadTagsCommand = new Command(OnLoaded);
             SelectedItemCommand = new Command(OnSelected);
+            SetTagCommand = new Command(SetTag);
             Navigation = navigation;
         }
         
@@ -62,6 +64,11 @@ namespace App1.ViewModels
             }
         }
 
+        private async void SetTag()
+        {
+            Assignment.Tag = SelectedTag;
+            await Navigation.PopPopupAsync();
+        }
         private async void OnSelected()
         {
             Assignment.Tag = SelectedTag;
