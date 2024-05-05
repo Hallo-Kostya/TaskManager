@@ -23,7 +23,7 @@
 
                     <Label Text="Создать свой тег" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry Text="{Binding SelectedTag}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
-                    <!--<Button Text="Сохранить тег" Command="{Binding AddCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>-->
+   
                     <Button Text="test" Command="{Binding LoadTagsCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
                     <Label x:Name="ListOfTags" Text="Установить тег задаче" FontSize="Medium" TextColor="AliceBlue"/>
                     <Picker x:Name="Tagpicker" Title="{Binding Assignment.Tag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}"/>

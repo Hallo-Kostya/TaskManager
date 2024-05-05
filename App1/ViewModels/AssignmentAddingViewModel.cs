@@ -69,15 +69,16 @@ namespace App1.ViewModels
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
+            IsBusy = true;
         }
         public async Task ExecuteLoadTagsCommand()
         {
             try
             {
                 TagList.Clear();
-            var tags= (await App.AssignmentsDB.GetItemsAsync()).Select(x=> x.Tag).Distinct().ToList();
-            foreach (var tag in tags)
-                TagList.Add(tag);
+                var tags= (await App.AssignmentsDB.GetItemsAsync()).Select(x=> x.Tag).Distinct().ToList();
+                foreach (var tag in tags)
+                    TagList.Add(tag);
             }
             catch (Exception)
             {
@@ -87,6 +88,7 @@ namespace App1.ViewModels
         private async void OnCancel()
         {
             await Navigation.PopPopupAsync();
+            IsBusy = true;
         }
     }
 }
