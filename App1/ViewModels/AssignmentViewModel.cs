@@ -158,6 +158,7 @@ namespace App1.ViewModels
                 var assList = a.Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
                 TagList.Clear();
+                TagList.Add("Все Задачи");
                 var tags = a.Select(x => x.Tag).Distinct().ToList();
                 foreach (var tag in tags)
                     TagList.Add(tag);
@@ -187,8 +188,15 @@ namespace App1.ViewModels
         {
             try
             {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false)&&(t.Tag==SelectedTag)).OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                assignments = new ObservableCollection<AssignmentModel>(assList);
+                if (SelectedTag!="Все Задачи")
+                {
+                    var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false) && (t.Tag == SelectedTag)).OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                    assignments = new ObservableCollection<AssignmentModel>(assList);
+                }
+                else
+                {
+                    await ExecuteLoadAssignmentCommand();
+                }
             }
             catch (Exception)
             {

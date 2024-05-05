@@ -11,25 +11,25 @@
                 <StackLayout>
                     <Label Text="Название задачи" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
-                    
+
                     <Label Text="Описание" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
 
                     <Label x:Name="Datepick" Text="Дата" FontSize="Medium" TextColor="AliceBlue"/>
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue"/>
-                    
+
                     <Label x:Name="Priority" Text="Приоритет" FontSize="Medium" TextColor="AliceBlue"/>
                     <Picker x:Name="picker" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
 
-                    <Label Text="Создать свой тег" FontSize="Medium" TextColor="AliceBlue"/>
+                    <Label Text="Создать тег" FontSize="Medium" TextColor="AliceBlue"/>
                     <Entry Text="{Binding SelectedTag}" FontSize="Medium"/>
-   
-                    <Button Text="+" Command="{Binding LoadTagsCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
-                    <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее" FontSize="Medium" TextColor="AliceBlue"/>
-                    <Picker x:Name="Tagpicker" Title="{Binding Assignment.Tag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}"/>
+
+                    <Button Text="+" Command="{Binding LoadTagPopupCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
+                    <!--<Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее" FontSize="Medium" TextColor="AliceBlue"/>
+                    <Picker x:Name="Tagpicker" Title="{Binding Assignment.Tag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}"/>-->
                 </StackLayout>
             </Frame>
-
+            
             <StackLayout Orientation="Horizontal" Margin="0,20">
                 <Button Text="Сохранить" Command="{Binding SaveCommand}" BackgroundColor="#952EAF" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Отменить" Command="{Binding CancelCommand}" BackgroundColor="#8b6c96" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using App1.Data;
 using App1.Models;
+using App1.Views;
+using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
@@ -18,21 +20,8 @@ namespace App1.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public Command AddTag { get; }
-        public Command LoadTagsCommand { get; }
-        private string selectedtag { get; set; }
-        public string SelectedTag
-        {
-            get { return selectedtag; }
-            set
-            {
-                if (selectedtag != value)
-                {
-                    selectedtag = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public Command LoadTagPopupCommand { get; }
+        
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
         private EnumPriority selectedPriority { get; set; }
@@ -48,7 +37,20 @@ namespace App1.ViewModels
                 }
             }
         }
-        
+        //private string selectedtag { get; set; }
+        //public string SelectedTag
+        //{
+        //    get { return selectedtag; }
+        //    set
+        //    {
+        //        if (selectedtag != value)
+        //        {
+        //            selectedtag = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
+
         public List<EnumPriority> Priority { get; set; }
 
         public AssignmentAddingViewModel(INavigation navigation)
@@ -56,7 +58,7 @@ namespace App1.ViewModels
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             TagList = new ObservableCollection<string>();
-            LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
+            LoadTagPopupCommand = new Command<AssignmentModel>(ExecuteLoadTagPopup);
             Navigation = navigation;
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -65,30 +67,18 @@ namespace App1.ViewModels
         private async void OnSave()
         {
             Assignment.Priority = SelectedPriority;
-            Assignment.Tag = SelectedTag;
+            //Assignment.Tag = SelectedTag;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
-            IsBusy = true;
         }
-        public async Task ExecuteLoadTagsCommand()
+        private async void ExecuteLoadTagPopup(AssignmentModel assign)
         {
-            try
-            {
-                TagList.Clear();
-                var tags= (await App.AssignmentsDB.GetItemsAsync()).Select(x=> x.Tag).Distinct().ToList();
-                foreach (var tag in tags)
-                    TagList.Add(tag);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await Navigation.PushPopupAsync(new TagPopupPage(assign));
         }
         private async void OnCancel()
         {
             await Navigation.PopPopupAsync();
-            IsBusy = true;
         }
     }
 }
