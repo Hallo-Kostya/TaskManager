@@ -15,6 +15,7 @@ namespace App1.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TagPopupPage : PopupPage
     {
+        public AssignmentModel Assignment { get; set; }
         public TagPopupPage()
         {
             InitializeComponent();

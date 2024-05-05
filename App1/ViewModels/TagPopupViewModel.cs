@@ -52,6 +52,7 @@ namespace App1.ViewModels
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
+            Assignment = new AssignmentModel();
         }
         
         private async void OnLoaded()
