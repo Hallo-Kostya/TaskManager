@@ -17,8 +17,8 @@ namespace App1.Models
         
         //public DateTime BirthDate { get; set; }=DateTime.Now;
         public EnumPriority Priority { get; set; }
-        public bool HasChilds { get; set; }
-        public List<int>[] Childs { get; set; }
+        //public bool HasChilds { get; set; }
+        //public List<int>[] Childs { get; set; }
         public enum EnumPriority : int
         {
             Нет = 0,
