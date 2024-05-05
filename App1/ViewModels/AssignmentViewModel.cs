@@ -20,6 +20,21 @@ namespace App1.ViewModels
             set => SetProperty(ref _assignments, value);
 
         }
+        public ObservableCollection<string> TagList { get; }
+        private string selectedtag { get; set; }
+        public string SelectedTag
+        {
+            get { return selectedtag; }
+            set
+            {
+                if (selectedtag != value)
+                {
+                    selectedtag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Command LoadTagsCommand { get; }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
         public Command DeleteAssignmentCommand { get; }
@@ -31,7 +46,7 @@ namespace App1.ViewModels
 
         public Command FilterByPriorityCommand { get; }
 
-
+        public Command FilterByTagCommand { get; }
 
 
 
@@ -61,7 +76,9 @@ namespace App1.ViewModels
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
             FilterByPriorityCommand = new Command(OnFiltered);
-
+            TagList = new ObservableCollection<string>();
+            //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
+            FilterByTagCommand = new Command(OnTagFiltered);
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
@@ -72,7 +89,20 @@ namespace App1.ViewModels
         {
             IsBusy = true;
         }
-
+        //async Task ExecuteLoadTagsCommand()
+        //{
+        //    try
+        //    {
+        //        TagList.Clear();
+        //        var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(x => x.Tag).Distinct().ToList();
+        //        foreach (var tag in tags)
+        //            TagList.Add(tag);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         //private void DayCommandHandler(DayModel day)
         //{
@@ -91,7 +121,7 @@ namespace App1.ViewModels
         //    DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
         //    SetActiveDay();
         //}
-       
+
         //private void SetActiveDay(DayModel day = null)
         //{
         //    ResetActiveDay();
@@ -124,8 +154,13 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var a = (await App.AssignmentsDB.GetItemsAsync());
+                var assList = a.Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
+                TagList.Clear();
+                var tags = a.Select(x => x.Tag).Distinct().ToList();
+                foreach (var tag in tags)
+                    TagList.Add(tag);
             }
             catch (Exception)
             {
@@ -147,6 +182,18 @@ namespace App1.ViewModels
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
+        }
+        private async void OnTagFiltered()
+        {
+            try
+            {
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false)&&(t.Tag==SelectedTag)).OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                assignments = new ObservableCollection<AssignmentModel>(assList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         private async void OnFiltered()
         {

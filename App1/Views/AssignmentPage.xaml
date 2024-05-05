@@ -60,6 +60,8 @@
                     <StackLayout Orientation="Horizontal">
                         <ImageButton BackgroundColor="Black" x:Name="Filter" Source="filter" Command="{Binding FilterByPriorityCommand}" HeightRequest="30"/>
                         <Label x:Name="labelMonth" Style="{StaticResource LabelStyle}" Margin="5,0,0,0" Padding="0,5,0,0"/>
+                        <Picker x:Name="FilterTag" Title="{Binding SelectedTag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}" BackgroundColor="White"/>
+                        <Button Text="filterByTag" Command="{Binding FilterByTagCommand}" BackgroundColor="White" WidthRequest="30" HeightRequest="30"/>
                         <ImageButton Source="search.png" BackgroundColor="Black" Command="{Binding SearchCommand}" HeightRequest="30"/>
                     </StackLayout>
                     <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,-10,0,0"/>
@@ -93,6 +95,7 @@
                             <Button x:Name="Day7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
                     </StackLayout>
+                    
                 </StackLayout>
             </Frame>
             
