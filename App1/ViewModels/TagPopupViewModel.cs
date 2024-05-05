@@ -9,6 +9,7 @@ using App1.Models;
 using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
 
@@ -19,6 +20,7 @@ namespace App1.ViewModels
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
         public INavigation Navigation { get; set; }
+        public bool IsRefreshing { get; set; }
         private ObservableCollection<string> tagList { get; set; }
         public ObservableCollection<string> TagList 
         {
@@ -42,7 +44,6 @@ namespace App1.ViewModels
                 }
             }
         }
-        
         public TagPopupViewModel(INavigation navigation)
         {
             tagList = new ObservableCollection<string>();
@@ -54,7 +55,7 @@ namespace App1.ViewModels
         private async void OnLoaded()
         {
             tagList.Clear();
-            var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(t=>t.Tag).ToList();
+            var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(t=>t.Tag).Where(t=>!string.IsNullOrEmpty(t)).ToList();
             foreach(var tag in tags)
             {
                 tagList.Add(tag);
