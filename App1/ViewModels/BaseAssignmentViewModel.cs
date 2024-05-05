@@ -13,6 +13,19 @@ namespace App1.ViewModels
         
         public string Title { get; set; }
         public LayoutState MainState { get; set; }
+        private string selectedtag { get; set; }
+        public string SelectedTag
+        {
+            get { return selectedtag; }
+            set
+            {
+                if (selectedtag != value)
+                {
+                    selectedtag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private AssignmentModel _assignment;
         public AssignmentModel Assignment
         {

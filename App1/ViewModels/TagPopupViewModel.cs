@@ -32,19 +32,19 @@ namespace App1.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string selectedtag { get; set; }
-        public string SelectedTag
-        {
-            get { return selectedtag; }
-            set
-            {
-                if (selectedtag != value)
-                {
-                    selectedtag = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private string selectedtag { get; set; }
+        //public string SelectedTag
+        //{
+        //    get { return selectedtag; }
+        //    set
+        //    {
+        //        if (selectedtag != value)
+        //        {
+        //            selectedtag = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
         public TagPopupViewModel(INavigation navigation)
         {
             tagList = new ObservableCollection<string>();
@@ -52,7 +52,7 @@ namespace App1.ViewModels
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
-            Assignment = new AssignmentModel();
+            SelectedTag = string.Empty;
         }
         
         private async void OnLoaded()
