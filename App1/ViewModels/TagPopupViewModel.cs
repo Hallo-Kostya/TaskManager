@@ -36,19 +36,16 @@ namespace App1.ViewModels
             }
         }
         public bool IsRefreshing { get; set; }
-        private ObservableCollection<string> tagList { get; set; }
+
+        private ObservableCollection<string> tagList;
         public ObservableCollection<string> TagList 
         {
-            get { return tagList; }
-            set
-            {
-                tagList = value;
-                OnPropertyChanged();
-            }
+            get => tagList;
+            set => SetProperty(ref tagList, value);
         }
         public TagPopupViewModel(INavigation navigation)
         {
-            tagList = new ObservableCollection<string>();
+            TagList = new ObservableCollection<string>();
             //LoadTagsCommand = new Command(OnLoaded);
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
@@ -60,12 +57,8 @@ namespace App1.ViewModels
         
         async Task OnLoaded()
         {
-            tagList.Clear();
-            var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(t=>t.Tag).Where(t=>!string.IsNullOrEmpty(t)).ToList();
-            foreach(var tag in tags)
-            {
-                tagList.Add(tag);
-            }
+            var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(t=>t.Tag).Where(t=>!string.IsNullOrEmpty(t)).Distinct().ToList();
+            TagList = new ObservableCollection<string>(tags);
         }
         
         private async void SetTag()

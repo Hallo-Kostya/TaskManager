@@ -89,20 +89,7 @@ namespace App1.ViewModels
         {
             IsBusy = true;
         }
-        //async Task ExecuteLoadTagsCommand()
-        //{
-        //    try
-        //    {
-        //        TagList.Clear();
-        //        var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(x => x.Tag).Distinct().ToList();
-        //        foreach (var tag in tags)
-        //            TagList.Add(tag);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        
 
         //private void DayCommandHandler(DayModel day)
         //{
