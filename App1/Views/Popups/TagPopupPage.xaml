@@ -3,21 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.Popups.TagPopupPage">
+             x:Class="App1.Views.Popups.TagPopupPage"
+             BackgroundColor="Color.Transparent">
+
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#80000000" Padding="20">
-            <Frame BackgroundColor="#952EAF" CornerRadius="20">
-                <StackLayout>
-                    <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
-                    <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
-                    <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="Medium" TextColor="AliceBlue"/>
-                    <ListView ItemsSource="{Binding TagList}" IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedTag}">
-                        <ListView.Behaviors>
-                            <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
-                        </ListView.Behaviors>
-                    </ListView>
-                </StackLayout>
-            </Frame>
-        </StackLayout>
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 200, 20, 330">
+            <StackLayout>
+                <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
+                <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}">
+                    <!--<CollectionView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
+                    </CollectionView.Behaviors>-->
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" HorizontalOptions="StartAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
+                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="14" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="50" BackgroundColor="#C7C7C7"/>
+                <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

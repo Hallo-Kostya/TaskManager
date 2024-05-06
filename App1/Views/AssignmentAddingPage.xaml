@@ -4,15 +4,41 @@
              xmlns:local="clr-namespace:App1.ViewModels" 
              xmlns:behavior="clr-namespace:App1.Behaviors"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              x:Class="App1.Views.AssignmentAddingPage"
-             BackgroundColor="Color.Transparent"
-             BackgroundClickedCommand="{Binding BackgroundClickedCommand}">
-    <ContentPage.Content>
-        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" Margin="0,0,0,0">
-            <StackLayout>
-                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#Color.Transparent" PlaceholderColor="#959595" TextColor="AliceBlue"/>
+             BackgroundColor="Color.Transparent">
 
-                <Entry Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#Color.Transparent" PlaceholderColor="#959595" TextColor="AliceBlue"/>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry" x:Key="NoUnderlineEntry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="PlaceholderColor" Value="#959595" />
+                <Setter Property="TextColor" Value="AliceBlue" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <ContentPage.Content>
+        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="420">
+            <StackLayout>
+                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16"/>
+
+                <Entry Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" />
 
                 <!--<Label x:Name="Datepick" Text="Дата" FontSize="Medium" TextColor="AliceBlue"/>
                 <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue"/>
@@ -29,7 +55,7 @@
 
 
 
-                <StackLayout Orientation="Horizontal" Margin="0,20">
+                <StackLayout Orientation="Horizontal" Margin="0,20,0,0" VerticalOptions="End">
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
                     <Picker x:Name="Priority" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" Command="{Binding LoadTagPopupCommand}"/>
@@ -43,4 +69,6 @@
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>
+
+
 

@@ -70,9 +70,9 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
+            var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
-            var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
             assignment.Tag = assign.Tag;
 
             await App.AssignmentsDB.AddItemAsync(assignment);
