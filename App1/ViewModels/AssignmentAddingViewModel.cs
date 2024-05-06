@@ -39,6 +39,7 @@ namespace App1.ViewModels
                 }
             }
         }
+        public bool TagLoaded { get; set; } = false;
         //private string selectedtag { get; set; }
         //public string SelectedTag
         //{
@@ -70,15 +71,20 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
-            var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
-            assignment.Tag = assign.Tag;
+            if (TagLoaded == true)
+            {
+                var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
+                assignment.Tag = assign.Tag;
+            }
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
+            TagLoaded = false;
         }
         private async void ExecuteLoadTagPopup()
         {
+            TagLoaded = true;
             var assignment = Assignment;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PushPopupAsync(new TagPopupPage(assignment));
