@@ -25,6 +25,7 @@ namespace App1.ViewModels
         
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
+        public Command BackgroundClickedCommand { get; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
         {
@@ -64,7 +65,8 @@ namespace App1.ViewModels
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
-            
+            BackgroundClickedCommand = new Command(OnBackgroundClicked);
+
         }
         private async void OnSave()
         {
@@ -79,8 +81,13 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PushPopupAsync(new TagPopupPage(assignment));
         }
-        
-    
+
+        private async void OnBackgroundClicked()
+        {
+            var assign = Assignment;
+            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
+            await Navigation.PopPopupAsync();
+        }
         private async void OnCancel()
         {
             var assign = Assignment;

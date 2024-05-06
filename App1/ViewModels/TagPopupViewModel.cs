@@ -20,7 +20,7 @@ namespace App1.ViewModels
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
         public Command SetTagCommand { get; }
-        public Command BackgroundClickedCommand { get; }
+        
         public INavigation Navigation { get; set; }
         private string selectedtag { get; set; }
         public string SelectedTag
@@ -67,7 +67,7 @@ namespace App1.ViewModels
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
             Assignment = new AssignmentModel();
-            BackgroundClickedCommand = new Command(OnBackgroundClicked);
+            
         }
         
         private async void OnLoaded()
@@ -79,18 +79,13 @@ namespace App1.ViewModels
                 tagList.Add(tag);
             }
         }
-        private async void OnBackgroundClicked()
-        {
-            var assign = Assignment;
-            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
-            await Navigation.PopPopupAsync();
-        }
+        
         private async void SetTag()
         {
             Assignment.Tag = SelectedTag;
             var assign = Assignment;
             await App.AssignmentsDB.AddItemAsync(assign);
-            await Navigation.PopPopupAsync();
+            OnLoaded();
         }
         private async void OnSelected()
         {

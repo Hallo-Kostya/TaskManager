@@ -9,7 +9,7 @@
         <StackLayout BackgroundColor="#80000000" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="20">
                 <StackLayout>
-                    <Button Text="update" Command="{Binding LoadTagsCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
+                    <!--<Button Text="update" Command="{Binding LoadTagsCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>-->
                     <Entry Text="{Binding SelectedTag, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
                     <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="Medium" TextColor="AliceBlue"/>
