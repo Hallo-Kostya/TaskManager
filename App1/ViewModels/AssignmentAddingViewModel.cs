@@ -70,9 +70,12 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
+            Assignment.Priority = SelectedPriority;
+            var assignment = Assignment;
             var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
-            assign.Priority = SelectedPriority;
-            await App.AssignmentsDB.AddItemAsync(assign);
+            assignment.Tag = assign.Tag;
+
+            await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
         }
         private async void ExecuteLoadTagPopup()
