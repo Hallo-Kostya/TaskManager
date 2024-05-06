@@ -74,7 +74,6 @@ namespace App1.ViewModels
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
             assignment.Tag = assign.Tag;
-
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
         }

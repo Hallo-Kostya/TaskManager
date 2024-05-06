@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
              xmlns:model="clr-namespace:App1.Models" 
-             xmlns:behaviors="clr-namespace:App1.Behaviors"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" 
+             xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
              x:DataType="local:AssignmentViewModel"
              x:Class="App1.Views.AssignmentPage"
              BackgroundImageSource="background.png">
@@ -46,7 +47,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <StackLayout>
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>

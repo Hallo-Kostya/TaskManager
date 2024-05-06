@@ -146,7 +146,7 @@ namespace App1.ViewModels
                 assignments = new ObservableCollection<AssignmentModel>(assList);
                 TagList.Clear();
                 TagList.Add("Все Задачи");
-                var tags = a.Select(x => x.Tag).Distinct().ToList();
+                var tags = (await App.AssignmentsDB.GetTagsAsync()).Select(x=>x.Name).Where(x=>!string.IsNullOrWhiteSpace(x)).Distinct().ToList();
                 foreach (var tag in tags)
                     TagList.Add(tag);
             }
