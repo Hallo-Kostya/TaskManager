@@ -22,6 +22,7 @@ namespace App1.ViewModels
         public Command CancelCommand { get; }
         public Command LoadTagPopupCommand { get; }
         
+        
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
         private EnumPriority selectedPriority { get; set; }
@@ -63,21 +64,27 @@ namespace App1.ViewModels
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
+            
         }
         private async void OnSave()
         {
-            Assignment.Priority = SelectedPriority;
-            Assignment.Tag = SelectedTag;
-            var assignment = Assignment;
-            await App.AssignmentsDB.AddItemAsync(assignment);
+            var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
+            assign.Priority = SelectedPriority;
+            await App.AssignmentsDB.AddItemAsync(assign);
             await Navigation.PopPopupAsync();
         }
         private async void ExecuteLoadTagPopup()
         {
-            await Navigation.PushPopupAsync(new TagPopupPage());
+            var assignment = Assignment;
+            await App.AssignmentsDB.AddItemAsync(assignment);
+            await Navigation.PushPopupAsync(new TagPopupPage(assignment));
         }
+        
+    
         private async void OnCancel()
         {
+            var assign = Assignment;
+            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
         }
     }

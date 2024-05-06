@@ -20,7 +20,21 @@ namespace App1.ViewModels
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
         public Command SetTagCommand { get; }
+        public Command BackgroundClickedCommand { get; }
         public INavigation Navigation { get; set; }
+        private string selectedtag { get; set; }
+        public string SelectedTag
+        {
+            get { return selectedtag; }
+            set
+            {
+                if (selectedtag != value)
+                {
+                    selectedtag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool IsRefreshing { get; set; }
         private ObservableCollection<string> tagList { get; set; }
         public ObservableCollection<string> TagList 
@@ -52,7 +66,8 @@ namespace App1.ViewModels
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
-            SelectedTag = string.Empty;
+            Assignment = new AssignmentModel();
+            BackgroundClickedCommand = new Command(OnBackgroundClicked);
         }
         
         private async void OnLoaded()
@@ -64,15 +79,24 @@ namespace App1.ViewModels
                 tagList.Add(tag);
             }
         }
-
+        private async void OnBackgroundClicked()
+        {
+            var assign = Assignment;
+            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
+            await Navigation.PopPopupAsync();
+        }
         private async void SetTag()
         {
             Assignment.Tag = SelectedTag;
+            var assign = Assignment;
+            await App.AssignmentsDB.AddItemAsync(assign);
             await Navigation.PopPopupAsync();
         }
         private async void OnSelected()
         {
             Assignment.Tag = SelectedTag;
+            var assign = Assignment;
+            await App.AssignmentsDB.AddItemAsync(assign);
             await Navigation.PopPopupAsync();
         }
     }

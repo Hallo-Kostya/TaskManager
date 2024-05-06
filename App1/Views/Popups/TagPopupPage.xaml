@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.Popups.TagPopupPage">
+             x:Class="App1.Views.Popups.TagPopupPage"
+             BackgroundClickedCommand="{Binding BackgroundClickedCommand}">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#80000000" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="20">
@@ -14,7 +15,7 @@
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="Medium" TextColor="AliceBlue"/>
                     <ListView ItemsSource="{Binding TagList}" IsRefreshing="{Binding IsRefreshing}" RefreshCommand="{Binding LoadTagsCommand}" SelectedItem="{Binding SelectedTag}">
                         <ListView.Behaviors>
-                            <behaviors:EventToCommandBehavior EventName="ItemTappped" Command="{Binding SelectedItemCommand}" />
+                            <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
                         </ListView.Behaviors>
                     </ListView>
                 </StackLayout>
