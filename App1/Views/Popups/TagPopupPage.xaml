@@ -8,10 +8,10 @@
         <StackLayout BackgroundColor="#80000000" Padding="20">
             <Frame BackgroundColor="#952EAF" CornerRadius="20">
                 <StackLayout>
-                    <Entry Text="{Binding SelectedTag, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
+                    <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="Medium" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
                     <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="Medium" TextColor="AliceBlue"/>
-                    <ListView ItemsSource="{Binding TagList}" IsRefreshing="{Binding IsRefreshing}" RefreshCommand="{Binding LoadTagsCommand}" SelectedItem="{Binding SelectedTag}">
+                    <ListView ItemsSource="{Binding TagList}" IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedTag}">
                         <ListView.Behaviors>
                             <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
                         </ListView.Behaviors>
