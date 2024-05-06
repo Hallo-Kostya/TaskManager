@@ -46,31 +46,19 @@ namespace App1.ViewModels
                 OnPropertyChanged();
             }
         }
-        //private string selectedtag { get; set; }
-        //public string SelectedTag
-        //{
-        //    get { return selectedtag; }
-        //    set
-        //    {
-        //        if (selectedtag != value)
-        //        {
-        //            selectedtag = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
         public TagPopupViewModel(INavigation navigation)
         {
             tagList = new ObservableCollection<string>();
-            LoadTagsCommand = new Command(OnLoaded);
+            //LoadTagsCommand = new Command(OnLoaded);
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
             Assignment = new AssignmentModel();
+            Task.Run(async () => await OnLoaded());
             
         }
         
-        private async void OnLoaded()
+        async Task OnLoaded()
         {
             tagList.Clear();
             var tags = (await App.AssignmentsDB.GetItemsAsync()).Select(t=>t.Tag).Where(t=>!string.IsNullOrEmpty(t)).ToList();
@@ -85,7 +73,7 @@ namespace App1.ViewModels
             Assignment.Tag = SelectedTag;
             var assign = Assignment;
             await App.AssignmentsDB.AddItemAsync(assign);
-            OnLoaded();
+            await OnLoaded();
         }
         private async void OnSelected()
         {

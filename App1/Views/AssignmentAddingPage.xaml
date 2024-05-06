@@ -5,7 +5,8 @@
              xmlns:behavior="clr-namespace:App1.Behaviors"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              x:Class="App1.Views.AssignmentAddingPage"
-             BackgroundColor="Color.Transparent">
+             BackgroundColor="Color.Transparent"
+             BackgroundClickedCommand="{Binding BackgroundClickedCommand}">
     <ContentPage.Content>
         <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" Margin="0,0,0,0">
             <StackLayout>
