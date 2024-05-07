@@ -206,8 +206,33 @@ namespace App1.ViewModels
         {
             
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "PopupClosed");
             MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
         }
+      
+    
+        //private  void Subscribe()
+        //{
+        //    try
+        //    {
+        //        MessagingCenter.Unsubscribe<VMMainPage, string>(this, "alert");
+        //        MessagingCenter.Subscribe<VMMainPage, string>(this, "alert",
+        //        (sender, arg) =>
+        //        {
+        //            DisplayAlert("Message from View", arg, "Ok");
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
+        //MessagingCenter.Subscribe<AssignmentAddingViewModel>(
+        //        this, // кто подписывается на сообщения
+        //        "PopupClosed",   // название сообщения
+        //        async (sender) => { await ExecuteLoadAssignmentCommand(); }) ;    // вызываемое действие
+
+        //}
         private async void OnArchive(object obj)
         {
             await Shell.Current.GoToAsync(nameof(ArchivePage));
@@ -231,7 +256,5 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
         }
-
     }
-
 }

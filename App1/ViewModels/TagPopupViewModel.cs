@@ -49,7 +49,6 @@ namespace App1.ViewModels
                 }
             }
         }
-        public bool IsRefreshing { get; set; }
 
         private ObservableCollection<TagModel> tagList;
         public ObservableCollection<TagModel> TagList 
@@ -64,7 +63,6 @@ namespace App1.ViewModels
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
-            Assignment = new AssignmentModel();
             Task.Run(async () => await OnLoaded());
            
         }
@@ -85,10 +83,11 @@ namespace App1.ViewModels
         }
         private async void OnSelected()
         {
-            Assignment.Tag = SelectedTag.Name;
-            var assign = Assignment;
-            await App.AssignmentsDB.AddItemAsync(assign);
+            //Assignment.Tag = SelectedTag.Name;
+            //var assign = Assignment;
+            //await App.AssignmentsDB.AddItemAsync(assign);
             await Navigation.PopPopupAsync();
+            MessagingCenter.Send<TagModel>(SelectedTag, "TagChanged");
         }
     }
 }

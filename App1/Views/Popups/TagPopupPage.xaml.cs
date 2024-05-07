@@ -21,14 +21,14 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new TagPopupViewModel(Navigation);
         }
-        public TagPopupPage(AssignmentModel assign)
-        {
-            InitializeComponent();
-            BindingContext = new TagPopupViewModel(Navigation);
-            if (assign != null)
-            {
-                ((TagPopupViewModel)BindingContext).Assignment = assign;
-            }
-        }
+        //public TagPopupPage(AssignmentModel assign)
+        //{
+        //    InitializeComponent();
+        //    BindingContext = new TagPopupViewModel(Navigation);
+        //    if (assign != null)
+        //    {
+        //        ((TagPopupViewModel)BindingContext).Assignment = assign;
+        //    }
+        //}
     }
 }
