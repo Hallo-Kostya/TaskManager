@@ -21,8 +21,10 @@ namespace App1.ViewModels
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         public Command LoadTagPopupCommand { get; }
-        
-        
+        public Command FoldersPopupCommand { get; }
+
+
+
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
         public Command BackgroundClickedCommand { get; }
@@ -62,6 +64,7 @@ namespace App1.ViewModels
             CancelCommand = new Command(OnCancel);
             TagList = new ObservableCollection<string>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
+            FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             Navigation = navigation;
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -81,6 +84,7 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
             TagLoaded = false;
+            MessagingCenter.Send(this, "PopupClosed");
         }
         private async void ExecuteLoadTagPopup()
         {
@@ -90,11 +94,17 @@ namespace App1.ViewModels
             await Navigation.PushPopupAsync(new TagPopupPage(assignment));
         }
 
+        private async void ExecuteFoldersPopup()
+        {
+            await Navigation.PushPopupAsync(new FoldersPopupPage());
+        }
+
         private async void OnBackgroundClicked()
         {
             var assign = Assignment;
             await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
+            
         }
         private async void OnCancel()
         {

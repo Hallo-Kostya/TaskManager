@@ -204,7 +204,9 @@ namespace App1.ViewModels
         }
         private async void OnAddAssignment(object obj)
         {
+            
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
         }
         private async void OnArchive(object obj)
         {
