@@ -4,7 +4,8 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors"
              x:Class="App1.Views.Popups.TagPopupPage"
-             BackgroundColor="Color.Transparent">
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False">
 
     <ContentPage.Content>
         <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 200, 20, 330">
