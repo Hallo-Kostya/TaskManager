@@ -88,19 +88,6 @@ namespace App1.ViewModels
         public  void OnAppearing()
         {
             IsBusy = true;
-            try
-            {
-                MessagingCenter.Unsubscribe<AssignmentAddingViewModel, string>(this, "alert");
-                MessagingCenter.Subscribe<AssignmentAddingViewModel, string>(this, "alert",
-                async (sender, arg) =>
-                {
-                    await ExecuteLoadAssignmentCommand();
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
         
 
@@ -219,6 +206,7 @@ namespace App1.ViewModels
         {
             
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "PopupClosed");
             MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
         }
       

@@ -76,22 +76,28 @@ namespace App1.ViewModels
         {
             Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
-            if (TagLoaded == true)
-            {
-                var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
-                assignment.Tag = assign.Tag;
-            }
+            //if (TagLoaded == true)
+            //{
+            //    var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
+            //    assignment.Tag = assign.Tag;
+            //}
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
-            TagLoaded = false;
+            //TagLoaded = false;
             MessagingCenter.Send(this, "PopupClosed");
         }
         private async void ExecuteLoadTagPopup()
         {
-            TagLoaded = true;
-            var assignment = Assignment;
-            await App.AssignmentsDB.AddItemAsync(assignment);
-            await Navigation.PushPopupAsync(new TagPopupPage(assignment));
+            //TagLoaded = true;
+            //var assignment = Assignment;
+            //await App.AssignmentsDB.AddItemAsync(assignment);
+            MessagingCenter.Unsubscribe<TagModel>(this, "TagChanged");
+            MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
+                (sender) =>
+                {
+                    Assignment.Tag = sender.Name;
+                });
+            await Navigation.PushPopupAsync(new TagPopupPage());
         }
 
         private async void ExecuteFoldersPopup()
@@ -101,15 +107,15 @@ namespace App1.ViewModels
 
         private async void OnBackgroundClicked()
         {
-            var assign = Assignment;
-            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
+            //var assign = Assignment;
+            //await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
         private async void OnCancel()
         {
-            var assign = Assignment;
-            await App.AssignmentsDB.DeleteItemAsync(assign.ID);
+            //var assign = Assignment;
+            //await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
