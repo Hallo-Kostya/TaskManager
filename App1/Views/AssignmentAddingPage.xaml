@@ -20,21 +20,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <pages:PopupPage.Animation>
-        <animations:ScaleAnimation
-            PositionIn="Center"
-            PositionOut="Center"
-            ScaleIn="1.2"
-            ScaleOut="0.8"
-            DurationIn="400"
-            DurationOut="300"
-            EasingIn="SinOut"
-            EasingOut="SinIn"
-            HasBackgroundAnimation="True"/>
-    </pages:PopupPage.Animation>
-
     <ContentPage.Content>
-        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="420">
+        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="435">
             <StackLayout>
                 <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16"/>
 
@@ -59,9 +46,9 @@
                     <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
                     <Picker x:Name="Priority" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" Command="{Binding LoadTagPopupCommand}"/>
-                    <ImageButton x:Name="folders" Source="folders.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
-                    <ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
-                    <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
+                    <ImageButton x:Name="folders" Source="folders.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" Command="{Binding FoldersPopupCommand}"/>
+                    <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
+                    <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
                     <ImageButton x:Name="save_task" Source="save_task.png" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" />
                     <!--<Button Text="Отменить" Command="{Binding CancelCommand}" BackgroundColor="#8b6c96" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>-->
                 </StackLayout>

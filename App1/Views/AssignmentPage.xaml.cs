@@ -27,13 +27,13 @@ namespace App1.Views
 
             labelMonth.Text = char.ToUpper(currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
             DateTime startOfWeek = currentDate.AddDays((int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - (int)currentDate.DayOfWeek);
-            SetDayButtonBackground(Day1, startOfWeek, today);
-            SetDayButtonBackground(Day2, startOfWeek.AddDays(1), today);
-            SetDayButtonBackground(Day3, startOfWeek.AddDays(2), today);
-            SetDayButtonBackground(Day4, startOfWeek.AddDays(3), today);
-            SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
-            SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
-            SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
+            //SetDayButtonBackground(Day1, startOfWeek, today);
+            //SetDayButtonBackground(Day2, startOfWeek.AddDays(1), today);
+            //SetDayButtonBackground(Day3, startOfWeek.AddDays(2), today);
+            //SetDayButtonBackground(Day4, startOfWeek.AddDays(3), today);
+            //SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
+            //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
+            //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
 
         }
 
@@ -51,20 +51,20 @@ namespace App1.Views
             base.OnAppearing();
             assignmentViewModel.OnAppearing();
         }
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Button clickedButton = (Button)sender;
+        //private void Button_Clicked(object sender, EventArgs e)
+        //{
+        //    Button clickedButton = (Button)sender;
 
-            if (previousButton != null && previousButton != Day1)
-                previousButton.BackgroundColor = Color.Black;
+        //    if (previousButton != null && previousButton != Day1)
+        //        previousButton.BackgroundColor = Color.Black;
 
-            clickedButton.BackgroundColor = Color.FromHex("#952EAF");
+        //    clickedButton.BackgroundColor = Color.FromHex("#952EAF");
 
-            previousButton = clickedButton;
+        //    previousButton = clickedButton;
 
-            if (clickedButton != Day1)
-                Day1.BackgroundColor = Color.Black;
-        }
+        //    if (clickedButton != Day1)
+        //        Day1.BackgroundColor = Color.Black;
+        //}
 
         private void AddTask_Clicked(object sender, EventArgs e)
         {

@@ -19,7 +19,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" HorizontalOptions="StartAndExpand">
+                            <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="20" HorizontalOptions="StartAndExpand">
                                 <StackLayout Orientation="Horizontal">
                                     <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
                                     <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="14" />
@@ -28,7 +28,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="50" BackgroundColor="#C7C7C7"/>
+                <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="30" BackgroundColor="#C7C7C7" FontSize="16" HeightRequest="35" WidthRequest="35" HorizontalOptions="StartAndExpand"/>
                 <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
             </StackLayout>
         </Frame>

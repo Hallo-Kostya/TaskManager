@@ -51,7 +51,10 @@
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Верхний Frame -->
@@ -65,7 +68,7 @@
                         <ImageButton Source="search.png" BackgroundColor="Black" Command="{Binding SearchCommand}" HeightRequest="30"/>
                     </StackLayout>
                     <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,-10,0,0"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <StackLayout>
                             <Label x:Name="DayWeek1" Text="Вс" Style="{StaticResource LabelStyle}"/>
                             <Button x:Name="Day1" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
@@ -94,7 +97,7 @@
                             <Label x:Name="DayWeek7" Text="Сб" Style="{StaticResource LabelStyle}"/>
                             <Button x:Name="Day7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
                         </StackLayout>
-                    </StackLayout>
+                    </StackLayout>-->
                     
                 </StackLayout>
             </Frame>
@@ -110,7 +113,7 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout Grid.Row="1">
+            <StackLayout Grid.Row="2">
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
@@ -154,8 +157,18 @@
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
-            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
-            <ImageButton x:Name="ToArchive" Source="trash1" Command="{Binding ToArchiveCommand}" BackgroundColor="#5E5E5E" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="End" Margin="15,0,0,20" Padding="15"/>
+
+            <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
+            <StackLayout Grid.Row="3"  Padding="10, 10, 10, 0">
+                <Frame CornerRadius="25" Padding="15,10,10,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Выполнено"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            
+            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="4" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
+            <ImageButton x:Name="ToArchive" Source="trash1" Command="{Binding ToArchiveCommand}" BackgroundColor="#5E5E5E" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="End" Margin="15,0,0,20" Padding="15"/>
         </Grid>
     </StackLayout>
 </ContentPage>
