@@ -22,6 +22,7 @@ namespace App1.ViewModels
         public Command CancelCommand { get; }
         public Command LoadTagPopupCommand { get; }
         public Command FoldersPopupCommand { get; }
+        public Command PriorityPopupCommand { get; }
 
 
 
@@ -65,6 +66,7 @@ namespace App1.ViewModels
             TagList = new ObservableCollection<string>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
+            PriorityPopupCommand = new Command(ExecutePriorityPopup);
             Navigation = navigation;
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -97,6 +99,11 @@ namespace App1.ViewModels
         private async void ExecuteFoldersPopup()
         {
             await Navigation.PushPopupAsync(new FoldersPopupPage());
+        }
+
+        private async void ExecutePriorityPopup()
+        {
+            await Navigation.PushPopupAsync(new PriorityPopupPage());
         }
 
         private async void OnBackgroundClicked()

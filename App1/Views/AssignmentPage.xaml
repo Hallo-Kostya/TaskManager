@@ -162,6 +162,7 @@
             <StackLayout Grid.Row="3"  Padding="10, 10, 10, 0">
                 <Frame CornerRadius="25" Padding="15,10,10,10">
                     <StackLayout Orientation="Horizontal">
+                        <Image Source="eye.png" />
                         <Label Text="Выполнено"/>
                     </StackLayout>
                 </Frame>

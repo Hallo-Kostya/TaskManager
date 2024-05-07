@@ -21,6 +21,7 @@ namespace App1.Views
         {
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel(Navigation);
+            this.Focused += (sender, e) => { };
         }
         public AssignmentAddingPage(AssignmentModel assignment)
         {
@@ -30,7 +31,12 @@ namespace App1.Views
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
             }
+            this.Focused += (sender, e) => { };
+        }
 
+        private void OnEntryFocused(object sender, FocusEventArgs e)
+        {
+            DummyBox.Focus();
         }
 
         private void DatePickerDate_DateSelected(object sender, DateChangedEventArgs e)
@@ -40,6 +46,11 @@ namespace App1.Views
         private void picker_SelectedIndexChanged(object sender, DateChangedEventArgs e)
         {
             
+
+        }
+
+        private void EntryName_Focused(object sender, FocusEventArgs e)
+        {
 
         }
     }
