@@ -95,12 +95,14 @@ namespace App1.ViewModels
             var assign = Assignment;
             await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
+            MessagingCenter.Send(this, "PopupClosed");
         }
         private async void OnCancel()
         {
             var assign = Assignment;
             await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
+            MessagingCenter.Send(this, "PopupClosed");
         }
     }
 }

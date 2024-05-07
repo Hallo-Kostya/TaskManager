@@ -88,7 +88,19 @@ namespace App1.ViewModels
         public  void OnAppearing()
         {
             IsBusy = true;
+            try
+            {
+                MessagingCenter.Unsubscribe<AssignmentAddingViewModel, string>(this, "alert");
+                MessagingCenter.Subscribe<AssignmentAddingViewModel, string>(this, "alert",
+                async (sender, arg) =>
+                {
+                    await ExecuteLoadAssignmentCommand();
+                });
+            }
+            catch (Exception ex)
+            {
 
+            }
         }
         
 
@@ -206,11 +218,36 @@ namespace App1.ViewModels
         private async void OnAddAssignment(object obj)
         {
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
-            if (Navigation.NavigationStack.Count == 0)
-            {
-                await ExecuteLoadAssignmentCommand();
-            }
+            MessagingCenter.Subscribe<AssignmentViewModel>(this, "PopupClosed",
+                async (sender) =>
+                {
+                    await ExecuteLoadAssignmentCommand();
+                });
         }
+      
+    
+        //private  void Subscribe()
+        //{
+        //    try
+        //    {
+        //        MessagingCenter.Unsubscribe<VMMainPage, string>(this, "alert");
+        //        MessagingCenter.Subscribe<VMMainPage, string>(this, "alert",
+        //        (sender, arg) =>
+        //        {
+        //            DisplayAlert("Message from View", arg, "Ok");
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
+        //MessagingCenter.Subscribe<AssignmentAddingViewModel>(
+        //        this, // кто подписывается на сообщения
+        //        "PopupClosed",   // название сообщения
+        //        async (sender) => { await ExecuteLoadAssignmentCommand(); }) ;    // вызываемое действие
+
+        //}
         private async void OnArchive(object obj)
         {
             await Shell.Current.GoToAsync(nameof(ArchivePage));
@@ -234,7 +271,5 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
         }
-
     }
-
 }
