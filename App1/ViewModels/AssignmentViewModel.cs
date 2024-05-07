@@ -88,6 +88,7 @@ namespace App1.ViewModels
         public  void OnAppearing()
         {
             IsBusy = true;
+
         }
         
 
@@ -205,6 +206,10 @@ namespace App1.ViewModels
         private async void OnAddAssignment(object obj)
         {
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            if (Navigation.NavigationStack.Count == 0)
+            {
+                await ExecuteLoadAssignmentCommand();
+            }
         }
         private async void OnArchive(object obj)
         {
