@@ -21,5 +21,12 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new TagPopupViewModel(Navigation);
         }
+
+        private bool isExpanded = false;
+        private void ColorClicked(object sender, EventArgs e)
+        {
+            Colors.IsVisible = !isExpanded;
+            isExpanded = !isExpanded;
+        }
     }
 }

@@ -7,10 +7,25 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 370, 110, 325">
-            <Label Text="Welcome to Xamarin.Forms!" TextColor="AliceBlue"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
+            <StackLayout Padding="-10">
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Высокий приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1"/>
+                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Средний приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="0" HeightRequest="1" />
+                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Низкий приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
+                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Без приоритета" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
+                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+            </StackLayout>
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

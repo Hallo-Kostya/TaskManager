@@ -8,32 +8,56 @@
              HasKeyboardOffset="False" >
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="145, 350, 55, 325" >
-            <StackLayout Padding="-10">
-                <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
-                <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}">
-                    <!--<CollectionView.Behaviors>
+        <StackLayout Margin="145, 300, 55, 325">
+            <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="End">
+                <StackLayout Padding="-10">
+                    <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
+                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}">
+                        <!--<CollectionView.Behaviors>
                         <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
                     </CollectionView.Behaviors>-->
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BackgroundColor="red" Padding="20,0,20,0" CornerRadius="50" HeightRequest="17" HorizontalOptions="StartAndExpand">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
-                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="13" VerticalTextAlignment="Center" />
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                <StackLayout Orientation="Horizontal">
-                    <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
-                    <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="red" Padding="20,0,20,0" CornerRadius="50" HeightRequest="17" HorizontalOptions="StartAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
+                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="13" VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.Footer>
+                            <StackLayout Orientation="Horizontal">
+                                <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
+                                <ImageButton BackgroundColor="Cyan" Clicked="ColorClicked" WidthRequest="20"/>
+                                <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
+                            </StackLayout>
+                        </CollectionView.Footer>
+                    </CollectionView>
+
+                    <StackLayout x:Name="Colors" IsVisible="false">
+                        <StackLayout Orientation="Horizontal">
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                            <Button/>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-        </Frame>
+            </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </pages:PopupPage>
