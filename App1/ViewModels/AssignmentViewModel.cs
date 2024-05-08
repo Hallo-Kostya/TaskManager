@@ -20,6 +20,13 @@ namespace App1.ViewModels
             set => SetProperty(ref _assignments, value);
 
         }
+        private ObservableCollection<AssignmentModel> completedAssignments;
+        public ObservableCollection<AssignmentModel> CompletedAssignments
+        {
+            get => completedAssignments;
+            set => SetProperty(ref completedAssignments, value);
+
+        }
         public ObservableCollection<string> TagList { get; }
         private string selectedtag { get; set; }
         public string SelectedTag
@@ -142,8 +149,10 @@ namespace App1.ViewModels
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync());
-                var assList = a.Where(t => t.IsDeleted == false).OrderBy(t => t.IsCompleted); ///GetSortedByDate(DateTime date);
+                var assList = a.Where(t => (!t.IsDeleted && !t.IsCompleted) );
+                var completedList = a.Where(t => !t.IsDeleted && t.IsCompleted);///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
+                completedAssignments = new ObservableCollection<AssignmentModel>(completedList);
                 TagList.Clear();
                 TagList.Add("Все Задачи");
                 var tags = (await App.AssignmentsDB.GetTagsAsync()).Select(x=>x.Name).Where(x=>!string.IsNullOrWhiteSpace(x)).Distinct().ToList();
@@ -211,28 +220,7 @@ namespace App1.ViewModels
         }
       
     
-        //private  void Subscribe()
-        //{
-        //    try
-        //    {
-        //        MessagingCenter.Unsubscribe<VMMainPage, string>(this, "alert");
-        //        MessagingCenter.Subscribe<VMMainPage, string>(this, "alert",
-        //        (sender, arg) =>
-        //        {
-        //            DisplayAlert("Message from View", arg, "Ok");
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
-        //MessagingCenter.Subscribe<AssignmentAddingViewModel>(
-        //        this, // кто подписывается на сообщения
-        //        "PopupClosed",   // название сообщения
-        //        async (sender) => { await ExecuteLoadAssignmentCommand(); }) ;    // вызываемое действие
-
-        //}
+       
         private async void OnArchive(object obj)
         {
             await Shell.Current.GoToAsync(nameof(ArchivePage));

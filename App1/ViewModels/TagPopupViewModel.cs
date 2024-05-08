@@ -83,9 +83,6 @@ namespace App1.ViewModels
         }
         private async void OnSelected()
         {
-            //Assignment.Tag = SelectedTag.Name;
-            //var assign = Assignment;
-            //await App.AssignmentsDB.AddItemAsync(assign);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send<TagModel>(SelectedTag, "TagChanged");
         }
