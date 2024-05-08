@@ -161,8 +161,6 @@
                             </Frame>
 
                             <StackLayout x:Name="DoneTasks" IsVisible="False">
-                                <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10" >
-                                    <StackLayout Orientation="Horizontal">
                                         <CollectionView ItemsSource="{Binding CompletedAssignments}">
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate>
@@ -189,8 +187,6 @@
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
-                                    </StackLayout>
-                                </Frame>
                             </StackLayout>
                         </StackLayout>
                         </CollectionView.Footer>

@@ -149,10 +149,10 @@ namespace App1.ViewModels
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync());
-                var assList = a.Where(t => (!t.IsDeleted && !t.IsCompleted) );
-                var completedList = a.Where(t => !t.IsDeleted && t.IsCompleted);///GetSortedByDate(DateTime date);
+                var assList = a.Where(t => (t.IsDeleted==false) && (t.IsCompleted==false) );
+                var completedList = a.Where(t => (t.IsDeleted==false) && (t.IsCompleted==true));///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
-                completedAssignments = new ObservableCollection<AssignmentModel>(completedList);
+                CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
                 TagList.Clear();
                 TagList.Add("Все Задачи");
                 var tags = (await App.AssignmentsDB.GetTagsAsync()).Select(x=>x.Name).Where(x=>!string.IsNullOrWhiteSpace(x)).Distinct().ToList();
@@ -186,7 +186,7 @@ namespace App1.ViewModels
             {
                 if (SelectedTag!="Все Задачи")
                 {
-                    var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false) && (t.Tag == SelectedTag)).OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                    var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false) && (t.Tag == SelectedTag)).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
                     assignments = new ObservableCollection<AssignmentModel>(assList);
                 }
                 else
