@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.Popups.FoldersPopupPage"
+             x:Class="App1.Views.Popups.DatePopupPage"
              BackgroundColor="Color.Transparent">
-
+    
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 370, 40, 325">
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="50" WidthRequest="100" HeightRequest="100">
             <Label Text="Welcome to Xamarin.Forms!" TextColor="AliceBlue"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

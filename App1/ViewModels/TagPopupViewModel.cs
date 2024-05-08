@@ -89,5 +89,34 @@ namespace App1.ViewModels
             await Navigation.PopPopupAsync();
             MessagingCenter.Send<TagModel>(SelectedTag, "TagChanged");
         }
+
+        private double _frameHeight;
+        public double FrameHeight
+        {
+            get { return _frameHeight; }
+            set { SetProperty(ref _frameHeight, value); }
+        }
+
+        // В методе, где загружаются элементы для CollectionView
+        private void LoadTags()
+        {
+            // Логика загрузки тегов
+
+            // Вычисление высоты Frame на основе количества элементов
+            FrameHeight = CalculateFrameHeight();
+        }
+
+        private double CalculateFrameHeight()
+        {
+            // Вычислите высоту Frame на основе количества элементов в CollectionView
+            // Например, если каждый элемент имеет высоту 50, а коллекция имеет 10 элементов:
+            double itemHeight = 50; // Замените на фактическую высоту элемента
+            int itemCount = TagList.Count; // Замените TagList на вашу коллекцию
+            double margin = 10; // Если у вас есть отступы между элементами
+            double frameHeight = (itemHeight * itemCount) + (margin * (itemCount - 1));
+
+            return frameHeight;
+        }
+
     }
 }

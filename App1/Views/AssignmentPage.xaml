@@ -52,9 +52,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Верхний Frame -->
@@ -113,16 +110,14 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout Grid.Row="2">
+            <StackLayout Grid.Row="1">
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-                    <CollectionView x:Name="ToDo"
-                        ItemsSource="{Binding assignments}"
-                        SelectionMode="None">
+                    <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" HeightRequest="500">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                                <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
                                     <Frame CornerRadius="25" BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" Padding="15,10,10,10">
                                         <StackLayout Orientation="Horizontal">
                                             <ImageButton x:Name="Complited" BackgroundColor="Color.Transparent" Style="{StaticResource ImageButtonStyle}" WidthRequest="30">
@@ -151,24 +146,34 @@
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
                                         </StackLayout>
                                     </Frame>
-                                </ScrollView>
+                                </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+                        <CollectionView.Footer>
+                        <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
+                        <StackLayout  Padding="10, 10, 10, 0">
+                            <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="done" />
+                                    <Label Text="Выполнено" TextColor="AliceBlue"/>
+                                        <ImageButton x:Name="VectorButton" Source="vector_down" Clicked="Vector_Clicked" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+
+                            <StackLayout x:Name="DoneTasks" IsVisible="False">
+                                <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10" >
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Задача" TextColor="AliceBlue"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                        </CollectionView.Footer>
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
-
-            <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
-            <StackLayout Grid.Row="3"  Padding="10, 10, 10, 0">
-                <Frame CornerRadius="25" Padding="15,10,10,10">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Выполнено"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-            
-            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="4" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
-            <ImageButton x:Name="ToArchive" Source="trash1" Command="{Binding ToArchiveCommand}" BackgroundColor="#5E5E5E" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="End" Margin="15,0,0,20" Padding="15"/>
+            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
+            <ImageButton x:Name="ToArchive" Source="trash1" Command="{Binding ToArchiveCommand}" BackgroundColor="#5E5E5E" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="End" Margin="15,0,0,20" Padding="15"/>
         </Grid>
     </StackLayout>
 </ContentPage>

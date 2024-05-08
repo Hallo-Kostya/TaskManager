@@ -6,11 +6,11 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              x:Class="App1.Views.AssignmentAddingPage"
-             BackgroundColor="Color.Transparent">
-
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False" >
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Entry" x:Key="NoUnderlineEntry">
+            <Style TargetType="Editor" x:Key="NoUnderlineEntry">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="FontSize" Value="12" />
@@ -21,41 +21,29 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="435">
-            <StackLayout>
-                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16"/>
+        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="370">
+            <StackLayout Padding="-5">
+                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" Margin="0, -10, 0, 0"/>
+                <Editor Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="70" Margin="0, -20, 0, 0"/>
 
-                <Entry Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" />
-
-                <!--<Label x:Name="Datepick" Text="Дата" FontSize="Medium" TextColor="AliceBlue"/>
-                <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue"/>
-
-                <Label x:Name="Priority" Text="Приоритет" FontSize="Medium" TextColor="AliceBlue"/>
-                <Picker x:Name="picker" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}"/>
-
-                <Label Text="Создать свой тег" FontSize="Medium" TextColor="AliceBlue"/>
-                <Entry Text="{Binding SelectedTag}" FontSize="Medium"/>
-
-                <Button Text="+" Command="{Binding LoadTagsCommand}" CornerRadius="20" HorizontalOptions="CenterAndExpand"/>
-                <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее" FontSize="Medium" TextColor="AliceBlue"/>
-                <Picker x:Name="Tagpicker" Title="{Binding Assignment.Tag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}"/>-->
-
-
-
-                <StackLayout Orientation="Horizontal" Margin="0,20,0,0" VerticalOptions="End">
-                    <DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
-                    <Picker x:Name="Priority" Title="{Binding Assignment.Priority}" TextColor="AliceBlue" SelectedItem="{Binding SelectedPriority}" ItemsSource="{Binding Priority}" HorizontalOptions="CenterAndExpand"/>
-                    <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" Command="{Binding LoadTagPopupCommand}"/>
-                    <ImageButton x:Name="folders" Source="folders.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" Command="{Binding FoldersPopupCommand}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start">
+                    <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
+                    <Button Text="Сегодня" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
+                    <!--<DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>-->
+                    <ImageButton x:Name="Priority" Source="priority.png" Margin="-10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}"/>
+                    <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
+                    <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
                     <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
-                    <ImageButton x:Name="save_task" Source="save_task.png" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand" />
+                    <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
                     <!--<Button Text="Отменить" Command="{Binding CancelCommand}" BackgroundColor="#8b6c96" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>-->
                 </StackLayout>
             </StackLayout>
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>
+
+
 
 
 

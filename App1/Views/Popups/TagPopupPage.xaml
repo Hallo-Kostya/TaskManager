@@ -4,11 +4,12 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors"
              x:Class="App1.Views.Popups.TagPopupPage"
-             BackgroundColor="Color.Transparent">
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False" >
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 200, 20, 330">
-            <StackLayout>
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="145, 350, 55, 325" >
+            <StackLayout Padding="-10">
                 <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
                 <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}">
                     <!--<CollectionView.Behaviors>
@@ -19,17 +20,19 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="20" HorizontalOptions="StartAndExpand">
+                            <Frame BackgroundColor="red" Padding="20,0,20,0" CornerRadius="50" HeightRequest="17" HorizontalOptions="StartAndExpand">
                                 <StackLayout Orientation="Horizontal">
                                     <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
-                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="14" />
+                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="13" VerticalTextAlignment="Center" />
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="+" Command="{Binding SetTagCommand}" CornerRadius="30" BackgroundColor="#C7C7C7" FontSize="16" HeightRequest="35" WidthRequest="35" HorizontalOptions="StartAndExpand"/>
-                <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="#952EAF" TextColor="AliceBlue"/>
+                <StackLayout Orientation="Horizontal">
+                    <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
+                    <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
+                </StackLayout>
             </StackLayout>
         </Frame>
     </ContentPage.Content>

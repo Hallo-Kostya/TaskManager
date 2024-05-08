@@ -75,5 +75,25 @@ namespace App1.Views
             //}
         }
 
+        private bool isExpanded = false;
+        private void Vector_Clicked(object sender, EventArgs e)
+        {
+            // Переключаем изображение в зависимости от текущего состояния
+            if (isExpanded)
+            {
+                VectorButton.Source = "vector_down";
+            }
+            else
+            {
+                VectorButton.Source = "vector_up";
+            }
+
+            // Переключаем видимость DoneTasks
+            DoneTasks.IsVisible = !isExpanded;
+
+            // Обновляем состояние кнопки
+            isExpanded = !isExpanded;
+        }
+
     }
 }
