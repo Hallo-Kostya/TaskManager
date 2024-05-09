@@ -28,6 +28,7 @@ namespace App1.Models
         }
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public string FolderName { get; set; }
     }
     //public class ColorString
     //{

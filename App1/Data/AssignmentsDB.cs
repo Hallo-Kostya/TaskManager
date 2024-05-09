@@ -16,6 +16,30 @@ namespace App1.Data
             db = new SQLiteAsyncConnection(dbPath);
             db.CreateTableAsync<AssignmentModel>().Wait();
             db.CreateTableAsync<TagModel>().Wait();
+            db.CreateTableAsync<ListModel>().Wait();
+        }
+        public async Task<bool> AddListAsync(ListModel list)
+        {
+            if (list.ID > 0)
+            {
+                await db.UpdateAsync(list);
+            }
+            else
+                await db.InsertAsync(list);
+            return await Task.FromResult(true);
+        }
+        public async Task<bool> DeleteListAsync(int id)
+        {
+            await db.DeleteAsync<ListModel>(id);
+            return await Task.FromResult(true);
+        }
+        public async Task<ListModel> GetListAsync(int id)
+        {
+            return await db.Table<ListModel>().Where(x => x.ID == id).FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<ListModel>> GetListsAsync()
+        {
+            return await Task.FromResult(await db.Table<ListModel>().ToListAsync());
         }
         public async Task<bool> AddTagAsync(TagModel tag)
         {

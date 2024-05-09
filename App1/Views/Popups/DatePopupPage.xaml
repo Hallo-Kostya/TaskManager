@@ -8,9 +8,7 @@
     
     <ContentPage.Content>
         <Frame BackgroundColor="#202020" CornerRadius="12" Margin="50" WidthRequest="100" HeightRequest="100">
-            <Label Text="Welcome to Xamarin.Forms!" TextColor="AliceBlue"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+            <DatePicker Date="{Binding AssData.ExecutionDate}"></DatePicker>
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

@@ -64,7 +64,7 @@
                         <Button Text="filterByTag" Command="{Binding FilterByTagCommand}" BackgroundColor="White" WidthRequest="30" HeightRequest="30"/>
                         <ImageButton Source="search.png" BackgroundColor="Black" Command="{Binding SearchCommand}" HeightRequest="30"/>
                     </StackLayout>
-                    <Label Text="Сегодня" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,-10,0,0"/>
+                    <Label Text="Мои дела" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,-10,0,0"/>
                     <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <StackLayout>
                             <Label x:Name="DayWeek1" Text="Вс" Style="{StaticResource LabelStyle}"/>

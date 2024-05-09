@@ -8,9 +8,9 @@
 
     <ContentPage.Content>
         <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 370, 40, 325">
-            <Label Text="Welcome to Xamarin.Forms!" TextColor="AliceBlue"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding PrioritySelectedCommand}" SelectedItem="{Binding SelectedFolder}">
+                
+            </CollectionView>
         </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

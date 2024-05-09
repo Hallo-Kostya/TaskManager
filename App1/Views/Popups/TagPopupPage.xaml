@@ -13,9 +13,6 @@
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
                     <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}">
-                        <!--<CollectionView.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" />
-                    </CollectionView.Behaviors>-->
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
                         </CollectionView.ItemsLayout>

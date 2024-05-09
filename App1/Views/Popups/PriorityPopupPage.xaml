@@ -7,8 +7,8 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
-            <StackLayout Padding="-10">
+        
+            <!--<StackLayout Padding="-10">
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Высокий приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1"/>
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
@@ -25,7 +25,22 @@
                     <Button Text="Без приоритета" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
-            </StackLayout>
-        </Frame>
+            </StackLayout>-->
+            <CollectionView ItemsSource="{Binding Priority}" SelectionMode="Single" SelectionChangedCommand="{Binding PrioritySelectedCommand}" SelectedItem="{Binding SelectedPriority}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="0" HorizontalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                    <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
+                        <StackLayout Orientation="Horizontal">
+                            <Label BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
+                            <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        
     </ContentPage.Content>
 </pages:PopupPage>

@@ -12,11 +12,12 @@ namespace App1.ViewModels
     public class DataPopupViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
+        public AssignmentModel AssData { get; }
 
         public DataPopupViewModel(INavigation navigation)
         {
             Navigation = navigation;
-
+            AssData = new AssignmentModel();
         }
     }
 }

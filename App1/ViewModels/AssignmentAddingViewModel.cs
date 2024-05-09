@@ -44,21 +44,8 @@ namespace App1.ViewModels
             }
         }
         public bool TagLoaded { get; set; } = false;
-        //private string selectedtag { get; set; }
-        //public string SelectedTag
-        //{
-        //    get { return selectedtag; }
-        //    set
-        //    {
-        //        if (selectedtag != value)
-        //        {
-        //            selectedtag = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
 
-        public List<EnumPriority> Priority { get; set; }
+
 
         public AssignmentAddingViewModel(INavigation navigation)
         {
@@ -70,7 +57,6 @@ namespace App1.ViewModels
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             DatePopupCommand = new Command(ExecuteDatePopup);
             Navigation = navigation;
-            Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
             BackgroundClickedCommand = new Command(OnBackgroundClicked);
@@ -78,23 +64,14 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
-            Assignment.Priority = SelectedPriority;
+            //Assignment.Priority = SelectedPriority;
             var assignment = Assignment;
-            //if (TagLoaded == true)
-            //{
-            //    var assign = await App.AssignmentsDB.GetItemtAsync(Assignment.ID);
-            //    assignment.Tag = assign.Tag;
-            //}
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
-            //TagLoaded = false;
             MessagingCenter.Send(this, "PopupClosed");
         }
         private async void ExecuteLoadTagPopup()
         {
-            //TagLoaded = true;
-            //var assignment = Assignment;
-            //await App.AssignmentsDB.AddItemAsync(assignment);
             MessagingCenter.Unsubscribe<TagModel>(this, "TagChanged");
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
                 (sender) =>
@@ -106,30 +83,44 @@ namespace App1.ViewModels
 
         private async void ExecuteFoldersPopup()
         {
+            MessagingCenter.Unsubscribe<ListModel>(this, "FolderChanged");
+            MessagingCenter.Subscribe<ListModel>(this, "FolderChanged",
+                (sender) =>
+                {
+                    Assignment.FolderName = sender.Name;
+                });
             await Navigation.PushPopupAsync(new FoldersPopupPage());
         }
 
         private async void ExecutePriorityPopup()
         {
-            await Navigation.PushPopupAsync(new Views.Popups.PriorityPopupPage());
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "PriorityChanged");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "PriorityChanged",
+                (sender) =>
+                {
+                    Assignment.Priority = sender.Priority;
+                });
+            await Navigation.PushPopupAsync(new PriorityPopupPage());
         }
 
         private async void ExecuteDatePopup()
         {
+            //MessagingCenter.Unsubscribe<DateTime>(this, "DateChanged");
+            //MessagingCenter.Subscribe<DateTime>(this, "DateChanged",
+            //    (sender) =>
+            //    {
+            //        Assignment.ExecutionDate = sender;
+            //    });
             await Navigation.PushPopupAsync(new DatePopupPage());
         }
 
         private async void OnBackgroundClicked()
         {
-            //var assign = Assignment;
-            //await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
         private async void OnCancel()
         {
-            //var assign = Assignment;
-            //await App.AssignmentsDB.DeleteItemAsync(assign.ID);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }

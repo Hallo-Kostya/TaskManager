@@ -20,6 +20,5 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new DataPopupViewModel(Navigation);
         }
-
     }
 }
