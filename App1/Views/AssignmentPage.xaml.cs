@@ -25,7 +25,7 @@ namespace App1.Views
             DateTime currentDate = DateTime.Now;
             int today = currentDate.Day;
 
-            labelMonth.Text = char.ToUpper(currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
+            //labelMonth.Text = char.ToUpper(currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
             DateTime startOfWeek = currentDate.AddDays((int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - (int)currentDate.DayOfWeek);
             //SetDayButtonBackground(Day1, startOfWeek, today);
             //SetDayButtonBackground(Day2, startOfWeek.AddDays(1), today);

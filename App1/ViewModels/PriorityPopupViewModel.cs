@@ -15,34 +15,45 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
         public List<EnumPriority> Priority { get; set; }
         public AssignmentModel Assignmentic { get; }
-        private EnumPriority selectedPriority { get; set; }
-        public EnumPriority SelectedPriority
-        {
-            get { return selectedPriority; }
-            set
-            {
-                if (selectedPriority != value)
-                {
-                    selectedPriority = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public Command PrioritySelectedCommand { get; }
+        public Command SetHighPriority { get; }
+        public Command SetMediumPriority { get; }
+        public Command SetLowPriority { get; }
+        public Command SetNoPriority { get; }
 
 
         public PriorityPopupViewModel(INavigation navigation)
         {
             Priority = new List<EnumPriority> { EnumPriority.Нет, EnumPriority.Низкий, EnumPriority.Средний, EnumPriority.Высокий };
             Navigation = navigation;
-            PrioritySelectedCommand = new Command(OnSelected);
             Assignmentic = new AssignmentModel();
+            SetHighPriority = new Command(SetHigh);
+            SetMediumPriority= new Command(SetMedium);
+            SetLowPriority= new Command(SetLow);
+            SetNoPriority = new Command(SetNo);
         }
-        private async void OnSelected()
+        private async void SetHigh()
         {
-            Assignmentic.Priority = SelectedPriority;
+            Assignmentic.Priority = EnumPriority.Высокий;
             await Navigation.PopPopupAsync();
-            MessagingCenter.Send(Assignmentic, "ProrityChanged");
+            MessagingCenter.Send(Assignmentic, "PriorityChanged");
+        }
+        private async void SetMedium()
+        {
+            Assignmentic.Priority = EnumPriority.Средний;
+            await Navigation.PopPopupAsync();
+            MessagingCenter.Send(Assignmentic, "PriorityChanged");
+        }
+        private async void SetLow()
+        {
+            Assignmentic.Priority = EnumPriority.Низкий;
+            await Navigation.PopPopupAsync();
+            MessagingCenter.Send(Assignmentic, "PriorityChanged");
+        }
+        private async void SetNo()
+        {
+            Assignmentic.Priority = EnumPriority.Нет;
+            await Navigation.PopPopupAsync();
+            MessagingCenter.Send(Assignmentic, "PriorityChanged");
         }
     }
 }

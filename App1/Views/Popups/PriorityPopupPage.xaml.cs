@@ -17,7 +17,7 @@ namespace App1.Views.Popups
         public PriorityPopupPage()
         {
             InitializeComponent();
-            BindingContext = new FoldersPopupViewModel(Navigation);
+            BindingContext = new PriorityPopupViewModel(Navigation);
         }
     }
 }

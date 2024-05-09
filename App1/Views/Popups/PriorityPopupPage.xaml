@@ -7,40 +7,25 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        
-            <!--<StackLayout Padding="-10">
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
+            <StackLayout Padding="-10">
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Высокий приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1"/>
+                    <Button Text="Высокий приоритет" Command="{Binding SetHighPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1"/>
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Средний приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="0" HeightRequest="1" />
+                    <Button Text="Средний приоритет" Command="{Binding SetMediumPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="0" HeightRequest="1" />
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Низкий приоритет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
+                    <Button Text="Низкий приоритет" Command="{Binding SetLowPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Без приоритета" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
+                    <Button Text="Без приоритета" Command="{Binding SetNoPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
                     <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
-            </StackLayout>-->
-            <CollectionView ItemsSource="{Binding Priority}" SelectionMode="Single" SelectionChangedCommand="{Binding PrioritySelectedCommand}" SelectedItem="{Binding SelectedPriority}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="0" HorizontalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                    <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
-                        <StackLayout Orientation="Horizontal">
-                            <Label BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
-                            <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:PopupPage>

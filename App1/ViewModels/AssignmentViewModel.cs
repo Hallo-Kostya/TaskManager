@@ -203,7 +203,7 @@ namespace App1.ViewModels
         {
             try
             {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted==false).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
             }
             catch (Exception)
