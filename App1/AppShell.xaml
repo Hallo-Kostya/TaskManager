@@ -6,7 +6,7 @@
        Title="App1"
        FlyoutBehavior="Flyout"
        x:Class="App1.AppShell"
-       FlyoutIcon="date.png">
+       FlyoutIcon="eye.png">
 
     <Shell.Resources>
         <Style TargetType="TabBar">
@@ -31,12 +31,14 @@
                   ContentTemplate="{DataTemplate local:SettingsPage}">
         </ShellContent>
     </TabBar>
+
     <Shell.FlyoutHeader>
         <StackLayout Orientation="Horizontal">
             <Image></Image>
             <Label Text="Сафия Хажиева"></Label>
         </StackLayout>
     </Shell.FlyoutHeader>
+    
     <Shell.FlyoutContent>
         <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedCommand}">
             <CollectionView.ItemTemplate>
@@ -48,10 +50,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Shell.FlyoutContent>
+    
     <Shell.FlyoutFooter>
         <Button Text="Создать папку" Command="{Binding AddFolderCommand}"/>
     </Shell.FlyoutFooter>
-    
-    
-    
 </Shell>
