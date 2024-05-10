@@ -14,6 +14,11 @@
             <Setter Property="Shell.TabBarUnselectedColor" Value="AliceBlue" />
             <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
         </Style>
+        <Style TargetType="FlyoutPage">
+            <Setter Property="Shell.BackgroundColor" Value="Black" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="AliceBlue" />
+            <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
+        </Style>
     </Shell.Resources>
     <TabBar>
         <ShellContent Route="eizenhaurPage"
