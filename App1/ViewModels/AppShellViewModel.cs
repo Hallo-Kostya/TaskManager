@@ -13,6 +13,7 @@ namespace App1.ViewModels
 {
     public class AppShellViewModel: BaseAssignmentViewModel
     {
+        public Command ToArchiveCommand { get; }
         public INavigation Navigation { get; set; }
         public Command AddFolderCommand { get; }
         public Command SelectedCommand { get; }
@@ -28,7 +29,12 @@ namespace App1.ViewModels
             Task.Run(async () => await OnLoaded());
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
-            SelectedCommand = new Command(OnSelected);
+            SelectedCommand = new Command<ListModel>(OnSelected);
+            ToArchiveCommand = new Command(OnArchive);
+        }
+        private async void OnArchive(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(ArchivePage));
         }
         async Task OnLoaded()
         {
@@ -41,9 +47,9 @@ namespace App1.ViewModels
             MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
             await Shell.Current.GoToAsync(nameof(FolderAddingPage));
         }
-        private async void OnSelected(object obj)
+        private async void OnSelected(ListModel list)
         {
-            await Shell.Current.GoToAsync(nameof(FolderAddingPage));
+            await Navigation.PushAsync(new FolderPage(list));
         }
     }
 }

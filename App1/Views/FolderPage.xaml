@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:App1.ViewModels"
-             xmlns:model="clr-namespace:App1.Models" 
-             xmlns:behaviors="clr-namespace:App1.Behaviors" 
-             xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
-             x:DataType="local:AssignmentViewModel"
-             x:Class="App1.Views.AssignmentPage"
-             BackgroundImageSource="background.png">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:model="clr-namespace:App1.Models" xmlns:local="clr-namespace:App1.ViewModels"
+             x:Class="App1.Views.FolderPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -59,7 +53,7 @@
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <!--<Label x:Name="labelMonth" Style="{StaticResource LabelStyle}" Margin="5,0,0,0" Padding="0,5,0,0"/>-->
-                        <Label Text="Мои дела" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,0,0,0" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding Folder.Name}" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,0,0,0" HorizontalOptions="CenterAndExpand"/>
                         <ImageButton BackgroundColor="Black" x:Name="Filter" Source="filter" Command="{Binding FilterByPriorityCommand}" HeightRequest="30"/>
                         <!--<Picker x:Name="FilterTag" Title="{Binding SelectedTag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}" BackgroundColor="White"/>
                         <Button Text="filterByTag" Command="{Binding FilterByTagCommand}" BackgroundColor="White" WidthRequest="30" HeightRequest="20"/>-->
@@ -213,7 +207,7 @@
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
-            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
+            <Button x:Name="AddTask"  Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,15 ,20"/>
         </Grid>
     </StackLayout>
 </ContentPage>

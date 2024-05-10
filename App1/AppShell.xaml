@@ -48,8 +48,9 @@
         <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout x:DataType="model:ListModel" Padding="10, 10, 10, 0">
+                    <StackLayout x:DataType="model:ListModel" Padding="10, 10, 10, 0" Orientation="Horizontal">
                         <Label Text="{Binding Name}"/>
+                        <Label Text="{Binding Count}"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -57,6 +58,9 @@
     </Shell.FlyoutContent>
     
     <Shell.FlyoutFooter>
-        <Button Text="Создать папку" Command="{Binding AddFolderCommand}"/>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Создать папку" Command="{Binding AddFolderCommand}"/>
+            <Button Text="Архив" Command="{Binding ToArchiveCommand}"/>
+        </StackLayout>
     </Shell.FlyoutFooter>
 </Shell>

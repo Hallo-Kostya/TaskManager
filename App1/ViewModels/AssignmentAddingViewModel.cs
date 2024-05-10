@@ -64,8 +64,12 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
-            //Assignment.Priority = SelectedPriority;
+
             var assignment = Assignment;
+            if (string.IsNullOrEmpty(assignment.Name))
+            {
+                assignment.Name = "Без названия";
+            }
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
