@@ -12,7 +12,7 @@ namespace App1.ViewModels
     public class AssignmentViewModel : BaseAssignmentViewModel
     {
 
-        public Command LoadAssignmentCommand { get; }
+        
         private ObservableCollection<AssignmentModel> _assignments;
         public ObservableCollection<AssignmentModel> assignments
         {
@@ -27,9 +27,13 @@ namespace App1.ViewModels
             set => SetProperty(ref completedAssignments, value);
 
         }
-        public ObservableCollection<string> TagList { get; }
-        private string selectedtag { get; set; }
-        public string SelectedTag
+
+
+
+
+
+        private TagModel selectedtag { get; set; }
+        public TagModel SelectedTag
         {
             get { return selectedtag; }
             set
@@ -41,6 +45,15 @@ namespace App1.ViewModels
                 }
             }
         }
+        private ObservableCollection<TagModel> tagList;
+        public ObservableCollection<TagModel> TagList
+        {
+            get => tagList;
+            set => SetProperty(ref tagList, value);
+        }
+
+
+        public Command LoadAssignmentCommand { get; }
         public Command LoadTagsCommand { get; }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
@@ -51,8 +64,10 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
         public Command ToArchiveCommand { get; }
 
-        public Command FilterByPriorityCommand { get; }
 
+
+
+        public Command FilterByPriorityCommand { get; }
         public Command FilterByTagCommand { get; }
 
 
@@ -83,7 +98,7 @@ namespace App1.ViewModels
             SearchCommand = new Command(OnSearchAssignment);
             ToArchiveCommand = new Command(OnArchive);
             FilterByPriorityCommand = new Command(OnFiltered);
-            TagList = new ObservableCollection<string>();
+            TagList = new ObservableCollection<TagModel>();
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
             FilterByTagCommand = new Command(OnTagFiltered);
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
