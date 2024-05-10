@@ -2,9 +2,11 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:App1.Views" 
-       xmlns:model="clr-namespace:App1.Models"
+       xmlns:model="clr-namespace:App1.Models" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:AppShellViewModel"
        Title="App1"
-       x:Class="App1.AppShell">
+       FlyoutBehavior="Flyout"
+       x:Class="App1.AppShell"
+       FlyoutIcon="date.png">
 
     <Shell.Resources>
         <Style TargetType="TabBar">
@@ -13,6 +15,22 @@
             <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
         </Style>
     </Shell.Resources>
+    <TabBar>
+        <ShellContent Route="eizenhaurPage"
+                  Icon="layout_grid.png"
+                  ContentTemplate="{DataTemplate local:EizenhaurPage}">
+        </ShellContent>
+
+        <ShellContent Route="assignmentPage"
+                  Icon="calendar_days.png"
+                  ContentTemplate="{DataTemplate local:AssignmentPage}">
+        </ShellContent>
+
+        <ShellContent Route="settingsPage"
+                  Icon="settings.png"
+                  ContentTemplate="{DataTemplate local:SettingsPage}">
+        </ShellContent>
+    </TabBar>
     <Shell.FlyoutHeader>
         <StackLayout Orientation="Horizontal">
             <Image></Image>
@@ -35,20 +53,5 @@
     </Shell.FlyoutFooter>
     
     
-    <TabBar>
-        <ShellContent Route="eizenhaurPage"
-                      Icon="layout_grid.png"
-                      ContentTemplate="{DataTemplate local:EizenhaurPage}">
-        </ShellContent>
-
-        <ShellContent Route="assignmentPage"
-                      Icon="calendar_days.png"
-                      ContentTemplate="{DataTemplate local:AssignmentPage}">
-        </ShellContent>
-
-        <ShellContent Route="settingsPage"
-                      Icon="settings.png"
-                      ContentTemplate="{DataTemplate local:SettingsPage}">
-        </ShellContent>
-    </TabBar>
+    
 </Shell>

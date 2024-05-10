@@ -2,14 +2,20 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:behaviors="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.Popups.FoldersPopupPage"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:model="clr-namespace:App1.Models"
+                 x:Class="App1.Views.Popups.FoldersPopupPage"
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
         <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 370, 40, 325">
-            <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding PrioritySelectedCommand}" SelectedItem="{Binding SelectedFolder}">
-                
+            <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding FolderSelectedCommand}" SelectedItem="{Binding SelectedFolder}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:ListModel" Padding="10, 10, 10, 0">
+                            <Label Text="{Binding Name}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
             </CollectionView>
         </Frame>
     </ContentPage.Content>

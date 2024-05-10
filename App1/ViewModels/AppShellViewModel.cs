@@ -37,6 +37,8 @@ namespace App1.ViewModels
         }
         private async void AddFolder(object obj)
         {
+            MessagingCenter.Unsubscribe<FolderAddingViewModel>(this, "FolderClosed");
+            MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
             await Shell.Current.GoToAsync(nameof(FolderAddingPage));
         }
         private async void OnSelected(object obj)
