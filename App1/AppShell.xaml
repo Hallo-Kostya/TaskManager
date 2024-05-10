@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:App1.Views"
+       xmlns:local="clr-namespace:App1.Views" 
+       xmlns:model="clr-namespace:App1.Models"
        Title="App1"
        x:Class="App1.AppShell">
 
@@ -12,7 +13,28 @@
             <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
         </Style>
     </Shell.Resources>
-
+    <Shell.FlyoutHeader>
+        <StackLayout Orientation="Horizontal">
+            <Image></Image>
+            <Label Text="Сафия Хажиева"></Label>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutContent>
+        <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout x:DataType="model:ListModel" Padding="10, 10, 10, 0">
+                        <Label Text="{Binding Name}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Shell.FlyoutContent>
+    <Shell.FlyoutFooter>
+        <Button Text="Создать папку" Command="{Binding AddFolderCommand}"/>
+    </Shell.FlyoutFooter>
+    
+    
     <TabBar>
         <ShellContent Route="eizenhaurPage"
                       Icon="layout_grid.png"

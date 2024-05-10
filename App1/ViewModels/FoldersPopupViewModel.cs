@@ -14,7 +14,7 @@ namespace App1.ViewModels
     public class FoldersPopupViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
-        public Command PrioritySelectedCommand { get; }
+        public Command FolderSelectedCommand { get; }
         private ObservableCollection<ListModel> foldersList;
         public ObservableCollection<ListModel> FoldersList
         {
@@ -40,7 +40,7 @@ namespace App1.ViewModels
             Navigation = navigation;
             FoldersList = new ObservableCollection<ListModel>();
             Task.Run(async () => await OnLoaded());
-            PrioritySelectedCommand = new Command(OnSelected);
+            FolderSelectedCommand = new Command(OnSelected);
         }
         async Task OnLoaded()
         {
