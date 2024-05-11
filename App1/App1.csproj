@@ -29,6 +29,9 @@
     <Compile Update="Views\Popups\DatePopupPage.xaml.cs">
       <DependentUpon>DatePopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Popups\TagSelectPopupPage.xaml.cs">
+      <DependentUpon>TagSelectPopupPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +60,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\PriorityPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\TagSelectPopupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\TagPopupPage.xaml">

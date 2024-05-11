@@ -65,7 +65,7 @@ namespace App1.ViewModels
         }
         public FolderPageViewModel(INavigation navigation)
         {
-            LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
+            Task.Run(async () => await ExecuteLoadAssignmentCommand());
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = navigation;
@@ -87,7 +87,7 @@ namespace App1.ViewModels
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync());
-                var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.FolderName == Folder.Name));
+                var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false));
                 var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true));///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
                 CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);

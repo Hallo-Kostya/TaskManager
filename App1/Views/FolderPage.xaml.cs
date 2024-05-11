@@ -51,13 +51,6 @@ namespace App1.Views
             // Обновляем состояние кнопки
             isExpanded = !isExpanded;
         }
-        private void TagList_Clicked(object sender, EventArgs e)
-        {
-            // Переключаем видимость DoneTasks
-            TagLists.IsVisible = !isExpanded;
-
-            // Обновляем состояние кнопки
-            isExpanded = !isExpanded;
-        }
+        
     }
 }

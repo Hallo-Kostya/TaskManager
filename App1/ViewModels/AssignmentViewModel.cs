@@ -1,5 +1,6 @@
 using App1.Models;
 using App1.Views;
+using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -11,8 +12,6 @@ namespace App1.ViewModels
 {
     public class AssignmentViewModel : BaseAssignmentViewModel
     {
-
-        
         private ObservableCollection<AssignmentModel> _assignments;
         public ObservableCollection<AssignmentModel> assignments
         {
@@ -60,6 +59,8 @@ namespace App1.ViewModels
         public Command DeleteAssignmentCommand { get; }
         public Command SearchCommand { get; }
         public Command ChangeIsCompletedCommand { get;}
+        public Command TagSelectPopupCommand { get; }
+
         public INavigation Navigation { get; set; }
         
 
@@ -102,7 +103,7 @@ namespace App1.ViewModels
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
-
+            TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
         }
 
         public  void OnAppearing()
@@ -248,6 +249,11 @@ namespace App1.ViewModels
             assignment.IsDeleted = true;
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
+        }
+
+        private async void ExecuteTagSelectPopup()
+        {
+            await Navigation.PushPopupAsync(new TagSelectPopupPage());
         }
     }
 }

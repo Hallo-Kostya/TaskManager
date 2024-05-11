@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:model="clr-namespace:App1.Models" xmlns:local="clr-namespace:App1.ViewModels"
-             x:Class="App1.Views.FolderPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:model="clr-namespace:App1.Models" 
+             xmlns:local="clr-namespace:App1.ViewModels" x:DataType="local:FolderPageViewModel"
+             x:Class="App1.Views.FolderPage"
+             BackgroundImageSource="background.png">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -22,7 +26,7 @@
                 <Setter Property="BackgroundColor" Value="Black"/>
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="WidthRequest" Value="50"/>
-                <Setter Property="Command" Value="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}"/>
+                <Setter Property="Command" Value="{Binding Source={RelativeSource AncestorType={x:Type local:FolderPageViewModel}}, Path=ChangeIsCompletedCommand}"/>
                 <Setter Property="CommandParameter" Value="{Binding .}"/>
                 <Style.Triggers>
                     <DataTrigger TargetType="ImageButton" Binding="{Binding Priority}" Value="Нет">
@@ -65,67 +69,12 @@
                             <Button Text="tag" x:Name="TagList_Button" TextColor="AliceBlue" FontSize="16" Padding="0" Margin="0,-10,0,-8" TextTransform="None" BackgroundColor="Color.Transparent"/>
                         </StackLayout>
                     </Frame>
-                    <StackLayout x:Name="TagLists" IsVisible="False">
-                        <CollectionView  ItemsSource="{Binding TagList}" SelectionMode="Single" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout x:DataType="model:TagModel" Padding="0, 0, 0, 10">
-                                        <!--BackgroundColor="{Binding TagColor}"-->
-                                        <Frame CornerRadius="25" Padding="15,10,10,10">
-                                            <Label Text="{Binding Name}" TextColor="AntiqueWhite"/>
-                                        </Frame>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </StackLayout>
-                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                        <StackLayout>
-                            <Label x:Name="DayWeek1" Text="Вс" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day1" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek2" Text="Пн" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day2" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek3" Text="Вт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day3" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek4" Text="Ср" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day4" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek5" Text="Чт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day5" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek6" Text="Пт" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day6" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label x:Name="DayWeek7" Text="Сб" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="Day7" Clicked="Button_Clicked" Style="{StaticResource ButtonStyle}"/>
-                        </StackLayout>
-                    </StackLayout>-->
-
                 </StackLayout>
             </Frame>
 
-            <!-- НЕТ ЗАДАЧ -->
-            <StackLayout x:Name="NoTasks" Grid.Row="1" Margin="0,20,0,0" IsVisible="False">
-                <StackLayout Padding="0,100,0,0">
-                    <Image x:Name="image1" Source="calendar.png" HeightRequest="60" HorizontalOptions="Center"/>
-                    <Label x:Name="label1" Text="На этот день у вас пока нет планов" FontSize="17" TextColor="AliceBlue" HorizontalOptions="Center"/>
-                    <Label x:Name="label2" Text="Нажмите &quot;+&quot;, чтобы добавить" FontSize="15" TextColor="AliceBlue" HorizontalOptions="Center"/>
-                    <Label x:Name="label3" Text="задачу в список на день" FontSize="15" TextColor="AliceBlue" HorizontalOptions="Center" Margin="-8"/>
-                </StackLayout>
-            </StackLayout>
-
             <!--ЗАДАЧИ-->
             <StackLayout Grid.Row="1">
-                <RefreshView x:DataType="local:AssignmentViewModel" 
+                <RefreshView
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                     <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" HeightRequest="500">

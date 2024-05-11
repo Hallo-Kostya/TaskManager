@@ -2,8 +2,9 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:model="clr-namespace:App1.Models"
-                 x:Class="App1.Views.Popups.FoldersPopupPage"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" 
+             xmlns:model="clr-namespace:App1.Models"
+             x:Class="App1.Views.Popups.FoldersPopupPage"
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
