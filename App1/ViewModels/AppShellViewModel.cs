@@ -14,6 +14,7 @@ namespace App1.ViewModels
     public class AppShellViewModel: BaseAssignmentViewModel
     {
         public Command ToArchiveCommand { get; }
+        private bool IsOpened { get; set; }
         public INavigation Navigation { get; set; }
         public Command AddFolderCommand { get; }
         public Command SelectedCommand { get; }
@@ -44,6 +45,7 @@ namespace App1.ViewModels
             Navigation = navigation;
             SelectedCommand = new Command(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
+            IsOpened = false;
         }
         private async void OnArchive(object obj)
         {
@@ -64,9 +66,23 @@ namespace App1.ViewModels
         }
         private async void OnSelected()
         {
-            var list = selectedFolder;
-            await Navigation.PushAsync(new FolderPage(list));
-            Shell.Current.FlyoutIsPresented = false;
+            if (!IsOpened)
+            {
+                var list = selectedFolder;
+                await Navigation.PushAsync(new FolderPage(list));
+                Shell.Current.FlyoutIsPresented = false;
+                IsOpened = true;
+            }
+            else
+            {
+                await Navigation.PopAsync();
+                IsOpened = false;
+                var list = selectedFolder;
+                await Navigation.PushAsync(new FolderPage(list));
+                Shell.Current.FlyoutIsPresented = false;
+                IsOpened = true;
+            }
+        
         }
     }
 }

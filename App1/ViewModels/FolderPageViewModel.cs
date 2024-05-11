@@ -65,7 +65,7 @@ namespace App1.ViewModels
         }
         public FolderPageViewModel(INavigation navigation)
         {
-            Task.Run(async () => await ExecuteLoadAssignmentCommand());
+            LoadAssignmentCommand=new Command(async () => await ExecuteLoadAssignmentCommand());
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = navigation;
