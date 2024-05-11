@@ -2,8 +2,8 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:behaviors="clr-namespace:App1.Behaviors"
-             x:Class="App1.Views.Popups.TagPopupPage"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:TagPopupViewModel"
+                 x:Class="App1.Views.Popups.TagPopupPage"
              BackgroundColor="Color.Transparent"
              HasKeyboardOffset="False" >
 

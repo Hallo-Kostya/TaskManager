@@ -44,12 +44,6 @@ namespace App1.ViewModels
                 }
             }
         }
-        private ObservableCollection<TagModel> tagList;
-        public ObservableCollection<TagModel> TagList
-        {
-            get => tagList;
-            set => SetProperty(ref tagList, value);
-        }
 
 
         public Command LoadAssignmentCommand { get; }
@@ -97,9 +91,7 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             FilterByPriorityCommand = new Command(OnFiltered);
-            TagList = new ObservableCollection<TagModel>();
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
-            FilterByTagCommand = new Command(OnTagFiltered);
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
@@ -167,10 +159,6 @@ namespace App1.ViewModels
                 var completedList = a.Where(t => (t.IsDeleted==false) && (t.IsCompleted==true));///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
                 CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
-                TagList.Clear();
-                var tags = (await App.AssignmentsDB.GetTagsAsync()).Where(x=>!string.IsNullOrWhiteSpace(x.Name)).Distinct().ToList();
-                foreach (var tag in tags)
-                    TagList.Add(tag);
             }
             catch (Exception)
             {
@@ -192,25 +180,6 @@ namespace App1.ViewModels
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
-        }
-        private async void OnTagFiltered()
-        {
-            try
-            {
-                if (SelectedTag.Name!="Все Задачи")
-                {
-                    var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false&& t.IsCompleted==false) && (t.Tag == SelectedTag.Name)); ///GetSortedByDate(DateTime date);
-                    assignments = new ObservableCollection<AssignmentModel>(assList);
-                }
-                else
-                {
-                    await ExecuteLoadAssignmentCommand();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
         private async void OnFiltered()
         {
@@ -253,7 +222,30 @@ namespace App1.ViewModels
 
         private async void ExecuteTagSelectPopup()
         {
+            
+
             await Navigation.PushPopupAsync(new TagSelectPopupPage());
+            MessagingCenter.Unsubscribe<TagModel>(this, "TagSelected");
+            MessagingCenter.Subscribe<TagModel>(this, "TagSelected", async (sender) =>
+            {
+                try
+                {
+                    SelectedTag = sender;
+                    if (sender.Name != "Все Задачи")
+                    {
+                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name)); ///GetSortedByDate(DateTime date);
+                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                    }
+                    else
+                    {
+                        await ExecuteLoadAssignmentCommand();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            });
         }
     }
 }

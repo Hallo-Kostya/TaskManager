@@ -32,6 +32,7 @@ namespace App1.ViewModels
         {
             var folder = new ListModel();
             folder.Name = WritenName;
+            folder.Count = 0;
             await App.AssignmentsDB.AddListAsync(folder);
             await Navigation.PopAsync();
             MessagingCenter.Send(this, "FolderClosed");
