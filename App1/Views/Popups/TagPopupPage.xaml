@@ -2,7 +2,7 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:TagPopupViewModel"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:model="clr-namespace:App1.Models" x:DataType="viewmodels:TagPopupViewModel"
                  x:Class="App1.Views.Popups.TagPopupPage"
              BackgroundColor="Color.Transparent"
              HasKeyboardOffset="False" >
@@ -18,12 +18,15 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame BackgroundColor="red" Padding="20,0,20,0" CornerRadius="50" HeightRequest="17" HorizontalOptions="StartAndExpand">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
-                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="13" VerticalTextAlignment="Center" />
-                                    </StackLayout>
-                                </Frame>
+                                <StackLayout x:DataType="model:TagModel" Margin="5">
+                                    <!--BackgroundColor="{Binding TagColor}"-->
+                                    <Frame  BackgroundColor="Gray" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                            <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                            <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                         <CollectionView.Footer>
