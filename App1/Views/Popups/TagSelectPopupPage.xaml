@@ -10,7 +10,7 @@
         <Frame BackgroundColor="#202020" CornerRadius="12" Margin="120, 80, 120, 500" Padding="0">
             <StackLayout>
                 <ImageButton Source="eye.png" Clicked="Button_Clicked"/>
-                <CollectionView SelectionMode="None" ItemsSource="{Binding TagList}" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}">
+                <CollectionView SelectionMode="Single" ItemsSource="{Binding TagList}" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout x:DataType="model:TagModel" Margin="5">

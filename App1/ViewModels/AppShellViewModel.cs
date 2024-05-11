@@ -48,6 +48,7 @@ namespace App1.ViewModels
         private async void OnArchive(object obj)
         {
             await Shell.Current.GoToAsync(nameof(ArchivePage));
+            Shell.Current.FlyoutIsPresented = false;
         }
         async Task OnLoaded()
         {
@@ -59,11 +60,13 @@ namespace App1.ViewModels
             MessagingCenter.Unsubscribe<FolderAddingViewModel>(this, "FolderClosed");
             MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
             await Shell.Current.GoToAsync(nameof(FolderAddingPage));
+            Shell.Current.FlyoutIsPresented = false;
         }
         private async void OnSelected()
         {
             var list = selectedFolder;
             await Navigation.PushAsync(new FolderPage(list));
+            Shell.Current.FlyoutIsPresented = false;
         }
     }
 }
