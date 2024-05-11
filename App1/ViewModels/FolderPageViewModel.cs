@@ -69,6 +69,7 @@ namespace App1.ViewModels
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = navigation;
+            Folder = new ListModel();
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
@@ -87,8 +88,8 @@ namespace App1.ViewModels
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync());
-                var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false));
-                var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true));///GetSortedByDate(DateTime date);
+                var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.FolderName==Folder.Name));
+                var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true)&&(t.FolderName==Folder.Name));///GetSortedByDate(DateTime date);
                 assignments = new ObservableCollection<AssignmentModel>(assList);
                 CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
                 TagList.Clear();
