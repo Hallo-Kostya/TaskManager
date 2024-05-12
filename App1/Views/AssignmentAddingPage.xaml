@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:App1.ViewModels" 
              xmlns:behavior="clr-namespace:App1.Behaviors"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-             x:Class="App1.Views.AssignmentAddingPage"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
+                 x:Class="App1.Views.AssignmentAddingPage"
              BackgroundColor="Color.Transparent"
              HasKeyboardOffset="False" >
     <ContentPage.Resources>
@@ -28,8 +28,8 @@
 
                 <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start">
                     <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                    <Button Text="Сегодня" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                    <!--<DatePicker x:Name="DatePickerDate" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>-->
+                    <Button Text="Сегодня" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
+                    <DatePicker x:Name="DatePickerDate" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>
                     <ImageButton x:Name="Priority" Source="priority.png" Margin="-10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}"/>
                     <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
                     <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>

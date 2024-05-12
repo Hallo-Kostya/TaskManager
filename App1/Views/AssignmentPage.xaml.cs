@@ -17,10 +17,34 @@ namespace App1.Views
     {
         AssignmentViewModel assignmentViewModel;
         Button previousButton;
+        public ListModel Folder { get; set; }
         public AssignmentPage()
         {
             BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
             InitializeComponent();
+
+            DateTime currentDate = DateTime.Now;
+            int today = currentDate.Day;
+
+            //labelMonth.Text = char.ToUpper(currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU"))[0]) + currentDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("ru-RU")).Substring(1);
+            DateTime startOfWeek = currentDate.AddDays((int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - (int)currentDate.DayOfWeek);
+            //SetDayButtonBackground(Day1, startOfWeek, today);
+            //SetDayButtonBackground(Day2, startOfWeek.AddDays(1), today);
+            //SetDayButtonBackground(Day3, startOfWeek.AddDays(2), today);
+            //SetDayButtonBackground(Day4, startOfWeek.AddDays(3), today);
+            //SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
+            //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
+            //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
+
+        }
+        public AssignmentPage(ListModel list)
+        {
+            BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
+            InitializeComponent();
+            if (list != null)
+            {
+                ((AssignmentViewModel)BindingContext).SelectedFolder = list;
+            }
 
             DateTime currentDate = DateTime.Now;
             int today = currentDate.Day;

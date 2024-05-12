@@ -55,7 +55,13 @@ namespace App1.ViewModels
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
-            DatePopupCommand = new Command(ExecuteDatePopup);
+            DatePopupCommand = new Command((arg) =>
+            {
+                var DatePickerDate = arg as DatePicker;
+                DatePickerDate.IsEnabled = true;
+                DatePickerDate.IsVisible = true;
+                DatePickerDate.Focus();
+            });
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
@@ -107,16 +113,16 @@ namespace App1.ViewModels
             await Navigation.PushPopupAsync(new PriorityPopupPage());
         }
 
-        private async void ExecuteDatePopup()
-        {
-            //MessagingCenter.Unsubscribe<DateTime>(this, "DateChanged");
-            //MessagingCenter.Subscribe<DateTime>(this, "DateChanged",
-            //    (sender) =>
-            //    {
-            //        Assignment.ExecutionDate = sender;
-            //    });
-            await Navigation.PushPopupAsync(new DatePopupPage());
-        }
+        //private async void ExecuteDatePopup()
+        //{
+        //    //MessagingCenter.Unsubscribe<DateTime>(this, "DateChanged");
+        //    //MessagingCenter.Subscribe<DateTime>(this, "DateChanged",
+        //    //    (sender) =>
+        //    //    {
+        //    //        Assignment.ExecutionDate = sender;
+        //    //    });
+        //    await Navigation.PushPopupAsync(new DatePopupPage());
+        //}
 
         private async void OnBackgroundClicked()
         {
