@@ -62,17 +62,23 @@ namespace App1.ViewModels
         {
             MessagingCenter.Unsubscribe<FolderAddingViewModel>(this, "FolderClosed");
             MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
-            await Shell.Current.GoToAsync(nameof(FolderAddingPage));
+           
             Shell.Current.FlyoutIsPresented = false;
         }
+
         private async void OnSelected()
         {
-                var list = SelectedFolder;
-                await Navigation.PushAsync(new AssignmentPage(list));
-                Shell.Current.FlyoutIsPresented = false;
-                //SelectedFolder = null;
-          
-        
+            var list = SelectedFolder;
+            await Navigation.PopAsync();
+            Shell.Current.FlyoutIsPresented = false;
+            
+            await Navigation.PushAsync(new AssignmentPage(list));
+            
+
+
+            //SelectedFolder = null;
+
+
         }
     }
 }

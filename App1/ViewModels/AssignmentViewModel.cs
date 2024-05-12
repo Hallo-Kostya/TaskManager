@@ -3,6 +3,7 @@ using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -86,8 +87,6 @@ namespace App1.ViewModels
         //public ICommand PreviousWeekCommand { get; set; }
         //public ICommand NextWeekCommand { get; set; }
         //public DateService dateService { get; set; }
-
-
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
@@ -111,7 +110,6 @@ namespace App1.ViewModels
         {
             IsBusy = true;
         }
-        
 
         //private void DayCommandHandler(DayModel day)
         //{

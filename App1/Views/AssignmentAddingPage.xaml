@@ -28,7 +28,7 @@
 
                 <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start">
                     <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                    <Button Text="Сегодня" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
+                    <Button Text="Дата" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
                     <DatePicker x:Name="DatePickerDate" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>
                     <ImageButton x:Name="Priority" Source="priority.png" Margin="-10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}"/>
                     <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>

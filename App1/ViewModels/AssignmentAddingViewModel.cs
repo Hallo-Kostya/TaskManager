@@ -59,7 +59,7 @@ namespace App1.ViewModels
             {
                 var DatePickerDate = arg as DatePicker;
                 DatePickerDate.IsEnabled = true;
-                DatePickerDate.IsVisible = true;
+                DatePickerDate.IsVisible = false;
                 DatePickerDate.Focus();
             });
             Navigation = navigation;
