@@ -97,11 +97,13 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             FilterByPriorityCommand = new Command(OnFiltered);
+            SelectedTag = null;
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
             SelectedFolder = new ListModel();
+            SelectedFolder.Name = "Мои дела";
             IsFiltered = false;
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
         }
@@ -161,7 +163,7 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
-                if (SelectedFolder != null)
+                if (SelectedFolder.Name != "Мои дела")
                 {
                     if (IsFiltered)
                     {
@@ -225,7 +227,7 @@ namespace App1.ViewModels
         }
         private async void OnFiltered()
         {
-            if (SelectedFolder != null)
+            if (SelectedFolder.Name != "Мои дела")
             {
                 if (IsFiltered)
                 {
@@ -321,14 +323,26 @@ namespace App1.ViewModels
                 try
                 {
                     SelectedTag = sender;
-                    if (sender.Name != "Все Задачи")
+
+                    if (sender.Name != "без тега")
                     {
-                        IsFiltered = true;
-                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name)); ///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                        if (SelectedFolder.Name!="Мои дела")
+                        {
+                            IsFiltered = true;
+                            var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name)&&(t.FolderName==SelectedFolder.Name)); ///GetSortedByDate(DateTime date);
+                            assignments = new ObservableCollection<AssignmentModel>(assList);
+                        }
+                        else
+                        {
+                            IsFiltered = true;
+                            var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name)); ///GetSortedByDate(DateTime date);
+                            assignments = new ObservableCollection<AssignmentModel>(assList);
+                        }
+                        
                     }
                     else
                     {
+                        IsFiltered = false;
                         await ExecuteLoadAssignmentCommand();
                     }
                 }
