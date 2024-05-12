@@ -47,6 +47,14 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Example Item"
+             IconImageSource="eye.png"
+             Order="Primary"
+             Priority="0" />
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>

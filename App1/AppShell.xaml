@@ -20,6 +20,9 @@
             <Setter Property="Shell.TabBarTitleColor" Value="#952EAF"/>
         </Style>
     </Shell.Resources>
+
+
+
     <TabBar>
         <!--<ShellContent Route="eizenhaurPage"
                   Icon="layout_grid.png"

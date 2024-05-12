@@ -29,5 +29,10 @@ namespace App1.Views
                 ((EditViewModel)BindingContext).Assignment=assignment;
             }
         }
+
+        private void DatePickerDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+
+        }
     }
 }
