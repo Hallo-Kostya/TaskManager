@@ -139,12 +139,11 @@
                                                 <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                    <Label Text="{Binding ExecutionDate}" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
+                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
                                                     <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10">
                                                         <StackLayout Orientation="Horizontal">
                                                             <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
                                                             <Label Text="{Binding Tag}" TextColor="AliceBlue" FontSize="14" Padding="0,-3,0,0"/>
-                                                            <Label Text="{Binding FolderName}"/>
                                                         </StackLayout>
                                                     </Frame>
                                                 </StackLayout>

@@ -8,12 +8,13 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 370, 40, 325">
-            <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding FolderSelectedCommand}" SelectedItem="{Binding SelectedFolder}">
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="180, 370, 80, 325" Padding="10,15">
+            <CollectionView ItemsSource="{Binding FoldersList}"  SelectionMode="Single" SelectionChangedCommand="{Binding FolderSelectedCommand}" SelectedItem="{Binding SelectedFolder}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout x:DataType="model:ListModel" Padding="10, 10, 10, 0">
-                            <Label Text="{Binding Name}"/>
+                        <StackLayout x:DataType="model:ListModel" Padding="0, 0, 0,0" Orientation="Horizontal">
+                            <Image Source="align" />
+                            <Label Text="{Binding Name}" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="CenterAndExpand" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
