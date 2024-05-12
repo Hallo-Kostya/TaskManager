@@ -253,7 +253,8 @@ namespace App1.ViewModels
         }
         private async void OnEditAssignment(AssignmentModel assignment)
         {
-            await Navigation.PushPopupAsync(new AssignmentAddingPage(assignment));
+
+            await Navigation.PushAsync(new EditPage(assignment));
         }
 
         private async void OnDeleteAssignment(AssignmentModel assignment)
@@ -269,7 +270,7 @@ namespace App1.ViewModels
 
         private async void ExecuteTagSelectPopup()
         {
-            
+
 
             await Navigation.PushPopupAsync(new TagSelectPopupPage());
             MessagingCenter.Unsubscribe<TagModel>(this, "TagSelected");

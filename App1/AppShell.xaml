@@ -57,13 +57,10 @@
     <Shell.FlyoutContent>
         <CollectionView ItemsSource="{Binding FoldersList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedCommand}" SelectedItem="{Binding SelectedFolder}">
             <CollectionView.Header>
-                <DataTemplate>
                     <StackLayout x:DataType="model:ListModel" Padding="20, 10, 20,0" Orientation="Horizontal" >
                         <Image Source="align" />
                         <Label Text="Мои дела" TextColor="AliceBlue" FontAttributes="Bold" />
-                        <Label Text="{Binding Count}" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
-                </DataTemplate>
             </CollectionView.Header>
             
             <CollectionView.ItemTemplate>

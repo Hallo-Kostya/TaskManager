@@ -19,10 +19,5 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new TagSelectPopupViewModel(Navigation);
         }
-
-        private async void Button_Clicked(object sender, System.EventArgs e)
-        {
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
-        }
     }
 }

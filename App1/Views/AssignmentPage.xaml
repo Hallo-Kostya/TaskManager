@@ -150,6 +150,8 @@
                                             </StackLayout>
                                             <ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                            <!--<ImageButton x:Name="edit" Source="pencil.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}"/>-->
                                             <ImageButton x:Name="trash" Source="trash.png" BackgroundColor="Color.Transparent" HorizontalOptions="End"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}"/>
                                         </StackLayout>
