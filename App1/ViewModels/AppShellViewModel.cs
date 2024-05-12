@@ -73,10 +73,7 @@ namespace App1.ViewModels
             Shell.Current.FlyoutIsPresented = false;
             
             await Navigation.PushAsync(new AssignmentPage(list));
-            
 
-
-            //SelectedFolder = null;
 
 
         }

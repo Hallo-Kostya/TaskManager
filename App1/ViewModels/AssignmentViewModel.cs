@@ -225,20 +225,62 @@ namespace App1.ViewModels
         }
         private async void OnFiltered()
         {
-            if (IsFiltered)
+            if (SelectedFolder != null)
             {
-                SelectedTag.Name = "Все задачи";
-                IsFiltered = false;
-            }   
-            try
-            {
-                var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted==false).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                assignments = new ObservableCollection<AssignmentModel>(assList);
+                if (IsFiltered)
+                {
+                    try
+                    {
+                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.Tag == SelectedTag.Name && t.FolderName==SelectedFolder.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.FolderName==SelectedFolder.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
-            catch (Exception)
+            else
             {
-                throw;
+                if (IsFiltered)
+                {
+                    try
+                    {
+                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.Tag == SelectedTag.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
+                        assignments = new ObservableCollection<AssignmentModel>(assList);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
+            
+            
         }
         private async void OnAddAssignment(object obj)
         {
