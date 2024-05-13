@@ -43,7 +43,20 @@ namespace App1.ViewModels
                 }
             }
         }
-        
+        private ListModel selectedFolder { get; set; }
+        public ListModel SelectedFolder
+        {
+            get { return selectedFolder; }
+            set
+            {
+                if (selectedFolder != value)
+                {
+                    selectedFolder = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool TagLoaded { get; set; } = false;
 
 
@@ -56,7 +69,7 @@ namespace App1.ViewModels
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
-            
+            SelectedFolder = new ListModel();
             DatePopupCommand = new Command((arg) =>
             {
                 var DatePickerDate = arg as DatePicker;
@@ -77,6 +90,12 @@ namespace App1.ViewModels
             if (string.IsNullOrEmpty(assignment.Name))
             {
                 assignment.Name = "Без названия";
+            }
+            if (SelectedFolder != null)
+            {
+                var folder = SelectedFolder;
+                folder.Count += 1;
+                await App.AssignmentsDB.AddListAsync(folder);
             }
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopPopupAsync();
@@ -100,6 +119,7 @@ namespace App1.ViewModels
                 (sender) =>
                 {
                     Assignment.FolderName = sender.Name;
+                    SelectedFolder = sender;
                 });
             await Navigation.PushPopupAsync(new FoldersPopupPage());
         }

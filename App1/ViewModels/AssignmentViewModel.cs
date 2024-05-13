@@ -104,6 +104,7 @@ namespace App1.ViewModels
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
             SelectedFolder = new ListModel();
+            SelectedFolder.Name = "Мои дела";
             IsFiltered = false;
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
         }
@@ -286,7 +287,7 @@ namespace App1.ViewModels
         }
         private async void OnAddAssignment()
         {
-            if (SelectedFolder!=null)
+            if (SelectedFolder.Name!="Мои дела")
             {
                 var fold = SelectedFolder;
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(fold));
