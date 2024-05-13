@@ -6,12 +6,14 @@ using Xamarin.Forms;
 
 namespace App1
 {
+    
     public partial class AppShell : Shell
     {
+        AppShellViewModel _viewmodel;
         public AppShell()
         {
             InitializeComponent();
-            BindingContext = new AppShellViewModel(Navigation);
+            BindingContext =_viewmodel= new AppShellViewModel(Navigation);
             Routing.RegisterRoute(nameof(EizenhaurPage), typeof(EizenhaurPage));
             Routing.RegisterRoute(nameof(AssignmentPage), typeof(AssignmentPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
@@ -21,7 +23,11 @@ namespace App1
             Routing.RegisterRoute(nameof(FolderAddingPage), typeof(FolderAddingPage));
             Routing.RegisterRoute(nameof(FolderPage), typeof(FolderPage));
         }
-
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as AppShellViewModel).OnLoaded();
+        }
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//LoginPage");
