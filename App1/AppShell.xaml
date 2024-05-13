@@ -81,7 +81,7 @@
                 <StackLayout Orientation="Horizontal"  Padding="20, 10, 20,0">
                     <Image Source="trash1" />
                     <Button Text="Delete folder" Command="{Binding DeleteFolder}"/>
-                    <Button Text="Архив" TextTransform="None" Command="{Binding ToArchiveCommand}" HeightRequest="30" Margin="-3,0" Padding="-230,0,0,0" BackgroundColor="Color.Transparent" HorizontalOptions="FillAndExpand" />
+                    <Button Text="Архив" TextTransform="None" Command="{Binding ToArchiveCommand}" HeightRequest="30" Margin="-3,0" Padding="0,0,0,0" BackgroundColor="Color.Transparent" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </CollectionView.Footer>
         </CollectionView>
