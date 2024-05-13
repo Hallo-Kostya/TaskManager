@@ -93,7 +93,7 @@ namespace App1.ViewModels
             }
             if (SelectedFolder != null)
             {
-                var folder = SelectedFolder;
+                var folder = (await App.AssignmentsDB.GetListsAsync()).Where(x => x.Name == SelectedFolder.Name).FirstOrDefault();
                 folder.Count += 1;
                 await App.AssignmentsDB.AddListAsync(folder);
             }

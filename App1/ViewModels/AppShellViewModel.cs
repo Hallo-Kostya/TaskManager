@@ -82,9 +82,8 @@ namespace App1.ViewModels
         {
             var list = SelectedFolder;
             await Navigation.PopAsync();
-            Shell.Current.FlyoutIsPresented = false;
-            
             await Navigation.PushAsync(new AssignmentPage(list));
+            Shell.Current.FlyoutIsPresented = false;
 
 
         }
