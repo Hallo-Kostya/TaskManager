@@ -284,9 +284,9 @@ namespace App1.ViewModels
             
             
         }
-        private async void OnAddAssignment(object obj)
+        private async void OnAddAssignment(ListModel folder)
         {
-            
+            if (folder.Name!=)
             await Navigation.PushPopupAsync(new AssignmentAddingPage());
             MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "PopupClosed");
             MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
