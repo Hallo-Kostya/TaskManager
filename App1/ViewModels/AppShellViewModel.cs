@@ -44,7 +44,7 @@ namespace App1.ViewModels
             DeleteFolder = new Command(OnDeleted);
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
-            SelectedCommand = new Command(OnSelected);
+            SelectedCommand = new Command<ListModel>(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
             Task.Run(async () => await OnLoaded());
 
@@ -78,11 +78,12 @@ namespace App1.ViewModels
             Shell.Current.FlyoutIsPresented = false;
         }
 
-        private async void OnSelected()
+        private async void OnSelected(ListModel folder)
         {
-            var list = SelectedFolder;
             await Navigation.PopAsync();
-            await Navigation.PushAsync(new AssignmentPage(list));
+            var page = new AssignmentPage(folder);
+            NavigationPage.SetHasBackButton(page, false);
+            await Navigation.PushAsync(page);
             Shell.Current.FlyoutIsPresented = false;
 
 
