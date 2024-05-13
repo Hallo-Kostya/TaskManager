@@ -91,7 +91,7 @@ namespace App1.ViewModels
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
-            AddAssignmentCommand = new Command<ListModel>(OnAddAssignment);
+            AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
@@ -104,7 +104,6 @@ namespace App1.ViewModels
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
             //DayCommand = new Command<DayModel>(DayCommandHandler);
             SelectedFolder = new ListModel();
-            SelectedFolder.Name = "Мои дела";
             IsFiltered = false;
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
         }
@@ -285,9 +284,9 @@ namespace App1.ViewModels
             
             
         }
-        private async void OnAddAssignment(ListModel folder)
+        private async void OnAddAssignment()
         {
-            if (folder.Name!="Мои дела")
+            if (SelectedFolder!=null)
             {
                 var fold = SelectedFolder;
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(fold));
