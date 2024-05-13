@@ -20,15 +20,17 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="O." TextColor="Color.Transparent" FontSize="20" HorizontalOptions="StartAndExpand"/>
                 <Label Text="Мои дела" FontSize="20" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" />
+                
                 <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            
+
             <StackLayout Orientation="Horizontal">
-                <ImageButton Source="without.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
+                <ImageButton x:Name="Priority" Source="priority.png" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="StartAndExpand"/>
                 <Button Text="Дата" TextColor="#EE82FF" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
                         BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
                 <DatePicker x:Name="DatePickerDate" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
-                <ImageButton x:Name="Priority" Source="priority.png" Margin="-10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand"/>
+
+                <ImageButton Source="without1.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="-30,0,-18,0"/>
             </StackLayout>
 
             <StackLayout>

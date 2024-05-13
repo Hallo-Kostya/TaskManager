@@ -116,5 +116,9 @@ namespace App1.Views
             isExpanded = !isExpanded;
         }
 
+        private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+        {
+
+        }
     }
 }

@@ -7,25 +7,27 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="110, 350, 110, 325">
-            <StackLayout Padding="-10">
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Высокий приоритет" Command="{Binding SetHighPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1"/>
-                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        <StackLayout Margin="100, 0, 0, 325">
+            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" Padding="0,5">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="high1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Высокий приоритет" Command="{Binding SetHighPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="-10,0,10,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="medium1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Средний приоритет" Command="{Binding SetMediumPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="low1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Низкий приоритет" Command="{Binding SetLowPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="without1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Без приоритета" Command="{Binding SetNoPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Средний приоритет" Command="{Binding SetMediumPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="0" HeightRequest="1" />
-                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Низкий приоритет" Command="{Binding SetLowPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
-                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Без приоритета" Command="{Binding SetNoPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="0" HeightRequest="1" />
-                    <Image Source="eye.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
-                </StackLayout>
-            </StackLayout>
-        </Frame>
+            </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </pages:PopupPage>

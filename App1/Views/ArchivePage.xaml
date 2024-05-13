@@ -2,33 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:App1.ViewModels" 
-             xmlns:model="clr-namespace:App1.Models"
+             xmlns:model="clr-namespace:App1.Models" 
+             xmlns:local1="clr-namespace:App1.Converters"
              x:Class="App1.Views.ArchivePage"
              BackgroundImageSource="background.png">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
-                <Setter Property="BackgroundColor" Value="Black"/>
-                <Setter Property="HeightRequest" Value="50"/>
-                <Setter Property="WidthRequest" Value="50"/>
-                <Setter Property="Command" Value="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}"/>
-                <Setter Property="CommandParameter" Value="{Binding .}"/>
-                <Style.Triggers>
-                    <DataTrigger TargetType="ImageButton" Binding="{Binding Priority}" Value="Нет">
-                        <Setter Property="Source" Value="without.png"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="ImageButton" Binding="{Binding Priority}" Value="Высокий">
-                        <Setter Property="Source" Value="high.png"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="ImageButton" Binding="{Binding Priority}" Value="Средний">
-                        <Setter Property="Source" Value="medium.png"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="ImageButton" Binding="{Binding Priority}" Value="Низкий">
-                        <Setter Property="Source" Value="low.png"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+            <local1:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <local1:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -46,7 +28,49 @@
     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                        <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                            <SwipeView BackgroundColor="Color.transparent">
+                                <SwipeView.GestureRecognizers>
+                                    <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
+                                </SwipeView.GestureRecognizers>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+
+                                <SwipeView.Content>
+                                    <Frame CornerRadius="25" BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" Padding="15,10,10,10">
+                                        <StackLayout Orientation="Horizontal">
+                                            <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
+                                                <ImageButton.Triggers>
+                                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
+                                                        <Setter Property="Source" Value="done.png" />
+                                                    </DataTrigger>
+                                                </ImageButton.Triggers>
+                                            </ImageButton>
+                                            <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
+                                                <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
+                                                <StackLayout Orientation="Horizontal">
+
+                                                    <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
+                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
+                                                    <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
+                                                            <Label Text="{Binding Tag}" TextColor="AliceBlue" FontSize="14" Padding="0,-3,0,0"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <ImageButton x:Name="recover" Source="recover" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="5,0,5,0"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=RecoverAssignmentCommand}" CommandParameter="{Binding .}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </SwipeView.Content>
+                            </SwipeView>
+                        </StackLayout>
+                        <!--<ScrollView x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
                             <Frame CornerRadius="25" BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" Padding="15,10,10,10">
                                 <StackLayout Orientation="Horizontal">
                                     <ImageButton x:Name="Complited" BackgroundColor="Color.Transparent" Style="{StaticResource ImageButtonStyle}" WidthRequest="30">
@@ -69,7 +93,7 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=DeleteArchivedAssignmentCommand}" CommandParameter="{Binding .}"/>
                                 </StackLayout>
                             </Frame>
-                        </ScrollView>
+                        </ScrollView>-->
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

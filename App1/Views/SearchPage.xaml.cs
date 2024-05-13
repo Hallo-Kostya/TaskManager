@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App1.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace App1.Views
         public SearchPage()
         {
             InitializeComponent();
+            BindingContext = new SearchPageViewModel(Navigation);
         }
 
         private void searchAssignment_TextChanged(object sender, TextChangedEventArgs e)

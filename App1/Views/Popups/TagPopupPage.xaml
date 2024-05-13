@@ -8,19 +8,19 @@
              HasKeyboardOffset="False" >
 
     <ContentPage.Content>
-        <StackLayout Margin="145, 0, 55, 325">
-            <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand">
+        <StackLayout Margin="135, 0, 50, 325">
+            <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
-                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}" HeightRequest="100" WidthRequest="10">
+                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
                         <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2"/>
+                            <GridItemsLayout Orientation="Vertical" Span="2" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:TagModel" Margin="5">
                                     <!--BackgroundColor="{Binding TagColor}"-->
-                                    <Frame  BackgroundColor="Gray" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                                    <Frame  BackgroundColor="#BA33BD" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
                                         <StackLayout Orientation="Horizontal" HeightRequest="5">
                                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                                             <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
@@ -29,31 +29,31 @@
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-                        <CollectionView.Footer>
-                            <StackLayout Orientation="Horizontal">
-                                <Entry Text="{Binding WritenTag, Mode=TwoWay}" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
-                                <ImageButton BackgroundColor="Cyan" Clicked="ColorClicked" WidthRequest="20"/>
-                                <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
-                            </StackLayout>
-                        </CollectionView.Footer>
                     </CollectionView>
-
-                    <StackLayout x:Name="Colors" IsVisible="false">
+                    <StackLayout>
                         <StackLayout Orientation="Horizontal">
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
+                            <Entry Text="{Binding WritenTag, Mode=TwoWay}" Placeholder="Создать новый тег" PlaceholderColor="Gray" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
+                            <ImageButton Source="colors.png" BackgroundColor="Color.Transparent" Clicked="ColorClicked"/>
+                            <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
-                            <Button/>
+
+                        <StackLayout x:Name="Colors" IsVisible="false">
+                            <StackLayout Orientation="Horizontal">
+                                <Button BackgroundColor="#d71d1d" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#e18026" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#e0cc19" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#4fdd1d" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#99bd33" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#10edd2" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Button BackgroundColor="#00a8f0" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#2b96c4" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#211ed3" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#7218e4" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                                <Button BackgroundColor="#e11be5" WidthRequest="20" HeightRequest="0" CornerRadius="50"/>
+                                <Button BackgroundColor="#e01a6d" WidthRequest="20" HeightRequest="20" CornerRadius="50"/>
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

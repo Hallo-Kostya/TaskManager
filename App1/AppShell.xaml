@@ -30,7 +30,7 @@
         </ShellContent>-->
 
         <ShellContent Route="assignmentPage"
-                  Icon="calendar_days.png"
+                  Icon="notebook.png"
                   ContentTemplate="{DataTemplate local:AssignmentPage}">
         </ShellContent>
 
@@ -52,7 +52,7 @@
             </StackLayout.Background>
             <StackLayout Orientation="Horizontal" Margin="20,50" >
                 <Image Source="user.png" BackgroundColor="#D9D9D9" HeightRequest="50"/>
-                <Label Text="Сафия Хажиева" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Label Text="Имя Фамилия" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center"/>
             </StackLayout>
         </StackLayout>
     </Shell.FlyoutHeader>
@@ -83,8 +83,8 @@
             <CollectionView.Footer>
                 <StackLayout Orientation="Horizontal"  Padding="20, 10, 20,0">
                     <Image Source="trash1" />
-                    <Button Text="Delete folder" Command="{Binding DeleteFolder}"/>
-                    <Button Text="Архив" TextTransform="None" Command="{Binding ToArchiveCommand}" HeightRequest="30" Margin="-3,0" Padding="0,0,0,0" BackgroundColor="Color.Transparent" HorizontalOptions="FillAndExpand" />
+                    <!--<Button Text="Delete folder" Command="{Binding DeleteFolder}"/>-->
+                    <Button Text="Архив" TextTransform="None" Command="{Binding ToArchiveCommand}" HeightRequest="30" Margin="-20,0" Padding="0,0,0,0" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" />
                 </StackLayout>
             </CollectionView.Footer>
         </CollectionView>
@@ -96,9 +96,11 @@
    
     
     <Shell.FlyoutFooter>
-        <StackLayout Orientation="Horizontal" Padding="20">
-            <Image Source="add_folder" />
-            <Button Text="Создать папку" Command="{Binding AddFolderCommand}" TextTransform="None" FontAttributes="Bold"  BackgroundColor="Color.Transparent" Padding="-1,0"/>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="20">
+                <Image Source="add_folder" />
+                <Button Text="Создать папку" Command="{Binding AddFolderCommand}" TextTransform="None" FontAttributes="Bold"  BackgroundColor="Color.Transparent" Padding="-1,0"/>
+            </StackLayout>
         </StackLayout>
     </Shell.FlyoutFooter>
 </Shell>

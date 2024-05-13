@@ -30,6 +30,7 @@ namespace App1
 
             
             MainPage = new AppShell();
+
         }
 
         protected override void OnStart()

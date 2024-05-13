@@ -1,4 +1,5 @@
 ﻿using App1.ViewModels;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace App1.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FolderAddingPage : ContentPage
-	{
+    {
 		public FolderAddingPage ()
 		{
 			InitializeComponent ();

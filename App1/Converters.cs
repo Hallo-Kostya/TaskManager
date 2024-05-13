@@ -11,9 +11,17 @@ namespace App1.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool boolValue && targetType == typeof(Color))
+            if (value is bool boolValue)
             {
-                return boolValue ? Color.FromHex("#13b748") : Color.Black;
+                if (targetType == typeof(Color))
+                {
+                    return boolValue ? Color.FromHex("#90000000") : Color.Black;
+                }
+
+                if (targetType == typeof(ImageSource))
+                {
+                    return boolValue ? "clock1.png" : "time.png";
+                }
             }
             return Color.Black;
         }
@@ -24,15 +32,32 @@ namespace App1.Converters
         }
     }
 
-    public class CollectionEmptyToVisibilityConverter : IValueConverter
+    public class BoolToTextColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ICollection collection)
+            if (value is bool boolValue)
             {
-                return collection.Count == 0 ? true : false;
+                if (targetType == typeof(Color))
+                {
+                    return boolValue ? Color.Gray : Color.AliceBlue;
+                }
             }
-            return true;
+            return Color.AliceBlue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StringToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string text = value as string;
+            return string.IsNullOrEmpty(text) ? false : true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -4,11 +4,23 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+    <Product>Teyeme to Do</Product>
+    <Company>RadikUlitki</Company>
+    <Authors>RadikUlitki</Authors>
+    <Title>Teyeme to Do</Title>
+    <PackageIcon>eye.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Data\ListsDB.cs" />
     <Compile Remove="Models\Assignment.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\000\App1.Android\Resources\drawable\eye.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

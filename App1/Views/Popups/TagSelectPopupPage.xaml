@@ -17,7 +17,7 @@
                         <DataTemplate>
                             <StackLayout x:DataType="model:TagModel" Margin="5">
                                 <!--BackgroundColor="{Binding TagColor}"-->
-                                <Frame  BackgroundColor="Gray" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                <Frame  BackgroundColor="#BA33BD" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                     <StackLayout Orientation="Horizontal" HeightRequest="5">
                                         <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>

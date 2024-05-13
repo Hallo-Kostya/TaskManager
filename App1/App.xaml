@@ -28,7 +28,6 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-            <local:BoolToColorConverter x:Key="BoolToColorConverter" />
         </ResourceDictionary>        
     </Application.Resources>
 </Application>
