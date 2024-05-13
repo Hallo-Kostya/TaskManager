@@ -50,9 +50,6 @@ namespace App1.ViewModels
         private async void OnSelected()
         {
             await Navigation.PopPopupAsync();
-            var fold = SelectedFolder;
-            fold.Count += 1;
-            await App.AssignmentsDB.AddListAsync(fold);
             MessagingCenter.Send<ListModel>(SelectedFolder, "FolderChanged");
         }
     }

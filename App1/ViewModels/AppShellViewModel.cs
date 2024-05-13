@@ -41,7 +41,7 @@ namespace App1.ViewModels
         public AppShellViewModel(INavigation navigation) 
         {
             FoldersList = new ObservableCollection<ListModel>();
-            DeleteFolder = new Command<ListModel>(OnDeleted);
+            DeleteFolder = new Command(OnDeleted);
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
             SelectedCommand = new Command(OnSelected);
@@ -50,13 +50,13 @@ namespace App1.ViewModels
 
 
         }
-        private async void OnDeleted(ListModel list)
+        private async void OnDeleted()
         {
-            if (list == null)
+            var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
+            foreach (var folder in folders)
             {
-                return;
+                await App.AssignmentsDB.DeleteListAsync(folder.ID);
             }
-            await App.AssignmentsDB.DeleteListAsync(list.ID);
             await OnLoaded();
         }
         private async void OnArchive(object obj)
