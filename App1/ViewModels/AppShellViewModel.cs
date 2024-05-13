@@ -18,6 +18,7 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
         public Command AddFolderCommand { get; }
         public Command SelectedCommand { get; }
+        public Command DeleteFolder { get; }
         private ListModel selectedFolder { get; set; }
         public ListModel SelectedFolder
         {
@@ -40,13 +41,23 @@ namespace App1.ViewModels
         public AppShellViewModel(INavigation navigation) 
         {
             FoldersList = new ObservableCollection<ListModel>();
-            Task.Run(async () => await OnLoaded());
+            DeleteFolder = new Command<ListModel>(OnDeleted);
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
             SelectedCommand = new Command(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
+            Task.Run(async () => await OnLoaded());
 
 
+        }
+        private async void OnDeleted(ListModel list)
+        {
+            if (list == null)
+            {
+                return;
+            }
+            await App.AssignmentsDB.DeleteListAsync(list.ID);
+            await OnLoaded();
         }
         private async void OnArchive(object obj)
         {
@@ -60,6 +71,7 @@ namespace App1.ViewModels
         }
         private async void AddFolder(object obj)
         {
+            await Navigation.PushAsync(new FolderAddingPage());
             MessagingCenter.Unsubscribe<FolderAddingViewModel>(this, "FolderClosed");
             MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
            
@@ -73,7 +85,7 @@ namespace App1.ViewModels
             Shell.Current.FlyoutIsPresented = false;
             
             await Navigation.PushAsync(new AssignmentPage(list));
-
+            SelectedFolder = null;
 
 
         }

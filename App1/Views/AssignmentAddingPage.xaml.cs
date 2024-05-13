@@ -22,6 +22,15 @@ namespace App1.Views
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel(Navigation);
         }
+        public AssignmentAddingPage(ListModel folder)
+        {
+            InitializeComponent();
+            BindingContext = new AssignmentAddingViewModel(Navigation);
+            if (folder != null)
+            {
+                ((AssignmentAddingViewModel)BindingContext).Assignment.FolderName = folder.Name;
+            }
+        }
         public AssignmentAddingPage(AssignmentModel assignment)
         {
             InitializeComponent();

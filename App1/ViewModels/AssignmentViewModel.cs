@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 
 namespace App1.ViewModels
 {
@@ -90,7 +91,7 @@ namespace App1.ViewModels
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
-            AddAssignmentCommand = new Command(OnAddAssignment);
+            AddAssignmentCommand = new Command<ListModel>(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
@@ -286,8 +287,16 @@ namespace App1.ViewModels
         }
         private async void OnAddAssignment(ListModel folder)
         {
-            if (folder.Name!=)
-            await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            if (folder.Name!="Мои дела")
+            {
+                var fold = SelectedFolder;
+                await Navigation.PushPopupAsync(new AssignmentAddingPage(fold));
+            }
+            else
+            {
+                await Navigation.PushPopupAsync(new AssignmentAddingPage());
+            }
+            
             MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "PopupClosed");
             MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
         }

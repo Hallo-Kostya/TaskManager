@@ -72,6 +72,7 @@
                         <Image Source="align" />
                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontAttributes="Bold" />
                         <Label Text="{Binding Count}" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                        <Button Text="Delete folder" Command="{Binding DeleteFolder}"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
