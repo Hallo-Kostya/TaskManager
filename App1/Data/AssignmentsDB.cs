@@ -15,9 +15,9 @@ namespace App1.Data
         {
             db = new SQLiteAsyncConnection(dbPath);
             db.CreateTableAsync<AssignmentModel>().Wait();
-            db.CreateTableAsync<ListModel>().Wait();
             db.CreateTableAsync<TagModel>().Wait();
-            
+            db.CreateTableAsync<ListModel>().Wait();
+
         }
         public async Task<bool> AddListAsync(ListModel list)
         {

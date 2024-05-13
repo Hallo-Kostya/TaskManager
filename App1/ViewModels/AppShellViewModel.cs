@@ -32,12 +32,7 @@ namespace App1.ViewModels
                 }
             }
         }
-        private ObservableCollection<ListModel> foldersList;
-        public ObservableCollection<ListModel> FoldersList
-        {
-            get => foldersList;
-            set => SetProperty(ref foldersList, value);
-        }
+        public ObservableCollection<ListModel> FoldersList { get; set; }
         public AppShellViewModel(INavigation navigation) 
         {
             FoldersList = new ObservableCollection<ListModel>();
@@ -52,7 +47,7 @@ namespace App1.ViewModels
         }
         private async void OnDeleted()
         {
-            var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
+            var folders = (await App.AssignmentsDB.GetListsAsync());
             foreach (var folder in folders)
             {
                 await App.AssignmentsDB.DeleteListAsync(folder.ID);
@@ -64,10 +59,20 @@ namespace App1.ViewModels
             await Shell.Current.GoToAsync(nameof(ArchivePage));
             Shell.Current.FlyoutIsPresented = false;
         }
-        async Task OnLoaded()
+        public async Task OnLoaded()
         {
-            var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
-            FoldersList = new ObservableCollection<ListModel>(folders);
+            try
+            {
+                FoldersList.Clear();
+                var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
+                foreach (var folder in folders)
+                    FoldersList.Add(folder);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            
         }
         private async void AddFolder(object obj)
         {
@@ -84,8 +89,6 @@ namespace App1.ViewModels
             await Navigation.PopAsync();
             await Navigation.PushAsync(new AssignmentPage(list));
             Shell.Current.FlyoutIsPresented = false;
-
-
         }
     }
 }
