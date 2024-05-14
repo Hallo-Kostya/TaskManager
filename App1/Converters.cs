@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
@@ -21,6 +22,10 @@ namespace App1.Converters
                 if (targetType == typeof(ImageSource))
                 {
                     return boolValue ? "clock1.png" : "time.png";
+                }
+                if (targetType == typeof(bool))
+                {
+                    return boolValue ? false : true;
                 }
             }
             return Color.Black;
@@ -44,6 +49,26 @@ namespace App1.Converters
                 }
             }
             return Color.AliceBlue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class BoolToTagColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue)
+            {
+                if (targetType == typeof(Color))
+                {
+                    return boolValue ? Color.FromHex("#3C3C3C") : Color.FromHex("#952EAF");
+                }
+            }
+            return Color.FromHex("#952EAF");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

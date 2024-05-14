@@ -10,6 +10,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local1:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <local1:BoolToTextColorConverter x:Key="BoolToTextColorConverter" />
+            <local1:BoolToTagColorConverter x:Key="BoolToTagColorConverter" />
             <local1:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -50,15 +52,15 @@
                                                 </ImageButton.Triggers>
                                             </ImageButton>
                                             <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
-                                                <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
+                                                <Label Text="{Binding Name}" TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="16"/>
                                                 <StackLayout Orientation="Horizontal">
 
-                                                    <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
-                                                    <Frame BackgroundColor="red" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
+                                                    <Image Source="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" BackgroundColor="Color.Transparent" WidthRequest="20"/>
+                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="12" Padding="-3,3,0,0"/>
+                                                    <Frame BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToTagColorConverter}}" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
                                                         <StackLayout Orientation="Horizontal">
                                                             <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
-                                                            <Label Text="{Binding Tag}" TextColor="AliceBlue" FontSize="14" Padding="0,-3,0,0"/>
+                                                            <Label Text="{Binding Tag}" TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="14" Padding="0,-3,0,0"/>
                                                         </StackLayout>
                                                     </Frame>
                                                 </StackLayout>
