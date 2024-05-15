@@ -24,10 +24,10 @@ namespace App1.Behaviors
                     case EnumPriority.Низкий:
                         return "low1.png";
                     default:
-                        return "without1.png";
+                        return "eye.png";
                 }
             }
-            return "without1.png";
+            return "eye.png";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

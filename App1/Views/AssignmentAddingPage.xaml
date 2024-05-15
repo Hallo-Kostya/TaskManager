@@ -32,24 +32,25 @@
                     <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
                     <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
                     <DatePicker x:Name="DatePickerDate" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected" TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>
-                    <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="-20,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}">
-                        <!--<--><!--ImageButton.Triggers>
-                            <DataTrigger TargetType="Image" Binding="{Binding SelectedPriority}" Value="EnumPrioirty.Нет">
-                                <Setter Property="Source" Value="without1.png"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Image" Binding="{Binding SelectedPriority}" Value="EnumPriority.Высокий">
-                                <Setter Property="Source" Value="high1.png"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Image" Binding="{Binding SelectedPriority}" Value="EnumPriority.Средний">
-                                <Setter Property="Source" Value="medium1.png"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Image" Binding="{Binding SelectedPriority}" Value="EnumPriorty.Низкий">
-                                <Setter Property="Source" Value="low1.png"/>
-                            </DataTrigger>
-                        </ImageButton.Triggers>-->
+                    <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="-20,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
+                    <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}">
+                        <ImageButton.Triggers>
+                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
+                                <Setter Property="Source" Value="tags1.png"/>
+                            </Trigger>
+                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="False">
+                                <Setter Property="Source" Value="tags.png"/>
+                            </Trigger>
+                        </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
-                    <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
+                    <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}">
+                        <ImageButton.Triggers>
+                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
+                                <Setter Property="Source" Value="folders1.png"/>
+                            </Trigger>
+
+                        </ImageButton.Triggers>
+                    </ImageButton>
                     <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
                     <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />

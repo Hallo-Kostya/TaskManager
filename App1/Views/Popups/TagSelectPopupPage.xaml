@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="120, 80, 120, 550" Padding="10,5">
+        <Frame BackgroundColor="#202020" CornerRadius="12" Margin="100, 80, 100, 550" Padding="10,5">
             <StackLayout>
                 <CollectionView SelectionMode="Single" ItemsSource="{Binding TagList}" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}">
                     <CollectionView.Header>
@@ -21,7 +21,6 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout x:DataType="model:TagModel" Margin="5">
-                                <!--BackgroundColor="{Binding TagColor}"-->
                                 <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                     <StackLayout Orientation="Horizontal" HeightRequest="5">
                                         <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>

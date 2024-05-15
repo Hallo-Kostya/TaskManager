@@ -4,7 +4,8 @@
              xmlns:model="clr-namespace:App1.Models" 
              xmlns:local="clr-namespace:App1.ViewModels" x:DataType="local:FolderPageViewModel"
              x:Class="App1.Views.FolderPage"
-             BackgroundImageSource="background.png">
+             BackgroundImageSource="background.png"
+             NavigationPage.HasBackButton="False">
     
     <ContentPage.Resources>
         <ResourceDictionary>

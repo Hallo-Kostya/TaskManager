@@ -34,7 +34,7 @@
                         <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
                             <SwipeView BackgroundColor="Color.transparent">
                                 <SwipeView.GestureRecognizers>
-                                    <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
+                                    <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:ArchiveViewModel}}, Path=DeleteArchivedAssignmentCommand}" CommandParameter="{Binding .}" />
                                 </SwipeView.GestureRecognizers>
                                 <SwipeView.RightItems>
                                     <SwipeItems>

@@ -101,7 +101,7 @@
     <Shell.FlyoutFooter>
         <StackLayout>
             <StackLayout Orientation="Horizontal" Padding="20">
-                <Image Source="add_folder" />
+                <ImageButton Source="add_folder" BackgroundColor="Color.Transparent" Command="{Binding AddFolderCommand}" />
                 <Button Text="Создать папку" Command="{Binding AddFolderCommand}" TextTransform="None" FontAttributes="Bold"  BackgroundColor="Color.Transparent" Padding="-1,0"/>
             </StackLayout>
         </StackLayout>
