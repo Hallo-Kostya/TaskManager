@@ -103,6 +103,7 @@ namespace App1.ViewModels
                 (sender) =>
                 {
                     Assignment.Tag = sender.Name;
+                    Assignment.TagColor = sender.TagColor;
                 });
             await Navigation.PushPopupAsync(new TagPopupPage());
         }
