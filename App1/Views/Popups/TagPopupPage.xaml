@@ -18,7 +18,7 @@
             <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
-                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedItemCommand}" SelectedItem="{Binding SelectedTag}" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
+                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" Span="2" />
                         </CollectionView.ItemsLayout>
@@ -26,6 +26,9 @@
                             <DataTemplate>
                                 <StackLayout x:DataType="model:TagModel" Margin="5">
                                     <!--BackgroundColor="{Binding TagColor}"-->
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TagPopupViewModel}}, Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
                                     <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
                                         
                                         <StackLayout Orientation="Horizontal" HeightRequest="5">

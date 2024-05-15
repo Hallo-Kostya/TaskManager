@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:App1.ViewModels" 
              xmlns:model="clr-namespace:App1.Models" 
-             xmlns:local1="clr-namespace:App1.Converters"
+             xmlns:local1="clr-namespace:App1.Converters" xmlns:behaviors="clr-namespace:App1.Behaviors"
              x:Class="App1.Views.ArchivePage"
              BackgroundImageSource="background.png">
 
@@ -13,6 +13,7 @@
             <local1:BoolToTextColorConverter x:Key="BoolToTextColorConverter" />
             <local1:BoolToTagColorConverter x:Key="BoolToTagColorConverter" />
             <local1:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <behaviors:StringToColorConverter x:Key="StringToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -57,7 +58,7 @@
 
                                                     <Image Source="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                                     <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="12" Padding="-3,3,0,0"/>
-                                                    <Frame BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToTagColorConverter}}" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
+                                                    <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
                                                         <StackLayout Orientation="Horizontal">
                                                             <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
                                                             <Label Text="{Binding Tag}" TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="14" Padding="0,-3,0,0"/>

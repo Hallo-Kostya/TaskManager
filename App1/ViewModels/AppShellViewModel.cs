@@ -14,6 +14,7 @@ namespace App1.ViewModels
     public class AppShellViewModel: BaseAssignmentViewModel
     {
         private AssignmentModel assViewModel;
+        public Command ToMainPage { get; }
         public Command ToArchiveCommand { get; }
         public INavigation Navigation { get; set; }
         public Command AddFolderCommand { get; }
@@ -35,6 +36,7 @@ namespace App1.ViewModels
         public ObservableCollection<ListModel> FoldersList { get; set; }
         public AppShellViewModel(INavigation navigation) 
         {
+            ToMainPage = new Command(ToMain);
             FoldersList = new ObservableCollection<ListModel>();
             DeleteFolder = new Command(OnDeleted);
             AddFolderCommand = new Command(AddFolder);
@@ -53,6 +55,12 @@ namespace App1.ViewModels
                 await App.AssignmentsDB.DeleteListAsync(folder.ID);
             }
             await OnLoaded();
+        }
+        private async void ToMain()
+        {
+            await Navigation.PopToRootAsync();
+            await Shell.Current.GoToAsync(nameof(AssignmentPage));
+            Shell.Current.FlyoutIsPresented = false;
         }
         private async void OnArchive(object obj)
         {

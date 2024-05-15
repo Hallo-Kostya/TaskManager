@@ -74,7 +74,7 @@ namespace App1.ViewModels
         {
             TagList = new ObservableCollection<TagModel>();
             //LoadTagsCommand = new Command(OnLoaded);
-            SelectedItemCommand = new Command(OnSelected);
+            SelectedItemCommand = new Command<TagModel>(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
             SetColorCommand = new Command<string>(SetColor);
@@ -100,10 +100,11 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddTagAsync(Tag);
             await OnLoaded();
         }
-        private async void OnSelected()
+        private async void OnSelected(TagModel _tag)
         {
+            var tag = _tag;
             await Navigation.PopPopupAsync();
-            MessagingCenter.Send<TagModel>(SelectedTag, "TagChanged");
+            MessagingCenter.Send<TagModel>(tag, "TagChanged");
         }
 
         private double _frameHeight;
