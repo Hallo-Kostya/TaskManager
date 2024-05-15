@@ -21,6 +21,7 @@ namespace App1.ViewModels
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
         public Command SetTagCommand { get; }
+        public Command SetColorCommand { get; }
         
         public INavigation Navigation { get; set; }
         private string writenTag { get; set; }
@@ -32,6 +33,19 @@ namespace App1.ViewModels
                 if (writenTag != value)
                 {
                     writenTag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string selectedColor { get; set; }
+        public string SelectedColor
+        {
+            get { return selectedColor; }
+            set
+            {
+                if (selectedColor != value)
+                {
+                    selectedColor = value;
                     OnPropertyChanged();
                 }
             }
@@ -63,6 +77,7 @@ namespace App1.ViewModels
             SelectedItemCommand = new Command(OnSelected);
             SetTagCommand = new Command(SetTag);
             Navigation = navigation;
+            SetColorCommand = new Command<string>(SetColor);
             Task.Run(async () => await OnLoaded());
            
         }
@@ -72,12 +87,16 @@ namespace App1.ViewModels
             var tags = (await App.AssignmentsDB.GetTagsAsync()).ToList();
             TagList = new ObservableCollection<TagModel>(tags);
         }
-        
+        private void SetColor(string color)
+        {
+            SelectedColor = color;
+
+        }
         private async void SetTag()
         {
             var Tag = new TagModel();
             Tag.Name = WritenTag;
-            //Tag.TagColor = SelectedColor;
+            Tag.TagColor = SelectedColor;   
             await App.AssignmentsDB.AddTagAsync(Tag);
             await OnLoaded();
         }

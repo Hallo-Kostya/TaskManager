@@ -26,6 +26,7 @@
                 <Setter Property="WidthRequest" Value="45"/>
                 <Setter Property="HeightRequest" Value="45"/>
             </Style>
+            <behaviors:StringToColorConverter x:Key="StringToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -54,7 +55,7 @@
                         <Button Text="filterByTag" Command="{Binding FilterByTagCommand}" BackgroundColor="White" WidthRequest="30" HeightRequest="20"/>-->
                         <ImageButton Source="search.png" BackgroundColor="Black" Command="{Binding SearchCommand}" HeightRequest="30"/>
                     </StackLayout>
-                    <Frame BackgroundColor="#BA33BD" Padding="5" CornerRadius="50" HeightRequest="10" HorizontalOptions="CenterAndExpand">
+                    <Frame BackgroundColor="{Binding SelectedTag.TagColor, Converter={StaticResource StringToColorConverter}}" Padding="5" CornerRadius="50" HeightRequest="10" HorizontalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                             <Button Text="{Binding SelectedTag.Name}" x:Name="TagList_Button" TextColor="AliceBlue" FontSize="16" Padding="0" Margin="0,-10,0,-8" TextTransform="None" BackgroundColor="Color.Transparent"/>

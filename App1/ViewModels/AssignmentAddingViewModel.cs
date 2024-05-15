@@ -126,6 +126,7 @@ namespace App1.ViewModels
                 (sender) =>
                 {
                     Assignment.Priority = sender.Priority;
+                    SelectedPriority = sender.Priority;
                 });
             await Navigation.PushPopupAsync(new PriorityPopupPage());
         }

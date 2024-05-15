@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:EditViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:converters="clr-namespace:App1.Behaviors" x:DataType="viewmodels:EditViewModel"
              x:Class="App1.Views.EditPage"
              BackgroundColor="#292929">
     <ContentPage.Resources>
@@ -12,6 +12,7 @@
                 <Setter Property="PlaceholderColor" Value="#959595" />
                 <Setter Property="TextColor" Value="AliceBlue" />
             </Style>
+            <converters:DateToTextConverter x:Key="DateToTextConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -26,8 +27,8 @@
 
             <StackLayout Orientation="Horizontal">
                 <ImageButton x:Name="Priority" Source="priority.png" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="StartAndExpand"/>
-                <Button Text="Дата" TextColor="#EE82FF" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
-                        BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
+                <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#EE82FF" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
+                        BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDat}, Path=.}"/>
                 <DatePicker x:Name="DatePickerDat" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}" DateSelected="DatePickerDate_DateSelected"/>
 
                 <ImageButton Source="without1.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Margin="-30,0,-18,0"/>

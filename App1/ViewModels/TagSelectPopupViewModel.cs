@@ -44,7 +44,7 @@ namespace App1.ViewModels
         public async Task LoadTags()
         {
             TagList.Clear();
-            TagList.Add(new TagModel() { Name="без тега"});
+            TagList.Add(new TagModel() { Name = "без тега" });
             var tags = (await App.AssignmentsDB.GetTagsAsync()).Where(x => !string.IsNullOrWhiteSpace(x.Name)).Distinct().ToList();
             foreach (var tag in tags)
                 TagList.Add(tag);

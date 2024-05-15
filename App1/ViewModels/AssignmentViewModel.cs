@@ -98,7 +98,7 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             FilterByPriorityCommand = new Command(OnFiltered);
-            SelectedTag = null;
+            SelectedTag = new TagModel();
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
