@@ -93,11 +93,19 @@ namespace App1.ViewModels
 
         private async void OnSelected(ListModel folder)
         {
-            await Navigation.PopAsync();
-            var page = new AssignmentPage(folder);
-            NavigationPage.SetHasBackButton(page, false);
-            await Navigation.PushAsync(page);
+            await Navigation.PopToRootAsync();
+            //AssignmentPage existingPage = Navigation.NavigationStack.FirstOrDefault(page => page is AssignmentPage);
+            //NavigationPage.SetHasBackButton(existingPage, false);
+            // Возврат на корневую страницу; // Получение текущей страницы
+            //existingPage.UpdateContent(folder); // Обновление данных на странице
             Shell.Current.FlyoutIsPresented = false;
-        }
+            //// Если страницы не существует, создаем новую и добавляем в стек навигации
+            //var newPage = new AssignmentPage(folder);
+            //    NavigationPage.SetHasBackButton(newPage, false);
+            //    await Navigation.PushAsync(newPage);
+            }
+
+            // Закрываем боковое меню Flyo
     }
 }
+    

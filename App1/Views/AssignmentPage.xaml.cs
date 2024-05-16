@@ -69,7 +69,13 @@ namespace App1.Views
             }
             dayButton.Text = date.Day.ToString();
         }
-
+        public void UpdateContent(ListModel folder)
+        {
+            if (folder != null)
+            {
+                ((AssignmentViewModel)BindingContext).SelectedFolder = folder;
+            }
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();

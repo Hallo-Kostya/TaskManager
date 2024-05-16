@@ -8,7 +8,8 @@
              xmlns:local1="clr-namespace:App1.Converters"
              x:DataType="local:AssignmentViewModel"
              x:Class="App1.Views.AssignmentPage"
-             BackgroundImageSource="background.png">
+             BackgroundImageSource="background.png"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local1:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />

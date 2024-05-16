@@ -99,6 +99,7 @@ namespace App1.ViewModels
             SearchCommand = new Command(OnSearchAssignment);
             FilterByPriorityCommand = new Command(OnFiltered);
             SelectedTag = new TagModel();
+            SelectedTag.Name = "без тега";
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -158,7 +159,7 @@ namespace App1.ViewModels
         //        selectedDay.State = selectedDay.Date < DateTime.Now.Date ? DayStateEnum.Past : DayStateEnum.Normal;
         //    }
         //}
-
+       
         async Task ExecuteLoadAssignmentCommand()
         {
             IsBusy = true;
