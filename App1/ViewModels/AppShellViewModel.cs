@@ -93,10 +93,17 @@ namespace App1.ViewModels
 
         private async void OnSelected(ListModel folder)
         {
-            await Navigation.PopAsync();
-            var page = new AssignmentPage(folder);
-            NavigationPage.SetHasBackButton(page, false);
-            await Navigation.PushAsync(page);
+            var assignmentPage = (AssignmentPage)Navigation.NavigationStack.FirstOrDefault(p => p is AssignmentPage);
+            if (assignmentPage != null)
+            {
+                assignmentPage.Update(folder);
+            }
+            else
+            {
+                var page = new AssignmentPage(folder);
+                NavigationPage.SetHasBackButton(page, false);
+                await Navigation.PushAsync(page);
+            }
             Shell.Current.FlyoutIsPresented = false;
         }
     }

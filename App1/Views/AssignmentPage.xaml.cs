@@ -60,7 +60,13 @@ namespace App1.Views
             //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
 
         }
-
+        public void Update(ListModel list)
+        {
+            if (list != null)
+            {
+                ((AssignmentViewModel)BindingContext).SelectedFolder = list;
+            }
+        }
         private void SetDayButtonBackground(Button dayButton, DateTime date, int today)
         {
             if (dayButton != null && today == date.Day)
