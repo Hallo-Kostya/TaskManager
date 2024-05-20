@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             x:Class="App1.Views.Popups.Notification1PopupPage"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification1PopupViewModel"
+                 x:Class="App1.Views.Popups.Notification1PopupPage"
              BackgroundColor="Color.Transparent">
     <ContentPage.Content>
         <StackLayout Margin="40">
             <Frame BackgroundColor="Yellow">
-                <StackLayout>
-                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="Во время" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="За 5 минут" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="За 30 минут" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="За 1 час" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="За 1 день" TextColor="AliceBlue" BackgroundColor="Red"/>
-                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red"/>
+                <StackLayout x:Name="Layouter">
+                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button1_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="Во время" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button2_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="За 5 минут" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button3_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="За 30 минут" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button4_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="За 1 час" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button5_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="За 1 день" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button6_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button7_Clicked" Command="{Binding DateSelectedCommand}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
