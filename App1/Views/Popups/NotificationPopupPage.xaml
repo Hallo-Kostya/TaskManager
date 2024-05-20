@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="App1.Views.Popups.NotificationPopupPage"
+                 BackgroundColor="Color.Transparent">
+    <ContentPage.Content>
+        <StackLayout Margin="50">
+            <Frame BackgroundColor="Orange">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
+                        <Label Text="Крайний срок выполнения" TextColor="AliceBlue"/>
+                        <TimePicker/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
+                        <Label Text="Уведомление" TextColor="AliceBlue"/>
+                        <Button Text="Нет" BackgroundColor="Red" TextColor="AliceBlue" Command="{Binding Notification1PopupCommand}" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
+                        <Label Text="Повтор" TextColor="AliceBlue"/>
+                        <Button Text="Нет" BackgroundColor="Red" TextColor="AliceBlue" Command="{Binding Notification2PopupCommand}" />   
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

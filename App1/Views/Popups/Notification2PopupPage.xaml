@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="App1.Views.Popups.Notification2PopupPage"
+             BackgroundColor="Color.Transparent">
+    <ContentPage.Content>
+        <StackLayout Margin="40">
+            <Frame BackgroundColor="Yellow">
+                <StackLayout>
+                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red"/>
+                    <Button Text="Каждый день" TextColor="AliceBlue" BackgroundColor="Red"/>
+                    <Button Text="Каждую неделю" TextColor="AliceBlue" BackgroundColor="Red"/>
+                    <Button Text="Каждый месяц" TextColor="AliceBlue" BackgroundColor="Red"/>
+                    <Button Text="Каждый год" TextColor="AliceBlue" BackgroundColor="Red"/>
+                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

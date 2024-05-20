@@ -24,6 +24,7 @@ namespace App1.ViewModels
         public Command FoldersPopupCommand { get; }
         public Command PriorityPopupCommand { get; }
         public Command DatePopupCommand {  get; }
+        public Command NotificationPopupCommand { get; }
 
 
 
@@ -77,6 +78,7 @@ namespace App1.ViewModels
                 DatePickerDate.IsVisible = false;
                 DatePickerDate.Focus();
             });
+            NotificationPopupCommand = new Command(ExecuteNotificationPopup);
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
@@ -142,6 +144,11 @@ namespace App1.ViewModels
         //    //    });
         //    await Navigation.PushPopupAsync(new DatePopupPage());
         //}
+
+        private async void ExecuteNotificationPopup()
+        {
+            await Navigation.PushPopupAsync(new NotificationPopupPage());
+        }
 
         private async void OnBackgroundClicked()
         {

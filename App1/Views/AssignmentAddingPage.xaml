@@ -38,9 +38,6 @@
                             <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
                                 <Setter Property="Source" Value="tags1.png"/>
                             </Trigger>
-                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="False">
-                                <Setter Property="Source" Value="tags.png"/>
-                            </Trigger>
                         </ImageButton.Triggers>
                     </ImageButton>
                     <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}">
@@ -51,6 +48,7 @@
 
                         </ImageButton.Triggers>
                     </ImageButton>
+                    <ImageButton Source="alarm.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}" />
                     <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
                     <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
