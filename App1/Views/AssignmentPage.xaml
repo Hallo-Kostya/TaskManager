@@ -48,7 +48,7 @@
             <!-- Верхний Frame -->
             <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="32" Margin="0, -25, 0, 0">
                 <StackLayout>
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout x:Name="Test" Orientation="Horizontal">
                         <!--<Label x:Name="labelMonth" Style="{StaticResource LabelStyle}" Margin="5,0,0,0" Padding="0,5,0,0"/>-->
                         <ImageButton BackgroundColor="Black" x:Name="Filter" Source="filter" Command="{Binding FilterByPriorityCommand}" HeightRequest="30"/>
                         <Label Text="{Binding SelectedFolder.Name}" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,0,0,0" HorizontalOptions="CenterAndExpand"/>
@@ -238,6 +238,7 @@
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
+            <Button Clicked="Button_Clicked" Text="Send Notification"/>
             <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,15 ,20"/>
         </Grid>
     </StackLayout>

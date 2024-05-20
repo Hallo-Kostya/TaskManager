@@ -1,4 +1,5 @@
 ﻿using App1.Models;
+using App1.Services.Notifications;
 using App1.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace App1.Views
     {
         AssignmentViewModel assignmentViewModel;
         Button previousButton;
+        INotificationManager notificationManager;
         public ListModel Folder { get; set; }
         public AssignmentPage()
         {
@@ -35,6 +37,12 @@ namespace App1.Views
             //SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
             //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
             //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
 
         }
         public AssignmentPage(ListModel list)
@@ -58,6 +66,12 @@ namespace App1.Views
             //SetDayButtonBackground(Day5, startOfWeek.AddDays(4), today);
             //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
             //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
 
         }
         public void Update(ListModel list)
@@ -131,6 +145,24 @@ namespace App1.Views
         private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
         {
 
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            string title = $"Уведомление!";
+            string message = $"Ваш дедлайн приближается!";
+            notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(10));
+        }
+        void ShowNotification(string title, string message)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var msg = new Label()
+                {
+                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+                };
+                Test.Children.Add(msg);
+            });
         }
     }
 }
