@@ -151,7 +151,7 @@ namespace App1.Views
         {
             string title = $"Уведомление!";
             string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(10));
+            notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(15));
         }
         void ShowNotification(string title, string message)
         {
