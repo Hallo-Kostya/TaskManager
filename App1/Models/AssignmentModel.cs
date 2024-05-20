@@ -12,7 +12,7 @@ namespace App1.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime ExecutionDate { get; set; } = DateTime.Now;
+        public DateTime ExecutionDate { get; set; } 
         public string Tag { get; set; }
         public string TagColor { get; set; }
         //public DateTime BirthDate { get; set; }=DateTime.Now;

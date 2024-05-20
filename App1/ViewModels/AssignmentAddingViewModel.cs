@@ -147,7 +147,13 @@ namespace App1.ViewModels
 
         private async void ExecuteNotificationPopup()
         {
-            await Navigation.PushPopupAsync(new NotificationPopupPage());
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "DateChanged");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "DateChanged",
+                (sender) =>
+                {
+                    Assignment.ExecutionDate = sender.ExecutionDate;
+                });
+            await Navigation.PushAsync(new DateSelectionPage());
         }
 
         private async void OnBackgroundClicked()

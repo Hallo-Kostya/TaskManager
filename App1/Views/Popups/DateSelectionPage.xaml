@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             x:Class="App1.Views.Popups.NotificationPopupPage"
-                 BackgroundColor="Color.Transparent">
+             xmlns:viewmodels="clr-namespace:App1.ViewModels" 
+             x:DataType="viewmodels:DateSelectionViewModel"
+             x:Class="App1.Views.Popups.DateSelectionPage"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ContentPage.Content>
         <StackLayout Margin="50">
             <Frame BackgroundColor="Orange">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
+                        <Label Text="Выбор даты" TextColor="AliceBlue"/>
+                        <DatePicker x:Name="PickDate" Date="{Binding SelectedDate, Mode=TwoWay}"  TextColor="AliceBlue" HorizontalOptions="StartAndExpand" MinimumDate="{x:Static sys:DateTime.Today}"/>
+                            
                         <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
                         <Label Text="Крайний срок выполнения" TextColor="AliceBlue"/>
-                        <TimePicker/>
+                        <TimePicker Time="{Binding SelectedDate.TimeOfDay, Mode=TwoWay}"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
@@ -27,4 +31,4 @@
             </Frame>
         </StackLayout>
     </ContentPage.Content>
-</pages:PopupPage>
+</ContentPage>

@@ -19,5 +19,14 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new Notification1PopupViewModel(Navigation);
         }
+        public Notification1PopupPage(DateTime dateTime)
+        {
+            InitializeComponent();
+            BindingContext = new Notification1PopupViewModel(Navigation);
+            if (dateTime != null)
+            {
+                (BindingContext as Notification1PopupViewModel).SelectedDate=dateTime;
+            }
+        }
     }
 }
