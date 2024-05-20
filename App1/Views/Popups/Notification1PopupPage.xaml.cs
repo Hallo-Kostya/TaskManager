@@ -17,19 +17,7 @@ namespace App1.Views.Popups
     public partial class Notification1PopupPage : PopupPage
     {
         INotificationManager notificationManager;
-        private DateTime _selectedDate;
-        public DateTime SelectedDate
-        {
-            get { return _selectedDate; }
-            set
-            {
-                if (_selectedDate != value)
-                {
-                    _selectedDate = value;
-                    OnPropertyChanged(nameof(SelectedDate));
-                }
-            }
-        }
+        public DateTime SelectedDate;
         public Notification1PopupPage()
         {
             InitializeComponent();
@@ -78,6 +66,7 @@ namespace App1.Views.Popups
         {
             string title = $"Уведомление!";
             string message = $"Ваш дедлайн приближается!";
+            Console.WriteLine($"Notification Time: {SelectedDate.AddMinutes(-30)}");
             notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-30));
         }
         private void Button5_Clicked(object sender, EventArgs e)

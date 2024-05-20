@@ -19,13 +19,31 @@ namespace App1.ViewModels
         private DateTime _selectedDate;
         public DateTime SelectedDate
         {
-            get { return _selectedDate; }
+            get => _selectedDate;
             set
             {
                 if (_selectedDate != value)
                 {
                     _selectedDate = value;
-                    OnPropertyChanged(nameof(SelectedDate));
+                    OnPropertyChanged();
+                    // Обновление времени при изменении даты
+                    SelectedTime = _selectedDate.TimeOfDay;
+                }
+            }
+        }
+
+        private TimeSpan _selectedTime;
+        public TimeSpan SelectedTime
+        {
+            get => _selectedTime;
+            set
+            {
+                if (_selectedTime != value)
+                {
+                    _selectedTime = value;
+                    OnPropertyChanged();
+                    // Обновление даты при изменении времени
+                    SelectedDate = SelectedDate.Date + _selectedTime;
                 }
             }
         }
@@ -54,7 +72,7 @@ namespace App1.ViewModels
         public  async Task  AcceptAndClose()
         {
             TempAssignment.ExecutionDate = SelectedDate;
-            await Navigation.PopPopupAsync();
+            await Navigation.PopAsync();
             MessagingCenter.Send(TempAssignment, "DateChanged");
         }
 

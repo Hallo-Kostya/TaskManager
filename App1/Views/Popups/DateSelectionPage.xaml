@@ -15,7 +15,7 @@
                             
                         <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
                         <Label Text="Крайний срок выполнения" TextColor="AliceBlue"/>
-                        <TimePicker Time="{Binding SelectedDate.TimeOfDay, Mode=TwoWay}"/>
+                        <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Image Source="clock.png" BackgroundColor="Color.Transparent"/>
