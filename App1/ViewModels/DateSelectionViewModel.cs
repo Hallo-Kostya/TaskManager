@@ -1,4 +1,5 @@
 ﻿using App1.Models;
+using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using System;
@@ -83,7 +84,8 @@ namespace App1.ViewModels
         {
             TempAssignment.ExecutionDate = SelectedDate;
             await Navigation.PopAsync();
-            MessagingCenter.Send(TempAssignment, "DateChanged");
+            //MessagingCenter.Send(TempAssignment, "DateChanged");
+            await Navigation.PushPopupAsync(new AssignmentAddingPage(TempAssignment),false);
         }
 
     }

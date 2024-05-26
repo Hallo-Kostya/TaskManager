@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App1.Models;
 using App1.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,6 +17,22 @@ namespace App1.Views.Popups
         {
             InitializeComponent();
             BindingContext = new DateSelectionViewModel(Navigation);
+
+            ToolbarItem completeButton = new ToolbarItem
+            {
+                Text = "Применить", // Текст кнопки
+                Command = new Command(OnCustomToolbarItemPressed), // Команда, которая будет выполняться при нажатии // Параметр команды (в данном случае, передаем саму страницу)
+            };
+            ToolbarItems.Add(completeButton);
+        }
+        public DateSelectionPage(AssignmentModel assign)
+        {
+            InitializeComponent();
+            BindingContext = new DateSelectionViewModel(Navigation);
+            if (assign != null)
+            {
+                (BindingContext as DateSelectionViewModel).TempAssignment = assign;
+            }
 
             ToolbarItem completeButton = new ToolbarItem
             {

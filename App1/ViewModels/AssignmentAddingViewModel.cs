@@ -78,7 +78,7 @@ namespace App1.ViewModels
                 DatePickerDate.IsVisible = false;
                 DatePickerDate.Focus();
             });
-            NotificationPopupCommand = new Command(ExecuteNotificationPopup);
+            NotificationPopupCommand = new Command(ExecuteNotification);
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
@@ -135,7 +135,7 @@ namespace App1.ViewModels
         }
 
 
-        private async void ExecuteNotificationPopup()
+        private async void ExecuteNotification()
         {
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "DateChanged");
             MessagingCenter.Subscribe<AssignmentModel>(this, "DateChanged",
@@ -145,7 +145,8 @@ namespace App1.ViewModels
                     Assignment.NotificationTime = sender.NotificationTime;
                     Assignment.HasNotification = sender.HasNotification;
                 });
-            await Navigation.PushAsync(new DateSelectionPage());
+            await Navigation.PushAsync(new DateSelectionPage(Assignment),false);
+            await Navigation.PopAllPopupAsync();
         }
 
         private async void OnBackgroundClicked()
