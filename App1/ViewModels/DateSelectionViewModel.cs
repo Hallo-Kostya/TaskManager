@@ -31,7 +31,22 @@ namespace App1.ViewModels
                 {
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
-                    //MessagingCenter.Send 
+                    SelectedTime = _selectedDate.TimeOfDay;
+                }
+            }
+        }
+        private TimeSpan _selectedTime;
+        public TimeSpan SelectedTime
+        {
+            get => _selectedTime;
+            set
+            {
+                if (_selectedTime != value)
+                {
+                    _selectedTime = value;
+                    OnPropertyChanged();
+                    // Обновление даты при изменении времени
+                    SelectedDate = SelectedDate.Date + _selectedTime;
                 }
             }
         }
