@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using App1.Data;
 using App1.Models;
+using App1.Services.Notifications;
 using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
@@ -26,8 +27,7 @@ namespace App1.ViewModels
         public Command DatePopupCommand {  get; }
         public Command NotificationPopupCommand { get; }
 
-
-
+        
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
         public Command BackgroundClickedCommand { get; }
@@ -134,16 +134,6 @@ namespace App1.ViewModels
             await Navigation.PushPopupAsync(new PriorityPopupPage());
         }
 
-        //private async void ExecuteDatePopup()
-        //{
-        //    //MessagingCenter.Unsubscribe<DateTime>(this, "DateChanged");
-        //    //MessagingCenter.Subscribe<DateTime>(this, "DateChanged",
-        //    //    (sender) =>
-        //    //    {
-        //    //        Assignment.ExecutionDate = sender;
-        //    //    });
-        //    await Navigation.PushPopupAsync(new DatePopupPage());
-        //}
 
         private async void ExecuteNotificationPopup()
         {
@@ -152,6 +142,8 @@ namespace App1.ViewModels
                 (sender) =>
                 {
                     Assignment.ExecutionDate = sender.ExecutionDate;
+                    Assignment.NotificationTime = sender.NotificationTime;
+                    Assignment.HasNotification = sender.HasNotification;
                 });
             await Navigation.PushAsync(new DateSelectionPage());
         }

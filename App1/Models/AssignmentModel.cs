@@ -15,7 +15,8 @@ namespace App1.Models
         public DateTime ExecutionDate { get; set; } 
         public string Tag { get; set; }
         public string TagColor { get; set; }
-        //public DateTime BirthDate { get; set; }=DateTime.Now;
+        public bool HasNotification { get; set; }
+        public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
         //public bool HasChilds { get; set; }
         //public List<int>[] Childs { get; set; }
@@ -31,9 +32,4 @@ namespace App1.Models
         public string FolderName { get; set; } 
     }
     
-    //public class ColorString
-    //{
-    //    public string Name;
-    //    public Color Color;
-    //}
 }

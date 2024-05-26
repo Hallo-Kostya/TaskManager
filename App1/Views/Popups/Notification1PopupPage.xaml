@@ -8,13 +8,13 @@
         <StackLayout Margin="40">
             <Frame BackgroundColor="Yellow">
                 <StackLayout x:Name="Layouter">
-                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button1_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="Во время" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button2_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="За 5 минут" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button3_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="За 30 минут" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button4_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="За 1 час" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button5_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="За 1 день" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button6_Clicked" Command="{Binding DateSelectedCommand}"/>
-                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red" Clicked="Button7_Clicked" Command="{Binding DateSelectedCommand}"/>
+                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="none"/>
+                    <Button Text="Во время" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="0"/>
+                    <Button Text="За 5 минут" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-5"/>
+                    <Button Text="За 30 минут" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-30"/>
+                    <Button Text="За 1 час" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-60"/>
+                    <Button Text="За 1 день" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-1440"/>
+                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

@@ -1,4 +1,5 @@
-﻿using App1.Services.Notifications;
+﻿using App1.Models;
+using App1.Services.Notifications;
 using App1.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
@@ -22,81 +23,79 @@ namespace App1.Views.Popups
         {
             InitializeComponent();
             BindingContext = new Notification1PopupViewModel(Navigation);
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            //notificationManager = DependencyService.Get<INotificationManager>();
+            //notificationManager.NotificationReceived += (sender, eventArgs) =>
+            //{
+            //    var evtData = (NotificationEventArgs)eventArgs;
+            //    ShowNotification(evtData.Title, evtData.Message);
+            //};
         }
-        public Notification1PopupPage(DateTime dateTime)
+        public Notification1PopupPage(AssignmentModel assign)
         {
             InitializeComponent();
             BindingContext = new Notification1PopupViewModel(Navigation);
-            if (dateTime != null)
+            if (assign != null)
             {
-                SelectedDate = dateTime;
-                (BindingContext as Notification1PopupViewModel).SelectedDate=dateTime;
+                (BindingContext as Notification1PopupViewModel).NotificationTempAssignment= assign;
             }
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            //notificationManager = DependencyService.Get<INotificationManager>();
+            //notificationManager.NotificationReceived += (sender, eventArgs) =>
+            //{
+            //    var evtData = (NotificationEventArgs)eventArgs;
+            //    ShowNotification(evtData.Title, evtData.Message);
+            //};
         }
-        private void Button1_Clicked(object sender, EventArgs e)
-        {
+        //private void Button1_Clicked(object sender, EventArgs e)
+        //{
             
-        }
-        private void Button2_Clicked(object sender, EventArgs e)
-        {
+        //}
+        //private void Button2_Clicked(object sender, EventArgs e)
+        //{
             
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, SelectedDate);
-        }
-        private void Button3_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-5));
-        }
-        private void Button4_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            Console.WriteLine($"Notification Time: {SelectedDate.AddMinutes(-30)}");
-            notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-30));
-        }
-        private void Button5_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, SelectedDate.AddHours(-1));
-        }
-        private void Button6_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, SelectedDate.AddDays(-1));
-        }
-        private void Button7_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(15));
-        }
-        void ShowNotification(string title, string message)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                var msg = new Label()
-                {
-                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                };
-                Layouter.Children.Add(msg);
-            });
-        }
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, SelectedDate);
+        //}
+        //private void Button3_Clicked(object sender, EventArgs e)
+        //{
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-5));
+        //}
+        //private void Button4_Clicked(object sender, EventArgs e)
+        //{
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-30));
+        //}
+        //private void Button5_Clicked(object sender, EventArgs e)
+        //{
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, SelectedDate.AddHours(-1));
+        //}
+        //private void Button6_Clicked(object sender, EventArgs e)
+        //{
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, SelectedDate.AddDays(-1));
+        //}
+        //private void Button7_Clicked(object sender, EventArgs e)
+        //{
+        //    string title = $"Уведомление!";
+        //    string message = $"Ваш дедлайн приближается!";
+        //    notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(15));
+        //}
+        //void ShowNotification(string title, string message)
+        //{
+        //    Device.BeginInvokeOnMainThread(() =>
+        //    {
+        //        var msg = new Label()
+        //        {
+        //            Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+        //        };
+        //        Layouter.Children.Add(msg);
+        //    });
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using App1.Services.Notifications;
+﻿using App1.Models;
+using App1.Services.Notifications;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using System;
@@ -12,31 +13,39 @@ namespace App1.ViewModels
     public class Notification1PopupViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
-        INotificationManager notificationManager;
-        private DateTime _selectedDate;
-        public DateTime SelectedDate
+        private AssignmentModel _notificationTempAssignment;
+        public AssignmentModel NotificationTempAssignment
         {
-            get { return _selectedDate; }
-            set
-            {
-                if (_selectedDate != value)
-                {
-                    _selectedDate = value;
-                    OnPropertyChanged(nameof(SelectedDate));
-                }
-            }
+            get { return _notificationTempAssignment; }
+            set { _notificationTempAssignment = value; OnPropertyChanged(); }
         }
-        public Command DateSelectedCommand { get; }
+        public Command SetNotificationTimeCommand { get; }
 
         public Notification1PopupViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            DateSelectedCommand = new Command(DateChanged);
+            SetNotificationTimeCommand = new Command<string>(SetNotificationTime);
         }
-       
-        private async void DateChanged()
+
+        private  async void SetNotificationTime(string parameter)
         {
-            await Navigation.PopPopupAsync();
+            if (parameter == "none")
+            {
+                NotificationTempAssignment.HasNotification = false;
+                await Navigation.PopPopupAsync();
+                MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
+            }
+            if (int.TryParse(parameter, out int minutes))
+            {
+                if (NotificationTempAssignment.ExecutionDate.AddMinutes(minutes) < DateTime.Now)
+                {
+                    return;
+                }
+                NotificationTempAssignment.NotificationTime = NotificationTempAssignment.ExecutionDate.AddMinutes(minutes);
+                NotificationTempAssignment.HasNotification = true;
+                await Navigation.PopPopupAsync();
+                MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
+            }
         }
     }
 }

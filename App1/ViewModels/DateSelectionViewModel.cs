@@ -13,7 +13,12 @@ namespace App1.ViewModels
     public class DateSelectionViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
-        public AssignmentModel TempAssignment { get; }
+        private AssignmentModel _tempAssignment;
+        public AssignmentModel TempAssignment
+        {
+            get { return _tempAssignment; }
+            set { _tempAssignment = value; OnPropertyChanged(); }
+        }
         public Command Notification1PopupCommand { get; }
         public Command Notification2PopupCommand { get; }
         private DateTime _selectedDate;
@@ -25,25 +30,8 @@ namespace App1.ViewModels
                 if (_selectedDate != value)
                 {
                     _selectedDate = value;
-                    OnPropertyChanged();
-                    // Обновление времени при изменении даты
-                    SelectedTime = _selectedDate.TimeOfDay;
-                }
-            }
-        }
-
-        private TimeSpan _selectedTime;
-        public TimeSpan SelectedTime
-        {
-            get => _selectedTime;
-            set
-            {
-                if (_selectedTime != value)
-                {
-                    _selectedTime = value;
-                    OnPropertyChanged();
-                    // Обновление даты при изменении времени
-                    SelectedDate = SelectedDate.Date + _selectedTime;
+                    OnPropertyChanged(nameof(SelectedDate));
+                    //MessagingCenter.Send 
                 }
             }
         }
@@ -59,8 +47,15 @@ namespace App1.ViewModels
 
         private async void ExecuteNotification1Popup()
         {
-            var datetime = SelectedDate;
-            await Navigation.PushPopupAsync(new Notification1PopupPage(datetime));
+            TempAssignment.ExecutionDate = SelectedDate;
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "NotificationSetted");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "NotificationSetted",
+                (sender) =>
+                {
+                    TempAssignment.NotificationTime = sender.NotificationTime;
+                    TempAssignment.HasNotification = sender.HasNotification;
+                });
+            await Navigation.PushPopupAsync(new Notification1PopupPage(TempAssignment));
         }
 
         private async void ExecuteNotification2Popup()
