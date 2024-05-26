@@ -4,19 +4,29 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification1PopupViewModel"
                  x:Class="App1.Views.Popups.Notification1PopupPage"
              BackgroundColor="Color.Transparent">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="AliceBlue"/>
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="HeightRequest" Value="20"/>
+                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="TextTransform" Value="None"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="40">
-            <Frame BackgroundColor="Yellow">
-                <StackLayout x:Name="Layouter">
-                    <Button Text="Нет" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="none"/>
-                    <Button Text="Во время" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="0"/>
-                    <Button Text="За 5 минут" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-5"/>
-                    <Button Text="За 30 минут" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-30"/>
-                    <Button Text="За 1 час" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-60"/>
-                    <Button Text="За 1 день" TextColor="AliceBlue" BackgroundColor="Red" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-1440"/>
-                    <Button Text="Произвольно" TextColor="AliceBlue" BackgroundColor="Red"/>
-                </StackLayout>
-            </Frame>
-        </StackLayout>
+        <Frame BackgroundColor="#2D2D2D" Margin="100, 100, 30, 400" Padding="5">
+            <StackLayout x:Name="Layouter">
+                <Button Text="Нет" Command="{Binding SetNotificationTimeCommand}" CommandParameter="none" Padding="-200, 0, 0, 0"  Margin="0,10,0,10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="Во время" Command="{Binding SetNotificationTimeCommand}" CommandParameter="0" Padding="-160, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="За 5 минут" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-5" Padding="-150, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="За 30 минут" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-30" Padding="-140, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="За 1 час" Command="{Binding SetNotificationTimeCommand}"  CommandParameter="-60" Padding="-170, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="За 1 день" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-1440" Padding="-160, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="Произвольно" Padding="-130, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:PopupPage>
