@@ -131,8 +131,8 @@ namespace App1.ViewModels
 
         private async void ExecuteNotification()
         {
-            MessagingCenter.Unsubscribe<AssignmentModel>(this, "DateChanged");
-            MessagingCenter.Subscribe<AssignmentModel>(this, "DateChanged",
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "Date1Changed");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "Date1Changed",
                 (sender) =>
                 {
                     Assignment.ExecutionDate = sender.ExecutionDate;
@@ -140,7 +140,7 @@ namespace App1.ViewModels
                     Assignment.HasNotification = sender.HasNotification;
                     Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                 });
-            await Navigation.PushAsync(new DateSelectionPage(Assignment), false);
+            await Navigation.PushAsync(new DateSelectionPage(Assignment,false), false);
         }
 
         private async void OnCancel()

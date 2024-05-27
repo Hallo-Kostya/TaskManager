@@ -150,7 +150,7 @@ namespace App1.ViewModels
                     Assignment.HasNotification = sender.HasNotification;
                     Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                 });
-            await Navigation.PushAsync(new DateSelectionPage(Assignment),false);
+            await Navigation.PushAsync(new DateSelectionPage(Assignment,true),false);
             await Navigation.PopAllPopupAsync();
         }
         private async void OpenFullscreen()

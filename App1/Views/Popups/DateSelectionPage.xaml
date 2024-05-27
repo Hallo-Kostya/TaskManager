@@ -5,10 +5,17 @@
              x:DataType="viewmodels:DateSelectionViewModel"
              x:Class="App1.Views.Popups.DateSelectionPage"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             BackgroundColor="#292929">
+             BackgroundColor="#292929"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
 
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
+                <ImageButton Source="back.png" Command="{Binding OnBackPressedCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
+                <Button Text="Применить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
+            </StackLayout>
             <StackLayout Margin="0,10,0,0">
                 <Label Text="Дата" FontSize="19" FontAttributes="Bold" TextColor="AliceBlue" HorizontalOptions="Center"/>
                 <DatePicker x:Name="PickDate" Date="{Binding SelectedDate, Mode=TwoWay}"  TextColor="AliceBlue" MinimumDate="{x:Static sys:DateTime.Today}" HorizontalOptions="Center"/>

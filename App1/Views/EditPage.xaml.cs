@@ -43,12 +43,13 @@ namespace App1.Views
                 ShowNotification(evtData.Title, evtData.Message);
             };
         }
+
         private void ButtonSave_Clicked(object sender, EventArgs e)
         {
-            var isNotify = ((AssignmentAddingViewModel)BindingContext).Assignment.HasNotification;
+            var isNotify = ((EditViewModel)BindingContext).Assignment.HasNotification;
             if (isNotify)
             {
-                var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
+                var assign = ((EditViewModel)BindingContext).Assignment;
                 string title = $"Уведомление!";
                 string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
                 notificationManager.CancelNotification(assign.ID.ToString());

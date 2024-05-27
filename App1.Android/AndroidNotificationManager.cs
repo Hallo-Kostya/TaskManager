@@ -81,7 +81,7 @@ namespace LocalNotifications.Droid
             {
                 manager.Cancel(notificationId);
                 var alarmIntent = new Intent(Forms.Context, typeof(AlarmHandler));
-                var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, notificationId, alarmIntent, PendingIntentFlags.UpdateCurrent);
+                var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, notificationId, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
                 var alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
                 alarmManager.Cancel(pendingAlarmIntent);
             }

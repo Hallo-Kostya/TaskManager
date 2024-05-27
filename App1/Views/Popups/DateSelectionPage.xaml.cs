@@ -25,13 +25,14 @@ namespace App1.Views.Popups
             };
             ToolbarItems.Add(completeButton);
         }
-        public DateSelectionPage(AssignmentModel assign)
+        public DateSelectionPage(AssignmentModel assign, bool _isFromPopup)
         {
             InitializeComponent();
             BindingContext = new DateSelectionViewModel(Navigation);
             if (assign != null)
             {
                 (BindingContext as DateSelectionViewModel).TempAssignment = assign;
+                (BindingContext as DateSelectionViewModel).IsFromPopup = _isFromPopup;
             }
 
             ToolbarItem completeButton = new ToolbarItem

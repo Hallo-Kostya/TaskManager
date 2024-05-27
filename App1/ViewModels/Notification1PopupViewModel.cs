@@ -36,11 +36,13 @@ namespace App1.ViewModels
             }
             if (int.TryParse(parameter, out int minutes))
             {
-                if (NotificationTempAssignment.ExecutionDate.AddMinutes(minutes) < DateTime.Now)
+                var newTime = NotificationTempAssignment.ExecutionDate.AddMinutes(minutes);
+                Console.WriteLine(newTime);
+                if ( newTime< DateTime.Now)
                 {
                     return;
                 }
-                NotificationTempAssignment.NotificationTime = NotificationTempAssignment.ExecutionDate.AddMinutes(minutes);
+                NotificationTempAssignment.NotificationTime = newTime;
                 NotificationTempAssignment.HasNotification = true;
                 NotificationTempAssignment.NotificationTimeMultiplier = minutes;
                 await Navigation.PopPopupAsync();
