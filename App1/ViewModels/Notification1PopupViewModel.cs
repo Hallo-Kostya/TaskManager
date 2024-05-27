@@ -31,7 +31,6 @@ namespace App1.ViewModels
         {
             if (parameter == "none")
             {
-                NotificationTempAssignment.HasNotification = false;
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
             }
@@ -43,6 +42,7 @@ namespace App1.ViewModels
                 }
                 NotificationTempAssignment.NotificationTime = NotificationTempAssignment.ExecutionDate.AddMinutes(minutes);
                 NotificationTempAssignment.HasNotification = true;
+                NotificationTempAssignment.NotificationTimeMultiplier = minutes;
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
             }

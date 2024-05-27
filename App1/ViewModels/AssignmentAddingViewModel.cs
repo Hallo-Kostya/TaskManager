@@ -144,6 +144,7 @@ namespace App1.ViewModels
                     Assignment.ExecutionDate = sender.ExecutionDate;
                     Assignment.NotificationTime = sender.NotificationTime;
                     Assignment.HasNotification = sender.HasNotification;
+                    Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                 });
             await Navigation.PushAsync(new DateSelectionPage(Assignment),false);
             await Navigation.PopAllPopupAsync();

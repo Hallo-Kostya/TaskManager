@@ -71,7 +71,10 @@ namespace App1.iOS
             };
             NotificationReceived?.Invoke(null, args);
         }
-
+        public void CancelNotification(string id)
+        {
+            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new string[] { id});
+        }
         NSDateComponents GetNSDateComponents(DateTime dateTime)
         {
             return new NSDateComponents

@@ -66,13 +66,12 @@ namespace App1.Views
             var isNotify= ((AssignmentAddingViewModel)BindingContext).Assignment.HasNotification;
             if (isNotify)
             {
-                var date = ((AssignmentAddingViewModel)BindingContext).Assignment.NotificationTime;
-                var name= ((AssignmentAddingViewModel)BindingContext).Assignment.Name;
+                var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
                 string title = $"Уведомление!";
-                string message = $"Ваш дедлайн по задаче {name} приближается!";
-                notificationManager.SendNotification(title, message, date);
-            }
-            
+                string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
+                notificationManager.CancelNotification(assign.ID.ToString());
+                notificationManager.SendNotification(title, message, assign.NotificationTime);
+            }  
         }
         void ShowNotification(string title, string message)
         {

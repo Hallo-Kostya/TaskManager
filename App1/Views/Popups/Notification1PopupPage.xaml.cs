@@ -23,12 +23,7 @@ namespace App1.Views.Popups
         {
             InitializeComponent();
             BindingContext = new Notification1PopupViewModel(Navigation);
-            //notificationManager = DependencyService.Get<INotificationManager>();
-            //notificationManager.NotificationReceived += (sender, eventArgs) =>
-            //{
-            //    var evtData = (NotificationEventArgs)eventArgs;
-            //    ShowNotification(evtData.Title, evtData.Message);
-            //};
+            notificationManager = DependencyService.Get<INotificationManager>();
         }
         public Notification1PopupPage(AssignmentModel assign)
         {
@@ -38,64 +33,16 @@ namespace App1.Views.Popups
             {
                 (BindingContext as Notification1PopupViewModel).NotificationTempAssignment= assign;
             }
-            //notificationManager = DependencyService.Get<INotificationManager>();
-            //notificationManager.NotificationReceived += (sender, eventArgs) =>
-            //{
-            //    var evtData = (NotificationEventArgs)eventArgs;
-            //    ShowNotification(evtData.Title, evtData.Message);
-            //};
+            notificationManager = DependencyService.Get<INotificationManager>();
         }
-        //private void Button1_Clicked(object sender, EventArgs e)
-        //{
-            
-        //}
-        //private void Button2_Clicked(object sender, EventArgs e)
-        //{
-            
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, SelectedDate);
-        //}
-        //private void Button3_Clicked(object sender, EventArgs e)
-        //{
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-5));
-        //}
-        //private void Button4_Clicked(object sender, EventArgs e)
-        //{
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, SelectedDate.AddMinutes(-30));
-        //}
-        //private void Button5_Clicked(object sender, EventArgs e)
-        //{
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, SelectedDate.AddHours(-1));
-        //}
-        //private void Button6_Clicked(object sender, EventArgs e)
-        //{
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, SelectedDate.AddDays(-1));
-        //}
-        //private void Button7_Clicked(object sender, EventArgs e)
-        //{
-        //    string title = $"Уведомление!";
-        //    string message = $"Ваш дедлайн приближается!";
-        //    notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(15));
-        //}
-        //void ShowNotification(string title, string message)
-        //{
-        //    Device.BeginInvokeOnMainThread(() =>
-        //    {
-        //        var msg = new Label()
-        //        {
-        //            Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-        //        };
-        //        Layouter.Children.Add(msg);
-        //    });
-        //}
+        private void CancelNotification_Clicked(object sender, EventArgs e)
+        {
+            var assignment = (BindingContext as Notification1PopupViewModel).NotificationTempAssignment;
+            if (assignment != null && assignment.HasNotification)
+            {
+                notificationManager.CancelNotification(assignment.ID.ToString());  // Отмена уведомления по идентификатору задачи
+                (BindingContext as Notification1PopupViewModel).NotificationTempAssignment.HasNotification = false;  // Обновление состояния задачи
+            }
+        }
     }
 }

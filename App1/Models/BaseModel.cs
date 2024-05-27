@@ -1,7 +1,4 @@
-﻿
-
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace App1.Models
 {

@@ -75,7 +75,17 @@ namespace LocalNotifications.Droid
             };
             NotificationReceived?.Invoke(null, args);
         }
-
+        public void CancelNotification(string id)
+        {
+            if (int.TryParse(id, out int notificationId))
+            {
+                manager.Cancel(notificationId);
+                var alarmIntent = new Intent(Forms.Context, typeof(AlarmHandler));
+                var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, notificationId, alarmIntent, PendingIntentFlags.UpdateCurrent);
+                var alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
+                alarmManager.Cancel(pendingAlarmIntent);
+            }
+        }
         public void Show(string title, string message)
         {
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using SQLite;
 using Xamarin.Forms;
@@ -8,11 +9,27 @@ namespace App1.Models
 {
     public class AssignmentModel:BaseModel       
     {
+        private DateTime _executionDate;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime ExecutionDate { get; set; } 
+        //public DateTime ExecutionDate { get; set; }
+       
+        public DateTime ExecutionDate
+        {
+            get => _executionDate;
+            set
+            {
+                if (_executionDate != value)
+                {
+                    _executionDate = value;
+                    OnPropertyChanged(nameof(ExecutionDate));
+                    if (HasNotification==true)
+                        UpdateNotificationTime();
+                }
+            }
+        }
         public string Tag { get; set; }
         public string TagColor { get; set; }
         public bool HasNotification { get; set; }
@@ -29,7 +46,24 @@ namespace App1.Models
         }
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
-        public string FolderName { get; set; } 
+        public string FolderName { get; set; }
+        public int NotificationTimeMultiplier { get; set; }
+        private void UpdateNotificationTime()
+        {
+            var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
+            if (newTime != null && newTime >= DateTime.Now && newTime <= ExecutionDate)
+                NotificationTime = newTime;
+            else
+                HasNotification = false;
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
     
 }

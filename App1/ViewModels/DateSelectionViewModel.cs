@@ -70,6 +70,7 @@ namespace App1.ViewModels
                 {
                     TempAssignment.NotificationTime = sender.NotificationTime;
                     TempAssignment.HasNotification = sender.HasNotification;
+                    TempAssignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                 });
             await Navigation.PushPopupAsync(new Notification1PopupPage(TempAssignment));
         }
