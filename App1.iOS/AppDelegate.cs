@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using UserNotifications;
 
 namespace App1.iOS
 {
@@ -24,6 +25,7 @@ namespace App1.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
+            UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
