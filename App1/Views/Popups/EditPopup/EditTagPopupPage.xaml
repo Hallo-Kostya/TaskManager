@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:model="clr-namespace:App1.Models" x:DataType="viewmodels:TagPopupViewModel"
+             x:Class="App1.Views.Popups.EditPopup.EditTagPopupPage"
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <behaviors:StringToColorConverter x:Key="StringToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Margin="305, 0, 50, 325">
+            <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
+                <StackLayout Padding="-10">
+                    <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
+                    <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout x:DataType="model:TagModel" Margin="5">
+                                    <!--BackgroundColor="{Binding TagColor}"-->
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TagPopupViewModel}}, Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+
+                                        <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                            <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                            <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Entry Text="{Binding WritenTag, Mode=TwoWay}" Placeholder="Создать новый тег" PlaceholderColor="Gray" FontSize="12" BackgroundColor="Color.Transparent" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
+                            <ImageButton Source="colors.png" BackgroundColor="Color.Transparent" Clicked="ColorClicked"/>
+                            <ImageButton Source="add.png" Command="{Binding SetTagCommand}" BackgroundColor="Color.Transparent" />
+                        </StackLayout>
+
+                        <StackLayout x:Name="Colors" IsVisible="false">
+                            <StackLayout Orientation="Horizontal">
+                                <Button BackgroundColor="#d71d1d" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#d71d1d"/>
+                                <Button BackgroundColor="#e18026" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e18026"/>
+                                <Button BackgroundColor="#e0cc19" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e0cc19"/>
+                                <Button BackgroundColor="#4fdd1d" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4fdd1d"/>
+                                <Button BackgroundColor="#99bd33" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99bd33"/>
+                                <Button BackgroundColor="#10edd2" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10edd2"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Button BackgroundColor="#00a8f0" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00a8f0"/>
+                                <Button BackgroundColor="#2b96c4" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#2b96c4"/>
+                                <Button BackgroundColor="#211ed3" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ed3"/>
+                                <Button BackgroundColor="#7218e4" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#7218e4"/>
+                                <Button BackgroundColor="#e11be5" WidthRequest="20" HeightRequest="0" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e11be5"/>
+                                <Button BackgroundColor="#e01a6d" WidthRequest="20" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e01a6d"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

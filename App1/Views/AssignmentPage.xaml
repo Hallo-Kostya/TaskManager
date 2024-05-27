@@ -216,6 +216,7 @@
                                                                         <StackLayout Orientation="Horizontal">
                                                                             <Image Source="clock1.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                                                             <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
+                                                                            <Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
                                                                             <Frame BackgroundColor="#3C3C3C" Padding="20,3,20,0" CornerRadius="50" HeightRequest="10" IsVisible="{Binding Tag, Converter={StaticResource StringToVisibilityConverter}}">
                                                                                 <StackLayout Orientation="Horizontal">
                                                                                     <Image Source="dot.png" VerticalOptions="Center" Margin="-13,0,0,0"/>
@@ -238,7 +239,6 @@
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
-            <Button BackgroundColor="Red" Clicked="Button_Clicked" Text="Send Notification"/>
             <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,15 ,20"/>
         </Grid>
     </StackLayout>

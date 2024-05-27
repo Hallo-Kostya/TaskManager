@@ -30,8 +30,7 @@
 
                 <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start" x:Name="NotificationsStack">
                     <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                    <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}" CommandParameter="{Binding Source={x:Reference DatePickerDate}, Path=.}"/>
-                    <DatePicker x:Name="DatePickerDate" IsVisible="false" Date="{Binding Assignment.ExecutionDate, Mode=TwoWay}"  TextColor="AliceBlue" HorizontalOptions="StartAndExpand"/>
+                    <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}"/>
                     <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="-20,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
                     <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}">
                         <ImageButton.Triggers>
@@ -48,11 +47,10 @@
 
                         </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton Source="alarm.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}" />
+                    <ImageButton x:Name="expand" Source="expand.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent"/>
                     <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
                     <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Clicked="ButtonSave_Clicked"/>
-                    <!--<Button Text="Отменить" Command="{Binding CancelCommand}" BackgroundColor="#8b6c96" CornerRadius="30" HorizontalOptions="FillAndExpand"></Button>-->
                 </StackLayout>
             </StackLayout>
         </Frame>

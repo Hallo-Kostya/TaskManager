@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:behaviors="clr-namespace:App1.Behaviors" 
+             xmlns:model="clr-namespace:App1.Models"
+             x:Class="App1.Views.Popups.EditPopup.EditFoldersPopupPage"
+             BackgroundColor="Color.Transparent">
+
+    <ContentPage.Content>
+        <StackLayout Margin="180, 0, 20, 325" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" >
+            <Frame BackgroundColor="#202020" CornerRadius="12" Padding="10,15">
+                <StackLayout>
+                    <Label Text="Выберите папку:" TextColor="AliceBlue" FontSize="12" />
+                    <CollectionView ItemsSource="{Binding FoldersList}"  SelectionMode="Single" SelectionChangedCommand="{Binding FolderSelectedCommand}" SelectedItem="{Binding SelectedFolder}" HeightRequest="100" VerticalScrollBarVisibility="Always">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout x:DataType="model:ListModel" Padding="0, 0, 0,0" Orientation="Horizontal">
+                                    <Image Source="align" />
+                                    <Label Text="{Binding Name}" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

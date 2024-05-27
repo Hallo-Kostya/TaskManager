@@ -1,5 +1,6 @@
 ﻿using App1.Models;
 using App1.Views.Popups;
+using App1.Views.Popups.EditPopup;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace App1.ViewModels
         public Command FoldersPopupCommand { get; }
         public Command PriorityPopupCommand { get; }
         public Command DatePopupCommand { get; }
+        public Command NotificationPopupCommand { get; }
         public ObservableCollection<string> TagList { get; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
@@ -63,6 +65,7 @@ namespace App1.ViewModels
                 DatePickerDat.IsVisible = false;
                 DatePickerDat.Focus();
             });
+            NotificationPopupCommand = new Command(ExecuteNotification);
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
@@ -87,7 +90,7 @@ namespace App1.ViewModels
                 {
                     Assignment.Tag = sender.Name;
                 });
-            await Navigation.PushPopupAsync(new TagPopupPage());
+            await Navigation.PushPopupAsync(new EditTagPopupPage());
         }
         private async void ExecuteFoldersPopup()
         {
@@ -98,7 +101,7 @@ namespace App1.ViewModels
                     Assignment.FolderName = sender.Name;
                     SelectedFolder = sender;
                 });
-            await Navigation.PushPopupAsync(new FoldersPopupPage());
+            await Navigation.PushPopupAsync(new EditFoldersPopupPage());
         }
 
         private async void ExecutePriorityPopup()
@@ -109,8 +112,23 @@ namespace App1.ViewModels
                 {
                     Assignment.Priority = sender.Priority;
                 });
-            await Navigation.PushPopupAsync(new PriorityPopupPage());
+            await Navigation.PushPopupAsync(new EditPriorityPopupPage());
         }
+
+        private async void ExecuteNotification()
+        {
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "DateChanged");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "DateChanged",
+                (sender) =>
+                {
+                    Assignment.ExecutionDate = sender.ExecutionDate;
+                    Assignment.NotificationTime = sender.NotificationTime;
+                    Assignment.HasNotification = sender.HasNotification;
+                    Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
+                });
+            await Navigation.PushAsync(new DateSelectionPage(Assignment), false);
+        }
+
         private async void OnCancel()
         {
             await Navigation.PopAsync();

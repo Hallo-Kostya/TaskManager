@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:behaviors="clr-namespace:App1.Behaviors"
+             x:Class="App1.Views.Popups.EditPopup.EditPriorityPopupPage"
+             BackgroundColor="Color.Transparent">
+
+    <ContentPage.Content>
+        <StackLayout Margin="300, 50, 0, 50">
+            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" Padding="0,5">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="high1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Высокий приоритет" Command="{Binding SetHighPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="-10,0,10,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="medium1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Средний приоритет" Command="{Binding SetMediumPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="low1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Низкий приоритет" Command="{Binding SetLowPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <Image Source="without1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
+                        <Button Text="Без приоритета" Command="{Binding SetNoPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>
