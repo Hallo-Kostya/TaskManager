@@ -7,8 +7,8 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <StackLayout Margin="300, 50, 0, 50">
-            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" Padding="0,5">
+        <StackLayout Margin="210, 140, 10, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
+            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0,5">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                         <Image Source="high1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>

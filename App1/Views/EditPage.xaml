@@ -22,7 +22,7 @@
     <ContentPage.Content>
         <StackLayout Padding="15,60,15,0">
             <StackLayout Orientation="Horizontal">
-                <ImageButton Source="back.png" Background="Color.Transparent" HorizontalOptions="StartAndExpand"/>
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
                 <Label Text="Мои дела" FontSize="20" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" />
                 
                 <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
@@ -42,8 +42,8 @@
 
             <StackLayout Orientation="Horizontal" Margin="0,0,0,0" VerticalOptions="Start">
                 <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
-                <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
-                <ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" />
+                <ImageButton x:Name="folders" Source="folders.png" Margin="5,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
+                <ImageButton x:Name="layout_list" Source="layout_list.png" Margin="5,0,0,0" BackgroundColor="Color.Transparent" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

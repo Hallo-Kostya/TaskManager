@@ -8,8 +8,8 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <StackLayout Margin="180, 0, 20, 325" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" >
-            <Frame BackgroundColor="#202020" CornerRadius="12" Padding="10,15">
+        <StackLayout Margin="50, 340, 190, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
+            <Frame BackgroundColor="#202020" CornerRadius="12" Padding="10,15" HorizontalOptions="StartAndExpand">
                 <StackLayout>
                     <Label Text="Выберите папку:" TextColor="AliceBlue" FontSize="12" />
                     <CollectionView ItemsSource="{Binding FoldersList}"  SelectionMode="Single" SelectionChangedCommand="{Binding FolderSelectedCommand}" SelectedItem="{Binding SelectedFolder}" HeightRequest="100" VerticalScrollBarVisibility="Always">

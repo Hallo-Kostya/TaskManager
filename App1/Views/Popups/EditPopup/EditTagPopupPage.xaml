@@ -14,7 +14,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Margin="305, 0, 50, 325">
+        <StackLayout Margin="10, 340, 190, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
             <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
