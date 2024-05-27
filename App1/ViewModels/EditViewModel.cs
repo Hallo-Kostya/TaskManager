@@ -49,8 +49,11 @@ namespace App1.ViewModels
                 }
             }
         }
+        public Command HandleChangeIsCompletedCommand { get; }
+        public Command DeleteCommand { get; }
         public EditViewModel(INavigation navigation)
         {
+            HandleChangeIsCompletedCommand = new Command(HandleChangeIsCompleted);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             TagList = new ObservableCollection<string>();
@@ -58,6 +61,7 @@ namespace App1.ViewModels
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
+            DeleteCommand = new Command(OnDelete);
             DatePopupCommand = new Command((arg) =>
             {
                 var DatePickerDat = arg as DatePicker;
@@ -72,7 +76,6 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
-
             var assignment = Assignment;
             if (string.IsNullOrEmpty(assignment.Name))
             {
@@ -81,6 +84,17 @@ namespace App1.ViewModels
 
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
+        }
+        private async void OnDelete()
+        {
+            var assignment = Assignment;
+            assignment.IsDeleted = true;
+            await App.AssignmentsDB.AddItemAsync(assignment);
+            await Navigation.PopAsync();
+        }
+        private  void HandleChangeIsCompleted()
+        {
+            Assignment.IsCompleted = !Assignment.IsCompleted;
         }
         private async void ExecuteLoadTagPopup()
         {

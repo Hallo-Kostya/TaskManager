@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -26,8 +27,10 @@ namespace App1.ViewModels
         public Command PriorityPopupCommand { get; }
         public Command DatePopupCommand {  get; }
         public Command NotificationPopupCommand { get; }
+        public Command OpenFullscreenCommand { get; }
 
-        
+
+
         public ObservableCollection<string> TagList { get; }
         public INavigation Navigation { get; set; }
         public Command BackgroundClickedCommand { get; }
@@ -64,6 +67,7 @@ namespace App1.ViewModels
 
         public AssignmentAddingViewModel(INavigation navigation)
         {
+            OpenFullscreenCommand = new Command(OpenFullscreen);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             TagList = new ObservableCollection<string>();
@@ -87,7 +91,6 @@ namespace App1.ViewModels
         }
         private async void OnSave()
         {
-
             var assignment = Assignment;
             if (string.IsNullOrEmpty(assignment.Name))
             {
@@ -98,6 +101,7 @@ namespace App1.ViewModels
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
+
         private async void ExecuteLoadTagPopup()
         {
             MessagingCenter.Unsubscribe<TagModel>(this, "TagChanged");
@@ -149,7 +153,12 @@ namespace App1.ViewModels
             await Navigation.PushAsync(new DateSelectionPage(Assignment),false);
             await Navigation.PopAllPopupAsync();
         }
-
+        private async void OpenFullscreen()
+        {
+            var assignment = Assignment;
+            await Navigation.PushAsync(new EditPage(assignment),false);
+            await Navigation.PopAllPopupAsync(false);
+        }
         private async void OnBackgroundClicked()
         {
             await Navigation.PopPopupAsync();

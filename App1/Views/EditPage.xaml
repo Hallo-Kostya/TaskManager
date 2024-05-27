@@ -20,16 +20,16 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Padding="15,60,15,0">
+        <StackLayout Padding="15,60,15,0" x:Name="notificationTest">
             <StackLayout Orientation="Horizontal">
-                <ImageButton Source="back.png" Background="Color.Transparent" HorizontalOptions="StartAndExpand"/>
-                <Label Text="Мои дела" FontSize="20" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" />
+                <ImageButton Source="back.png" Background="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelCommand}"/>
+                <Label Text="{Binding Assignment.FolderName}" FontSize="20" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" />
                 
-                <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DeleteCommand}"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
-                <ImageButton Source="priority.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" />
+                <ImageButton Source="priority.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding HandleChangeIsCompletedCommand}"/>
                 <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#EE82FF" FontAttributes="Bold" Margin="0,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
                         BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}" />
                 <ImageButton x:Name="Priority" Source="without1.png" BackgroundColor="#292929" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand" Padding="-20"/>
@@ -45,6 +45,7 @@
                 <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
                 <ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" />
             </StackLayout>
+            <Button Text="SaveButton" Command="{Binding SaveCommand}" Clicked="ButtonSave_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

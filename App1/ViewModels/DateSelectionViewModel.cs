@@ -57,8 +57,9 @@ namespace App1.ViewModels
             Navigation = navigation;
             Notification1PopupCommand = new Command(ExecuteNotification1Popup);
             Notification2PopupCommand = new Command(ExecuteNotification2Popup);
-            SelectedDate = DateTime.Now;
             TempAssignment = new AssignmentModel();
+            SelectedDate = TempAssignment.ExecutionDate;
+            SelectedTime = TempAssignment.ExecutionDate.TimeOfDay;
         }
 
         private async void ExecuteNotification1Popup()

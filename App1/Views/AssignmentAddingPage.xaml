@@ -47,7 +47,7 @@
 
                         </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton x:Name="expand" Source="expand.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent"/>
+                    <ImageButton x:Name="expand" Source="expand.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding OpenFullscreenCommand}"/>
                     <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
                     <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Clicked="ButtonSave_Clicked"/>
