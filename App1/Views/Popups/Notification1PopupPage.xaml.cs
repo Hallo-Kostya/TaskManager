@@ -31,17 +31,17 @@ namespace App1.Views.Popups
             BindingContext = new Notification1PopupViewModel(Navigation);
             if (assign != null)
             {
-                (BindingContext as Notification1PopupViewModel).NotificationTempAssignment= assign;
+                (BindingContext as Notification1PopupViewModel).Assignment= assign;
             }
             notificationManager = DependencyService.Get<INotificationManager>();
         }
         private void CancelNotification_Clicked(object sender, EventArgs e)
         {
-            var assignment = (BindingContext as Notification1PopupViewModel).NotificationTempAssignment;
+            var assignment = (BindingContext as Notification1PopupViewModel).Assignment;
             if (assignment != null && assignment.HasNotification)
             {
-                notificationManager.CancelNotification(assignment.ID.ToString());  // Отмена уведомления по идентификатору задачи
-                (BindingContext as Notification1PopupViewModel).NotificationTempAssignment.HasNotification = false;  // Обновление состояния задачи
+                notificationManager.CancelNotification(assignment.ID);  // Отмена уведомления по идентификатору задачи
+                (BindingContext as Notification1PopupViewModel).Assignment.HasNotification = false;  // Обновление состояния задачи
             }
         }
     }

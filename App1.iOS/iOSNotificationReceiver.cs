@@ -1,26 +1,21 @@
-﻿using App1.Services.Notifications;
-using Foundation;
+﻿using App1.iOS;
 using System;
-using System.Collections.Generic;
 using UserNotifications;
-using Xamarin.Forms;
 
-namespace App1.iOS
+public class iOSNotificationReceiver : UNUserNotificationCenterDelegate
 {
-    public class iOSNotificationReceiver : UNUserNotificationCenterDelegate
+    iOSNotificationManager notificationManager;
+
+    public iOSNotificationReceiver(iOSNotificationManager manager)
     {
-        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
-        {
-            ProcessNotification(notification);
-            completionHandler(UNNotificationPresentationOptions.Alert);
-        }
+        notificationManager = manager;
+    }
 
-        void ProcessNotification(UNNotification notification)
-        {
-            string title = notification.Request.Content.Title;
-            string message = notification.Request.Content.Body;
-
-            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
-        }
+    public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+    {
+        var title = notification.Request.Content.Title;
+        var message = notification.Request.Content.Body;
+        notificationManager.ReceiveNotification(title, message);
+        completionHandler(UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Sound);
     }
 }

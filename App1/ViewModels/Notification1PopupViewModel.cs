@@ -13,40 +13,36 @@ namespace App1.ViewModels
     public class Notification1PopupViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
-        private AssignmentModel _notificationTempAssignment;
-        public AssignmentModel NotificationTempAssignment
-        {
-            get { return _notificationTempAssignment; }
-            set { _notificationTempAssignment = value; OnPropertyChanged(); }
-        }
         public Command SetNotificationTimeCommand { get; }
 
         public Notification1PopupViewModel(INavigation navigation)
         {
+            Assignment = new AssignmentModel();
             Navigation = navigation;
             SetNotificationTimeCommand = new Command<string>(SetNotificationTime);
         }
 
         private  async void SetNotificationTime(string parameter)
         {
+            var assign = Assignment;
             if (parameter == "none")
             {
                 await Navigation.PopPopupAsync();
-                MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
+                MessagingCenter.Send(assign, "NotificationSetted");
             }
             if (int.TryParse(parameter, out int minutes))
             {
-                var newTime = NotificationTempAssignment.ExecutionDate.AddMinutes(minutes);
+                var newTime = Assignment.ExecutionDate.AddMinutes(minutes);
                 Console.WriteLine(newTime);
                 if ( newTime< DateTime.Now)
                 {
                     return;
                 }
-                NotificationTempAssignment.NotificationTime = newTime;
-                NotificationTempAssignment.HasNotification = true;
-                NotificationTempAssignment.NotificationTimeMultiplier = minutes;
+                Assignment.NotificationTime = newTime;
+                Assignment.HasNotification = true;
+                Assignment.NotificationTimeMultiplier = minutes;
                 await Navigation.PopPopupAsync();
-                MessagingCenter.Send(NotificationTempAssignment, "NotificationSetted");
+                MessagingCenter.Send(assign, "NotificationSetted");
             }
         }
     }

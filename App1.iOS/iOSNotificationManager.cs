@@ -1,55 +1,73 @@
 ﻿using System;
+using System.Collections.Generic;
+using App1.iOS;
 using App1.Services.Notifications;
 using Foundation;
+using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(App1.iOS.iOSNotificationManager))]
+[assembly: Dependency(typeof(iOSNotificationManager))]
 namespace App1.iOS
 {
     public class iOSNotificationManager : INotificationManager
     {
-        int messageId = 0;
+        int messageId = -1;
         bool hasNotificationsPermission;
         public event EventHandler NotificationReceived;
 
-        public void Initialize()
+        public static iOSNotificationManager Instance { get; private set; }
+
+        public iOSNotificationManager()
         {
-            // request the permission to use local notifications
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
-            {
-                hasNotificationsPermission = approved;
-            });
+            Instance = this;
+            Initialize();
         }
 
-        public void SendNotification(string title, string message, DateTime? notifyTime = null)
+        public void Initialize()
         {
-            // EARLY OUT: app doesn't have permissions
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (granted, error) =>
+            {
+                hasNotificationsPermission = granted;
+            });
+
+            UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver(this);
+        }
+
+        public void SendNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
+        {
             if (!hasNotificationsPermission)
             {
                 return;
             }
 
-            messageId++;
+            messageId = id != -1 ? id : messageId++;
 
-            var content = new UNMutableNotificationContent()
+            var content = new UNMutableNotificationContent
             {
                 Title = title,
-                Subtitle = "",
                 Body = message,
-                Badge = 1
+                Sound = UNNotificationSound.Default
             };
 
             UNNotificationTrigger trigger;
             if (notifyTime != null)
             {
-                // Create a calendar-based trigger.
-                trigger = UNCalendarNotificationTrigger.CreateTrigger(GetNSDateComponents(notifyTime.Value), false);
+                var triggerDate = notifyTime.Value.ToLocalTime();
+                var dateComponents = new NSDateComponents
+                {
+                    Year = triggerDate.Year,
+                    Month = triggerDate.Month,
+                    Day = triggerDate.Day,
+                    Hour = triggerDate.Hour,
+                    Minute = triggerDate.Minute,
+                    Second = triggerDate.Second
+                };
+                trigger = UNCalendarNotificationTrigger.CreateTrigger(dateComponents, false);
             }
             else
             {
-                // Create a time-based trigger, interval is in seconds and must be greater than 0.
-                trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(0.25, false);
+                trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false);
             }
 
             var request = UNNotificationRequest.FromIdentifier(messageId.ToString(), content, trigger);
@@ -57,35 +75,24 @@ namespace App1.iOS
             {
                 if (err != null)
                 {
-                    throw new Exception($"Failed to schedule notification: {err}");
+                    Console.WriteLine($"Failed to schedule notification: {err}");
                 }
             });
         }
 
+        public void CancelNotification(int id)
+        {
+            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new string[] { id.ToString() });
+        }
+
         public void ReceiveNotification(string title, string message)
         {
-            var args = new NotificationEventArgs()
+            var args = new NotificationEventArgs
             {
                 Title = title,
                 Message = message
             };
             NotificationReceived?.Invoke(null, args);
-        }
-        public void CancelNotification(string id)
-        {
-            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new string[] { id});
-        }
-        NSDateComponents GetNSDateComponents(DateTime dateTime)
-        {
-            return new NSDateComponents
-            {
-                Month = dateTime.Month,
-                Day = dateTime.Day,
-                Year = dateTime.Year,
-                Hour = dateTime.Hour,
-                Minute = dateTime.Minute,
-                Second = dateTime.Second
-            };
         }
     }
 }

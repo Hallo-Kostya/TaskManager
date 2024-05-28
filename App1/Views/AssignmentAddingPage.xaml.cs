@@ -63,14 +63,13 @@ namespace App1.Views
 
         private void ButtonSave_Clicked(object sender, EventArgs e)
         {
-            var isNotify= ((AssignmentAddingViewModel)BindingContext).Assignment.HasNotification;
-            if (isNotify)
+            var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
+            if (assign.HasNotification)
             {
-                var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
                 string title = $"Уведомление!";
                 string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
-                notificationManager.CancelNotification(assign.ID.ToString());
-                notificationManager.SendNotification(title, message, assign.NotificationTime);
+                notificationManager.CancelNotification(assign.ID);
+                notificationManager.SendNotification(title, message, assign.NotificationTime,assign.ID);
             }  
         }
         void ShowNotification(string title, string message)

@@ -25,7 +25,7 @@ namespace App1.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
-            UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver();
+            UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver(iOSNotificationManager.Instance);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

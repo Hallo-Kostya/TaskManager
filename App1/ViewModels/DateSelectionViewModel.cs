@@ -15,12 +15,6 @@ namespace App1.ViewModels
     public class DateSelectionViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
-        private AssignmentModel _tempAssignment;
-        public AssignmentModel TempAssignment
-        {
-            get { return _tempAssignment; }
-            set { _tempAssignment = value; OnPropertyChanged(); }
-        }
         public Command Notification1PopupCommand { get; }
         public Command Notification2PopupCommand { get; }
         public Command OnBackPressedCommand { get; }
@@ -61,25 +55,25 @@ namespace App1.ViewModels
             Navigation = navigation;
             Notification1PopupCommand = new Command(ExecuteNotification1Popup);
             Notification2PopupCommand = new Command(ExecuteNotification2Popup);
-            TempAssignment = new AssignmentModel();
+            Assignment = new AssignmentModel();
             OnBackPressedCommand = new Command(OnBackPressed);
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
-            SelectedDate = TempAssignment.ExecutionDate;
-            SelectedTime = TempAssignment.ExecutionDate.TimeOfDay;
+            SelectedDate = Assignment.ExecutionDate;
+            SelectedTime = Assignment.ExecutionDate.TimeOfDay;
         }
 
         private async void ExecuteNotification1Popup()
         {
-            TempAssignment.ExecutionDate = SelectedDate;
+            Assignment.ExecutionDate = SelectedDate;
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "NotificationSetted");
             MessagingCenter.Subscribe<AssignmentModel>(this, "NotificationSetted",
                 (sender) =>
                 {
-                    TempAssignment.NotificationTime = sender.NotificationTime;
-                    TempAssignment.HasNotification = sender.HasNotification;
-                    TempAssignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
+                    Assignment.NotificationTime = sender.NotificationTime;
+                    Assignment.HasNotification = sender.HasNotification;
+                    Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                 });
-            await Navigation.PushPopupAsync(new Notification1PopupPage(TempAssignment));
+            await Navigation.PushPopupAsync(new Notification1PopupPage(Assignment));
         }
 
         public async void OnBackPressed()
@@ -88,14 +82,14 @@ namespace App1.ViewModels
             if (IsFromPopup)
             {
                 var assign=new AssignmentModel();
-                assign.Name= TempAssignment.Name;
-                assign.Description= TempAssignment.Description;
-                assign.FolderName= TempAssignment.FolderName;
-                assign.ID= TempAssignment.ID;
-                assign.IsCompleted=TempAssignment.IsCompleted;
-                assign.Priority= TempAssignment.Priority;
-                assign.Tag= TempAssignment.Tag;
-                assign.TagColor= TempAssignment.TagColor;
+                assign.Name= Assignment.Name;
+                assign.Description= Assignment.Description;
+                assign.FolderName= Assignment.FolderName;
+                assign.ID= Assignment.ID;
+                assign.IsCompleted= Assignment.IsCompleted;
+                assign.Priority= Assignment.Priority;
+                assign.Tag= Assignment.Tag;
+                assign.TagColor= Assignment.TagColor;
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign));
             }
                 
@@ -108,8 +102,8 @@ namespace App1.ViewModels
 
         public  async Task  AcceptAndClose()
         {
-            TempAssignment.ExecutionDate = SelectedDate;
-            var assign = TempAssignment;
+            Assignment.ExecutionDate = SelectedDate;
+            var assign = Assignment;
             await Navigation.PopAsync();
             if(IsFromPopup)
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign), false);
