@@ -108,6 +108,11 @@ namespace App1.ViewModels
             SelectedFolder.Name = "Мои дела";
             IsFiltered = false;
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
+            MessagingCenter.Subscribe<ListModel>(this, "UpdatePage", async (sender) =>
+            {
+                SelectedFolder = sender;
+                await ExecuteLoadAssignmentCommand();
+            });
         }
 
         public  void OnAppearing()
