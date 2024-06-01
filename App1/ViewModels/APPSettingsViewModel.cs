@@ -12,7 +12,7 @@ namespace App1.ViewModels
         public Command EnableArchiveCleaningCommand { get; }
         public Command SetCleanUpIntervalCommand { get; }
         public INavigation Navigation { get; set; }
-        private int _cleaningInterval; // Интервал очистки в часах
+        private int _cleaningInterval; 
         private bool _isArchiveCleaningEnabled;
 
         public int CleaningInterval
