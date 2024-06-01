@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Essentials;
 using App1.Services.ArchiveCleanup;
+using System;
 
 namespace App1.ViewModels
 {
@@ -22,7 +23,11 @@ namespace App1.ViewModels
         public bool IsArchiveCleaningEnabled
         {
             get => _isArchiveCleaningEnabled;
-            set => SetProperty(ref _isArchiveCleaningEnabled, value);
+            set
+            {
+                SetProperty(ref _isArchiveCleaningEnabled, value);
+                Console.WriteLine("IsArchiveCleaningEnabled changed: " + _isArchiveCleaningEnabled);
+            }
         }
 
         public APPSettingsViewModel(INavigation _navigation)
@@ -31,9 +36,10 @@ namespace App1.ViewModels
             Navigation = _navigation;
             SetCleanUpIntervalCommand = new Command<string>(SetCleanUpInterval);
             CleaningInterval = Preferences.Get("CleaningInterval", 24);
-            IsArchiveCleaningEnabled = Preferences.Get("IsArchiveCleaningEnabled", true);
+            IsArchiveCleaningEnabled = Preferences.Get("IsArchiveCleaningEnabled", false);
             SaveSettingsCommand = new Command(SaveSettings);
             CancelSettingsCommand = new Command(CancelSettings);
+            Console.WriteLine("Initial IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
         }
         
         private void EnableCleaning()
@@ -55,16 +61,24 @@ namespace App1.ViewModels
         }
         private async void SaveSettings()
         {
-            if (IsArchiveCleaningEnabled)
+            Console.WriteLine("SaveSettings called. IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
+            var scheduler = DependencyService.Get<IArchiveCleanupScheduler>();
+            if (IsArchiveCleaningEnabled==true)
             {
+                
                 Preferences.Set("CleaningInterval", CleaningInterval);
                 Preferences.Set("IsArchiveCleaningEnabled", IsArchiveCleaningEnabled);
-
-                // Планирование задачи очистки
-                var scheduler = DependencyService.Get<IArchiveCleanupScheduler>();
                 scheduler.ScheduleArchiveCleanup(CleaningInterval);
+                Console.WriteLine("APPSettingsViewModel", "Scheduled archive cleanup with interval: " + CleaningInterval + " hours");
+                Console.WriteLine(Preferences.Get("IsArchiveCleaningEnabled", false));
             }
+            else 
+            {
+                Preferences.Set("IsArchiveCleaningEnabled", IsArchiveCleaningEnabled);
+                scheduler.CancelArchiveCleanup();
+            }  
             await Navigation.PopAsync();
         }
+            
     }
 }

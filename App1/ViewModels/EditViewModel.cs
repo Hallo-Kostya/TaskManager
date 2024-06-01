@@ -1,4 +1,5 @@
 ﻿using App1.Models;
+using App1.Views;
 using App1.Views.Popups;
 using App1.Views.Popups.EditPopup;
 using Rg.Plugins.Popup.Extensions;
@@ -23,6 +24,7 @@ namespace App1.ViewModels
         public Command DatePopupCommand { get; }
         public Command NotificationPopupCommand { get; }
         public ObservableCollection<string> TagList { get; }
+        public bool isFromPopup { get; set; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
         {
@@ -53,6 +55,7 @@ namespace App1.ViewModels
         public Command DeleteCommand { get; }
         public EditViewModel(INavigation navigation)
         {
+            isFromPopup = false;
             HandleChangeIsCompletedCommand = new Command(HandleChangeIsCompleted);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
@@ -145,8 +148,12 @@ namespace App1.ViewModels
 
         private async void OnCancel()
         {
+            if (isFromPopup)
+            {
+                await Navigation.PopAsync(false);
+                await Navigation.PushPopupAsync(new AssignmentAddingPage(Assignment), false);
+            }
             await Navigation.PopAsync();
-            MessagingCenter.Send(this, "PopupClosed");
         }
     }
 }

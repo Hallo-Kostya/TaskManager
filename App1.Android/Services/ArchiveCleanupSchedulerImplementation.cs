@@ -13,5 +13,10 @@ namespace App1.Droid.Services
             var context = Android.App.Application.Context;
             ArchiveCleanupScheduler.ScheduleArchiveCleanup(context, intervalInHours);
         }
+        public void CancelArchiveCleanup()
+        {
+            var context = Android.App.Application.Context;
+            ArchiveCleanupScheduler.CancelArchiveCleanup(context);
+        }
     }
 }

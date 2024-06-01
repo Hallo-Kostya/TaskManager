@@ -18,7 +18,6 @@ namespace App1.Views
     public partial class EditPage : ContentPage
     {
         INotificationManager notificationManager;
-        bool isFromPopup;
         public EditPage()
         {
             InitializeComponent();
@@ -37,8 +36,8 @@ namespace App1.Views
             if (assignment != null )
             {
                 ((EditViewModel)BindingContext).Assignment=assignment;
+                ((EditViewModel)BindingContext).isFromPopup = _isFromPopup;
             }
-            isFromPopup= _isFromPopup;
             notificationManager = DependencyService.Get<INotificationManager>();
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
@@ -46,20 +45,7 @@ namespace App1.Views
                 ShowNotification(evtData.Title, evtData.Message);
             };
         }
-        protected override bool OnBackButtonPressed()
-        {
-            var assign = ((EditViewModel)BindingContext).Assignment;
-            if (isFromPopup)
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await Navigation.PopAsync(false);
-                    await Navigation.PushPopupAsync(new AssignmentAddingPage(assign), false);
-                });
-                return true; // Возвращает true, чтобы отменить стандартное поведение кнопки "назад"
-            }
-            return true; // Возвращает true, чтобы отменить стандартное поведение кнопки "назад"
-        }
+       
 
         private void ButtonSave_Clicked(object sender, EventArgs e)
             {
