@@ -32,7 +32,7 @@ namespace App1.Droid.Services
 
         public static void CancelArchiveCleanup(Context context)
         {
-            Intent intent = new Intent(context, typeof(AlarmHandler));
+            Intent intent = new Intent(context, typeof(ArchiveCleanupReceiver));
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(context, AlarmId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
             AlarmManager alarmManager = (AlarmManager)context.GetSystemService(Context.AlarmService);
