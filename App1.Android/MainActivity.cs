@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -8,6 +7,9 @@ using App1.Services.Notifications;
 using LocalNotifications.Droid;
 using Xamarin.Forms;
 using Android.Content;
+using Android.App.Job;
+using App1.Droid.Services;
+using Xamarin.Essentials;
 
 namespace App1.Droid
 {
@@ -22,6 +24,15 @@ namespace App1.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             CreateNotificationFromIntent(Intent);
+            ScheduleJob();
+        }
+        void ScheduleJob()
+        {
+            // Получаем интервал из настроек
+            var interval = Preferences.Get("CleaningInterval", 24); // 24 - значение по умолчанию
+
+            // Планирование задачи очистки
+            ArchiveCleanupScheduler.ScheduleArchiveCleanup(this, interval);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -42,5 +53,6 @@ namespace App1.Droid
                 DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
             }
         }
+        
     }
 }

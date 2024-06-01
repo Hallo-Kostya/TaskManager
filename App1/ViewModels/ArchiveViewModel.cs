@@ -1,4 +1,5 @@
 ﻿using App1.Models;
+using App1.Services.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,13 +17,16 @@ namespace App1.ViewModels
         public Command DeleteArchivedAssignmentCommand { get; }
         public Command RecoverAssignmentCommand { get; }
         public ObservableCollection<AssignmentModel> Archive { get; set; }
+        INotificationManager notificationManager;
         public ArchiveViewModel()
         {
+            notificationManager = DependencyService.Get<INotificationManager>();
             DeleteArchivedAssignmentCommand = new Command<AssignmentModel>(DeleteAssignment);
             RecoverAssignmentCommand = new Command<AssignmentModel>(RecoverAssignment);
             ClearArchiveCommand = new Command(ClearArchive);
             LoadArchiveCommand=new Command(async () => await ExecuteLoadArchive());
             Archive = new ObservableCollection<AssignmentModel>();
+            
         }
 
         public async Task ExecuteLoadArchive()
@@ -57,17 +61,24 @@ namespace App1.ViewModels
                 return;
             }
             assignment.IsDeleted = false;
+            if (assignment.NotificationTime>=DateTime.Now && assignment.HasNotification)
+            {
+                string title = $"Уведомление!";
+                string message = $"Ваш дедлайн по задаче {assignment.Name} приближается!";
+                notificationManager.SendNotification(title, message, assignment.NotificationTime,assignment.ID);
+            }
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadArchive();
         }
         private async void ClearArchive()
         {
-            var deletedAssignments = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);
-            foreach (var item in deletedAssignments)
-            {
-                await App.AssignmentsDB.DeleteItemAsync(item.ID);
-            }
-            await ExecuteLoadArchive();
+                var deletedAssignments = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);
+                foreach (var item in deletedAssignments)
+                {
+                    await App.AssignmentsDB.DeleteItemAsync(item.ID);
+                }
+                await ExecuteLoadArchive();
         }
+       
     }
 }

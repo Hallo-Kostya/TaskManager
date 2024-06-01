@@ -36,7 +36,7 @@ namespace App1.ViewModels
 
         private async void OnEdit(AssignmentModel assignment)
         {
-            await Navigation.PushAsync(new EditPage(assignment));
+            await Navigation.PushAsync(new EditPage(assignment,false));
         }
        private async void OnSearchBarTextChanged()
        {   if (SearchedText.Length > 0)

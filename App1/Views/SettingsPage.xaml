@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:SettingsViewModel"
              x:Class="App1.Views.SettingsPage"
              BackgroundImageSource="background.png"
              Shell.FlyoutBehavior="Disabled">
@@ -35,7 +35,7 @@
             <StackLayout Orientation="Horizontal">
                 <Image Source="ellipsis.png"/>
                 <Label Text="Общие" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
-                <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+                <ImageButton  Source="arrow.png" Command="{Binding OpenAllAppSettingsCommand}"/>
             </StackLayout>
         </Frame>
         <Frame BackgroundColor="#80000000" CornerRadius="25"  Margin="10,17,10,0" HeightRequest="20">

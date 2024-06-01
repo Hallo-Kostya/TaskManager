@@ -78,6 +78,9 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArchiveCleanupReceiver.cs" />
+    <Compile Include="Services\ArchiveCleanupScheduler.cs" />
+    <Compile Include="Services\ArchiveCleanupSchedulerImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

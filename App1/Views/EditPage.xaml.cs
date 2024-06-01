@@ -2,6 +2,7 @@
 using App1.Services.Notifications;
 using App1.ViewModels;
 using App1.Views.Popups;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace App1.Views
     public partial class EditPage : ContentPage
     {
         INotificationManager notificationManager;
+        bool isFromPopup;
         public EditPage()
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace App1.Views
                 ShowNotification(evtData.Title, evtData.Message);
             };
         }
-        public EditPage(AssignmentModel assignment)
+        public EditPage(AssignmentModel assignment,bool _isFromPopup)
         {
             InitializeComponent();
             BindingContext = new EditViewModel(Navigation);
@@ -36,6 +38,7 @@ namespace App1.Views
             {
                 ((EditViewModel)BindingContext).Assignment=assignment;
             }
+            isFromPopup= _isFromPopup;
             notificationManager = DependencyService.Get<INotificationManager>();
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
@@ -43,18 +46,32 @@ namespace App1.Views
                 ShowNotification(evtData.Title, evtData.Message);
             };
         }
-
-        private void ButtonSave_Clicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
             var assign = ((EditViewModel)BindingContext).Assignment;
-            if (assign.HasNotification)
+            if (isFromPopup)
             {
-                string title = $"Уведомление!";
-                string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
-                notificationManager.CancelNotification(assign.ID);
-                notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PopAsync(false);
+                    await Navigation.PushPopupAsync(new AssignmentAddingPage(assign), false);
+                });
+                return true; // Возвращает true, чтобы отменить стандартное поведение кнопки "назад"
             }
+            return true; // Возвращает true, чтобы отменить стандартное поведение кнопки "назад"
         }
+
+        private void ButtonSave_Clicked(object sender, EventArgs e)
+            {
+                var assign = ((EditViewModel)BindingContext).Assignment;
+                if (assign.HasNotification)
+                {
+                    string title = $"Уведомление!";
+                    string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
+                    notificationManager.CancelNotification(assign.ID);
+                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
+                }
+            }
         void ShowNotification(string title, string message)
         {
             Device.BeginInvokeOnMainThread(() =>

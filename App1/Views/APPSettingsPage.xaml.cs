@@ -11,13 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace App1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingsPage : ContentPage
+    public partial class APPSettingsPage : ContentPage
     {
-        public SettingsPage()
+        public APPSettingsPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new SettingsViewModel(Navigation);
+            BindingContext = new APPSettingsViewModel(Navigation);
         }
     }
 }

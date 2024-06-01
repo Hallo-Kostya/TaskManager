@@ -26,5 +26,6 @@ namespace App1.Droid
                 manager.Show(title, message);
             }
         }
+      
     }
 }

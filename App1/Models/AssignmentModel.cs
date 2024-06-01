@@ -9,6 +9,7 @@ namespace App1.Models
 {
     public class AssignmentModel:BaseModel       
     {
+        private bool _isOverdue = false;
         private DateTime _executionDate = DateTime.Now;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -46,7 +47,20 @@ namespace App1.Models
         }
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
-        public string FolderName { get; set; }
+        
+        public bool IsOverdue
+        {
+            get => _isOverdue;
+            set
+            {
+                if (_isOverdue != value)
+                {
+                    _isOverdue = value;
+                    OnPropertyChanged(nameof(IsOverdue));
+                }
+            }
+        }
+        public string FolderName { get; set; } = "Мои дела";
         public int NotificationTimeMultiplier { get; set; }
         private void UpdateNotificationTime()
         {
@@ -55,6 +69,10 @@ namespace App1.Models
                 NotificationTime = newTime;
             else
                 HasNotification = false;
+        }
+        public void CheckIfOverdue()
+        {
+            IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
         }
 
 

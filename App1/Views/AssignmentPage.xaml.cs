@@ -146,13 +146,7 @@ namespace App1.Views
         {
 
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            string title = $"Уведомление!";
-            string message = $"Ваш дедлайн приближается!";
-            notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(15));
-        }
+        
         void ShowNotification(string title, string message)
         {
             Device.BeginInvokeOnMainThread(() =>

@@ -1,4 +1,6 @@
+using App1.Data;
 using App1.Models;
+using App1.Services.Notifications;
 using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
@@ -37,7 +39,7 @@ namespace App1.ViewModels
         }
 
 
-
+        INotificationManager notificationManager;
 
         private bool IsFiltered { get; set; } 
         private TagModel selectedtag { get; set; }
@@ -100,6 +102,7 @@ namespace App1.ViewModels
             FilterByPriorityCommand = new Command(OnFiltered);
             SelectedTag = new TagModel();
             SelectedTag.Name = "без тега";
+            notificationManager = DependencyService.Get<INotificationManager>();
             //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
             //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
             //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
@@ -170,11 +173,15 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
+                var a = (await App.AssignmentsDB.GetItemsAsync());
+                foreach (var assignment in a)
+                {
+                    assignment.CheckIfOverdue();
+                }
                 if (SelectedFolder.Name != "Мои дела")
                 {
                     if (IsFiltered)
                     {
-                        var a = (await App.AssignmentsDB.GetItemsAsync());
                         var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.Tag == SelectedTag.Name) &&(t.FolderName==SelectedFolder.Name));
                         var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true)&& (t.FolderName == SelectedFolder.Name)&& (t.Tag == SelectedTag.Name));///GetSortedByDate(DateTime date);
                         assignments = new ObservableCollection<AssignmentModel>(assList);
@@ -182,7 +189,6 @@ namespace App1.ViewModels
                     }
                     else
                     {
-                        var a = (await App.AssignmentsDB.GetItemsAsync());
                         var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false)&& (t.FolderName == SelectedFolder.Name));
                         var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true)&& (t.FolderName == SelectedFolder.Name));///GetSortedByDate(DateTime date);
                         assignments = new ObservableCollection<AssignmentModel>(assList);
@@ -193,7 +199,6 @@ namespace App1.ViewModels
                 {
                     if (IsFiltered)
                     {
-                        var a = (await App.AssignmentsDB.GetItemsAsync());
                         var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.Tag == SelectedTag.Name));
                         var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true)&& (t.Tag == SelectedTag.Name));///GetSortedByDate(DateTime date);
                         assignments = new ObservableCollection<AssignmentModel>(assList);
@@ -201,7 +206,6 @@ namespace App1.ViewModels
                     }
                     else
                     {
-                        var a = (await App.AssignmentsDB.GetItemsAsync());
                         var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false));
                         var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true));///GetSortedByDate(DateTime date);
                         assignments = new ObservableCollection<AssignmentModel>(assList);
@@ -313,7 +317,7 @@ namespace App1.ViewModels
         private async void OnEditAssignment(AssignmentModel assignment)
         {
 
-            await Navigation.PushAsync(new EditPage(assignment));
+            await Navigation.PushAsync(new EditPage(assignment,false));
         }
 
         private async void OnDeleteAssignment(AssignmentModel assignment)
@@ -323,14 +327,17 @@ namespace App1.ViewModels
                 return;
             }
             assignment.IsDeleted = true;
+
+            if (assignment.HasNotification)
+            {
+                notificationManager.CancelNotification(assignment.ID);  // Отмена уведомления по идентификатору задачи
+            }
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
         }
 
         private async void ExecuteTagSelectPopup()
         {
-
-
             await Navigation.PushPopupAsync(new TagSelectPopupPage());
             MessagingCenter.Unsubscribe<TagModel>(this, "TagSelected");
             MessagingCenter.Subscribe<TagModel>(this, "TagSelected", async (sender) =>

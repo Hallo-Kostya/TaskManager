@@ -157,7 +157,7 @@ namespace App1.ViewModels
         private async void OpenFullscreen()
         {
             var assignment = Assignment;
-            await Navigation.PushAsync(new EditPage(assignment),false);
+            await Navigation.PushAsync(new EditPage(assignment,true),false);
             await Navigation.PopAllPopupAsync(false);
         }
         private async void OnBackgroundClicked()
