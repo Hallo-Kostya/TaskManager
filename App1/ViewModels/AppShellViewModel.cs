@@ -58,8 +58,6 @@ namespace App1.ViewModels
         }
         private void ToMain()
         {
-            //await Navigation.PopToRootAsync(false);
-            //await Shell.Current.GoToAsync(nameof(AssignmentPage));
             var folder = new ListModel();
             folder.Name = "Мои дела";
             MessagingCenter.Send(folder, "UpdatePage");
@@ -90,28 +88,14 @@ namespace App1.ViewModels
             await Navigation.PushAsync(new FolderAddingPage());
             MessagingCenter.Unsubscribe<FolderAddingViewModel>(this, "FolderClosed");
             MessagingCenter.Subscribe<FolderAddingViewModel>(this, "FolderClosed", async (sender) => await OnLoaded());
-           
             Shell.Current.FlyoutIsPresented = false;
         }
 
         private void OnSelected(ListModel folder)
         {
-            //await Navigation.PopToRootAsync(false);
-            //await Shell.Current.Navigation.PopAsync(false);
-            //AssignmentPage existingPage = Navigation.NavigationStack.FirstOrDefault(page => page is AssignmentPage);
-            //NavigationPage.SetHasBackButton(existingPage, false);
-            // Возврат на корневую страницу; // Получение текущей страницы
-            //existingPage.UpdateContent(folder); // Обновление данных на странице
-
-            //// Если страницы не существует, создаем новую и добавляем в стек навигации
-            //var newPage = new AssignmentPage(folder);
-            //NavigationPage.SetHasBackButton(newPage, false);
-            //await Shell.Current.Navigation.PushAsync(newPage,false);
             MessagingCenter.Send(folder, "UpdatePage");
             Shell.Current.FlyoutIsPresented = false;
         }
-
-        // Закрываем боковое меню Flyo
     }
 }
     

@@ -96,8 +96,9 @@ namespace App1.ViewModels
             {
                 assignment.Name = "Без названия";
             }
-            
+            SelectedFolder.Count++;
             await App.AssignmentsDB.AddItemAsync(assignment);
+            await App.AssignmentsDB.AddListAsync(SelectedFolder);
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
