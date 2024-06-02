@@ -158,5 +158,11 @@ namespace App1.Views
                 Test.Children.Add(msg);
             });
         }
+
+        private void OnMenuButtonClicked(object sender, EventArgs e)
+        {
+            // Открытие боковой панели
+            Shell.Current.FlyoutIsPresented = true;
+        }
     }
 }

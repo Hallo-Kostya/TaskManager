@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="App1.Views.Popups.FilterSelectPopupPage"
+             BackgroundColor="Color.Transparent">
+    <ContentPage.Content>
+        <StackLayout Margin="150, 80, 15, 300" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand">
+            <Frame BackgroundColor="#353535" Padding="15, 15" CornerRadius="8">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Дата" TextColor="AliceBlue" FontSize="15" BackgroundColor="Color.Transparent" />
+                        <ImageButton Source="arrow_down_wide_narrow.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Margin="0, 10">
+                        <Label Text="Приоритет" TextColor="AliceBlue" FontSize="15" BackgroundColor="Color.Transparent" />
+                        <ImageButton Source="arrow_down_wide_narrow.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Произвольно" TextColor="AliceBlue" FontSize="15" BackgroundColor="Color.Transparent" />
+                        <ImageButton Source="arrow_down_wide_narrow.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>
