@@ -21,7 +21,6 @@ namespace App1.ViewModels
         {
             get => _assignments;
             set => SetProperty(ref _assignments, value);
-
         }
         private ListModel _selectedfolder;
         public ListModel SelectedFolder

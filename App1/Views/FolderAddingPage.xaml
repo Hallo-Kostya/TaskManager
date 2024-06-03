@@ -1,21 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:App1.ViewModels" 
-             x:DataType="viewmodels:FolderAddingViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:local="clr-namespace:App1.Effects" x:DataType="viewmodels:FolderAddingViewModel"
              x:Class="App1.Views.FolderAddingPage"
-             BackgroundColor="Black">
-    
+             BackgroundColor="#292929"
+            NavigationPage.HasNavigationBar="False"
+            Shell.NavBarIsVisible="False"
+            Shell.TabBarIsVisible="False">
+
+
     <ContentPage.Content>
-        <StackLayout Padding="20" >
-            <Frame CornerRadius="30" BackgroundColor="#252525" >
+        <StackLayout>
+            <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}"/>
+                <Button Text="Применить" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding AddNewFolderCommand}" />
+            </StackLayout>
+            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,5">
+                <StackLayout Orientation="Horizontal" >
+                    <Image Source="{Binding SelectedIcon}" x:Name="Icon">
+                        <Image.Effects>
+                            <local:TintImageEffect TintColor="{Binding SelectedColor}" />
+                        </Image.Effects>
+                    </Image>
+                    <Entry Placeholder="Введите название папки..." PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding WritenName, Mode=TwoWay}"/>
+                </StackLayout>
+            </Frame>
+            <Label TextColor="red" Text="название папки не может быть пустым!" x:Name="NullNameAlert" IsEnabled="False"/>
+
+            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15">
                 <StackLayout>
-                    <Label Text="Введите название папки:" FontSize="16" TextColor="AliceBlue" FontAttributes="Bold" />
-                    <StackLayout Orientation="Horizontal">
-                        <Image Source="align.png"/>
-                        <Entry Placeholder="Папка" x:Name="EntryFolderName" PlaceholderColor="Gray" Text="{Binding WritenName,Mode=TwoWay}" TextColor="AliceBlue" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="Выберите цвет вашей папки:" TextColor="AliceBlue"/>
+                    <StackLayout Margin="0,10">
+                        <StackLayout Orientation="Horizontal">
+                            <Button BackgroundColor="#d71d1d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#d71d1d"/>
+                            <Button BackgroundColor="#e18026" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e18026"/>
+                            <Button BackgroundColor="#e0cc19" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e0cc19"/>
+                            <Button BackgroundColor="#4fdd1d" WidthRequest="48" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4fdd1d"/>
+                            <Button BackgroundColor="#99bd33" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99bd33"/>
+                            <Button BackgroundColor="#10edd2" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10edd2"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Button BackgroundColor="#00a8f0" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00a8f0"/>
+                            <Button BackgroundColor="#2b96c4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#2b96c4"/>
+                            <Button BackgroundColor="#211ed3" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ed3"/>
+                            <Button BackgroundColor="#7218e4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#7218e4"/>
+                            <Button BackgroundColor="#e11be5" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e11be5"/>
+                            <Button BackgroundColor="#e01a6d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e01a6d"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Button Command="{Binding AddNewFolderCommand}" Text="Создать" TextColor="AliceBlue" BackgroundColor="Gray" CornerRadius="20" Margin="0,20"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#444444" Margin="20" CornerRadius="8" Padding="15,15">
+                <StackLayout>
+                    <Label Text="Выберите иконку вашей папки:" TextColor="AliceBlue"/>
+                    <StackLayout Margin="0,10">
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="calendar_days" BackgroundColor="Color.Transparent"/>
+                            <ImageButton Source="layout_grid" BackgroundColor="Color.Transparent"/>
+                            <ImageButton Source="align" BackgroundColor="Color.Transparent"/>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </StackLayout>

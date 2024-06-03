@@ -33,12 +33,17 @@ namespace App1.ViewModels
                 }
             }
         }
-        public ObservableCollection<ListModel> FoldersList { get; set; }
+        private ObservableCollection<ListModel> _folders;
+        public ObservableCollection<ListModel> Folders
+        {
+            get => _folders;
+            set => SetProperty(ref _folders, value);
+        }
         public AppShellViewModel(INavigation navigation) 
         {
             ToMainPage = new Command(ToMain);
-            FoldersList = new ObservableCollection<ListModel>();
-            DeleteFolder = new Command(OnDeleted);
+            Folders = new ObservableCollection<ListModel>();
+            //DeleteFolder = new Command(OnDeleted);
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
             SelectedCommand = new Command<ListModel>(OnSelected);
@@ -47,15 +52,12 @@ namespace App1.ViewModels
 
 
         }
-        private async void OnDeleted()
-        {
-            var folders = (await App.AssignmentsDB.GetListsAsync());
-            foreach (var folder in folders)
-            {
-                await App.AssignmentsDB.DeleteListAsync(folder.ID);
-            }
-            await OnLoaded();
-        }
+        //private async void OnDeleted()
+        //{
+        //    var folders = (await App.AssignmentsDB.GetListsAsync());
+        //    Folders = new ObservableCollection<ListModel>(folders);
+        //    await OnLoaded();
+        //}
         private void ToMain()
         {
             var folder = new ListModel();
@@ -72,10 +74,8 @@ namespace App1.ViewModels
         {
             try
             {
-                FoldersList.Clear();
                 var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
-                foreach (var folder in folders)
-                    FoldersList.Add(folder);
+                Folders = new ObservableCollection<ListModel>(folders);
             }
             catch(Exception)
             {
