@@ -14,6 +14,7 @@ namespace App1.ViewModels
         private ListModel folder { get; set; }
 
 
+        public Command SelectIconCommand { get; }
         public Command SetColorCommand { get; }
         public Command OnCancelCommand { get; }
         public Command AddNewFolderCommand { get; }
@@ -68,6 +69,7 @@ namespace App1.ViewModels
             Folder = new ListModel();
             SelectedIcon = "folders";
             SelectedColor = Color.Default;
+            SelectIconCommand = new Command<string>(SelectIcon);
         }
        
         private async void OnCancel()
@@ -75,15 +77,19 @@ namespace App1.ViewModels
             await Navigation.PopAsync();
         }
 
+        private void SelectIcon(string name)
+        {
+            SelectedIcon = name;
+        }
         private void SetColor(string  color)
         {
             SelectedColor = Color.FromHex(color);
+            Folder.Color = color;
         }
         private async void OnAdded()
         {
             if (!string.IsNullOrWhiteSpace(WritenName))
             {
-                //Folder.Color = SelectedColor;
                 Folder.Icon = SelectedIcon;
                 Folder.Name = WritenName;
                 Folder.Count = 0;

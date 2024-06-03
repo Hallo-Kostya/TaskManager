@@ -18,5 +18,17 @@ namespace App1.Views.Settings
 			InitializeComponent ();
             BindingContext = new СreateTagViewModel(Navigation);
         }
-	}
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            AddButton.IsVisible = false;
+            ConfirmLayout.IsVisible = true;
+        }
+
+        private void Confirm_Clicked_1(object sender, EventArgs e)
+        {
+            ConfirmLayout.IsVisible = false;
+            AddButton.IsVisible = true;
+        }
+    }
 }

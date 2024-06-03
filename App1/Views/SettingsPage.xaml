@@ -41,17 +41,11 @@
         <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
             <StackLayout Orientation="Horizontal">
                 <Image Source="ellipsis.png"/>
-                <Label Text="Создание тегов" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                <Label Text="Управление тегами" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
                 <ImageButton  Source="arrow.png" Command="{Binding СreateTagCommand}" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent"/>
             </StackLayout>
         </Frame>
-        <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="10,5,10,0" HeightRequest="20">
-            <StackLayout Orientation="Horizontal">
-                <Image Source="ellipsis.png"/>
-                <Label Text="Вид папок" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
-                <ImageButton  Source="arrow.png" Command="{Binding СreateFolderCommand}" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent"/>
-            </StackLayout>
-        </Frame>
+        
         <Frame BackgroundColor="#80000000" CornerRadius="25"  Margin="10,17,10,0" HeightRequest="20">
             <StackLayout Orientation="Horizontal">
                 <Image Source="phone.png"/>

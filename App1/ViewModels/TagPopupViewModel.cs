@@ -79,7 +79,6 @@ namespace App1.ViewModels
             Navigation = navigation;
             SetColorCommand = new Command<string>(SetColor);
             Task.Run(async () => await OnLoaded());
-           
         }
         
         async Task OnLoaded()

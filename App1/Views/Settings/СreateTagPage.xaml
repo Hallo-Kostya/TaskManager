@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:model="clr-namespace:App1.Models" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:СreateTagViewModel"
              x:Class="App1.Views.Settings.СreateTagPage"
              BackgroundColor="#292929"
              NavigationPage.HasNavigationBar="False"
@@ -10,13 +10,13 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
-                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
-                <Button Text="Применить" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}"/>
+                <Button Text="Применить" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}" />
             </StackLayout>
             <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,5">
                 <StackLayout Orientation="Horizontal" >
                     <Image Source="tags" />
-                    <Entry Placeholder="Введите название нового тега" PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand"/>
+                    <Entry Placeholder="Введите название нового тега" PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding Tag.Name}"/>
                 </StackLayout>
             </Frame>
 
@@ -46,14 +46,42 @@
 
             <Frame BackgroundColor="#444444" Margin="20" CornerRadius="8" Padding="15,15">
                 <StackLayout>
-                    <Label Text="Все ваши теги:" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
-                            
+                            <Label Text="Все ваши теги:" TextColor="AliceBlue"/>
+                            <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Horizontal"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout x:DataType="model:TagModel" Margin="5">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CreateTagViewModel}}, Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
+                                            </StackLayout.GestureRecognizers>
+                                            <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+
+                                                <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                                    <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                                </StackLayout>
+                                            </Frame>
+                                            
+                                        </StackLayout>
+                                    </DataTemplate>
+                                    
+                                </CollectionView.ItemTemplate>
+                                
+                            </CollectionView>
                         </StackLayout>
+                        <Button x:Name="AddButton" Text="+" Command="{Binding AddTagCommand}" Clicked="Button_Clicked" IsVisible="true"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>
+            <StackLayout Orientation="Horizontal" x:Name="ConfirmLayout" IsVisible="false">
+                <Button Text="Удалить" Command="{Binding DeleteNewTag}" Clicked="Confirm_Clicked_1"/>
+                <Button Text="Сохранить" Command="{Binding ConfirmTagCommand}" Clicked="Confirm_Clicked_1"/> 
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
