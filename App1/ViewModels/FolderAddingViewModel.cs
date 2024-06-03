@@ -9,10 +9,8 @@ namespace App1.ViewModels
 {
     public class FolderAddingViewModel: BaseAssignmentViewModel
     {
-        private Color selectedColor { get; set; }
 
         private string writenName { get; set; }
-        private string selectedIcon { get; set; }
         private ListModel folder { get; set; }
 
 
@@ -21,18 +19,15 @@ namespace App1.ViewModels
         public Command AddNewFolderCommand { get; }
         public INavigation Navigation { get; set; }
 
+        private Color _selectedColor;
+        private string _selectedIcon;
+
         public Color SelectedColor
         {
-            get { return selectedColor; }
-            set
-            {
-                if (selectedColor != value)
-                {
-                    selectedColor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => _selectedColor;
+            set => SetProperty(ref _selectedColor, value);
         }
+
 
         public string WritenName
         {
@@ -48,15 +43,8 @@ namespace App1.ViewModels
         }
         public string SelectedIcon
         {
-            get { return selectedIcon; }
-            set
-            {
-                if (selectedIcon != value)
-                {
-                    selectedIcon = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => _selectedIcon;
+            set => SetProperty(ref _selectedIcon, value);
         }
 
         public ListModel Folder
@@ -79,7 +67,7 @@ namespace App1.ViewModels
             SetColorCommand = new Command<string>(SetColor);
             Folder = new ListModel();
             SelectedIcon = "folders";
-            SelectedColor = Color.AliceBlue;
+            SelectedColor = Color.Default;
         }
        
         private async void OnCancel()

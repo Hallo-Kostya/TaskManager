@@ -18,14 +18,14 @@ namespace App1.Effects
 
         private static void OnTintColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is Image image && newValue is Color newColor)
+            if (bindable is Image image)
             {
-                var effect = (TintImageEffect)image.Effects.FirstOrDefault(e => e is TintImageEffect);
+                var effect = image.Effects.OfType<TintImageEffect>().FirstOrDefault();
                 if (effect != null)
                 {
                     image.Effects.Remove(effect);
                 }
-                image.Effects.Add(new TintImageEffect { TintColor = newColor });
+                image.Effects.Add(new TintImageEffect { TintColor = (Color)newValue });
             }
         }
 

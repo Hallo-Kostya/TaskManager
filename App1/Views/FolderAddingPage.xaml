@@ -1,30 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:local="clr-namespace:App1.Effects" x:DataType="viewmodels:FolderAddingViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:App1.ViewModels" 
+             xmlns:local="clr-namespace:App1.Effects"
+             x:DataType="viewmodels:FolderAddingViewModel"
              x:Class="App1.Views.FolderAddingPage"
              BackgroundColor="#292929"
             NavigationPage.HasNavigationBar="False"
             Shell.NavBarIsVisible="False"
             Shell.TabBarIsVisible="False">
 
-
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
                 <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}"/>
-                <Button Text="Применить" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding AddNewFolderCommand}" />
+                <Button Text="Применить" Clicked="Button_Clicked" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding AddNewFolderCommand}" />
             </StackLayout>
             <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,5">
                 <StackLayout Orientation="Horizontal" >
-                    <Image Source="{Binding SelectedIcon}" x:Name="Icon">
+                    <Image Source="folders" x:Name="MyImage">
                         <Image.Effects>
-                            <local:TintImageEffect TintColor="{Binding SelectedColor}" />
+                            <local:TintImageEffect TintColor="red" />
                         </Image.Effects>
                     </Image>
                     <Entry Placeholder="Введите название папки..." PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding WritenName, Mode=TwoWay}"/>
                 </StackLayout>
             </Frame>
-            <Label TextColor="red" Text="название папки не может быть пустым!" x:Name="NullNameAlert" IsEnabled="False"/>
+            <Label TextColor="red" Text="название папки не может быть пустым!" x:Name="NullNameAlert" IsVisible="False"/>
 
             <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15">
                 <StackLayout>

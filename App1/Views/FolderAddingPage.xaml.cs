@@ -19,13 +19,14 @@ namespace App1.Views
 			InitializeComponent ();
 			BindingContext = new FolderAddingViewModel(Navigation);
 		}
-		public void SaveButton_Clicked()
-		{
-			if (string.IsNullOrWhiteSpace((BindingContext as FolderAddingViewModel).WritenName))
-			{
-				NullNameAlert.IsEnabled = true;
-			}
 
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace((BindingContext as FolderAddingViewModel).WritenName))
+            {
+                NullNameAlert.IsVisible = true;
+            }
         }
-	}
+    }
 }

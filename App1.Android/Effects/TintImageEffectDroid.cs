@@ -53,6 +53,10 @@ namespace App1.Droid.Effects
                     var colorFilter = new PorterDuffColorFilter(effect.TintColor.ToAndroid(), PorterDuff.Mode.SrcIn);
                     imageView.SetColorFilter(colorFilter);
                 }
+                else
+                {
+                    imageView.ClearColorFilter();
+                }
             }
         }
     }
