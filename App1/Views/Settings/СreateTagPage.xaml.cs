@@ -30,5 +30,11 @@ namespace App1.Views.Settings
             ConfirmLayout.IsVisible = false;
             AddButton.IsVisible = true;
         }
+
+        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ConfirmLayout.IsVisible = true;
+            AddButton.IsVisible = false;
+        }
     }
 }

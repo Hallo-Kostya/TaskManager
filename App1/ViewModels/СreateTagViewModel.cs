@@ -12,7 +12,6 @@ namespace App1.ViewModels
     public class СreateTagViewModel : BaseAssignmentViewModel
     {
         public Command DeleteNewTag { get; }
-
         public Command AddTagCommand { get; }
         public Command TagSelectedCommand { get; }
         public Command LoadTagsCommand { get; }
@@ -89,7 +88,6 @@ namespace App1.ViewModels
         {
             if (IsSelected)
             {
-                await App.AssignmentsDB.DeleteTagAsync(Tag.ID);
                 await App.AssignmentsDB.AddTagAsync(Tag);
             }
             else
