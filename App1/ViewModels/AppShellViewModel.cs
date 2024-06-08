@@ -77,7 +77,7 @@ namespace App1.ViewModels
                 var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
                 foreach (var folder in folders)
                 {
-                    folder.UpdateCount();
+                    await folder.UpdateCount();
                 }
                 Folders = new ObservableCollection<ListModel>(folders);
             }

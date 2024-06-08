@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
 
@@ -34,13 +35,42 @@ namespace App1.ViewModels
         {
             get => completedAssignments;
             set => SetProperty(ref completedAssignments, value);
-
         }
+       
 
 
         INotificationManager notificationManager;
 
-        private bool IsFiltered { get; set; }
+        private bool isFilteredByTag;
+        public bool IsFilteredByTag
+        {
+            get => isFilteredByTag;
+            set
+            {
+                SetProperty(ref isFilteredByTag, value);
+                Preferences.Set("IsFilteredByTag", value); // Сохраняем состояние в Preferences
+            }
+        }
+        private bool isFilteredByPriority;
+        public bool IsFilteredByPriority
+        {
+            get => isFilteredByPriority;
+            set
+            {
+                SetProperty(ref isFilteredByPriority, value);
+                Preferences.Set("IsFilteredByPriority", value); // Сохраняем состояние в Preferences
+            }
+        }
+        private bool isFilteredByDate;
+        public bool IsFilteredByDate
+        {
+            get => isFilteredByDate;
+            set
+            {
+                SetProperty(ref isFilteredByDate, value);
+                Preferences.Set("IsFilteredByDate", value); // Сохраняем состояние в Preferences
+            }
+        }
         private TagModel selectedtag { get; set; }
         public TagModel SelectedTag
         {
@@ -72,24 +102,13 @@ namespace App1.ViewModels
 
 
 
-        public Command FilterByPriorityCommand { get; }
+  
         public Command FilterByTagCommand { get; }
 
 
 
 
-        //private IDateService _dateService;
-        //private DayModel _selectedDay;
-        //public ObservableCollection<DayModel> DaysList { get; set; }
-        //public ObservableCollection<AssignmentModel> TaskList { get; set; }
-        //public LayoutState TaskListState { get; set; }
-        //public string Name { get; set; }
-        //public WeekModel Week { get; set; }
-        //public string Filter { get; set; }
-        //public ICommand DayCommand { get; set; }
-        //public ICommand PreviousWeekCommand { get; set; }
-        //public ICommand NextWeekCommand { get; set; }
-        //public DateService dateService { get; set; }
+        
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
@@ -99,17 +118,15 @@ namespace App1.ViewModels
             DeleteAssignmentCommand = new Command<AssignmentModel>(OnDeleteAssignment);
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
-            FilterByPriorityCommand = new Command(OnFiltered);
             SelectedTag = new TagModel();
             SelectedTag.Name = "без тега";
             notificationManager = DependencyService.Get<INotificationManager>();
-            //LoadTagsCommand = new Command(async () => await ExecuteLoadTagsCommand());
-            //PreviousWeekCommand = new Command<DateTime>(PreviousWeekCommandHandler);
-            //NextWeekCommand = new Command<DateTime>(NextWeekCommandHandler);
-            //DayCommand = new Command<DayModel>(DayCommandHandler);
+           
             SelectedFolder = new ListModel();
             SelectedFolder.Name = "Мои дела";
-            IsFiltered = false;
+            isFilteredByTag = Preferences.Get("IsFilteredByTag", false);
+            isFilteredByPriority = Preferences.Get("IsFilteredByPriority", false);
+            isFilteredByDate = Preferences.Get("IsFilteredByDate", false);
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
             MeetBallsPopupCommand = new Command(ExecuteMeetBallsPopup);
             MessagingCenter.Subscribe<ListModel>(this, "UpdatePage", async (sender) =>
@@ -124,101 +141,68 @@ namespace App1.ViewModels
             IsBusy = true;
         }
 
-        //private void DayCommandHandler(DayModel day)
-        //{
-        //    SetActiveDay(day);
-        //    ///CreateQueryForTasks(day.Date);
-        //}
-        //private void PreviousWeekCommandHandler(DateTime startDate)
-        //{
-        //    Week = _dateService.GetWeek(startDate.AddDays(-1));
-        //    DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
-        //    SetActiveDay();
-        //}
-        //private void NextWeekCommandHandler(DateTime lastDate)
-        //{
-        //    Week = _dateService.GetWeek(lastDate.AddDays(1));
-        //    DaysList = new ObservableCollection<DayModel>(_dateService.GetDayList(Week.StartDay, Week.LastDay));
-        //    SetActiveDay();
-        //}
-
-        //private void SetActiveDay(DayModel day = null)
-        //{
-        //    ResetActiveDay();
-        //    if (day != null)
-        //    {
-        //        _selectedDay = day;
-        //        day.State = DayStateEnum.Active;
-        //    }
-        //    else
-        //    {
-        //        var selectedDate = DaysList.FirstOrDefault(d => d.Date == _selectedDay.Date);
-        //        if (selectedDate != null)
-        //        {
-        //            selectedDate.State = DayStateEnum.Active;
-        //        }
-        //    }
-        //}
-
-        //private void ResetActiveDay()
-        //{
-        //    var selectedDay = DaysList?.FirstOrDefault(d => d.State.Equals(DayStateEnum.Active));
-        //    if (selectedDay != null)
-        //    {
-        //        selectedDay.State = selectedDay.Date < DateTime.Now.Date ? DayStateEnum.Past : DayStateEnum.Normal;
-        //    }
-        //}
 
         async Task ExecuteLoadAssignmentCommand()
         {
             IsBusy = true;
             try
             {
-                var a = (await App.AssignmentsDB.GetItemsAsync());
+                var a = await App.AssignmentsDB.GetItemsAsync();
                 foreach (var assignment in a)
                 {
                     assignment.CheckIfOverdue();
                 }
+
+                // Начальная фильтрация по папке
+                IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false);
+
                 if (SelectedFolder.Name != "Мои дела")
                 {
-                    if (IsFiltered)
-                    {
-                        var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.Tag == SelectedTag.Name) && (t.FolderName == SelectedFolder.Name));
-                        var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true) && (t.FolderName == SelectedFolder.Name) && (t.Tag == SelectedTag.Name));///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                        CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
-                    }
-                    else
-                    {
-                        var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.FolderName == SelectedFolder.Name));
-                        var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true) && (t.FolderName == SelectedFolder.Name));///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                        CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
-                    }
+                    filteredAssignments = filteredAssignments.Where(t => t.FolderName == SelectedFolder.Name);
                 }
-                else
+
+                // Фильтрация по тегу
+                if (IsFilteredByTag && SelectedTag.Name != "без тега")
                 {
-                    if (IsFiltered)
-                    {
-                        var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false) && (t.Tag == SelectedTag.Name));
-                        var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true) && (t.Tag == SelectedTag.Name));///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                        CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
-                    }
-                    else
-                    {
-                        var assList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == false));
-                        var completedList = a.Where(t => (t.IsDeleted == false) && (t.IsCompleted == true));///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                        CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
-                    }
+                    filteredAssignments = filteredAssignments.Where(t => t.Tag == SelectedTag.Name);
                 }
 
+                // Применение сортировки
+                if (IsFilteredByPriority)
+                {
+                    filteredAssignments = filteredAssignments.OrderByDescending(x => (int)x.Priority);
+                }
+                else if (IsFilteredByDate)
+                {
+                    filteredAssignments = filteredAssignments
+                        .OrderBy(x => x.ExecutionDate.Date)
+                        .ThenBy(x => x.ExecutionDate.TimeOfDay);
+                }
 
+                var groupedAssignments = filteredAssignments
+                    .Where(t => t.IsCompleted == false)
+                    .ToList();
+
+                assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
+
+                var completedList = filteredAssignments
+                    .Where(t => t.IsCompleted == true)
+                    .ToList();
+
+                CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
+                //var groupedAssignments = filteredAssignments
+                //    .OrderBy(x => x.ExecutionDate.Date) // Сортировка по дате выполнения
+                //    .ThenBy(x => x.ExecutionDate.TimeOfDay) // Сортировка по времени выполнения
+                //    .GroupBy(x => x.ExecutionDate.Date) // Группировка по дате
+                //    .SelectMany(group => group.OrderByDescending(x => (int)x.Priority)) // Сортировка внутри группы по приоритету и разворачивание в единую последовательность
+                //    .ToList();
+
+                //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                // Обработка исключений
+                Console.WriteLine($"Error in ExecuteLoadAssignmentCommand: {ex.Message}");
             }
             finally
             {
@@ -236,65 +220,6 @@ namespace App1.ViewModels
             assignment.IsCompleted = !assignment.IsCompleted;
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
-        }
-        private async void OnFiltered()
-        {
-            if (SelectedFolder.Name != "Мои дела")
-            {
-                if (IsFiltered)
-                {
-                    try
-                    {
-                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.Tag == SelectedTag.Name && t.FolderName == SelectedFolder.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.FolderName == SelectedFolder.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                }
-            }
-            else
-            {
-                if (IsFiltered)
-                {
-                    try
-                    {
-                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false && t.Tag == SelectedTag.Name).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsCompleted == false).OrderByDescending(t => (int)t.Priority); ///GetSortedByDate(DateTime date);
-                        assignments = new ObservableCollection<AssignmentModel>(assList);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                }
-            }
-
-
         }
         private async void OnAddAssignment()
         {
@@ -349,25 +274,13 @@ namespace App1.ViewModels
 
                     if (sender.Name != "без тега")
                     {
-                        if (SelectedFolder.Name != "Мои дела")
-                        {
-                            IsFiltered = true;
-                            var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name) && (t.FolderName == SelectedFolder.Name)); ///GetSortedByDate(DateTime date);
-                            assignments = new ObservableCollection<AssignmentModel>(assList);
-                        }
-                        else
-                        {
-                            IsFiltered = true;
-                            var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => (t.IsDeleted == false && t.IsCompleted == false) && (t.Tag == sender.Name)); ///GetSortedByDate(DateTime date);
-                            assignments = new ObservableCollection<AssignmentModel>(assList);
-                        }
-
+                            IsFilteredByTag = true;
                     }
                     else
                     {
-                        IsFiltered = false;
-                        await ExecuteLoadAssignmentCommand();
+                        IsFilteredByTag = false;
                     }
+                    await ExecuteLoadAssignmentCommand();
                 }
                 catch (Exception)
                 {
@@ -379,6 +292,25 @@ namespace App1.ViewModels
         private async void ExecuteMeetBallsPopup()
         {
             await Navigation.PushPopupAsync(new MeetBallsPopupPage());
+            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel>(this, "FilterByPrioritySelected");
+            MessagingCenter.Subscribe<FilterSelectPopupViewModel>(this, "FilterByPrioritySelected", async (sender) => {
+                IsFilteredByPriority = true;
+                IsFilteredByDate = false;
+                await ExecuteLoadAssignmentCommand();
+            });
+            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel>(this, "FilterByDateSelected");
+            MessagingCenter.Subscribe<FilterSelectPopupViewModel>(this, "FilterByDateSelected", async (sender) => {
+                IsFilteredByDate = true;
+                IsFilteredByPriority = false;
+                await ExecuteLoadAssignmentCommand();
+            });
+            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel>(this, "DefaultFilterSelected");
+            MessagingCenter.Subscribe<FilterSelectPopupViewModel>(this, "DefaultFilterSelected", async (sender) => {
+                IsFilteredByDate = false;
+                IsFilteredByPriority = false;
+                await ExecuteLoadAssignmentCommand();
+            });
+
         }
     }
 }
