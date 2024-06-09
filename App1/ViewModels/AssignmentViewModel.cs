@@ -106,9 +106,18 @@ namespace App1.ViewModels
         public Command FilterByTagCommand { get; }
 
 
+        private string groupedBy;
+        public string GroupedBy
+        {
+            get => groupedBy;
+            set
+            {
+                SetProperty(ref groupedBy, value);
+                Preferences.Set("GroupedBy", value); // Сохраняем состояние в Preferences
+            }
+        }
 
 
-        
         public AssignmentViewModel(INavigation _navigation)
         {
             LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
@@ -124,6 +133,7 @@ namespace App1.ViewModels
            
             SelectedFolder = new ListModel();
             SelectedFolder.Name = "Мои дела";
+            groupedBy = Preferences.Get("GroupedBy", "None");
             isFilteredByTag = Preferences.Get("IsFilteredByTag", false);
             isFilteredByPriority = Preferences.Get("IsFilteredByPriority", false);
             isFilteredByDate = Preferences.Get("IsFilteredByDate", false);
@@ -168,37 +178,78 @@ namespace App1.ViewModels
                 }
 
                 // Применение сортировки
-                if (IsFilteredByPriority)
-                {
-                    filteredAssignments = filteredAssignments.OrderByDescending(x => (int)x.Priority);
-                }
-                else if (IsFilteredByDate)
-                {
-                    filteredAssignments = filteredAssignments
-                        .OrderBy(x => x.ExecutionDate.Date)
-                        .ThenBy(x => x.ExecutionDate.TimeOfDay);
-                }
+                //if (IsFilteredByPriority)
+                //{
+                //    filteredAssignments = filteredAssignments.OrderByDescending(x => (int)x.Priority);
+                //}
+                //else if (IsFilteredByDate)
+                //{
+                //    filteredAssignments = filteredAssignments
+                //        .OrderBy(x => x.ExecutionDate.Date)
+                //        .ThenBy(x => x.ExecutionDate.TimeOfDay);
+                //}
 
-                var groupedAssignments = filteredAssignments
-                    .Where(t => t.IsCompleted == false)
-                    .ToList();
-
-                assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
-
-                var completedList = filteredAssignments
-                    .Where(t => t.IsCompleted == true)
-                    .ToList();
-
-                CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
                 //var groupedAssignments = filteredAssignments
+                //    .Where(t => t.IsCompleted == false)
+                //    .ToList();
+
+                //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
+
+                //var completedList = filteredAssignments
+                //    .Where(t => t.IsCompleted == true)
+                //    .ToList();
+
+                //CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
+                IEnumerable<IGrouping<object, AssignmentModel>> groupedAssignments;
+                switch (GroupedBy)
+                {
+                    case "Date":
+                        groupedAssignments = filteredAssignments
+                            .GroupBy(x => (object)x.ExecutionDate.Date);
+                        break;
+                    case "Priority":
+                        groupedAssignments = filteredAssignments
+                            .GroupBy(x => (object)(int)x.Priority);
+                        break;
+                    case "Tag":
+                        groupedAssignments = filteredAssignments.GroupBy(x => (object)x.Tag);
+                        break;
+                    default:
+                        groupedAssignments = filteredAssignments
+                            .GroupBy(x => (object)null); // Нет группировки
+                        break;
+                }
+
+                var sortedAssignments = groupedAssignments
+                   .Select(group =>
+                   {
+                       var sortedGroup = group.AsEnumerable();
+                       if (IsFilteredByPriority)
+                       {
+                           sortedGroup = sortedGroup.OrderByDescending(x => (int)x.Priority);
+                       }
+                       else if (IsFilteredByDate)
+                       {
+                           sortedGroup = sortedGroup
+                               .OrderBy(x => x.ExecutionDate.Date)
+                               .ThenBy(x => x.ExecutionDate.TimeOfDay);
+                       }
+                       return sortedGroup;
+                   }).SelectMany(x => x)
+                    .ToList();
+                assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
+                CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
+            }
+
+
                 //    .OrderBy(x => x.ExecutionDate.Date) // Сортировка по дате выполнения
                 //    .ThenBy(x => x.ExecutionDate.TimeOfDay) // Сортировка по времени выполнения
                 //    .GroupBy(x => x.ExecutionDate.Date) // Группировка по дате
                 //    .SelectMany(group => group.OrderByDescending(x => (int)x.Priority)) // Сортировка внутри группы по приоритету и разворачивание в единую последовательность
                 //    .ToList();
 
-                //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
-            }
+            //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
+            
             catch (Exception ex)
             {
                 // Обработка исключений
@@ -292,6 +343,25 @@ namespace App1.ViewModels
         private async void ExecuteMeetBallsPopup()
         {
             await Navigation.PushPopupAsync(new MeetBallsPopupPage());
+            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel,string>(this, "GroupSelected");
+            MessagingCenter.Subscribe<FilterSelectPopupViewModel,string>(this, "GroupSelected", async (sender,arg) => {
+                switch (arg)
+                {
+                    case "Tag":
+                        GroupedBy = "Tag";
+                        break;
+                    case "Date":
+                        GroupedBy = "Date";
+                        break;
+                    case "Priority":
+                        GroupedBy = "Priority";
+                        break;
+                    default:
+                        GroupedBy = "None";
+                        break;
+                }
+                await ExecuteLoadAssignmentCommand();
+            });
             MessagingCenter.Unsubscribe<FilterSelectPopupViewModel>(this, "FilterByPrioritySelected");
             MessagingCenter.Subscribe<FilterSelectPopupViewModel>(this, "FilterByPrioritySelected", async (sender) => {
                 IsFilteredByPriority = true;

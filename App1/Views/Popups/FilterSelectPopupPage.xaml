@@ -9,6 +9,12 @@
             <Frame BackgroundColor="#353535" Padding="15, 15" CornerRadius="8">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
+                        <Label Text="Группировать по"/>
+                        <Button Text="Дате" Command="{Binding GroupByCommand}" CommandParameter="Date"/>
+                        <Button Text="Тегу" Command="{Binding GroupByCommand}" CommandParameter="Tag"/>
+                        <Button Text="Приоритету" Command="{Binding GroupByCommand}" CommandParameter="Priority"/>
+                        <Button Text="Произвольно" Command="{Binding GroupByCommand}" CommandParameter="None"/>
+                        <Label Text="Сортировать по"></Label>
                         <Label Text="Дата" TextColor="AliceBlue" FontSize="15" BackgroundColor="Color.Transparent" />
                         <ImageButton Source="arrow_down_wide_narrow.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding SortByDateCommand}"/>
                     </StackLayout>
@@ -19,7 +25,9 @@
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Произвольно" TextColor="AliceBlue" FontSize="15" BackgroundColor="Color.Transparent" />
                         <ImageButton Source="arrow_down_wide_narrow.png" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DefaultSortCommand}"/>
+                        
                     </StackLayout>
+                    
                 </StackLayout>
             </Frame>
         </StackLayout>

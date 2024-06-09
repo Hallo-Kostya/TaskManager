@@ -10,6 +10,7 @@ namespace App1.ViewModels
     public class FilterSelectPopupViewModel : BaseAssignmentViewModel
     {
         public Command SortByDateCommand { get; }
+        public Command GroupByCommand { get; }
         public Command SortByPriorityCommand { get; }
         public Command DefaultSortCommand { get; }
         public INavigation Navigation { get; set; }
@@ -20,22 +21,26 @@ namespace App1.ViewModels
             Navigation = navigation;
             SortByPriorityCommand = new Command(SortByPriority);
             DefaultSortCommand = new Command(DefaultSort);
+            GroupByCommand = new Command<string>(GroupBy);
         }
-        
+        private async void GroupBy(string filter)
+        {
+            MessagingCenter.Send(this, "GroupSelected", filter);
+            
+        }
         private async void SortByDate()
         {
             MessagingCenter.Send(this, "FilterByDateSelected");
-            await Navigation.PopAllPopupAsync();
         }
         private async void SortByPriority()
         {
             MessagingCenter.Send(this, "FilterByPrioritySelected");
-            await Navigation.PopAllPopupAsync();
+
         }
         private async void DefaultSort()
         {
             MessagingCenter.Send(this, "DefaultFilterSelected");
-            await Navigation.PopAllPopupAsync();
+
         }
     }
 }
