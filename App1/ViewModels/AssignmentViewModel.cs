@@ -216,7 +216,7 @@ namespace App1.ViewModels
                     case "Tag":
                         groupedAssignments = filteredAssignments
                             .SelectMany(x => x.Tags.Select(tagId => new { TagId = tagId, Assignment = x }))
-                            .GroupBy(x => (object)App.AssignmentsDB.GetTagAsync(x.TagId).Result.Name, x => x.Assignment)
+                            .GroupBy(x => (object)GetTagById(x.TagId).Name, x => x.Assignment)
                             .OrderByDescending(group => group.Key);
                         break;
                     default:
@@ -344,7 +344,11 @@ namespace App1.ViewModels
                 }
             });
         }
-
+        public TagModel GetTagById(int id)
+        {
+            // Реализация метода получения тега по ID из базы данных или кэша
+            return App.AssignmentsDB.GetTagAsync(id).Result;
+        }
         private async void ExecuteMeetBallsPopup()
         {
             await Navigation.PushPopupAsync(new MeetBallsPopupPage());

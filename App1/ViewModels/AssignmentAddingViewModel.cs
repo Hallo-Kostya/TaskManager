@@ -103,18 +103,17 @@ namespace App1.ViewModels
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
-        private  void UpdateTags()
+        private async void UpdateTags()
         {
             TagList.Clear();
             foreach (var tagId in Assignment.Tags)
             {
-                var tag =  App.AssignmentsDB.GetTagAsync(tagId).Result;
+                var tag = await App.AssignmentsDB.GetTagAsync(tagId);
                 if (tag != null)
                 {
                     TagList.Add(tag);
                 }
             }
-            
         }
         private void DeleteTag(TagModel tag)
         {
