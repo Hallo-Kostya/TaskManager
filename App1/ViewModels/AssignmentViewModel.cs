@@ -174,7 +174,7 @@ namespace App1.ViewModels
                 // Фильтрация по тегу
                 if (IsFilteredByTag && SelectedTag.Name != "без тега")
                 {
-                    filteredAssignments = filteredAssignments.Where(t => t.Tag == SelectedTag.Name);
+                    filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag == SelectedTag.ID));
                 }
 
                 // Применение сортировки
@@ -214,7 +214,9 @@ namespace App1.ViewModels
                             .OrderByDescending(group => group.Key);
                         break;
                     case "Tag":
-                        groupedAssignments = filteredAssignments.GroupBy(x => (object)x.Tag)
+                        groupedAssignments = filteredAssignments
+                            .SelectMany(x => x.Tags.Select(tagId => new { TagId = tagId, Assignment = x }))
+                            .GroupBy(x => (object)App.AssignmentsDB.GetTagAsync(x.TagId).Result.Name, x => x.Assignment)
                             .OrderByDescending(group => group.Key);
                         break;
                     default:

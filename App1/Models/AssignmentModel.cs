@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using SQLite;
 using Xamarin.Forms;
@@ -15,7 +16,7 @@ namespace App1.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //public DateTime ExecutionDate { get; set; }
+
        
         public DateTime ExecutionDate
         {
@@ -31,8 +32,7 @@ namespace App1.Models
                 }
             }
         }
-        public string Tag { get; set; }
-        public string TagColor { get; set; }
+        public List<int> Tags { get; set; } = new List<int>();
         public bool HasNotification { get; set; }
         public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
@@ -74,6 +74,25 @@ namespace App1.Models
         {
             IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
         }
+
+        public void AddTag(TagModel tag)
+        {
+            if (Tags.Count < 5 && !Tags.Contains(tag.ID))
+            {
+                Tags.Add(tag.ID);
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
+
+        public void RemoveTag(TagModel tag)
+        {
+            if (Tags.Contains(tag.ID))
+            {
+                Tags.Remove(tag.ID);
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
+ 
 
 
         public event PropertyChangedEventHandler PropertyChanged;

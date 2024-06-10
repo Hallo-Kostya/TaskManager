@@ -1,4 +1,6 @@
 ﻿using App1.Models;
+using App1.Views;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +13,7 @@ namespace App1.ViewModels
 {
     public class СreateTagViewModel : BaseAssignmentViewModel
     {
+
         public Command DeleteNewTag { get; }
         public Command AddTagCommand { get; }
         public Command TagSelectedCommand { get; }
@@ -39,10 +42,12 @@ namespace App1.ViewModels
             set => SetProperty(ref tagList, value);
         }
         private bool IsSelected { get; set; } = false;
+        public bool IsFromPopup { get; set; } = false;
         public INavigation Navigation { get; set; }
 
         public СreateTagViewModel(INavigation navigation)
         {
+            Assignment = new AssignmentModel();
             DeleteNewTag = new Command(DeleteNew);
             AddTagCommand = new Command(AddTag);
             TagSelectedCommand = new Command<TagModel>(TagSelected);
@@ -57,7 +62,14 @@ namespace App1.ViewModels
         }
         public async void OnCancel()
         {
-            await Navigation.PopAsync();
+            if (IsFromPopup)
+            {
+                await Navigation.PopAsync();
+                await Navigation.PushPopupAsync(new AssignmentAddingPage(Assignment),false);
+            }
+            else
+                await Navigation.PopAsync();
+
         }
         public async void DeleteNew()
         {

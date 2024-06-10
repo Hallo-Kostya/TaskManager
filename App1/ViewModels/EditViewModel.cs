@@ -22,8 +22,9 @@ namespace App1.ViewModels
         public Command FoldersPopupCommand { get; }
         public Command PriorityPopupCommand { get; }
         public Command DatePopupCommand { get; }
+        public Command DeleteTagCommand { get; }
         public Command NotificationPopupCommand { get; }
-        public ObservableCollection<string> TagList { get; }
+        public ObservableCollection<TagModel> TagList { get; }
         public bool isFromPopup { get; set; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
@@ -59,12 +60,13 @@ namespace App1.ViewModels
             HandleChangeIsCompletedCommand = new Command(HandleChangeIsCompleted);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            TagList = new ObservableCollection<string>();
+            TagList = new ObservableCollection<TagModel>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
             DeleteCommand = new Command(OnDelete);
+            DeleteTagCommand = new Command<TagModel>(DeleteTag);
             DatePopupCommand = new Command((arg) =>
             {
                 var DatePickerDat = arg as DatePicker;
@@ -88,6 +90,24 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
+        private void UpdateTags()
+        {
+            TagList.Clear();
+            foreach (var tagId in Assignment.Tags)
+            {
+                var tag = App.AssignmentsDB.GetTagAsync(tagId).Result;
+                if (tag != null)
+                {
+                    TagList.Add(tag);
+                }
+            }
+
+        }
+        private void DeleteTag(TagModel tag)
+        {
+            Assignment.RemoveTag(tag);
+            UpdateTags();
+        }
         private async void OnDelete()
         {
             var assignment = Assignment;
@@ -105,9 +125,10 @@ namespace App1.ViewModels
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
                 (sender) =>
                 {
-                    Assignment.Tag = sender.Name;
+                    Assignment.AddTag(sender);
+                    UpdateTags();
                 });
-            await Navigation.PushPopupAsync(new EditTagPopupPage());
+            await Navigation.PushPopupAsync(new TagPopupPage());
         }
         private async void ExecuteFoldersPopup()
         {

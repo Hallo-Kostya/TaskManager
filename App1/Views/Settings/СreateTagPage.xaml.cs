@@ -1,4 +1,5 @@
-﻿using App1.ViewModels;
+﻿using App1.Models;
+using App1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,13 @@ namespace App1.Views.Settings
 		{
 			InitializeComponent ();
             BindingContext = new СreateTagViewModel(Navigation);
+        }
+        public СreateTagPage(AssignmentModel assignment, bool _isFromPopUp)
+        {
+            InitializeComponent();
+            BindingContext = new СreateTagViewModel(Navigation);
+            (BindingContext as СreateTagViewModel).Assignment = assignment;
+            (BindingContext as СreateTagViewModel).IsFromPopup= _isFromPopUp;
         }
 
         private void Button_Clicked(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:converters="clr-namespace:App1.Behaviors" x:DataType="viewmodels:EditViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:converters="clr-namespace:App1.Behaviors" xmlns:model="clr-namespace:App1.Models" x:DataType="viewmodels:EditViewModel"
              x:Class="App1.Views.EditPage"
              BackgroundColor="#292929"
              NavigationPage.HasNavigationBar="False"
@@ -45,7 +45,22 @@
                 <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="20" />
                 <Editor Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="100"/>
             </StackLayout>
-
+            <StackLayout Orientation="Horizontal">
+                <CollectionView  ItemsSource="{Binding TagList}" >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:TagModel" Margin="5">
+                                <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                        <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="0,0,0,0" VerticalOptions="Start">
                 <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
                 <ImageButton x:Name="folders" Source="folders.png" Margin="5,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>

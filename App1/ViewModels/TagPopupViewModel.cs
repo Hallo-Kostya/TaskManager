@@ -11,8 +11,8 @@ using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using static App1.Models.TagModel;
-using static App1.Models.AssignmentModel;
+
+using App1.Views.Settings;
 
 namespace App1.ViewModels
 {
@@ -20,36 +20,10 @@ namespace App1.ViewModels
     {
         public Command LoadTagsCommand { get; }
         public Command SelectedItemCommand { get; }
-        public Command SetTagCommand { get; }
+        public Command AddTagCommand { get; }
         public Command SetColorCommand { get; }
         
         public INavigation Navigation { get; set; }
-        private string writenTag { get; set; }
-        public string WritenTag
-        {
-            get { return writenTag; }
-            set
-            {
-                if (writenTag != value)
-                {
-                    writenTag = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string selectedColor { get; set; }
-        public string SelectedColor
-        {
-            get { return selectedColor; }
-            set
-            {
-                if (selectedColor != value)
-                {
-                    selectedColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         private TagModel selectedtag { get; set; }
         public TagModel SelectedTag
         {
@@ -74,10 +48,9 @@ namespace App1.ViewModels
         {
             TagList = new ObservableCollection<TagModel>();
             //LoadTagsCommand = new Command(OnLoaded);
+            AddTagCommand = new Command(AddTag);
             SelectedItemCommand = new Command<TagModel>(OnSelected);
-            SetTagCommand = new Command(SetTag);
             Navigation = navigation;
-            SetColorCommand = new Command<string>(SetColor);
             Task.Run(async () => await OnLoaded());
         }
         
@@ -86,18 +59,10 @@ namespace App1.ViewModels
             var tags = (await App.AssignmentsDB.GetTagsAsync()).ToList();
             TagList = new ObservableCollection<TagModel>(tags);
         }
-        private void SetColor(string color)
+        private async void AddTag()
         {
-            SelectedColor = color;
-
-        }
-        private async void SetTag()
-        {
-            var Tag = new TagModel();
-            Tag.Name = WritenTag;
-            Tag.TagColor = SelectedColor;   
-            await App.AssignmentsDB.AddTagAsync(Tag);
-            await OnLoaded();
+            await Navigation.PushAsync(new СreateTagPage());
+            await Navigation.PopAllPopupAsync(false);
         }
         private async void OnSelected(TagModel _tag)
         {

@@ -23,10 +23,6 @@ namespace App1.Views.Popups.EditPopup
         }
 
         private bool isExpanded = false;
-        private void ColorClicked(object sender, EventArgs e)
-        {
-            Colors.IsVisible = !isExpanded;
-            isExpanded = !isExpanded;
-        }
+
     }
 }

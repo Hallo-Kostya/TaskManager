@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,7 +32,8 @@ namespace App1.ViewModels
 
 
 
-        public ObservableCollection<string> TagList { get; }
+        public Command DeleteTagCommand { get; }
+        public ObservableCollection<TagModel> TagList { get; }
         public INavigation Navigation { get; set; }
         public Command BackgroundClickedCommand { get; }
         private EnumPriority selectedPriority { get; set; }
@@ -70,11 +72,12 @@ namespace App1.ViewModels
             OpenFullscreenCommand = new Command(OpenFullscreen);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            TagList = new ObservableCollection<string>();
+            TagList = new ObservableCollection<TagModel>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
+            DeleteTagCommand = new Command<TagModel>(DeleteTag);
             DatePopupCommand = new Command((arg) =>
             {
                 var DatePickerDate = arg as DatePicker;
@@ -100,15 +103,32 @@ namespace App1.ViewModels
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
-
+        private  void UpdateTags()
+        {
+            TagList.Clear();
+            foreach (var tagId in Assignment.Tags)
+            {
+                var tag =  App.AssignmentsDB.GetTagAsync(tagId).Result;
+                if (tag != null)
+                {
+                    TagList.Add(tag);
+                }
+            }
+            
+        }
+        private void DeleteTag(TagModel tag)
+        {
+            Assignment.RemoveTag(tag);
+            UpdateTags();
+        }
         private async void ExecuteLoadTagPopup()
         {
             MessagingCenter.Unsubscribe<TagModel>(this, "TagChanged");
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
                 (sender) =>
                 {
-                    Assignment.Tag = sender.Name;
-                    Assignment.TagColor = sender.TagColor;
+                    Assignment.AddTag(sender);
+                    UpdateTags();
                 });
             await Navigation.PushPopupAsync(new TagPopupPage());
         }

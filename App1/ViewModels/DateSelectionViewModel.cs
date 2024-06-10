@@ -88,8 +88,8 @@ namespace App1.ViewModels
                 assign.ID= Assignment.ID;
                 assign.IsCompleted= Assignment.IsCompleted;
                 assign.Priority= Assignment.Priority;
-                assign.Tag= Assignment.Tag;
-                assign.TagColor= Assignment.TagColor;
+                assign.Tags= Assignment.Tags;
+
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign));
             }
                 
