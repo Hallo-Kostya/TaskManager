@@ -82,13 +82,29 @@
                                                             </DataTrigger>
                                                         </Image.Triggers>
                                                     </Image>
-                                                    <Image Source="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" FontSize="12" Padding="-3,3,0,0"/>
-                                                    <CollectionView  ItemsSource="{Binding Tags}" >
+                                                    <Image BackgroundColor="Color.Transparent" WidthRequest="20">
+                                                        <Image.Triggers>
+                                                            <DataTrigger TargetType="Image" Binding="{Binding IsCompleted}" Value="True">
+                                                                <Setter Property="Source" Value="clock1" />
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="False">
+                                                                <Setter Property="Source" Value="clock_green.png" />
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                <Setter Property="Source" Value="time.png" />
+                                                            </DataTrigger>
+                                                        </Image.Triggers>
+                                                    </Image>
+                                                    <!--<Image Source="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" BackgroundColor="Color.Transparent" WidthRequest="20"/>-->
+                                                    <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="{Binding IsCompleted, Converter={StaticResource BoolToTextColorConverter}}" WidthRequest="90" FontSize="12" Padding="-3,3,0,0"/>
+                                                    <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
+                                                        <CollectionView.ItemsLayout>
+                                                            <GridItemsLayout Orientation="Horizontal" />
+                                                        </CollectionView.ItemsLayout>
                                                         <CollectionView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackLayout x:DataType="model:TagModel" Margin="5">
-                                                                    <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                                    <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                                                         <StackLayout Orientation="Horizontal" HeightRequest="5">
                                                                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                                                                             <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>

@@ -215,12 +215,18 @@ namespace App1.ViewModels
                             .OrderByDescending(group => group.Key);
                         break;
                     case "Tag":
-                        groupedAssignments = filteredAssignments
-                            .SelectMany(x => x.Tags.Select(tag => new { Tag = tag, Assignment = x }))
-                            .Distinct()
-                            .GroupBy(x => (object)x.Tag.Name, x => x.Assignment)
+                        var tasksWithTags = filteredAssignments
+                            .Where(x => x.Tags.Any())
+                            .GroupBy(x => (object)x.Tags.First().Name)
                             .OrderByDescending(group => group.Key);
 
+                        // Отдельно обрабатываем задачи без тегов
+                        var tasksWithoutTags = filteredAssignments
+                            .Where(x => !x.Tags.Any())
+                            .GroupBy(x => (object)"Без тега");
+
+                        // Объединяем обе группы
+                        groupedAssignments = tasksWithTags.Concat(tasksWithoutTags);
                         break;
                     default:
                         groupedAssignments = filteredAssignments
