@@ -161,6 +161,7 @@ namespace App1.ViewModels
                 foreach (var assignment in a)
                 {
                     assignment.CheckIfOverdue();
+                    await assignment.LoadTagsAsync();
                 }
 
                 // Начальная фильтрация по папке
@@ -174,7 +175,7 @@ namespace App1.ViewModels
                 // Фильтрация по тегу
                 if (IsFilteredByTag && SelectedTag.Name != "без тега")
                 {
-                    filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag == SelectedTag.ID));
+                    filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag.ID == SelectedTag.ID));
                 }
 
                 // Применение сортировки
@@ -215,8 +216,8 @@ namespace App1.ViewModels
                         break;
                     case "Tag":
                         groupedAssignments = filteredAssignments
-                            .SelectMany(x => x.Tags.Select(tagId => new { TagId = tagId, Assignment = x }))
-                            .GroupBy(x => (object)GetTagById(x.TagId).Name, x => x.Assignment)
+                            .SelectMany(x => x.Tags.Select(tag => new { Tag = tag, Assignment = x }))
+                            .GroupBy(x => (object)x.Tag.Name, x => x.Assignment)
                             .OrderByDescending(group => group.Key);
                         break;
                     default:
@@ -267,6 +268,7 @@ namespace App1.ViewModels
 
 
         }
+       
         private async void HandleChangeIsCompleted(AssignmentModel assignment)
         {
             if (assignment == null)

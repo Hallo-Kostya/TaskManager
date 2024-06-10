@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using SQLite;
 using Xamarin.Forms;
 
@@ -11,7 +12,7 @@ namespace App1.Models
     public class AssignmentModel:BaseModel       
     {
         private bool _isOverdue = false;
-        private List<int> _tags = new List<int>();
+        private List<TagModel> _tags = new List<TagModel>();
         private DateTime _executionDate = DateTime.Now;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -33,23 +34,35 @@ namespace App1.Models
                 }
             }
         }
+
         [Ignore]
-        public List<int> Tags
+        public List<TagModel> Tags
         {
             get => _tags;
             set
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
+                OnPropertyChanged(nameof(TagsString)); // Update TagsString when Tags changes
             }
         }
 
         public string TagsString
         {
-            get => string.Join(",", _tags);
+            get => string.Join(",", _tags.Select(t => t.ID));
             set
             {
-                _tags = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _tags = new List<TagModel>();
+                }
+                else
+                {
+                    var tagIds = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(int.Parse).ToList();
+
+                    _tags = tagIds.Select(id => new TagModel { ID = id }).ToList();
+                }
                 OnPropertyChanged(nameof(Tags));
             }
         }
@@ -97,22 +110,39 @@ namespace App1.Models
 
         public void AddTag(TagModel tag)
         {
-            if (Tags.Count < 5 && !Tags.Contains(tag.ID))
+            if (Tags.Count < 5 && !Tags.Any(t => t.ID == tag.ID))
             {
-                Tags.Add(tag.ID);
+                Tags.Add(tag);
                 OnPropertyChanged(nameof(Tags));
+                OnPropertyChanged(nameof(TagsString)); // Update TagsString when a tag is added
             }
         }
 
         public void RemoveTag(TagModel tag)
         {
-            if (Tags.Contains(tag.ID))
+            var existingTag = Tags.FirstOrDefault(t => t.ID == tag.ID);
+            if (existingTag != null)
             {
-                Tags.Remove(tag.ID);
+                Tags.Remove(existingTag);
                 OnPropertyChanged(nameof(Tags));
+                OnPropertyChanged(nameof(TagsString)); // Update TagsString when a tag is removed
             }
         }
- 
+
+        public async Task LoadTagsAsync()
+        {
+            var tagIds = TagsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+            var tags = new List<TagModel>();
+            foreach (var tagId in tagIds)
+            {
+                var tag = await App.AssignmentsDB.GetTagAsync(tagId);
+                if (tag != null)
+                {
+                    tags.Add(tag);
+                }
+            }
+            Tags = tags;
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

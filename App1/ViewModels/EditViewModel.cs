@@ -95,7 +95,7 @@ namespace App1.ViewModels
             TagList.Clear();
             foreach (var tagId in Assignment.Tags)
             {
-                var tag = App.AssignmentsDB.GetTagAsync(tagId).Result;
+                var tag = App.AssignmentsDB.GetTagAsync(tagId.ID).Result;
                 if (tag != null)
                 {
                     TagList.Add(tag);
