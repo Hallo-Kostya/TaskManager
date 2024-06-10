@@ -217,8 +217,10 @@ namespace App1.ViewModels
                     case "Tag":
                         groupedAssignments = filteredAssignments
                             .SelectMany(x => x.Tags.Select(tag => new { Tag = tag, Assignment = x }))
+                            .Distinct()
                             .GroupBy(x => (object)x.Tag.Name, x => x.Assignment)
                             .OrderByDescending(group => group.Key);
+
                         break;
                     default:
                         groupedAssignments = filteredAssignments
