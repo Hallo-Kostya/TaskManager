@@ -90,4 +90,47 @@ namespace App1.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class ItemCountToHeightConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int itemCount)
+            {
+                int baseHeight = 55;
+                int additionalHeight = 84 * itemCount;
+
+                int calculatedHeight = baseHeight + additionalHeight;
+
+                return calculatedHeight;
+            }
+
+            return 55;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DoneItemCountToHeightConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int itemCount)
+            {
+                int calculatedHeight = 83 * itemCount;
+
+                return calculatedHeight;
+            }
+
+            return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

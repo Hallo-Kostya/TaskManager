@@ -14,6 +14,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local1:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+            <local1:ItemCountToHeightConverter x:Key="ItemCountToHeightConverter" />
             <Color x:Key="Accent">#96d1ff</Color>
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="AliceBlue"/>
@@ -39,7 +40,7 @@
              Priority="0" />
     </ContentPage.ToolbarItems>-->
 
-    <StackLayout>
+    <AbsoluteLayout>
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -119,7 +120,7 @@
                 <RefreshView x:DataType="local:AssignmentViewModel" 
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-                    <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" HeightRequest="500">
+                    <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
@@ -183,9 +184,12 @@
                         </CollectionView.ItemTemplate>
                         <CollectionView.Footer>
                             <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
-                            <StackLayout  Padding="10, 10, 10, 0">
+                            <StackLayout  Padding="10, 10, 10, 0" >
                                 <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
                                     <StackLayout Orientation="Horizontal">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Vector_Clicked"/>
+                                        </StackLayout.GestureRecognizers>
                                         <Image Source="done" />
                                         <Label Text="Выполнено" TextColor="AliceBlue"/>
                                         <ImageButton x:Name="VectorButton" Source="vector_down" Clicked="Vector_Clicked" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
@@ -246,7 +250,7 @@
                     </CollectionView>
                 </RefreshView>
             </StackLayout>
-            <Button x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50" WidthRequest="60" HeightRequest="60" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,15 ,20"/>
         </Grid>
-    </StackLayout>
+        <Button AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0.97,60,60" x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50"/>
+    </AbsoluteLayout>
 </ContentPage>

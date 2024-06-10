@@ -8,7 +8,7 @@
         <StackLayout Margin="150, 80, 15, 300" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand">
             <Frame BackgroundColor="#353535" Padding="15, 15" CornerRadius="8">
                 <StackLayout>
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical">
                         <Label Text="Группировать по"/>
                         <Button Text="Дате" Command="{Binding GroupByCommand}" CommandParameter="Date"/>
                         <Button Text="Тегу" Command="{Binding GroupByCommand}" CommandParameter="Tag"/>
