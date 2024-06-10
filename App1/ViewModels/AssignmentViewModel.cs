@@ -205,14 +205,17 @@ namespace App1.ViewModels
                 {
                     case "Date":
                         groupedAssignments = filteredAssignments
-                            .GroupBy(x => (object)x.ExecutionDate.Date);
+                            .GroupBy(x => (object)x.ExecutionDate.Date)
+                            .OrderByDescending(group => group.Key);
                         break;
                     case "Priority":
                         groupedAssignments = filteredAssignments
-                            .GroupBy(x => (object)(int)x.Priority);
+                            .GroupBy(x => (object)(int)x.Priority)
+                            .OrderByDescending(group => group.Key);
                         break;
                     case "Tag":
-                        groupedAssignments = filteredAssignments.GroupBy(x => (object)x.Tag);
+                        groupedAssignments = filteredAssignments.GroupBy(x => (object)x.Tag)
+                            .OrderByDescending(group => group.Key);
                         break;
                     default:
                         groupedAssignments = filteredAssignments
@@ -221,7 +224,7 @@ namespace App1.ViewModels
                 }
 
                 var sortedAssignments = groupedAssignments
-                   .Select(group =>
+                   .SelectMany(group =>
                    {
                        var sortedGroup = group.AsEnumerable();
                        if (IsFilteredByPriority)
@@ -235,7 +238,7 @@ namespace App1.ViewModels
                                .ThenBy(x => x.ExecutionDate.TimeOfDay);
                        }
                        return sortedGroup;
-                   }).SelectMany(x => x)
+                   })
                     .ToList();
                 assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
                 CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
