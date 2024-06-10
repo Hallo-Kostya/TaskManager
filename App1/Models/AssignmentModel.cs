@@ -11,6 +11,7 @@ namespace App1.Models
     public class AssignmentModel:BaseModel       
     {
         private bool _isOverdue = false;
+        private List<int> _tags = new List<int>();
         private DateTime _executionDate = DateTime.Now;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -32,7 +33,26 @@ namespace App1.Models
                 }
             }
         }
-        public List<int> Tags { get; set; } = new List<int>();
+        [Ignore]
+        public List<int> Tags
+        {
+            get => _tags;
+            set
+            {
+                _tags = value;
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
+
+        public string TagsString
+        {
+            get => string.Join(",", _tags);
+            set
+            {
+                _tags = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
         public bool HasNotification { get; set; }
         public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
