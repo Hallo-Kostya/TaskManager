@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-using static App1.Models.AssignmentModel;
+
 
 namespace App1.ViewModels
 {
@@ -65,7 +65,7 @@ namespace App1.ViewModels
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
-            DeleteCommand = new Command(OnDelete);
+            DeleteCommand = new Command<TagModel>(OnDelete);
             DeleteTagCommand = new Command<TagModel>(DeleteTag);
             DatePopupCommand = new Command((arg) =>
             {

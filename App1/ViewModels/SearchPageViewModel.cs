@@ -45,6 +45,7 @@ namespace App1.ViewModels
                 SearchedAssignments.Clear();
                 foreach (var item in archives)
                 {
+                    await item.LoadTagsAsync();
                     SearchedAssignments.Add(item);
                 }
             }

@@ -37,6 +37,7 @@ namespace App1.ViewModels
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
+                    await ass.LoadTagsAsync();
                     Archive.Add(ass);
                 }
             }
