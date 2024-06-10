@@ -165,9 +165,12 @@
                                                                 </Image.Triggers>
                                                             </Image>
                                                             <Image Source="time.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
-                                                            <Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
-                                                            <CollectionView  ItemsSource="{Binding Tags}" >
+                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
+                                                            <!--<Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>-->
+                                                            <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
+                                                                <CollectionView.ItemsLayout>
+                                                                    <GridItemsLayout Orientation="Horizontal" />
+                                                                </CollectionView.ItemsLayout>
                                                                 <CollectionView.ItemTemplate>
                                                                     <DataTemplate>
                                                                         <StackLayout x:DataType="model:TagModel" Margin="5">
