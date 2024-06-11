@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
+using System.Threading.Tasks;
 
 
 namespace App1.ViewModels
@@ -92,6 +93,8 @@ namespace App1.ViewModels
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
             ChangeIsCompletedCommand = new Command<AssignmentModel>(ChangeIsCompleted);
+            Task.Run(async () => await UpdateChilds());
+            Task.Run(async () => await UpdateTags());
         }
         private async void OnSave()
         {
