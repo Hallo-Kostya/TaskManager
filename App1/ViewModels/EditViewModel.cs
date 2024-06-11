@@ -25,7 +25,13 @@ namespace App1.ViewModels
         public Command DatePopupCommand { get; }
         public Command DeleteTagCommand { get; }
         public Command NotificationPopupCommand { get; }
+
+        public Command ChangeIsCompletedCommand { get; }
+        public Command AddChildCommand { get; }
+        public Command DeleteChildCommand { get; }
+
         public ObservableCollection<TagModel> TagList { get; }
+        public ObservableCollection<AssignmentModel> ChildList { get; }
         public bool isFromPopup { get; set; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
@@ -57,11 +63,14 @@ namespace App1.ViewModels
         public Command DeleteCommand { get; }
         public EditViewModel(INavigation navigation)
         {
+            AddChildCommand = new Command(AddChild);
+            DeleteChildCommand = new Command<AssignmentModel>(DeleteChild);
             isFromPopup = false;
             HandleChangeIsCompletedCommand = new Command(HandleChangeIsCompleted);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             TagList = new ObservableCollection<TagModel>();
+            ChildList = new ObservableCollection<AssignmentModel>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
@@ -79,6 +88,7 @@ namespace App1.ViewModels
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
+            ChangeIsCompletedCommand = new Command<AssignmentModel>(ChangeIsCompleted);
         }
         private async void OnSave()
         {
@@ -91,12 +101,12 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
-        private void UpdateTags()
+        private async void UpdateTags()
         {
             TagList.Clear();
             foreach (var tagId in Assignment.Tags)
             {
-                var tag = App.AssignmentsDB.GetTagAsync(tagId.ID).Result;
+                var tag =await  App.AssignmentsDB.GetTagAsync(tagId.ID);
                 if (tag != null)
                 {
                     TagList.Add(tag);
@@ -104,6 +114,37 @@ namespace App1.ViewModels
             }
 
         }
+        private async void UpdateChilds()
+        {
+            ChildList.Clear();
+            foreach (var childId in Assignment.Childs)
+            {
+                var child = await App.AssignmentsDB.GetItemtAsync(childId.ID);
+                if (child != null)
+                {
+                    ChildList.Add(child);
+                }
+            }
+
+        }
+
+        private async void AddChild()
+        {
+
+            await Navigation.PushAsync(new AssignmentAddingPage(true));
+            MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", (sender) =>
+            {
+                Assignment.AddChild(sender);
+                UpdateChilds();
+            });
+        }
+        private void DeleteChild(AssignmentModel assignment)
+        {
+            Assignment.RemoveChild(assignment);
+            UpdateChilds();
+        }
+
+
         private void DeleteTag(TagModel tag)
         {
             Assignment.RemoveTag(tag);
@@ -130,6 +171,12 @@ namespace App1.ViewModels
                     UpdateTags();
                 });
             await Navigation.PushPopupAsync(new TagPopupPage());
+        }
+
+        private void ChangeIsCompleted(AssignmentModel assignment)
+        {
+            assignment.ChangeIsCompleted();
+            UpdateChilds();
         }
         private async void ExecuteFoldersPopup()
         {

@@ -13,6 +13,7 @@ namespace App1.Models
     {
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
+        private List<AssignmentModel> _childs = new List<AssignmentModel>();
         private DateTime _executionDate = DateTime.Now;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -34,7 +35,37 @@ namespace App1.Models
                 }
             }
         }
+        
+        [Ignore]
+        public List<AssignmentModel> Childs 
+        {
+            get => _childs;
+            set
+            {
+                _childs = value;
+                OnPropertyChanged(nameof(Childs));
+                OnPropertyChanged(nameof(ChildsString));
+            }
+        }
+        public string ChildsString
+        {
+            get => string.Join(",", _childs.Select(t => t.ID));
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _childs = new List<AssignmentModel>();
+                }
+                else
+                {
+                    var childIds = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(int.Parse).ToList();
 
+                    _childs = childIds.Select(id => new AssignmentModel { ID = id }).ToList();
+                }
+                OnPropertyChanged(nameof(Childs));
+            }
+        }
         [Ignore]
         public List<TagModel> Tags
         {
@@ -69,8 +100,7 @@ namespace App1.Models
         public bool HasNotification { get; set; }
         public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
-        //public bool HasChilds { get; set; }
-        //public List<int>[] Childs { get; set; }
+
         public enum EnumPriority : int
         {
             Нет = 0,
@@ -78,6 +108,8 @@ namespace App1.Models
             Средний = 2,
             Высокий = 3
         }
+        public bool HasChild { get; set; } = false;
+        public bool IsChild { get; set; } = false;
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
         
@@ -107,7 +139,33 @@ namespace App1.Models
         {
             IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
         }
-
+        public void AddChild(AssignmentModel assignment)
+        {
+            HasChild = true;
+            if (Childs.Count<10 && !Childs.Any(t=> t.ID == assignment.ID))
+            {
+                Childs.Add(assignment);
+                OnPropertyChanged(nameof(Childs));
+                OnPropertyChanged(nameof(ChildsString));
+            }
+            
+        }
+        public void ChangeIsCompleted()
+        {
+            IsCompleted = !IsCompleted;
+        }
+        public void RemoveChild(AssignmentModel assignment)
+        {
+            var existingChild = Childs.FirstOrDefault(t => t.ID == assignment.ID);
+            if (existingChild != null)
+            {
+                Childs.Remove(existingChild);
+                OnPropertyChanged(nameof(Childs));
+                OnPropertyChanged(nameof(ChildsString));
+            }
+            if (Childs.Count == 0)
+                HasChild = false;
+        }
         public void AddTag(TagModel tag)
         {
             if (Tags.Count < 5 && !Tags.Any(t => t.ID == tag.ID))
@@ -142,6 +200,20 @@ namespace App1.Models
                 }
             }
             Tags = tags;
+        }
+        public async Task LoadChildsAsync()
+        {
+            var childIds = ChildsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+            var childs = new List<AssignmentModel>();
+            foreach (var childId in childIds)
+            {
+                var child = await App.AssignmentsDB.GetItemtAsync(childId);
+                if (child != null)
+                {
+                    childs.Add(child);
+                }
+            }
+            Childs = childs;
         }
 
 

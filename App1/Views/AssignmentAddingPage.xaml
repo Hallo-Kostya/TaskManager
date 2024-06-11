@@ -28,10 +28,10 @@
             <StackLayout Padding="-5">
                 <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16" Margin="0, -10, 0, 0"/>
                 <Editor Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="70" Margin="0, -20, 0, 0"/>
-                <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding TagList}" HeightRequest="35">
+                <CollectionView x:Name="TagsList" ItemsLayout="HorizontalList" ItemsSource="{Binding TagList}" HeightRequest="35">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout x:DataType="model:TagModel" Padding="0, 0, 0,0" Orientation="Horizontal">
+                            <StackLayout  x:DataType="model:TagModel" Padding="0, 0, 0,0" Orientation="Horizontal">
                                 <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer x:DataType="local:AssignmentAddingViewModel" Command="{Binding DeleteTagCommand}"/>

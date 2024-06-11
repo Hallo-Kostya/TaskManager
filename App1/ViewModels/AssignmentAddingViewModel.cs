@@ -64,7 +64,7 @@ namespace App1.ViewModels
         }
 
         public bool TagLoaded { get; set; } = false;
-
+        public bool IsChildAssignment { get; set; }
 
 
         public AssignmentAddingViewModel(INavigation navigation)
@@ -99,9 +99,17 @@ namespace App1.ViewModels
             {
                 assignment.Name = "Без названия";
             }
-            await App.AssignmentsDB.AddItemAsync(assignment);
-            await Navigation.PopPopupAsync();
-            MessagingCenter.Send(this, "PopupClosed");
+            if (!IsChildAssignment)
+            {
+                await App.AssignmentsDB.AddItemAsync(assignment);
+                await Navigation.PopPopupAsync();
+                MessagingCenter.Send(this, "PopupClosed");
+            }
+            else
+            {
+                await Navigation.PopPopupAsync();
+                MessagingCenter.Send(this, "PopupChildClosed");
+            }
         }
         private async void UpdateTags()
         {

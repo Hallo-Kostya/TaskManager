@@ -58,8 +58,27 @@ namespace App1.Views
                 var evtData = (NotificationEventArgs)eventArgs;
                 ShowNotification(evtData.Title, evtData.Message);
             };
+        }
+        public AssignmentAddingPage(bool _isChildAssignment)
+        {
+            InitializeComponent();
+            BindingContext = new AssignmentAddingViewModel(Navigation);
+            ((AssignmentAddingViewModel)BindingContext).IsChildAssignment = _isChildAssignment;
+            if (_isChildAssignment == true)
+            {
+                tags.IsVisible = false;
+                folders.IsVisible = false;
+                TagsList.IsVisible = false;
+            }
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
 
         }
+
 
         private void ButtonSave_Clicked(object sender, EventArgs e)
         {
