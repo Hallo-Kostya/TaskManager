@@ -64,7 +64,7 @@ namespace App1.ViewModels
         }
 
         public bool TagLoaded { get; set; } = false;
-        public bool IsChildAssignment { get; set; }
+        public bool IsChildAssignment { get; set; } 
 
 
         public AssignmentAddingViewModel(INavigation navigation)
@@ -89,6 +89,7 @@ namespace App1.ViewModels
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
             Assignment = new AssignmentModel();
+            IsChildAssignment = false;
             BackgroundClickedCommand = new Command(OnBackgroundClicked);
 
         }
@@ -107,6 +108,8 @@ namespace App1.ViewModels
             }
             else
             {
+                assignment.IsChild = true;
+                await App.AssignmentsDB.AddItemAsync(assignment);
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(this, "PopupChildClosed");
             }

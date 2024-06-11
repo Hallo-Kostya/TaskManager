@@ -165,7 +165,7 @@ namespace App1.ViewModels
                 }
 
                 // Начальная фильтрация по папке
-                IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false);
+                IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false && t.IsChild==false);
 
                 if (SelectedFolder.Name != "Мои дела")
                 {

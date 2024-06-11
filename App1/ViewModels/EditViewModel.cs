@@ -132,6 +132,7 @@ namespace App1.ViewModels
         {
 
             await Navigation.PushPopupAsync(new AssignmentAddingPage(true));
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "PopupChildClosed");
             MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", (sender) =>
             {
                 Assignment.AddChild(sender);
