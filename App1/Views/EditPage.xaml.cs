@@ -18,10 +18,11 @@ namespace App1.Views
     public partial class EditPage : ContentPage
     {
         INotificationManager notificationManager;
+        private EditViewModel viewModel;
         public EditPage()
         {
             InitializeComponent();
-            BindingContext = new EditViewModel(Navigation);
+            BindingContext = viewModel = new EditViewModel(Navigation);
             notificationManager = DependencyService.Get<INotificationManager>();
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
@@ -32,7 +33,7 @@ namespace App1.Views
         public EditPage(AssignmentModel assignment,bool _isFromPopup)
         {
             InitializeComponent();
-            BindingContext = new EditViewModel(Navigation);
+            BindingContext = viewModel = new EditViewModel(Navigation);
             if (assignment != null )
             {
                 ((EditViewModel)BindingContext).Assignment=assignment;
@@ -45,7 +46,11 @@ namespace App1.Views
                 ShowNotification(evtData.Title, evtData.Message);
             };
         }
-       
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await viewModel.OnAppearing();
+        }
 
         private void ButtonSave_Clicked(object sender, EventArgs e)
             {

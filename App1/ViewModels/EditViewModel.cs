@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
 
@@ -63,6 +64,8 @@ namespace App1.ViewModels
         public Command DeleteCommand { get; }
         public EditViewModel(INavigation navigation)
         {
+            Task.Run(async () => await UpdateChilds());
+            Task.Run(async () => await UpdateTags());
             AddChildCommand = new Command(AddChild);
             DeleteChildCommand = new Command<AssignmentModel>(DeleteChild);
             isFromPopup = false;
@@ -101,7 +104,12 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
-        private async void UpdateTags()
+        public async Task OnAppearing()
+        {
+            await UpdateTags();
+            await UpdateChilds();
+        }
+        private async Task UpdateTags()
         {
             TagList.Clear();
             foreach (var tagId in Assignment.Tags)
@@ -114,7 +122,7 @@ namespace App1.ViewModels
             }
 
         }
-        private async void UpdateChilds()
+        private async Task UpdateChilds()
         {
             ChildList.Clear();
             foreach (var childId in Assignment.Childs)
@@ -132,25 +140,25 @@ namespace App1.ViewModels
         {
 
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "PopupChildClosed");
-            MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", (sender) =>
+            MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", async (sender) =>
             {
                 Assignment.AddChild(sender);
-                UpdateChilds();
+                await UpdateChilds();
             });
             await Navigation.PushPopupAsync(new AssignmentAddingPage(true));
             
         }
-        private void DeleteChild(AssignmentModel assignment)
+        private async void DeleteChild(AssignmentModel assignment)
         {
             Assignment.RemoveChild(assignment);
-            UpdateChilds();
+            await UpdateChilds();
         }
 
 
-        private void DeleteTag(TagModel tag)
+        private async void DeleteTag(TagModel tag)
         {
             Assignment.RemoveTag(tag);
-            UpdateTags();
+            await UpdateTags();
         }
         private async void OnDelete()
         {
@@ -167,18 +175,18 @@ namespace App1.ViewModels
         {
             MessagingCenter.Unsubscribe<TagModel>(this, "TagChanged");
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
-                (sender) =>
+                async (sender) =>
                 {
                     Assignment.AddTag(sender);
-                    UpdateTags();
+                    await UpdateTags();
                 });
             await Navigation.PushPopupAsync(new TagPopupPage());
         }
 
-        private void ChangeIsCompleted(AssignmentModel assignment)
+        private async void ChangeIsCompleted(AssignmentModel assignment)
         {
             assignment.ChangeIsCompleted();
-            UpdateChilds();
+            await UpdateChilds();
         }
         private async void ExecuteFoldersPopup()
         {
