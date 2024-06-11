@@ -131,13 +131,14 @@ namespace App1.ViewModels
         private async void AddChild()
         {
 
-            await Navigation.PushPopupAsync(new AssignmentAddingPage(true));
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "PopupChildClosed");
             MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", (sender) =>
             {
                 Assignment.AddChild(sender);
                 UpdateChilds();
             });
+            await Navigation.PushPopupAsync(new AssignmentAddingPage(true));
+            
         }
         private void DeleteChild(AssignmentModel assignment)
         {

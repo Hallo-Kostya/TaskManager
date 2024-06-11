@@ -111,7 +111,7 @@ namespace App1.ViewModels
                 assignment.IsChild = true;
                 await App.AssignmentsDB.AddItemAsync(assignment);
                 await Navigation.PopPopupAsync();
-                MessagingCenter.Send(this, "PopupChildClosed");
+                MessagingCenter.Send(assignment, "PopupChildClosed");
             }
         }
         private async void UpdateTags()
