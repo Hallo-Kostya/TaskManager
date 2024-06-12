@@ -5,6 +5,7 @@ using Xamarin.Forms.Platform.Android;
 using App1.Droid.Effects;
 using App1.Effects;
 using System.ComponentModel;
+using Color = Xamarin.Forms.Color;
 
 [assembly: ResolutionGroupName("App1")]
 [assembly: ExportEffect(typeof(TintImageEffectAndroid), "TintImageEffect")]

@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:App1.Views" 
+       xmlns:local1="clr-namespace:App1.Effects"
        xmlns:model="clr-namespace:App1.Models" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:AppShellViewModel"
        Title="App1"
        FlyoutBehavior="Flyout"
@@ -75,7 +76,11 @@
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppShellViewModel}}, Path=SelectedCommand}" CommandParameter="{Binding .}"/>
                         </StackLayout.GestureRecognizers>
-                        <Image Source="align" />
+                        <Image Source="{Binding SelectedIcon}" x:Name="MyImage11" local1:TintImageEffect.TintColor="{Binding Color}">
+                            <Image.Effects>
+                                <local1:TintImageEffect />
+                            </Image.Effects>
+                        </Image>
                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontAttributes="Bold" />
                         <Label Text="{Binding Count}" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                         
