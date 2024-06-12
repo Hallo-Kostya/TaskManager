@@ -17,6 +17,30 @@ namespace App1.Views
         {
             InitializeComponent();
             BindingContext = new APPSettingsViewModel(Navigation);
+            if ((BindingContext as APPSettingsViewModel).IsArchiveCleaningEnabled == true)
+            {
+                NextClean.IsVisible = true;
+                ArchiveClean.IsVisible = true;
+            }
+            else
+            {
+                NextClean.IsVisible = false;
+                ArchiveClean.IsVisible = false;
+            }
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        { 
+            if ((BindingContext as APPSettingsViewModel).IsArchiveCleaningEnabled == false)
+            {
+                NextClean.IsVisible = false;
+                ArchiveClean.IsVisible = false;
+            }
+            else
+            {
+                NextClean.IsVisible = true;
+                ArchiveClean.IsVisible = true;
+            }
         }
     }
 }

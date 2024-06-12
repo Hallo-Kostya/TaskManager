@@ -10,12 +10,15 @@ using Android.Content;
 using Android.App.Job;
 using App1.Droid.Services;
 using Xamarin.Essentials;
+using Android;
+using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
 
 namespace App1.Droid
 {
     [Activity(Label = "App1", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, LaunchMode = LaunchMode.SingleTop)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        const int RequestPermissionId = 1000;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,7 +28,29 @@ namespace App1.Droid
             LoadApplication(new App());
             CreateNotificationFromIntent(Intent);
             ScheduleJob();
+            RequestPermissions();
         }
+        void RequestPermissions()
+        {
+            if ((int)Build.VERSION.SdkInt >= 23)
+            {
+                if (CheckSelfPermission(Manifest.Permission.ReceiveBootCompleted) != (int)Permission.Granted ||
+                    CheckSelfPermission(Manifest.Permission.WakeLock) != (int)Permission.Granted ||
+                    CheckSelfPermission(Manifest.Permission.Vibrate) != (int)Permission.Granted ||
+                    CheckSelfPermission(Manifest.Permission.ForegroundService) != (int)Permission.Granted)
+                {
+                    RequestPermissions(new string[]
+                    {
+                        Manifest.Permission.ReceiveBootCompleted,
+                        Manifest.Permission.WakeLock,
+                        Manifest.Permission.Vibrate,
+                        Manifest.Permission.ForegroundService
+                    }, RequestPermissionId);
+                }
+            }
+        }
+
+
         void ScheduleJob()
         {
             // Получаем интервал из настроек

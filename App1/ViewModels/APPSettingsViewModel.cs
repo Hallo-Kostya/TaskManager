@@ -20,6 +20,20 @@ namespace App1.ViewModels
             get => _cleaningInterval;
             set => SetProperty(ref _cleaningInterval, value);
         }
+        private DateTime _nextCleanDate;
+        public DateTime NextCleanDate
+        {
+            get => _nextCleanDate;
+            set
+            {
+                if (_nextCleanDate != value)
+                {
+                    _nextCleanDate = value;
+                    OnPropertyChanged(nameof(NextCleanDate));
+                    
+                }
+            }
+        }
         public bool IsArchiveCleaningEnabled
         {
             get => _isArchiveCleaningEnabled;
@@ -53,7 +67,7 @@ namespace App1.ViewModels
             {
                 CleaningInterval = tempInterval;
             }
-            
+            NextCleanDate = DateTime.Now.AddHours(CleaningInterval);    
         }
         private async void CancelSettings()
         {
