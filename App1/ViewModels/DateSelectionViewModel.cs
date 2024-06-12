@@ -4,6 +4,7 @@ using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -89,6 +90,9 @@ namespace App1.ViewModels
                 assign.IsCompleted= Assignment.IsCompleted;
                 assign.Priority= Assignment.Priority;
                 assign.Tags= Assignment.Tags;
+                assign.Childs = Assignment.Childs;
+                assign.IsChild = Assignment.IsChild;
+                assign.HasChild = Assignment.HasChild;
 
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign));
             }

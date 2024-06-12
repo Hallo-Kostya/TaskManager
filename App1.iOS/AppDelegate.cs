@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using App1.iOS.Services;
 using Foundation;
 using UIKit;
 using UserNotifications;
@@ -25,10 +25,33 @@ namespace App1.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Sound, (granted, error) => {
+                if (granted)
+                {
+                    Console.WriteLine("Уведомления разрешены");
+                }
+                else
+                {
+                    Console.WriteLine("Уведомления запрещены");
+                }
+            });
             UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver(iOSNotificationManager.Instance);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+    }
+    public class UserNotificationCenterDelegate : UNUserNotificationCenterDelegate
+    {
+        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        {
+            completionHandler(UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Sound);
+        }
+
+        public async  override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        {
+            await ArchiveCleanupService.ClearArchive();
+            completionHandler();
         }
     }
 }

@@ -63,10 +63,13 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Effects\TintImageEffectiOS.cs" />
     <Compile Include="iOSNotificationManager.cs" />
     <Compile Include="iOSNotificationReceiver.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\ArchiveCleanupScheduler.cs" />
+    <Compile Include="Services\ArchiveCleanupService.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />

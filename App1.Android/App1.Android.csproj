@@ -75,7 +75,7 @@
   <ItemGroup>
     <Compile Include="AlarmHandler.cs" />
     <Compile Include="AndroidNotificationManager.cs" />
-    <Compile Include="Effects\TintImageEffectDroid.cs" />
+    <Compile Include="Effects\TintImageEffectAndroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

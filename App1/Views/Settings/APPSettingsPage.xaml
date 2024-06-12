@@ -10,7 +10,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Включить автоматическую очистку архива" TextColor="AliceBlue" FontAttributes="Bold" FontSize="16"/>
-                        <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:APPSettingsViewModel}}, Path=EnableArchiveCleaningCommand}" CommandParameter="{Binding .}" >
+                        <ImageButton Clicked="ImageButton_Clicked" Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:APPSettingsViewModel}}, Path=EnableArchiveCleaningCommand}" CommandParameter="{Binding .}" >
                             <ImageButton.Triggers>
                                 <DataTrigger TargetType="ImageButton" Binding="{Binding IsArchiveCleaningEnabled}" Value="True">
                                     <Setter Property="Source" Value="done.png" />
@@ -18,14 +18,14 @@
                             </ImageButton.Triggers>
                         </ImageButton>
                     </StackLayout>
-                    <StackLayout Margin="0,10">
+                    <StackLayout x:Name="ArchiveClean" Margin="0,10">
                         <Label Text="Выберите интервал" FontSize="16" TextColor="AliceBlue"/>
                         <Button Text="Раз в сутки" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="24" BackgroundColor="Gray"/>
                         <Button Text="Раз в три дня" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="72" BackgroundColor="Gray"/>
                         <Button Text="Раз в неделю" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="168" BackgroundColor="Gray"/>
                         <Button Text="Раз в 30 дней" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="720" BackgroundColor="Gray"/>
                         <Button Text="Выбрать своё время" CornerRadius="20" BackgroundColor="Gray"/>
-                        <Label Text="{Binding CleaningInterval, StringFormat='Архив будет очищаться раз в {CleaningInterval} часов'}" TextColor="AliceBlue"/>
+                        <Label  x:Name="NextClean" Text="{Binding NextCleanDate, StringFormat='Следующая очистка архива будет: {0:F}'}" TextColor="AliceBlue"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -170,6 +170,10 @@ namespace App1.ViewModels
 
         private async void ExecuteNotification()
         {
+            if (IsChildAssignment)
+                Assignment.IsChild = true;
+            else
+                Assignment.IsChild = false;
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "DateChanged");
             MessagingCenter.Subscribe<AssignmentModel>(this, "DateChanged",
                 (sender) =>
@@ -178,6 +182,7 @@ namespace App1.ViewModels
                     Assignment.NotificationTime = sender.NotificationTime;
                     Assignment.HasNotification = sender.HasNotification;
                     Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
+                    Assignment.IsChild = sender.IsChild;
                 });
             await Navigation.PushAsync(new DateSelectionPage(Assignment,true),false);
             await Navigation.PopAllPopupAsync();
