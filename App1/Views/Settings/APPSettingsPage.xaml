@@ -20,19 +20,44 @@
                     </StackLayout>
                     <StackLayout x:Name="ArchiveClean" Margin="0,10">
                         <Label Text="Выберите интервал" FontSize="16" TextColor="AliceBlue"/>
-                        <Button Text="Раз в сутки" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="24" BackgroundColor="Gray"/>
-                        <Button Text="Раз в три дня" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="72" BackgroundColor="Gray"/>
-                        <Button Text="Раз в неделю" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="168" BackgroundColor="Gray"/>
-                        <Button Text="Раз в 30 дней" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="720" BackgroundColor="Gray"/>
-                        <Button Text="Выбрать своё время" CornerRadius="20" BackgroundColor="Gray"/>
-                        <Label  x:Name="NextClean" Text="{Binding NextCleanDate, StringFormat='Следующая очистка архива будет: {0:F}'}" TextColor="AliceBlue"/>
+                        <Button Text="Раз в сутки" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="24" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="24">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в три дня" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="72" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="72">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в неделю" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="168" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="168">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в 30 дней" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="720" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="720">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <!--<Button Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>-->
+                        <Label x:Name="NextClean" Text="Следующая очистка архива будет:" TextColor="AliceBlue"/>
+                        <Label  Text="{Binding NextCleanDate, StringFormat='{0:dd.MM.yyyy HH:mm}'}" TextColor="AliceBlue"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>
                 <StackLayout Orientation="Horizontal" Margin="0, 20">
-                    <Button Text="Сохранить" Command="{Binding SaveSettingsCommand}" Padding="20,0" CornerRadius="30" HorizontalOptions="CenterAndExpand" BackgroundColor="Gray"/>
-                    <Button Text="Отменить" Command="{Binding CancelSettingsCommand}" Padding="20,0" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
-                </StackLayout>
+                    <Button Text="Отменить" Command="{Binding CancelSettingsCommand}" Padding="30,0" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
+                    <Button Text="Сохранить" Command="{Binding SaveSettingsCommand}" Padding="30,0" CornerRadius="30" HorizontalOptions="CenterAndExpand" BackgroundColor="Gray"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
