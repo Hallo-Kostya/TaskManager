@@ -20,6 +20,7 @@
                     <Entry Placeholder="Введите название папки..." PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </Frame>
+            
 
             <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15">
                 <StackLayout>
