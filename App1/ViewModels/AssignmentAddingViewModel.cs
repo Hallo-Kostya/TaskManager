@@ -96,17 +96,20 @@ namespace App1.ViewModels
         private async void OnSave()
         {
             var assignment = Assignment;
+
             if (string.IsNullOrEmpty(assignment.Name))
             {
                 assignment.Name = "Без названия";
             }
+            
             if (!IsChildAssignment)
             {
+                MessagingCenter.Send(this, "FolderAssignAdded");
                 await App.AssignmentsDB.AddItemAsync(assignment);
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(this, "PopupClosed");
             }
-            else
+            else if (IsChildAssignment)
             {
                 assignment.IsChild = true;
                 await App.AssignmentsDB.AddItemAsync(assignment);
