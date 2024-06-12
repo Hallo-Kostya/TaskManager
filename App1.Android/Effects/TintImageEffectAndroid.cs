@@ -6,9 +6,10 @@ using App1.Droid.Effects;
 using App1.Effects;
 using System.Linq;
 using System;
+using Color = Xamarin.Forms.Color;
 
 [assembly: ResolutionGroupName("App1")]
-[assembly: ExportEffect(typeof(TintImageEffect), "TintImageEffect")]
+[assembly: ExportEffect(typeof(TintImageEffectAndroid), "TintImageEffect")]
 namespace App1.Droid.Effects
 {
     public class TintImageEffectAndroid : PlatformEffect
@@ -19,10 +20,12 @@ namespace App1.Droid.Effects
             {
                 if (Control is ImageView imageView)
                 {
-                    var effect = (TintImageEffect)Element.Effects.FirstOrDefault(e => e is TintImageEffect);
-                    if (effect != null)
+                    var effect = (App1.Effects.TintImageEffect)Element.Effects.FirstOrDefault(e => e is App1.Effects.TintImageEffect);
+
+                    if (effect != null && effect.TintColor != Color.Default)
                     {
-                        imageView.SetColorFilter(effect.TintColor.ToAndroid(), PorterDuff.Mode.SrcIn);
+                        var colorFilter = new PorterDuffColorFilter(effect.TintColor.ToAndroid(), PorterDuff.Mode.SrcIn);
+                        imageView.SetColorFilter(colorFilter);
                     }
                 }
             }
@@ -34,10 +37,8 @@ namespace App1.Droid.Effects
 
         protected override void OnDetached()
         {
-            if (Control is ImageView imageView)
-            {
-                imageView.ClearColorFilter();
-            }
+            // Очистка
         }
     }
 }
+
