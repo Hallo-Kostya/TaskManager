@@ -8,12 +8,11 @@ namespace App1.Effects
         {
         }
 
-        public static readonly BindableProperty TintColorProperty =
-            BindableProperty.CreateAttached(
-                "TintColor",
-                typeof(Color),
-                typeof(TintImageEffect),
-                Color.Default);
+        public static readonly BindableProperty TintColorProperty = BindableProperty.CreateAttached(
+            "TintColor",
+            typeof(Color),
+            typeof(TintImageEffect),
+            Color.Default);
 
         public static Color GetTintColor(BindableObject view)
         {

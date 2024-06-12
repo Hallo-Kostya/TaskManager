@@ -4,7 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using App1.Droid.Effects;
 using App1.Effects;
-
+using System.ComponentModel;
 
 [assembly: ResolutionGroupName("App1")]
 [assembly: ExportEffect(typeof(TintImageEffectAndroid), "TintImageEffect")]
@@ -14,26 +14,32 @@ namespace App1.Droid.Effects
     {
         protected override void OnAttached()
         {
-            UpdateTintColor();
+            UpdateColor();
         }
 
         protected override void OnDetached()
         {
-            if (Control is Android.Widget.ImageView imageView)
+            // Optional: Cleanup code if needed
+        }
+
+        protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnElementPropertyChanged(args);
+            if (args.PropertyName == TintImageEffect.TintColorProperty.PropertyName)
             {
-                imageView.ClearColorFilter();
+                UpdateColor();
             }
         }
 
-        private void UpdateTintColor()
+        private void UpdateColor()
         {
-            if (Control is Android.Widget.ImageView imageView)
+            var control = Control as ImageView;
+            var color = TintImageEffect.GetTintColor(Element);
+
+            if (control != null && color != Color.Default)
             {
-                var color = TintImageEffect.GetTintColor(Element);
-                imageView.SetColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn);
+                control.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn));
             }
         }
     }
 }
-
-

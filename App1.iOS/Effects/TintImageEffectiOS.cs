@@ -1,39 +1,45 @@
-﻿using Xamarin.Forms;
+﻿using UIKit;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using App1.iOS.Effects;
 using App1.Effects;
-using UIKit;
-using System.Linq;
-using System;
+using System.ComponentModel;
 
 [assembly: ResolutionGroupName("App1")]
-[assembly: ExportEffect(typeof(TintImageEffectiOS), "TintImageEffect")]
+[assembly: ExportEffect(typeof(TintImageEffectIOS), "TintImageEffect")]
 namespace App1.iOS.Effects
 {
-    public class TintImageEffectiOS : PlatformEffect
+    public class TintImageEffectIOS : PlatformEffect
     {
         protected override void OnAttached()
         {
-            UpdateTintColor();
+            UpdateColor();
         }
 
         protected override void OnDetached()
         {
-            if (Control is UIImageView imageView)
+            // Optional: Cleanup code if needed
+        }
+
+        protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnElementPropertyChanged(args);
+            if (args.PropertyName == TintImageEffect.TintColorProperty.PropertyName)
             {
-                imageView.TintColor = UIColor.Clear;
+                UpdateColor();
             }
         }
 
-        private void UpdateTintColor()
+        private void UpdateColor()
         {
-            if (Control is UIImageView imageView)
+            var control = Control as UIImageView;
+            var color = TintImageEffect.GetTintColor(Element);
+
+            if (control != null && color != Color.Default)
             {
-                var color = TintImageEffect.GetTintColor(Element);
-                imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-                imageView.TintColor = color.ToUIColor();
+                control.Image = control.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                control.TintColor = color.ToUIColor();
             }
         }
     }
-
 }
