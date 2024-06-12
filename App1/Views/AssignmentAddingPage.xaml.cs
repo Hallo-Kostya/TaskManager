@@ -89,17 +89,14 @@ namespace App1.Views
                 if (assign.HasChild)
                 {
                     string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n" +
-                        $"Не забудьте сделать её до:{assign.ExecutionDate}";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\nНе забудьте сделать её до:{assign.ExecutionDate}";
                     notificationManager.CancelNotification(assign.ID);
                     notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
                 }
                 else
                 {
                     string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n" +
-                        $"Не забудьте сделать её до:{assign.ExecutionDate}\n" +
-                        $"Также не забудьте про подзадачи!";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\nНе забудьте сделать её до:{assign.ExecutionDate}\nТакже не забудьте про подзадачи!";
                     notificationManager.CancelNotification(assign.ID);
                     notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
                 }
