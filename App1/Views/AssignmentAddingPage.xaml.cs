@@ -85,10 +85,24 @@ namespace App1.Views
             var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
             if (assign.HasNotification)
             {
-                string title = $"Уведомление!";
-                string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
-                notificationManager.CancelNotification(assign.ID);
-                notificationManager.SendNotification(title, message, assign.NotificationTime,assign.ID);
+                string tags = string.Join(", ", assign.Tags.Select(tag => $"#{tag}"));
+                if (assign.HasChild)
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n" +
+                        $"Не забудьте сделать её до:{assign.ExecutionDate}";
+                    notificationManager.CancelNotification(assign.ID);
+                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
+                }
+                else
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n" +
+                        $"Не забудьте сделать её до:{assign.ExecutionDate}\n" +
+                        $"Также не забудьте про подзадачи!";
+                    notificationManager.CancelNotification(assign.ID);
+                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
+                }
             }  
         }
         void ShowNotification(string title, string message)

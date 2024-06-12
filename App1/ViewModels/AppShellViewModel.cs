@@ -49,21 +49,19 @@ namespace App1.ViewModels
             SelectedCommand = new Command<ListModel>(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
             Task.Run(async () => await OnLoaded());
-            MessagingCenter.Unsubscribe<EditViewModel>(this, "FolderAssignEdited");
-            MessagingCenter.Subscribe<EditViewModel>(this, "FolderAssignEdited", async (sender) =>
+            
+        }
+        private void SubscribeToMessages()
+        {
+            MessagingCenter.Subscribe<object>(this, "TaskCountChanged", async (sender) => await OnFolderChanged());
+        }
+
+        private async Task OnFolderChanged()
+        {
+            foreach (var folder in Folders)
             {
-                await OnLoaded();
-            });
-            MessagingCenter.Unsubscribe<AssignmentViewModel>(this, "FolderAssignDeleted");
-            MessagingCenter.Subscribe<AssignmentViewModel>(this, "FolderAssignDeleted", async (sender) =>
-            {
-                await OnLoaded();
-            });
-            MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "FolderAssignAdded");
-            MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "FolderAssignAdded", async (sender) =>
-            {
-                await OnLoaded();
-            });
+                await folder.UpdateCount();
+            }
         }
         //private async void OnDeleted()
         //{

@@ -104,7 +104,7 @@ namespace App1.ViewModels
             
             if (!IsChildAssignment)
             {
-                MessagingCenter.Send(this, "FolderAssignAdded");
+                MessagingCenter.Send(this, "TaskCountChanged");
                 await App.AssignmentsDB.AddItemAsync(assignment);
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(this, "PopupClosed");

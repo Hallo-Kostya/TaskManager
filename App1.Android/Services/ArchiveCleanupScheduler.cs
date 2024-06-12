@@ -23,8 +23,8 @@ namespace App1.Droid.Services
             // Установка таймера на каждый день в определенное время
             // Установка таймера начиная с текущего времени
             //long alarmStartTime = SystemClock.ElapsedRealtime() + intervalInHours * 60 * 60 * 1000;
-            long alarmStartTime = SystemClock.ElapsedRealtime() + intervalInHours * 1000;
-            long repeatInterval = intervalInHours * 1000; // Интервал в миллисекундах
+            long alarmStartTime = SystemClock.ElapsedRealtime() + intervalInHours *60*60* 1000;
+            long repeatInterval = intervalInHours *60*60* 1000; // Интервал в миллисекундах
 
             alarmManager.SetRepeating(AlarmType.RtcWakeup, alarmStartTime, repeatInterval, pendingIntent);
             Log.Info("ArchiveCleanupScheduler", "Archive cleanup scheduled with interval: " + intervalInHours + " hours");

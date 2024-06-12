@@ -323,7 +323,7 @@ namespace App1.ViewModels
             {
                 notificationManager.CancelNotification(assignment.ID);  // Отмена уведомления по идентификатору задачи
             }
-            MessagingCenter.Send(this, "FolderAssignDeleted");
+            MessagingCenter.Send(this, "TaskCountChanged");
             await App.AssignmentsDB.AddItemAsync(assignment);
             await ExecuteLoadAssignmentCommand();
         }
