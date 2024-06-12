@@ -39,7 +39,7 @@ namespace App1.ViewModels
             get => _folders;
             set => SetProperty(ref _folders, value);
         }
-        public AppShellViewModel(INavigation navigation) 
+        public AppShellViewModel(INavigation navigation)
         {
             ToMainPage = new Command(ToMain);
             Folders = new ObservableCollection<ListModel>();
@@ -49,8 +49,21 @@ namespace App1.ViewModels
             SelectedCommand = new Command<ListModel>(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
             Task.Run(async () => await OnLoaded());
-
-
+            MessagingCenter.Unsubscribe<EditViewModel>(this, "FolderAssignEdited");
+            MessagingCenter.Subscribe<EditViewModel>(this, "FolderAssignEdited", async (sender) =>
+            {
+                await OnLoaded();
+            });
+            MessagingCenter.Unsubscribe<AssignmentViewModel>(this, "FolderAssignDeleted");
+            MessagingCenter.Subscribe<AssignmentViewModel>(this, "FolderAssignDeleted", async (sender) =>
+            {
+                await OnLoaded();
+            });
+            MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "FolderAssignAdded");
+            MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "FolderAssignAdded", async (sender) =>
+            {
+                await OnLoaded();
+            });
         }
         //private async void OnDeleted()
         //{

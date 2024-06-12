@@ -103,7 +103,7 @@ namespace App1.ViewModels
             {
                 assignment.Name = "Без названия";
             }
-
+            MessagingCenter.Send(this, "FolderAssignEdited");
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
@@ -167,6 +167,7 @@ namespace App1.ViewModels
         {
             var assignment = Assignment;
             assignment.IsDeleted = true;
+            MessagingCenter.Send(this, "FolderAssignEdited");
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }

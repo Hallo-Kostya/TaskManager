@@ -27,7 +27,7 @@ namespace App1.Models
 
         public async Task UpdateCount()
         {
-            var items = await App.AssignmentsDB.GetItemsAsync();
+            var items = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsChild == false);
             Count = items.Count(x => x.FolderName == Name);
         }
         public event PropertyChangedEventHandler PropertyChanged;

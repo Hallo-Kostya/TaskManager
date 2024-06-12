@@ -76,7 +76,7 @@
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppShellViewModel}}, Path=SelectedCommand}" CommandParameter="{Binding .}"/>
                         </StackLayout.GestureRecognizers>
-                        <Image Source="{Binding SelectedIcon}" x:Name="MyImage11" local1:TintImageEffect.TintColor="{Binding Color}">
+                        <Image Source="{Binding Icon}" x:Name="MyImage11" local1:TintImageEffect.TintColor="{Binding Color}">
                             <Image.Effects>
                                 <local1:TintImageEffect />
                             </Image.Effects>
