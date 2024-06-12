@@ -180,7 +180,7 @@ namespace App1.ViewModels
                     Assignment.AddTag(sender);
                     await UpdateTags();
                 });
-            await Navigation.PushPopupAsync(new TagPopupPage());
+            await Navigation.PushPopupAsync(new EditTagPopupPage());
         }
 
         private async void ChangeIsCompleted(AssignmentModel assignment)

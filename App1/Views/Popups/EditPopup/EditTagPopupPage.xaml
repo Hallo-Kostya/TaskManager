@@ -14,8 +14,8 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Margin="10, 340, 190, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
-            <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
+        <StackLayout Margin="0, 0, 0, 40" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" >
+            <Frame BackgroundColor="#202020" CornerRadius="12" Margin="10,0,0,20" WidthRequest="170">
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
                     <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
