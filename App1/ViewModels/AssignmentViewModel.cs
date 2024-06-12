@@ -206,8 +206,7 @@ namespace App1.ViewModels
                 {
                     case "Date":
                         groupedAssignments = filteredAssignments
-                            .GroupBy(x => (object)x.ExecutionDate.Date)
-                            .OrderByDescending(group => group.Key);
+                            .GroupBy(x => (object)x.ExecutionDate.Date);
                         break;
                     case "Priority":
                         groupedAssignments = filteredAssignments
