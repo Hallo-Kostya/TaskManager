@@ -22,20 +22,22 @@ namespace App1.Droid.Effects
                     var effect = (TintImageEffect)Element.Effects.FirstOrDefault(e => e is TintImageEffect);
                     if (effect != null)
                     {
-                        var color = effect.TintColor.ToAndroid();
-                        imageView.SetColorFilter(color);
+                        imageView.SetColorFilter(effect.TintColor.ToAndroid(), PorterDuff.Mode.SrcIn);
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Cannot set property on attached control. Error: {ex.Message}");
+                Console.WriteLine("Cannot set property on attached control. Error: ", ex.Message);
             }
         }
 
         protected override void OnDetached()
         {
-            // Cleanup code if necessary
+            if (Control is ImageView imageView)
+            {
+                imageView.ClearColorFilter();
+            }
         }
     }
 }
