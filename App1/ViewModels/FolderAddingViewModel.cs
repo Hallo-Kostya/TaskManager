@@ -68,7 +68,7 @@ namespace App1.ViewModels
             SetColorCommand = new Command<string>(SetColor);
             Folder = new ListModel();
             SelectedIcon = "folders";
-            SelectedColor = Color.Default;
+            SelectedColor = Color.White;
             SelectIconCommand = new Command<string>(SelectIcon);
         }
        

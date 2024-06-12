@@ -8,7 +8,7 @@ using System.Linq;
 using System;
 
 [assembly: ResolutionGroupName("App1")]
-[assembly: ExportEffect(typeof(TintImageEffectAndroid), "TintImageEffect")]
+[assembly: ExportEffect(typeof(TintImageEffect), "TintImageEffect")]
 namespace App1.Droid.Effects
 {
     public class TintImageEffectAndroid : PlatformEffect
