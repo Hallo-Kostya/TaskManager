@@ -20,7 +20,7 @@
                 <StackLayout Orientation="Horizontal" >
                     <Image Source="{Binding SelectedIcon}" x:Name="MyImage">
                         <Image.Effects>
-                            <local:TintImageEffect TintColor="red" />
+                            <local:TintImageEffect TintColor="{Binding SelectedColor}" />
                         </Image.Effects>
                     </Image>
                     <Entry Placeholder="Введите название папки..." PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding WritenName, Mode=TwoWay}"/>

@@ -14,22 +14,7 @@ namespace App1.iOS.Effects
     {
         protected override void OnAttached()
         {
-            try
-            {
-                if (Control is UIImageView imageView)
-                {
-                    var effect = (TintImageEffect)Element.Effects.FirstOrDefault(e => e is TintImageEffect);
-                    if (effect != null)
-                    {
-                        imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-                        imageView.TintColor = effect.TintColor.ToUIColor();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Cannot set property on attached control. Error: ", ex.Message);
-            }
+            UpdateTintColor();
         }
 
         protected override void OnDetached()
@@ -39,5 +24,16 @@ namespace App1.iOS.Effects
                 imageView.TintColor = UIColor.Clear;
             }
         }
+
+        private void UpdateTintColor()
+        {
+            if (Control is UIImageView imageView)
+            {
+                var color = TintImageEffect.GetTintColor(Element);
+                imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                imageView.TintColor = color.ToUIColor();
+            }
+        }
     }
+
 }
