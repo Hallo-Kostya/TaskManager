@@ -4,12 +4,17 @@
              xmlns:viewmodels="clr-namespace:App1.ViewModels" 
              x:DataType="viewmodels:DateSelectionViewModel"
              x:Class="App1.Views.Popups.DateSelectionPage"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:converters="clr-namespace:App1.Behaviors"
              BackgroundColor="#292929"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NotificationTimeConverter x:Key="NotificationTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
@@ -30,7 +35,7 @@
                     <StackLayout Orientation="Horizontal">
                         <Image Source="bell.png" BackgroundColor="Color.Transparent"/>
                         <Label Text="Уведомление" TextColor="AliceBlue" VerticalOptions="CenterAndExpand"/>
-                        <Button Text="Нет" BackgroundColor="Color.Transparent" TextColor="AliceBlue" TextTransform="None" Command="{Binding Notification1PopupCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand" />
+                        <Button Text="{Binding Assignment.NotificationTimeMultiplier,Converter={StaticResource NotificationTimeConverter}}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" TextTransform="None" Command="{Binding Notification1PopupCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Image Source="repeat.png" BackgroundColor="Color.Transparent"/>

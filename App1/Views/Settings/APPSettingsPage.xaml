@@ -48,7 +48,12 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <!--<Button Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>-->
+                        <Button  Clicked="ButtonOwnTime_Clicked" Command="" Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>
+                        <StackLayout x:Name="CustomTimeLayout" Orientation="Horizontal">
+
+                            <Entry Placeholder="Введите количество дней" Text="{Binding CustomTime}" Keyboard="Numeric"/>
+                            <Button Text="Установить" Command="{Binding CustomTimeCleanCommand}"/>
+                        </StackLayout>
                         <Label x:Name="NextClean" Text="Следующая очистка архива будет:" TextColor="AliceBlue"/>
                         <Label  Text="{Binding NextCleanDate, StringFormat='{0:dd.MM.yyyy HH:mm}'}" TextColor="AliceBlue"/>
                     </StackLayout>

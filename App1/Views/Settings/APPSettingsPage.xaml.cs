@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,6 +13,7 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class APPSettingsPage : ContentPage
     {
+        public int CleaningInterval;
         public APPSettingsPage()
         {
             InitializeComponent();
@@ -26,6 +27,15 @@ namespace App1.Views
             {
                 NextClean.IsVisible = false;
                 ArchiveClean.IsVisible = false;
+            }
+            CleaningInterval= Preferences.Get("CleaningInterval", 24);
+            if (CleaningInterval > 720)
+            {
+                CustomTimeLayout.IsVisible = true;
+            }
+            else
+            {
+                CustomTimeLayout.IsVisible = false;
             }
         }
 
@@ -41,6 +51,10 @@ namespace App1.Views
                 NextClean.IsVisible = true;
                 ArchiveClean.IsVisible = true;
             }
+        }
+        private void ButtonOwnTime_Clicked(object sender, EventArgs e)
+        {
+            CustomTimeLayout.IsVisible = true;
         }
     }
 }

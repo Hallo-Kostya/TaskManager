@@ -2,18 +2,21 @@
 using Xamarin.Essentials;
 using App1.Services.ArchiveCleanup;
 using System;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace App1.ViewModels
 {
     public class APPSettingsViewModel : BaseAssignmentViewModel
     {
         public Command CancelSettingsCommand { get; }
+        public Command CustomTimeCleanCommand { get; }
         public Command SaveSettingsCommand { get; }
         public Command EnableArchiveCleaningCommand { get; }
         public Command SetCleanUpIntervalCommand { get; }
         public INavigation Navigation { get; set; }
         private int _cleaningInterval; 
         private bool _isArchiveCleaningEnabled;
+        private string _customTime;
 
         public int CleaningInterval
         {
@@ -32,6 +35,14 @@ namespace App1.ViewModels
                     OnPropertyChanged(nameof(NextCleanDate));
                     
                 }
+            }
+        }
+        public string CustomTime
+        {
+            get => _customTime;
+            set
+            {
+                SetProperty(ref _customTime, value);
             }
         }
         public bool IsArchiveCleaningEnabled
@@ -53,9 +64,19 @@ namespace App1.ViewModels
             IsArchiveCleaningEnabled = Preferences.Get("IsArchiveCleaningEnabled", false);
             SaveSettingsCommand = new Command(SaveSettings);
             CancelSettingsCommand = new Command(CancelSettings);
+            CustomTimeCleanCommand = new Command(CustomClean);
             Console.WriteLine("Initial IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
         }
-        
+
+        private void CustomClean()
+        {
+            var tempInterval = int.Parse(CustomTime);
+            if (tempInterval>0 && tempInterval < 367)
+            {
+                CleaningInterval = tempInterval * 24;
+            }
+            NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
+        }
         private void EnableCleaning()
         {
             IsArchiveCleaningEnabled = !IsArchiveCleaningEnabled;
