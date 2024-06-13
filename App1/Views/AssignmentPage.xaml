@@ -175,7 +175,7 @@
                                                                 </Image.Triggers>
                                                             </Image>
                                                             <!--<Label Text="{Binding HasChild}" TextColor="AliceBlue"/>-->
-                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
+                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="190" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
                                                             <!--<Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>-->
                                                             <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
                                                                 <CollectionView.ItemsLayout>

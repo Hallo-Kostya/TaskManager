@@ -10,6 +10,19 @@
             Shell.NavBarIsVisible="False"
             Shell.TabBarIsVisible="False">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ColorStyle" TargetType="ImageButton">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="WidthRequest" Value="36"/>
+                <Setter Property="HeightRequest" Value="36"/>
+            </Style>
+            <Style x:Key="ImageStyle" TargetType="ImageButton">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
@@ -29,25 +42,29 @@
             </Frame>
             <Label TextColor="red" Text="название папки не может быть пустым!" x:Name="NullNameAlert" IsVisible="False"/>
 
-            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15">
+            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15" >
                 <StackLayout>
                     <Label Text="Выберите цвет вашей папки:" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
-                            <Button BackgroundColor="#d71d1d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#d71d1d"/>
-                            <Button BackgroundColor="#e18026" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e18026"/>
-                            <Button BackgroundColor="#e0cc19" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e0cc19"/>
-                            <Button BackgroundColor="#4fdd1d" WidthRequest="48" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4fdd1d"/>
-                            <Button BackgroundColor="#99bd33" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99bd33"/>
-                            <Button BackgroundColor="#10edd2" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10edd2"/>
+                            <Button BackgroundColor="#FF6F92"  Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#FF6F92"/>
+                            <Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D"/>
+                            <Button BackgroundColor="#D71D1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D71D1D"/>
+                            <Button BackgroundColor="#E18026" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E18026"/>
+                            <Button BackgroundColor="#99BD33" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99BD33"/>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
+                            <Button BackgroundColor="#4FDD1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4FDD1D"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
-                            <Button BackgroundColor="#00a8f0" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00a8f0"/>
-                            <Button BackgroundColor="#2b96c4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#2b96c4"/>
-                            <Button BackgroundColor="#211ed3" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ed3"/>
-                            <Button BackgroundColor="#7218e4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#7218e4"/>
-                            <Button BackgroundColor="#e11be5" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e11be5"/>
-                            <Button BackgroundColor="#e01a6d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e01a6d"/>
+                            <Button BackgroundColor="#00FFB2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00FFB2"/>
+                            <Button BackgroundColor="#10EDD2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10EDD2"/>
+                            <Button BackgroundColor="#00A7F0" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00A7F0"/>
+                            <Button BackgroundColor="#211ED3" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ED3"/>
+                            <Button BackgroundColor="#D885FF" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D885FF"/>
+                            <Button BackgroundColor="#E11BE5" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E11BE5"/>
+                            <Button BackgroundColor="#8A18E4" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#8A18E4"/>
+                            <Button BackgroundColor="#818181" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#818181"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -58,9 +75,48 @@
                     <Label Text="Выберите иконку вашей папки:" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
-                            <ImageButton Source="calendar_days" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="calendar_days"/>
-                            <ImageButton Source="layout_grid" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="layout_grid"/>
-                            <ImageButton Source="align" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="align"/>
+                            <ImageButton Source="align" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="align" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder2" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder2" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder3" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder3" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder4" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder4" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder5" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder5" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder6" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder6" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder7" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder7" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder8" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder8" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder9" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder9" Style="{StaticResource ImageStyle}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="folder10" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder10" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder11" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder11" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder12" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder12" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder13" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder13" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder14" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder14" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder15" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder15" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder16" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder16" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder17" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder17" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder18" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder18" Style="{StaticResource ImageStyle}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="folder19" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder19" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder20" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder20" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder21" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder21" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder22" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder22" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder23" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder23" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder24" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder24" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder25" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder25" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder26" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder26" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder27" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder27" Style="{StaticResource ImageStyle}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="folder28" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder28" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder29" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder29" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder30" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder30" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder31" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder31" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder32" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder32" Style="{StaticResource ImageStyle}"/>
+                            <ImageButton Source="folder33" BackgroundColor="Color.Transparent" Command="{Binding SelectIconCommand}" CommandParameter="folder33" Style="{StaticResource ImageStyle}"/>
+                            <Image Source="empty" BackgroundColor="Color.Transparent" Style="{StaticResource ImageStyle}"/>
+                            <Image Source="empty" BackgroundColor="Color.Transparent" Style="{StaticResource ImageStyle}"/>
+                            <Image Source="empty" BackgroundColor="Color.Transparent" Style="{StaticResource ImageStyle}"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

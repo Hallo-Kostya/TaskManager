@@ -12,6 +12,7 @@ using App1.Droid.Services;
 using Xamarin.Essentials;
 using Android;
 using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
+using AndroidX.Core.App;
 
 namespace App1.Droid
 {
@@ -32,22 +33,11 @@ namespace App1.Droid
         }
         void RequestPermissions()
         {
-            if ((int)Build.VERSION.SdkInt >= 23)
-            {
-                if (CheckSelfPermission(Manifest.Permission.ReceiveBootCompleted) != (int)Permission.Granted ||
-                    CheckSelfPermission(Manifest.Permission.WakeLock) != (int)Permission.Granted ||
-                    CheckSelfPermission(Manifest.Permission.Vibrate) != (int)Permission.Granted ||
-                    CheckSelfPermission(Manifest.Permission.ForegroundService) != (int)Permission.Granted)
-                {
-                    RequestPermissions(new string[]
-                    {
-                        Manifest.Permission.ReceiveBootCompleted,
-                        Manifest.Permission.WakeLock,
-                        Manifest.Permission.Vibrate,
-                        Manifest.Permission.ForegroundService
-                    }, RequestPermissionId);
-                }
-            }
+            var thisActivity = Forms.Context as Activity;
+            ActivityCompat.RequestPermissions(thisActivity, new string[] {
+            Manifest.Permission.PostNotifications,
+            Manifest.Permission.WriteExternalStorage,
+            Manifest.Permission.RecordAudio }, 1);
         }
 
 
@@ -62,8 +52,6 @@ namespace App1.Droid
         public override void OnRequestPermissionsResult(int requestCode,
            string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
-            PermissionsImplementation.Current.OnRequestPermissionsResult
-                  (requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
         protected override void OnNewIntent(Intent intent)
