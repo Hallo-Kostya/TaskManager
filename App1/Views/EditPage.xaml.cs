@@ -54,15 +54,26 @@ namespace App1.Views
 
         private void ButtonSave_Clicked(object sender, EventArgs e)
             {
-                var assign = ((EditViewModel)BindingContext).Assignment;
-                if (assign.HasNotification)
+            var assign = ((EditViewModel)BindingContext).Assignment;
+            if (assign.HasNotification)
+            {
+                string tags = string.Join(", ", assign.Tags.Select(tag => $"#{tag}"));
+                if (assign.HasChild)
                 {
-                    string title = $"Уведомление!";
-                    string message = $"Ваш дедлайн по задаче {assign.Name} приближается!";
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\nНе забудьте сделать её до:{assign.ExecutionDate}";
+                    notificationManager.CancelNotification(assign.ID);
+                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
+                }
+                else
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\nНе забудьте сделать её до:{assign.ExecutionDate}\nТакже не забудьте про подзадачи!";
                     notificationManager.CancelNotification(assign.ID);
                     notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
                 }
             }
+        }
         void ShowNotification(string title, string message)
         {
             Device.BeginInvokeOnMainThread(() =>

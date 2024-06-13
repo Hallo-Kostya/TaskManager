@@ -25,7 +25,7 @@ namespace App1.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Sound, (granted, error) => {
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Sound | UNAuthorizationOptions.Badge, (granted, error) => {
                 if (granted)
                 {
                     Console.WriteLine("Уведомления разрешены");
@@ -35,6 +35,7 @@ namespace App1.iOS
                     Console.WriteLine("Уведомления запрещены");
                 }
             });
+            app.RegisterForRemoteNotifications();
             UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver(iOSNotificationManager.Instance);
             LoadApplication(new App());
 

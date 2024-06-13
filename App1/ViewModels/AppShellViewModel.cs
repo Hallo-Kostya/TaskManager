@@ -49,6 +49,7 @@ namespace App1.ViewModels
             SelectedCommand = new Command<ListModel>(OnSelected);
             ToArchiveCommand = new Command(OnArchive);
             Task.Run(async () => await OnLoaded());
+            SubscribeToMessages();
             
         }
         private void SubscribeToMessages()

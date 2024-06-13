@@ -13,13 +13,16 @@ using Xamarin.Essentials;
 using Android;
 using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
 using AndroidX.Core.App;
+using AndroidX.Core.Content;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace App1.Droid
 {
     [Activity(Label = "App1", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, LaunchMode = LaunchMode.SingleTop)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        const int RequestPermissionId = 1000;
+        const int RequestId = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,11 +36,56 @@ namespace App1.Droid
         }
         void RequestPermissions()
         {
-            var thisActivity = Forms.Context as Activity;
-            ActivityCompat.RequestPermissions(thisActivity, new string[] {
-            Manifest.Permission.PostNotifications,
-            Manifest.Permission.WriteExternalStorage,
-            Manifest.Permission.RecordAudio }, 1);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                var permissionsToRequest = new List<string>();
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.PostNotifications) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.PostNotifications);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReceiveBootCompleted) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.ReceiveBootCompleted);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.StartForegroundServicesFromBackground) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.StartForegroundServicesFromBackground);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.RequestCompanionStartForegroundServicesFromBackground) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.RequestCompanionStartForegroundServicesFromBackground);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.InstantAppForegroundService) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.InstantAppForegroundService);
+
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessNetworkState) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.AccessNetworkState);
+                }
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Vibrate) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.Vibrate);
+                }
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WakeLock) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.WakeLock);
+                }
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ForegroundService) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.ForegroundService);
+                }
+
+                if (permissionsToRequest.Any())
+                {
+                    ActivityCompat.RequestPermissions(this, permissionsToRequest.ToArray(), RequestId);
+                }
+            }
         }
 
 
