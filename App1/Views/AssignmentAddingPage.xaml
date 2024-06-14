@@ -5,10 +5,9 @@
              xmlns:behavior="clr-namespace:App1.Behaviors"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" xmlns:model="clr-namespace:App1.Models" x:DataType="local:AssignmentAddingViewModel"
-             x:Class="App1.Views.AssignmentAddingPage"
+                 x:Class="App1.Views.AssignmentAddingPage"
              BackgroundColor="Color.Transparent"
              HasKeyboardOffset="False" >
-    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Editor" x:Key="NoUnderlineEntry">
@@ -25,63 +24,55 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout VerticalOptions="EndAndExpand">
-            <Frame x:Name="AddingTask" BackgroundColor="#161616" CornerRadius="16" Padding="10" VerticalOptions="EndAndExpand">
-                <StackLayout>
-                    <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16" Margin="0, -10, 0, 0"/>
-                    <Label x:Name="TooLongNameAlert" Text="Имя задачи должно быть не длиннее 100 символов" TextColor="Red" IsVisible="false"/>
-                    <Editor Placeholder="Добавьте дополнительное описание вашей задаче" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="70" Margin="0, -20, 0, 0"/>
-                    <Label x:Name="TooLongDescAlert" Text="Описание задачи должно быть не длиннее 500 символов" TextColor="Red" IsVisible="false"/>
-                    <CollectionView x:Name="TagsList" ItemsLayout="HorizontalList" ItemsSource="{Binding TagList}" HeightRequest="35">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout  x:DataType="model:TagModel" Padding="0, 0, 0,0" Orientation="Horizontal">
-                                    <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer x:DataType="local:AssignmentAddingViewModel" Command="{Binding DeleteTagCommand}"/>
-                                        </Frame.GestureRecognizers>
-                                        <StackLayout Orientation="Horizontal" HeightRequest="5">
-                                            <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
-                                            <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
-                                        </StackLayout>
+        <Frame x:Name="AddingTask" BackgroundColor="#292929" CornerRadius="16" VerticalOptions="End" HeightRequest="370">
+            <StackLayout Padding="-5">
+                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16" Margin="0, -10, 0, 0"/>
+                <Editor x:Name="EditorDescription" Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="70" Margin="0, -20, 0, 0"/>
+                <CollectionView x:Name="TagsList" ItemsLayout="HorizontalList" ItemsSource="{Binding TagList}" HeightRequest="35">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout  x:DataType="model:TagModel" Padding="0, 0, 0,0" Orientation="Horizontal">
+                                <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer x:DataType="local:AssignmentAddingViewModel" Command="{Binding DeleteTagCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                        <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                    </StackLayout>
 
-                                    </Frame>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <StackLayout Orientation="Horizontal" Margin="0,-20,0,300" VerticalOptions="Start" x:Name="NotificationsStack">
-                        <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                        <Label Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="0,0,0,0" FontSize="13" VerticalOptions="CenterAndExpand">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NotificationPopupCommand}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="10,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
-                        <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}">
-                            <ImageButton.Triggers>
-                                <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
-                                    <Setter Property="Source" Value="tags1.png"/>
-                                </Trigger>
-                            </ImageButton.Triggers>
-                        </ImageButton>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start" x:Name="NotificationsStack">
+                    <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
+                    <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}"/>
+                    <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="-20,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
+                    <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}">
+                        <ImageButton.Triggers>
+                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
+                                <Setter Property="Source" Value="tags1.png"/>
+                            </Trigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+                    
+                    <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}">
+                        <ImageButton.Triggers>
+                            <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
+                                <Setter Property="Source" Value="folders1.png"/>
+                            </Trigger>
 
-                        <ImageButton x:Name="folders" Source="folders.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}">
-                            <ImageButton.Triggers>
-                                <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
-                                    <Setter Property="Source" Value="folders1.png"/>
-                                </Trigger>
-
-                            </ImageButton.Triggers>
-                        </ImageButton>
-                        <ImageButton x:Name="expand" Source="expand.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding OpenFullscreenCommand}"/>
-                        <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+                    <ImageButton x:Name="expand" Source="expand.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding OpenFullscreenCommand}"/>
+                    <!--<ImageButton x:Name="layout_list" Source="layout_list.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
                     <ImageButton x:Name="clock" Source="alarm.png" BackgroundColor="Color.Transparent" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>-->
-                        <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Clicked="ButtonSave_Clicked"/>
-                    </StackLayout>
+                    <ImageButton x:Name="save_task" Source="save_task.png" Margin="0,0,-5,0" Command="{Binding SaveCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Clicked="ButtonSave_Clicked"/>
                 </StackLayout>
-            </Frame>
-        </StackLayout>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:PopupPage>
 
