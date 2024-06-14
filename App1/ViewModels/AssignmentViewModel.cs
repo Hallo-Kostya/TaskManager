@@ -282,7 +282,7 @@ namespace App1.ViewModels
             {
                 return;
             }
-            assignment.IsCompleted = !assignment.IsCompleted;
+            assignment.ChangeIsCompleted();
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
         }
