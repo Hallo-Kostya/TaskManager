@@ -45,6 +45,12 @@ namespace App1.Views
                 var evtData = (NotificationEventArgs)eventArgs;
                 ShowNotification(evtData.Title, evtData.Message);
             };
+            if (assignment.IsChild == true)
+            {
+                tags.IsVisible = false;
+                folders.IsVisible = false;
+                layout_list.IsVisible = false;
+            }
         }
         protected override async void OnAppearing()
         {

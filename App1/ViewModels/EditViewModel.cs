@@ -3,15 +3,10 @@ using App1.Views;
 using App1.Views.Popups;
 using App1.Views.Popups.EditPopup;
 using Rg.Plugins.Popup.Extensions;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
-using System.Threading.Tasks;
 
 
 namespace App1.ViewModels
@@ -65,8 +60,6 @@ namespace App1.ViewModels
         public Command DeleteCommand { get; }
         public EditViewModel(INavigation navigation)
         {
-            Task.Run(async () => await UpdateChilds());
-            Task.Run(async () => await UpdateTags());
             AddChildCommand = new Command(AddChild);
             DeleteChildCommand = new Command<AssignmentModel>(DeleteChild);
             isFromPopup = false;
@@ -173,7 +166,7 @@ namespace App1.ViewModels
         }
         private  void HandleChangeIsCompleted()
         {
-            Assignment.IsCompleted = !Assignment.IsCompleted;
+            Assignment.ChangeIsCompleted();
         }
         private async void ExecuteLoadTagPopup()
         {

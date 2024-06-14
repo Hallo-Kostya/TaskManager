@@ -104,7 +104,6 @@ namespace App1.ViewModels
             
             if (!IsChildAssignment)
             {
-                MessagingCenter.Send(this, "TaskCountChanged");
                 await App.AssignmentsDB.AddItemAsync(assignment);
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(this, "PopupClosed");
@@ -116,6 +115,7 @@ namespace App1.ViewModels
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(assignment, "PopupChildClosed");
             }
+            MessagingCenter.Send(this, "TaskCountChanged");
         }
         private async void UpdateTags()
         {

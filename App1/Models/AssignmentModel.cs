@@ -153,6 +153,7 @@ namespace App1.Models
         public void ChangeIsCompleted()
         {
             IsCompleted = !IsCompleted;
+            OnPropertyChanged(nameof(IsCompleted));
         }
         public void RemoveChild(AssignmentModel assignment)
         {

@@ -54,7 +54,7 @@ namespace App1.ViewModels
         }
         private void SubscribeToMessages()
         {
-            MessagingCenter.Subscribe<object>(this, "TaskCountChanged", async (sender) => await OnFolderChanged());
+            MessagingCenter.Subscribe<object>(this, "TaskCountChanged", async (sender) => await OnLoaded());
         }
 
         private async Task OnFolderChanged()
