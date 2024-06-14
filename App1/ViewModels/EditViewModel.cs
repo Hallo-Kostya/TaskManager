@@ -28,7 +28,13 @@ namespace App1.ViewModels
         public Command DeleteChildCommand { get; }
 
         public ObservableCollection<TagModel> TagList { get; }
-        public ObservableCollection<AssignmentModel> ChildList { get; }
+        private ObservableCollection<AssignmentModel> _childList;
+        public ObservableCollection<AssignmentModel> ChildList
+        {
+            get => _childList;
+            set => SetProperty(ref _childList, value);
+        }
+       
         public bool isFromPopup { get; set; }
         private EnumPriority selectedPriority { get; set; }
         public EnumPriority SelectedPriority
@@ -43,6 +49,7 @@ namespace App1.ViewModels
                 }
             }
         }
+
         private ListModel selectedFolder { get; set; }
         public ListModel SelectedFolder
         {
@@ -96,7 +103,7 @@ namespace App1.ViewModels
             {
                 assignment.Name = "Без названия";
             }
-            MessagingCenter.Send(this, "TaskCountChanged");
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
@@ -160,13 +167,14 @@ namespace App1.ViewModels
         {
             var assignment = Assignment;
             assignment.IsDeleted = true;
-            MessagingCenter.Send(this, "TaskCountChanged");
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
         private  void HandleChangeIsCompleted()
         {
             Assignment.ChangeIsCompleted();
+            OnPropertyChanged(nameof(Assignment));
         }
         private async void ExecuteLoadTagPopup()
         {
@@ -182,7 +190,8 @@ namespace App1.ViewModels
 
         private async void ChangeIsCompleted(AssignmentModel assignment)
         {
-            assignment.ChangeIsCompleted();
+            assignment.IsCompleted = !assignment.IsCompleted;
+            await App.AssignmentsDB.AddItemAsync(assignment);
             await UpdateChilds();
         }
         private async void ExecuteFoldersPopup()
@@ -204,6 +213,7 @@ namespace App1.ViewModels
                 (sender) =>
                 {
                     Assignment.Priority = sender.Priority;
+                    SelectedPriority = sender.Priority;
                 });
             await Navigation.PushPopupAsync(new EditPriorityPopupPage());
         }

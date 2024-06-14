@@ -29,6 +29,7 @@ namespace App1.Models
         {
             var items = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == false && t.IsChild == false);
             Count = items.Count(x => x.FolderName == Name);
+            OnPropertyChanged(nameof(Count));
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

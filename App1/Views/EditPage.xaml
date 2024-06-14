@@ -44,7 +44,7 @@
                 </ImageButton>
                 <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#EE82FF" FontAttributes="Bold" Margin="0,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
                         BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}" />
-                <ImageButton Source="{Binding Assignment.Priority, Converter={StaticResource PriorityToImageConverter}}" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand" Padding="-20"/>
+                <ImageButton Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand" Padding="-20"/>
             </StackLayout>
 
             <StackLayout>

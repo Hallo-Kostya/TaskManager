@@ -62,6 +62,12 @@ namespace App1.ViewModels
                 }
             }
         }
+        private ObservableCollection<AssignmentModel> _childList;
+        public ObservableCollection<AssignmentModel> ChildList
+        {
+            get => _childList;
+            set => SetProperty(ref _childList, value);
+        }
 
         public bool TagLoaded { get; set; } = false;
         public bool IsChildAssignment { get; set; } 
@@ -115,7 +121,7 @@ namespace App1.ViewModels
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(assignment, "PopupChildClosed");
             }
-            MessagingCenter.Send(this, "TaskCountChanged");
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
         }
         private async void UpdateTags()
         {
@@ -198,11 +204,25 @@ namespace App1.ViewModels
         }
         private async void OnBackgroundClicked()
         {
+            foreach (var child in Assignment.Childs)
+            {
+                if (child != null)
+                {
+                    await App.AssignmentsDB.DeleteItemAsync(child.ID);
+                }
+            }
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
         private async void OnCancel()
         {
+            foreach (var child in Assignment.Childs)
+            {
+                if (child != null)
+                {
+                    await App.AssignmentsDB.DeleteItemAsync(child.ID);
+                }
+            }
             await Navigation.PopPopupAsync();
             MessagingCenter.Send(this, "PopupClosed");
         }
