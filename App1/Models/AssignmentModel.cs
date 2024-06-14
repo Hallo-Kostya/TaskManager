@@ -98,6 +98,9 @@ namespace App1.Models
             }
         }
         public bool HasNotification { get; set; }
+        public bool IsRepeatable { get; set; }
+        public int RepeatitionAdditional { get; set; }
+        public DateTime RepeatitionReturnTime { get; set; }
         public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
 
@@ -126,7 +129,7 @@ namespace App1.Models
             }
         }
         public string FolderName { get; set; } = "Мои дела";
-        public int NotificationTimeMultiplier { get; set; }
+        public int NotificationTimeMultiplier { get; set; } = 1;
         private void UpdateNotificationTime()
         {
             var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
@@ -138,6 +141,12 @@ namespace App1.Models
         public void CheckIfOverdue()
         {
             IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
+            OnPropertyChanged(nameof(IsOverdue));
+            if (DateTime.Today >= RepeatitionReturnTime)
+            {
+                IsCompleted = false;
+                OnPropertyChanged(nameof(IsCompleted));
+            }
         }
         public void AddChild(AssignmentModel assignment)
         {
@@ -150,10 +159,16 @@ namespace App1.Models
             }
             
         }
+        
         public void ChangeIsCompleted()
         {
             IsCompleted = !IsCompleted;
             OnPropertyChanged(nameof(IsCompleted));
+            if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
+            {
+                RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(RepeatitionReturnTime));
+            }
         }
         public void RemoveChild(AssignmentModel assignment)
         {

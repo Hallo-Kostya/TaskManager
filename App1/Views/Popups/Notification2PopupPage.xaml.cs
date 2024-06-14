@@ -1,4 +1,5 @@
-﻿using App1.ViewModels;
+﻿using App1.Models;
+using App1.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,20 @@ namespace App1.Views.Popups
         {
             InitializeComponent();
             BindingContext = new Notification2PopupViewModel(Navigation);
+        }
+        public Notification2PopupPage(AssignmentModel assignment)
+        {
+            InitializeComponent();
+            BindingContext = new Notification2PopupViewModel(Navigation);
+            if (assignment != null)
+            {
+                (BindingContext as Notification1PopupViewModel).Assignment = assignment;
+            }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

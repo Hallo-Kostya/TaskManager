@@ -44,7 +44,7 @@ namespace App1.ViewModels
                 if (_selectedTime != value)
                 {
                     _selectedTime = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(SelectedTime));
                     // Обновление даты при изменении времени
                     SelectedDate = SelectedDate.Date + _selectedTime;
                 }
@@ -73,6 +73,7 @@ namespace App1.ViewModels
                     Assignment.NotificationTime = sender.NotificationTime;
                     Assignment.HasNotification = sender.HasNotification;
                     Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
+                    OnPropertyChanged(nameof(Assignment));
                 });
             await Navigation.PushPopupAsync(new Notification1PopupPage(Assignment));
         }
@@ -100,8 +101,16 @@ namespace App1.ViewModels
         }
         private async void ExecuteNotification2Popup()
         {
-            //var assign = TempAssignment; если это окно будет отвечать за повторяющуюся\неповторяющуюся задачу
-            await Navigation.PushPopupAsync(new Notification2PopupPage());
+            MessagingCenter.Unsubscribe<AssignmentModel>(this, "RepeatitionSetted");
+            MessagingCenter.Subscribe<AssignmentModel>(this, "RepeatitionSetted",
+                (sender) =>
+                {
+                    Assignment.IsRepeatable = sender.IsRepeatable;
+                    Assignment.RepeatitionAdditional = sender.RepeatitionAdditional;
+                    OnPropertyChanged(nameof(Assignment));
+                });
+            await Navigation.PushPopupAsync(new Notification2PopupPage(Assignment));
+
         }
 
         public  async Task  AcceptAndClose()

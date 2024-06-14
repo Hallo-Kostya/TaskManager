@@ -22,7 +22,7 @@ namespace App1.Behaviors
                         return "За 1 час";
                     case -1440:
                         return "За 1 день";
-                    default:
+                    case 1:
                         return "Нет";
                 }
             }

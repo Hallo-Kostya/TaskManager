@@ -24,11 +24,10 @@ namespace App1.ViewModels
 
         private  async void SetNotificationTime(string parameter)
         {
-            var assign = Assignment;
             if (parameter == "none")
             {
                 await Navigation.PopPopupAsync();
-                MessagingCenter.Send(assign, "NotificationSetted");
+                MessagingCenter.Send(Assignment, "NotificationSetted");
             }
             if (int.TryParse(parameter, out int minutes))
             {
@@ -42,7 +41,7 @@ namespace App1.ViewModels
                 Assignment.HasNotification = true;
                 Assignment.NotificationTimeMultiplier = minutes;
                 await Navigation.PopPopupAsync();
-                MessagingCenter.Send(assign, "NotificationSetted");
+                MessagingCenter.Send(Assignment, "NotificationSetted");
             }
         }
     }

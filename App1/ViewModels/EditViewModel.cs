@@ -4,6 +4,7 @@ using App1.Views.Popups;
 using App1.Views.Popups.EditPopup;
 using Rg.Plugins.Popup.Extensions;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using static App1.Models.AssignmentModel;
@@ -136,6 +137,7 @@ namespace App1.ViewModels
                     ChildList.Add(child);
                 }
             }
+            ChildList.OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority);
 
         }
 
@@ -154,6 +156,7 @@ namespace App1.ViewModels
         private async void DeleteChild(AssignmentModel assignment)
         {
             Assignment.RemoveChild(assignment);
+            await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await UpdateChilds();
         }
 

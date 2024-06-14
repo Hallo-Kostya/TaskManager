@@ -69,6 +69,7 @@ namespace App1.ViewModels
                 notificationManager.SendNotification(title, message, assignment.NotificationTime,assignment.ID);
             }
             await App.AssignmentsDB.AddItemAsync(assignment);
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
             await ExecuteLoadArchive();
         }
         private async void ClearArchive()
@@ -80,6 +81,5 @@ namespace App1.ViewModels
                 }
                 await ExecuteLoadArchive();
         }
-       
     }
 }

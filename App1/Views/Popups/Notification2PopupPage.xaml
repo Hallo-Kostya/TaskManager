@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             x:Class="App1.Views.Popups.Notification2PopupPage"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification2PopupViewModel"
+                 x:Class="App1.Views.Popups.Notification2PopupPage"
              BackgroundColor="Color.Transparent">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -19,12 +19,11 @@
     <ContentPage.Content>
         <Frame BackgroundColor="#2D2D2D" Margin="100, 100, 30, 400" Padding="5">
             <StackLayout x:Name="Layouter">
-                <Button Text="Нет" Padding="-200, 0, 0, 0"  Margin="0,10,0,10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" />
-                <Button Text="Каждый день" Padding="-120, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
-                <Button Text="Каждую неделю" Padding="-100, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
-                <Button Text="Каждый месяц" Padding="-110, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
-                <Button Text="Каждый год" Padding="-135, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
-                <Button Text="Произвольно" Padding="-130, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
+                <Button Text="Нет" Padding="-200, 0, 0, 0"  Margin="0,10,0,10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"  Command="{Binding SetRepeatitionCommand}" CommandParameter="0"/>
+                <Button Text="Каждый день" Padding="-120, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="1"/>
+                <Button Text="Каждые 3 дня" Padding="-100, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="3"/>
+                <Button Text="Каждую неделю" Padding="-110, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="7"/>
+                <Button Text="Произвольно" Padding="-130, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
             </StackLayout>
         </Frame>
     </ContentPage.Content>
