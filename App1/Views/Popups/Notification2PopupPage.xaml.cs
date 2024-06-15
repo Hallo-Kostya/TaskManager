@@ -26,7 +26,7 @@ namespace App1.Views.Popups
             BindingContext = new Notification2PopupViewModel(Navigation);
             if (assignment != null)
             {
-                (BindingContext as Notification1PopupViewModel).Assignment = assignment;
+                (BindingContext as Notification2PopupViewModel).Assignment = assignment;
             }
         }
 

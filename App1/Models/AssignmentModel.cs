@@ -142,7 +142,7 @@ namespace App1.Models
         {
             IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
             OnPropertyChanged(nameof(IsOverdue));
-            if (DateTime.Today >= RepeatitionReturnTime)
+            if (DateTime.Today >= RepeatitionReturnTime && IsRepeatable == true)
             {
                 IsCompleted = false;
                 OnPropertyChanged(nameof(IsCompleted));
