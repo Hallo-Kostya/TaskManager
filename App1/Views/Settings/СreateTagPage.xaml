@@ -71,6 +71,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Все ваши теги:" TextColor="AliceBlue"/>
                                 <ImageButton x:Name="AddButton" Source="add.png" Command="{Binding AddTagCommand}" Clicked="Button_Clicked" IsVisible="true" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
+                                <Label Text="Название тега не может быть пустым" TextColor="Red" IsVisible="false" x:Name="NullNameTagAlert"/>
                             </StackLayout>
                             <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionChanged="CollectionView_SelectionChanged" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
                                 <CollectionView.ItemTemplate>

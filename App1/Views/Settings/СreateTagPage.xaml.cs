@@ -35,8 +35,15 @@ namespace App1.Views.Settings
 
         private void Confirm_Clicked_1(object sender, EventArgs e)
         {
-            ConfirmLayout.IsVisible = false;
-            AddButton.IsVisible = true;
+            if (string.IsNullOrEmpty((BindingContext as СreateTagViewModel).Tag.Name))
+            {
+                NullNameTagAlert.IsVisible = true;
+            }
+            else
+            {
+                ConfirmLayout.IsVisible = false;
+                AddButton.IsVisible = true;
+            }
         }
 
         private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)

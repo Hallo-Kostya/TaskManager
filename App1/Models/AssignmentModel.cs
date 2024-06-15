@@ -134,6 +134,12 @@ namespace App1.Models
         public int NotificationTimeMultiplier { get; set; } = 1;
         private void UpdateNotificationTime()
         {
+            if (HasNotification==true && NotificationTimeMultiplier==2 && NotificationTime > ExecutionDate)
+            {
+                NotificationTime = ExecutionDate;
+                OnPropertyChanged(nameof(NotificationTime));
+                return;
+            }
             var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
             if (newTime != null && newTime >= DateTime.Now && newTime <= ExecutionDate)
             {

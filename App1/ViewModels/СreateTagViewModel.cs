@@ -98,18 +98,15 @@ namespace App1.ViewModels
         }
         public async void ConfirmTag()
         {
-            if (IsSelected)
+            if (!string.IsNullOrWhiteSpace(Tag.Name))
             {
                 await App.AssignmentsDB.AddTagAsync(Tag);
+                SelectedTag = null;
+                IsSelected = false;
+                await OnLoaded();
+                Tag = new TagModel();
             }
-            else
-            {
-                await App.AssignmentsDB.AddTagAsync(Tag);
-            }
-            SelectedTag = null;
-            IsSelected = false;
-            await OnLoaded();
-            Tag = new TagModel();
+            
         }
         async Task OnLoaded()
         {

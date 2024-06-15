@@ -10,13 +10,28 @@ namespace App1.ViewModels
     public class Notification2PopupViewModel : BaseAssignmentViewModel
     {
         public Command SetRepeatitionCommand { get; }
+        public Command ConfirmCommand { get; }
         public INavigation Navigation { get; set; }
-
+        private string customInterval { get; set; }
+        public string CustomInterval
+        {
+            get { return customInterval; }
+            set
+            {
+                if (customInterval != value)
+                {
+                    customInterval = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Notification2PopupViewModel(INavigation navigation)
         {
             Navigation = navigation;
             Assignment = new AssignmentModel();
             SetRepeatitionCommand = new Command<string>(SetRepeatition);
+            ConfirmCommand = new Command(OnConfirm);
+            CustomInterval = Assignment.RepeatitionAdditional.ToString();
         }
         private async void SetRepeatition(string repeatTime)
         {
@@ -32,6 +47,21 @@ namespace App1.ViewModels
                 Assignment.RepeatitionAdditional = days;
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(Assignment, "RepeatitionSetted");
+            }
+        }
+        private async void OnConfirm()
+        {
+            int interval = int.Parse(CustomInterval);
+            if (interval < 0 && interval < 367)
+            {
+                Assignment.IsRepeatable = true;
+                Assignment.RepeatitionAdditional = interval;
+                await Navigation.PopPopupAsync();
+                MessagingCenter.Send(Assignment, "RepeatitionSetted");
+            }
+            else
+            {
+                await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Ошибка", "Период повторения задачи не может быть больше 366 дней", "OK");
             }
         }
     }

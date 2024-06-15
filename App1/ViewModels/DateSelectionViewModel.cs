@@ -47,6 +47,7 @@ namespace App1.ViewModels
                     OnPropertyChanged(nameof(SelectedTime));
                     // Обновление даты при изменении времени
                     SelectedDate = SelectedDate.Date + _selectedTime;
+                    OnPropertyChanged(nameof(SelectedDate));
                 }
             }
         }

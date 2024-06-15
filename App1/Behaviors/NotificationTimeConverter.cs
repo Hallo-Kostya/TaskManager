@@ -24,6 +24,8 @@ namespace App1.Behaviors
                         return "За 1 день";
                     case 1:
                         return "Нет";
+                    case 2:
+                        return "Произвольно";
                 }
             }
             return "Произвольно";
