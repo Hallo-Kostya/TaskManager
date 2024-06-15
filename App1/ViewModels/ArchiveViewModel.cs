@@ -17,10 +17,10 @@ namespace App1.ViewModels
         public Command DeleteArchivedAssignmentCommand { get; }
         public Command RecoverAssignmentCommand { get; }
         public ObservableCollection<AssignmentModel> Archive { get; set; }
-        INotificationManager notificationManager;
+        NotificationCenter notificationCenter;
         public ArchiveViewModel()
         {
-            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationCenter = new NotificationCenter();
             DeleteArchivedAssignmentCommand = new Command<AssignmentModel>(DeleteAssignment);
             RecoverAssignmentCommand = new Command<AssignmentModel>(RecoverAssignment);
             ClearArchiveCommand = new Command(ClearArchive);
@@ -64,9 +64,7 @@ namespace App1.ViewModels
             assignment.IsDeleted = false;
             if (assignment.NotificationTime>=DateTime.Now && assignment.HasNotification)
             {
-                string title = $"Уведомление!";
-                string message = $"Ваш дедлайн по задаче {assignment.Name} приближается!";
-                notificationManager.SendNotification(title, message, assignment.NotificationTime,assignment.ID);
+                notificationCenter.SendExtendedNotification(assignment);    
             }
             await App.AssignmentsDB.AddItemAsync(assignment);
             MessagingCenter.Send<object>(this, "TaskCountChanged");

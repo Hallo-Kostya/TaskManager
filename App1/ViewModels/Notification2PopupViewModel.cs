@@ -12,17 +12,14 @@ namespace App1.ViewModels
         public Command SetRepeatitionCommand { get; }
         public Command ConfirmCommand { get; }
         public INavigation Navigation { get; set; }
-        private string customInterval { get; set; }
+        private string customInterval;
+        
         public string CustomInterval
         {
-            get { return customInterval; }
+            get => customInterval;
             set
             {
-                if (customInterval != value)
-                {
-                    customInterval = value;
-                    OnPropertyChanged();
-                }
+                SetProperty(ref customInterval, value);
             }
         }
         public Notification2PopupViewModel(INavigation navigation)
@@ -52,7 +49,7 @@ namespace App1.ViewModels
         private async void OnConfirm()
         {
             int interval = int.Parse(CustomInterval);
-            if (interval < 0 && interval < 367)
+            if (interval > 0 && interval < 367)
             {
                 Assignment.IsRepeatable = true;
                 Assignment.RepeatitionAdditional = interval;

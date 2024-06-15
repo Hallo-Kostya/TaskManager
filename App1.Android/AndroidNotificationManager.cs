@@ -125,30 +125,7 @@ namespace LocalNotifications.Droid
             Notification notification = builder.Build();
             manager.Notify(notificationId, notification);
         }
-        public void SendNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
-        {
-            if (!channelInitialized)
-            {
-                CreateNotificationChannel();
-            }
-
-            if (notifyTime != null)
-            {
-                Intent intent = new Intent(AndroidApp.Context, typeof(AlarmHandler));
-                intent.PutExtra(TitleKey, title);
-                intent.PutExtra(MessageKey, message);
-                int notificationId = id != -1 ? id : pendingIntentId++;
-
-                PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, notificationId, intent, PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable);
-                long triggerTime = GetNotifyTime(notifyTime.Value);
-                AlarmManager alarmManager = AndroidApp.Context.GetSystemService(Context.AlarmService) as AlarmManager;
-                alarmManager.Set(AlarmType.RtcWakeup, triggerTime, pendingIntent);
-            }
-            else
-            {
-                Show(title, message, id);
-            }
-        }
+        
         public void SendExtendedNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
         {
             if (!channelInitialized)
