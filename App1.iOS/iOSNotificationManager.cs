@@ -34,6 +34,52 @@ namespace App1.iOS
             UNUserNotificationCenter.Current.Delegate = new iOSNotificationReceiver(this);
         }
 
+        public void SendExtendedNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
+        {
+            if (!hasNotificationsPermission)
+            {
+                return;
+            }
+
+            messageId = id != -1 ? id : messageId++;
+
+            var content = new UNMutableNotificationContent
+            {
+                Title = title,
+                Body = message,
+                Sound = UNNotificationSound.Default
+            };
+
+            // Create a trigger for the notification
+            UNNotificationTrigger trigger;
+            if (notifyTime != null)
+            {
+                var triggerDate = notifyTime.Value.ToLocalTime();
+                var dateComponents = new NSDateComponents
+                {
+                    Year = triggerDate.Year,
+                    Month = triggerDate.Month,
+                    Day = triggerDate.Day,
+                    Hour = triggerDate.Hour,
+                    Minute = triggerDate.Minute,
+                    Second = triggerDate.Second
+                };
+                trigger = UNCalendarNotificationTrigger.CreateTrigger(dateComponents, false);
+            }
+            else
+            {
+                trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false);
+            }
+
+            var request = UNNotificationRequest.FromIdentifier(messageId.ToString(), content, trigger);
+            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
+            {
+                if (err != null)
+                {
+                    Console.WriteLine($"Failed to schedule notification: {err}");
+                }
+            });
+        }
         public void SendNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
         {
             if (!hasNotificationsPermission)

@@ -94,7 +94,6 @@ namespace App1.ViewModels
                 assign.Childs = Assignment.Childs;
                 assign.IsChild = Assignment.IsChild;
                 assign.HasChild = Assignment.HasChild;
-
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign));
             }
                 

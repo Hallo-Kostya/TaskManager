@@ -17,18 +17,15 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditPage : ContentPage
     {
-        INotificationManager notificationManager;
+        NotificationCenter notificationCenter;
         private EditViewModel viewModel;
         public EditPage()
         {
             InitializeComponent();
             BindingContext = viewModel = new EditViewModel(Navigation);
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            notificationCenter = new NotificationCenter();
+
+
         }
         public EditPage(AssignmentModel assignment,bool _isFromPopup)
         {
@@ -39,12 +36,7 @@ namespace App1.Views
                 ((EditViewModel)BindingContext).Assignment=assignment;
                 ((EditViewModel)BindingContext).isFromPopup = _isFromPopup;
             }
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            notificationCenter = new NotificationCenter();
             if (assignment.IsChild == true)
             {
                 tags.IsVisible = false;
@@ -63,37 +55,9 @@ namespace App1.Views
             var assign = ((EditViewModel)BindingContext).Assignment;
             if (assign.HasNotification)
             {
-                string tags = string.Join(", ", assign.Tags.Select(tag => $"#{tag}"));
-                if (assign.HasChild)
-                {
-                    string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n{assign.Description}\nНе забудьте сделать её до:{assign.ExecutionDate}";
-                    notificationManager.CancelNotification(assign.ID);
-                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
-                }
-                else
-                {
-                    string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n{assign.Description}\nНе забудьте сделать её до:{assign.ExecutionDate}\nТакже не забудьте про подзадачи!";
-                    notificationManager.CancelNotification(assign.ID);
-                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
-                }
+                notificationCenter.SendExtendedNotification(assign);
             }
         }
-        void ShowNotification(string title, string message)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                var msg = new Label()
-                {
-                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                };
-                notificationTest.Children.Add(msg);
-            });
-        }
-        private void DatePickerDate_DateSelected(object sender, DateChangedEventArgs e)
-        {
 
-        }
     }
 }

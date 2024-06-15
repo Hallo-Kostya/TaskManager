@@ -5,6 +5,7 @@ using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,18 +17,14 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AssignmentAddingPage : PopupPage
     {
-        INotificationManager notificationManager;
+        NotificationCenter notificationCenter;
         public AssignmentModel Assignment { get; set; }
         public AssignmentAddingPage()
         {
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel(Navigation);
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            
+            notificationCenter = new NotificationCenter();
         }
         public AssignmentAddingPage(ListModel folder)
         {
@@ -37,12 +34,8 @@ namespace App1.Views
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment.FolderName = folder.Name;
             }
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            
+            notificationCenter = new NotificationCenter();
         }
         public AssignmentAddingPage(AssignmentModel assignment)
         {
@@ -52,12 +45,8 @@ namespace App1.Views
             {
                 ((AssignmentAddingViewModel)BindingContext).Assignment = assignment;
             }
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            
+            notificationCenter = new NotificationCenter();
         }
         public AssignmentAddingPage(bool _isChildAssignment)
         {
@@ -70,12 +59,8 @@ namespace App1.Views
                 folders.IsVisible = false;
                 TagsList.IsVisible = false;
             }
-            notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+           
+            notificationCenter = new NotificationCenter();
 
         }
 
@@ -85,33 +70,9 @@ namespace App1.Views
             var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
             if (assign.HasNotification)
             {
-                string tags = string.Join(", ", assign.Tags.Select(tag => $"#{tag}"));
-                if (assign.HasChild)
-                {
-                    string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n{assign.Description}\nНе забудьте сделать её до:{assign.ExecutionDate}";
-                    notificationManager.CancelNotification(assign.ID);
-                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
-                }
-                else
-                {
-                    string title = $"Уведомление! {tags}";
-                    string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\n {assign.Description}\nНе забудьте сделать её до:{assign.ExecutionDate}\nТакже не забудьте про подзадачи!";
-                    notificationManager.CancelNotification(assign.ID);
-                    notificationManager.SendNotification(title, message, assign.NotificationTime, assign.ID);
-                }
+                notificationCenter.SendExtendedNotification(assign);
             }  
         }
-        void ShowNotification(string title, string message)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                var msg = new Label()
-                {
-                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                };
-                NotificationsStack.Children.Add(msg);
-            });
-        }
+        
     }
 }
