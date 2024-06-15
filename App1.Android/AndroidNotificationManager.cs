@@ -149,6 +149,52 @@ namespace LocalNotifications.Droid
                 Show(title, message, id);
             }
         }
+        public void SendExtendedNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
+        {
+            if (!channelInitialized)
+            {
+                CreateNotificationChannel();
+            }
+
+            if (notifyTime != null)
+            {
+                Intent intent = new Intent(AndroidApp.Context, typeof(AlarmHandler));
+                intent.PutExtra(TitleKey, title);
+                intent.PutExtra(MessageKey, message);
+                int notificationId = id != -1 ? id : pendingIntentId++;
+
+                PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, notificationId, intent, PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable);
+                long triggerTime = GetNotifyTime(notifyTime.Value);
+                AlarmManager alarmManager = AndroidApp.Context.GetSystemService(Context.AlarmService) as AlarmManager;
+                alarmManager.Set(AlarmType.RtcWakeup, triggerTime, pendingIntent);
+            }
+            else
+            {
+                ShowExtendedNotification(title, message, id);
+            }
+        }
+
+        public void ShowExtendedNotification(string title, string message, int id = -1)
+        {
+            Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
+            intent.PutExtra(TitleKey, title);
+            intent.PutExtra(MessageKey, message);
+            int notificationId = id != -1 ? id : pendingIntentId++;
+
+            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
+                .SetContentIntent(pendingIntent)
+                .SetContentTitle(title)
+                .SetContentText(message)
+                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.alarm))
+                .SetSmallIcon(Resource.Drawable.alarm)
+                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
+                .SetStyle(new NotificationCompat.BigTextStyle().BigText(message));
+
+            Notification notification = builder.Build();
+            manager.Notify(notificationId, notification);
+        }
         public void CancelNotification(int id)
         {
             manager.Cancel(id);

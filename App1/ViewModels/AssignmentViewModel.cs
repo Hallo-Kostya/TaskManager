@@ -164,7 +164,6 @@ namespace App1.ViewModels
                     await assignment.LoadTagsAsync();
                 }
 
-                // Начальная фильтрация по папке
                 IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false && t.IsChild==false);
 
                 if (SelectedFolder.Name != "Мои дела")
@@ -172,35 +171,12 @@ namespace App1.ViewModels
                     filteredAssignments = filteredAssignments.Where(t => t.FolderName == SelectedFolder.Name);
                 }
 
-                // Фильтрация по тегу
                 if (IsFilteredByTag && SelectedTag.Name != "без тега")
                 {
                     filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag.ID == SelectedTag.ID));
                 }
 
-                // Применение сортировки
-                //if (IsFilteredByPriority)
-                //{
-                //    filteredAssignments = filteredAssignments.OrderByDescending(x => (int)x.Priority);
-                //}
-                //else if (IsFilteredByDate)
-                //{
-                //    filteredAssignments = filteredAssignments
-                //        .OrderBy(x => x.ExecutionDate.Date)
-                //        .ThenBy(x => x.ExecutionDate.TimeOfDay);
-                //}
-
-                //var groupedAssignments = filteredAssignments
-                //    .Where(t => t.IsCompleted == false)
-                //    .ToList();
-
-                //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
-
-                //var completedList = filteredAssignments
-                //    .Where(t => t.IsCompleted == true)
-                //    .ToList();
-
-                //CompletedAssignments = new ObservableCollection<AssignmentModel>(completedList);
+               
                 IEnumerable<IGrouping<object, AssignmentModel>> groupedAssignments;
                 switch (GroupedBy)
                 {
@@ -219,17 +195,15 @@ namespace App1.ViewModels
                             .GroupBy(x => (object)x.Tags.First().Name)
                             .OrderByDescending(group => group.Key);
 
-                        // Отдельно обрабатываем задачи без тегов
                         var tasksWithoutTags = filteredAssignments
                             .Where(x => !x.Tags.Any())
                             .GroupBy(x => (object)"Без тега");
 
-                        // Объединяем обе группы
                         groupedAssignments = tasksWithTags.Concat(tasksWithoutTags);
                         break;
                     default:
                         groupedAssignments = filteredAssignments
-                            .GroupBy(x => (object)null); // Нет группировки
+                            .GroupBy(x => (object)null); 
                         break;
                 }
 
@@ -255,17 +229,11 @@ namespace App1.ViewModels
             }
 
 
-                //    .OrderBy(x => x.ExecutionDate.Date) // Сортировка по дате выполнения
-                //    .ThenBy(x => x.ExecutionDate.TimeOfDay) // Сортировка по времени выполнения
-                //    .GroupBy(x => x.ExecutionDate.Date) // Группировка по дате
-                //    .SelectMany(group => group.OrderByDescending(x => (int)x.Priority)) // Сортировка внутри группы по приоритету и разворачивание в единую последовательность
-                //    .ToList();
-
-            //assignments = new ObservableCollection<AssignmentModel>(groupedAssignments);
+               
             
             catch (Exception ex)
             {
-                // Обработка исключений
+
                 Console.WriteLine($"Error in ExecuteLoadAssignmentCommand: {ex.Message}");
             }
             finally
@@ -321,7 +289,7 @@ namespace App1.ViewModels
 
             if (assignment.HasNotification)
             {
-                notificationManager.CancelNotification(assignment.ID);  // Отмена уведомления по идентификатору задачи
+                notificationManager.CancelNotification(assignment.ID);  
             }
             MessagingCenter.Send<object>(this, "TaskCountChanged");
             await App.AssignmentsDB.AddItemAsync(assignment);
@@ -356,7 +324,6 @@ namespace App1.ViewModels
         }
         public TagModel GetTagById(int id)
         {
-            // Реализация метода получения тега по ID из базы данных или кэша
             return App.AssignmentsDB.GetTagAsync(id).Result;
         }
         private async void ExecuteMeetBallsPopup()

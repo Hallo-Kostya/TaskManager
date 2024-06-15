@@ -48,7 +48,7 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button  Clicked="ButtonOwnTime_Clicked" Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>
+                        <Button  Clicked="ButtonOwnTime_Clicked"  Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>
                         <StackLayout x:Name="CustomTimeLayout" Orientation="Horizontal">
 
                             <Entry Placeholder="Введите количество дней" Text="{Binding CustomTime}" Keyboard="Numeric"/>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App1.Services.Notifications;
 using SQLite;
 using Xamarin.Forms;
 
@@ -11,6 +12,7 @@ namespace App1.Models
 {
     public class AssignmentModel:BaseModel       
     {
+        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
@@ -74,7 +76,7 @@ namespace App1.Models
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); // Update TagsString when Tags changes
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 
@@ -132,17 +134,30 @@ namespace App1.Models
         public int NotificationTimeMultiplier { get; set; } = 1;
         private void UpdateNotificationTime()
         {
+            if (HasNotification==true && NotificationTimeMultiplier==2 && NotificationTime > ExecutionDate)
+            {
+                NotificationTime = ExecutionDate;
+                OnPropertyChanged(nameof(NotificationTime));
+                return;
+            }
             var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
             if (newTime != null && newTime >= DateTime.Now && newTime <= ExecutionDate)
+            {
                 NotificationTime = newTime;
+                OnPropertyChanged(nameof(NotificationTime));
+            }
             else
+            {
                 HasNotification = false;
+                OnPropertyChanged(nameof(HasNotification));
+            }
+                
         }
         public void CheckIfOverdue()
         {
             IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
             OnPropertyChanged(nameof(IsOverdue));
-            if (DateTime.Today >= RepeatitionReturnTime && IsRepeatable == true)
+            if (DateTime.Today >= RepeatitionReturnTime && IsRepeatable==true && IsDeleted==false)
             {
                 IsCompleted = false;
                 OnPropertyChanged(nameof(IsCompleted));
@@ -169,6 +184,29 @@ namespace App1.Models
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(RepeatitionReturnTime));
             }
+            if (IsCompleted==true && HasNotification == true)
+            {
+                notificationManager.CancelNotification(ID);
+            }
+            if (IsCompleted==false && HasNotification==true && NotificationTime<= ExecutionDate && NotificationTime >= DateTime.Now)
+            {
+                string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
+                if (HasChild)
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
+                    notificationManager.CancelNotification(ID);
+                    notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                }
+                else
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}\nТакже не забудьте про подзадачи!";
+                    notificationManager.CancelNotification(ID);
+                    notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                }
+            }
+
         }
         public void RemoveChild(AssignmentModel assignment)
         {
@@ -188,7 +226,7 @@ namespace App1.Models
             {
                 Tags.Add(tag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); // Update TagsString when a tag is added
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 
@@ -199,7 +237,7 @@ namespace App1.Models
             {
                 Tags.Remove(existingTag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); // Update TagsString when a tag is removed
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 

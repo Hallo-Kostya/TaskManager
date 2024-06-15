@@ -19,6 +19,7 @@ namespace App1.Views.Popups
         {
             InitializeComponent();
             BindingContext = new Notification2PopupViewModel(Navigation);
+
         }
         public Notification2PopupPage(AssignmentModel assignment)
         {
@@ -28,11 +29,19 @@ namespace App1.Views.Popups
             {
                 (BindingContext as Notification2PopupViewModel).Assignment = assignment;
             }
+            if(assignment.IsRepeatable==true && assignment.RepeatitionAdditional!=0 && assignment.RepeatitionAdditional != 1 && assignment.RepeatitionAdditional != 3 && assignment.RepeatitionAdditional != 7)
+            {
+                CustomEntryRepeat.IsVisible = true;
+            }
+            else
+            {
+                CustomEntryRepeat.IsVisible = false;
+            }
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-
+            CustomEntryRepeat.IsVisible = true;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace App1.Views.Popups
             InitializeComponent();
             BindingContext = new Notification1PopupViewModel(Navigation);
             notificationManager = DependencyService.Get<INotificationManager>();
+            CustomEntry.IsVisible = false;
         }
         public Notification1PopupPage(AssignmentModel assign)
         {
@@ -32,6 +33,10 @@ namespace App1.Views.Popups
             if (assign != null)
             {
                 (BindingContext as Notification1PopupViewModel).Assignment= assign;
+            }
+            if (assign.HasNotification==true && assign.NotificationTimeMultiplier == 1)
+            {
+                CustomEntry.IsVisible = true;
             }
             notificationManager = DependencyService.Get<INotificationManager>();
         }
@@ -43,6 +48,11 @@ namespace App1.Views.Popups
                 notificationManager.CancelNotification(assignment.ID);  // Отмена уведомления по идентификатору задачи
                 (BindingContext as Notification1PopupViewModel).Assignment.HasNotification = false;  // Обновление состояния задачи
             }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            CustomEntry.IsVisible = true;
         }
     }
 }

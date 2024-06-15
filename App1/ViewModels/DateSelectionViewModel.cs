@@ -47,6 +47,7 @@ namespace App1.ViewModels
                     OnPropertyChanged(nameof(SelectedTime));
                     // Обновление даты при изменении времени
                     SelectedDate = SelectedDate.Date + _selectedTime;
+                    OnPropertyChanged(nameof(SelectedDate));
                 }
             }
         }
@@ -94,7 +95,6 @@ namespace App1.ViewModels
                 assign.Childs = Assignment.Childs;
                 assign.IsChild = Assignment.IsChild;
                 assign.HasChild = Assignment.HasChild;
-
                 await Navigation.PushPopupAsync(new AssignmentAddingPage(assign));
             }
                 
