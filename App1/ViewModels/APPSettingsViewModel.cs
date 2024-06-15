@@ -66,6 +66,7 @@ namespace App1.ViewModels
             CancelSettingsCommand = new Command(CancelSettings);
             CustomTimeCleanCommand = new Command(CustomClean);
             Console.WriteLine("Initial IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
+            NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
         }
 
         private void CustomClean()
