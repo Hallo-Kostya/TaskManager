@@ -64,8 +64,7 @@ namespace App1.Views
             {
                 notificationCenter.SendExtendedNotification(assign);
             }
-            LongDescAlert.IsVisible = false;
-            LongNameAlert.IsVisible = false;
+
         }
 
     }

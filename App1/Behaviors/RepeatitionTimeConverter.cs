@@ -23,15 +23,15 @@ namespace App1.Behaviors
                 {
                     if ((multiplier / 10 != 1) && (multiplier % 10 == 2 || multiplier % 10 == 3 || multiplier % 10 == 4))
                     {
-                        return "Раз в" + multiplier.ToString() + "дня";
+                        return "Раз в " + multiplier.ToString() + " дня";
                     }
                     else if (multiplier / 10 == 1 || multiplier % 10 == 0)
                     {
-                        return "Раз в" + multiplier.ToString() + "дней";
+                        return "Раз в " + multiplier.ToString() + " дней";
                     }
                     else
                     {
-                        return "Раз в" + multiplier.ToString() + "день";
+                        return "Раз в " + multiplier.ToString() + " день";
                     }
 
                 } 

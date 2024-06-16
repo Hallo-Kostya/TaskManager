@@ -80,8 +80,6 @@ namespace App1.Views
             {
                 notificationCenter.SendExtendedNotification(assign);
             }
-            TooLongNameAlert.IsVisible = false;
-            TooLongDescAlert.IsVisible = false;
         }
         
     }
