@@ -25,7 +25,7 @@
                 <Button Text="Каждую неделю" Padding="-110, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="7"/>
                 <Button Text="Произвольно" Padding="-130, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
                 <StackLayout x:Name="CustomEntryRepeat">
-                    <Entry Placeholder="Введите период повторения задачи в днях" Keyboard="Numeric" Text="{Binding CustomInterval}" PlaceholderColor="Gray" TextColor="AliceBlue"/>
+                    <Entry Placeholder="Введите период повторения задачи в днях" Keyboard="Numeric" Text="{Binding CustomInterval}"/>
                     <Button Text="Установить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue"/>
                     <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
                 </StackLayout>

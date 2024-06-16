@@ -31,6 +31,7 @@ namespace App1.ViewModels
         }
         private async void SetRepeatition(string repeatTime)
         {
+            Console.WriteLine("вызывается  не тот метод который должен");
             if (repeatTime == "0")
             {
                 Assignment.IsRepeatable = false;
@@ -47,6 +48,7 @@ namespace App1.ViewModels
         }
         private async void OnConfirm()
         {
+            Console.WriteLine("Вызывается тот который должен");
             if (int.TryParse(CustomInterval, out int interval))
             {
                 if (interval > 0 && interval < 367)
