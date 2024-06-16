@@ -28,7 +28,6 @@ namespace App1.ViewModels
             Assignment = new AssignmentModel();
             SetRepeatitionCommand = new Command<string>(SetRepeatition);
             ConfirmCommand = new Command(OnConfirm);
-            CustomInterval = Assignment.RepeatitionAdditional.ToString();
         }
         private async void SetRepeatition(string repeatTime)
         {

@@ -7,6 +7,13 @@
             Shell.NavBarIsVisible="False"
             Shell.TabBarIsVisible="False">
 
+    <ContentPage.Resources>
+        <Style x:Key="ColorStyle" TargetType="ImageButton">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="WidthRequest" Value="30"/>
+            <Setter Property="HeightRequest" Value="30"/>
+        </Style>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout>
@@ -27,20 +34,24 @@
                     <Label Text="Выберите цвет вашей папки:" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
-                            <Button BackgroundColor="#d71d1d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#d71d1d"/>
-                            <Button BackgroundColor="#e18026" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e18026"/>
-                            <Button BackgroundColor="#e0cc19" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e0cc19"/>
-                            <Button BackgroundColor="#4fdd1d" WidthRequest="48" HeightRequest="20" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4fdd1d"/>
-                            <Button BackgroundColor="#99bd33" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99bd33"/>
-                            <Button BackgroundColor="#10edd2" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10edd2"/>
+                            <Button BackgroundColor="#FF6F92"  Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#FF6F92"/>
+                            <!--<Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D"/>-->
+                            <Button BackgroundColor="#D71D1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D71D1D"/>
+                            <Button BackgroundColor="#E18026" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E18026"/>
+                            <Button BackgroundColor="#99BD33" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99BD33"/>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
+                            <Button BackgroundColor="#4FDD1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4FDD1D"/>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Button BackgroundColor="#00a8f0" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00a8f0"/>
-                            <Button BackgroundColor="#2b96c4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#2b96c4"/>
-                            <Button BackgroundColor="#211ed3" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ed3"/>
-                            <Button BackgroundColor="#7218e4" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#7218e4"/>
-                            <Button BackgroundColor="#e11be5" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e11be5"/>
-                            <Button BackgroundColor="#e01a6d" WidthRequest="48" HeightRequest="48" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#e01a6d"/>
+                        <StackLayout Orientation="Horizontal" Margin="0,5,0,0">
+                            <Button BackgroundColor="#00FFB2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00FFB2"/>
+                            <Button BackgroundColor="#10EDD2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10EDD2"/>
+                            <Button BackgroundColor="#00A7F0" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00A7F0"/>
+                            <Button BackgroundColor="#211ED3" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ED3"/>
+                            <Button BackgroundColor="#D885FF" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D885FF"/>
+                            <Button BackgroundColor="#E11BE5" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E11BE5"/>
+                            <Button BackgroundColor="#8A18E4" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#8A18E4"/>
+                            <Button BackgroundColor="#818181" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#818181"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

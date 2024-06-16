@@ -24,11 +24,14 @@
 
     <ContentPage.Content>
         <StackLayout Padding="15,60,15,0" x:Name="notificationTest">
-            <StackLayout Orientation="Horizontal">
-                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelCommand}"/>
-                <Label Text="{Binding Assignment.FolderName}" FontSize="20" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" />
-                
-                <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DeleteCommand}"/>
+            <StackLayout>
+                <Grid HeightRequest="100">
+                    <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelCommand}"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="{Binding Assignment.FolderName}" Command="{Binding FoldersPopupCommand}" FontSize="20" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                    <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DeleteCommand}"/>
+                </Grid>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
@@ -158,7 +161,6 @@
             </CollectionView>
             <StackLayout Orientation="Horizontal" Margin="0,0,0,20" VerticalOptions="Start">
                 <ImageButton x:Name="tags" Source="tags.png" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}"/>
-                <ImageButton x:Name="folders" Source="folders.png" Margin="5,0,0,0" BackgroundColor="Color.Transparent" CornerRadius="30" Command="{Binding FoldersPopupCommand}"/>
                 <ImageButton x:Name="layout_list" Source="layout_list.png" Margin="5,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding AddChildCommand}" />
                 <ImageButton Source="save_task.png" BackgroundColor="Color.Transparent" Command="{Binding SaveCommand}" Clicked="ButtonSave_Clicked" HorizontalOptions="EndAndExpand"/>
             </StackLayout>

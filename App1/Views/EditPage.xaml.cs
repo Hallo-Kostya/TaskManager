@@ -40,7 +40,6 @@ namespace App1.Views
             if (assignment.IsChild == true)
             {
                 tags.IsVisible = false;
-                folders.IsVisible = false;
                 layout_list.IsVisible = false;
             }
         }

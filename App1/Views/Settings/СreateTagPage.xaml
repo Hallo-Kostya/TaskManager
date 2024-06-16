@@ -17,26 +17,26 @@
         </ResourceDictionary>
         <Style x:Key="ColorStyle" TargetType="ImageButton">
             <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
-            <Setter Property="WidthRequest" Value="36"/>
-            <Setter Property="HeightRequest" Value="36"/>
+            <Setter Property="WidthRequest" Value="30"/>
+            <Setter Property="HeightRequest" Value="30"/>
         </Style>
     </ContentPage.Resources>
     
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="15,30,15,0">
             <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
                 <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}"/>
-                <Button Text="Применить" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}" />
             </StackLayout>
-            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,5">
+            <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,5">
                 <StackLayout Orientation="Horizontal" >
                     <Image Source="tags" />
-                    <Entry Placeholder="Введите название нового тега" PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding Tag.Name}"/>
+                    <Entry Focused="Button_Clicked" Placeholder="Введите название нового тега" PlaceholderColor="#9C9C9C" TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding Tag.Name}"/>
                 </StackLayout>
             </Frame>
+            <Label Text="Название тега не может быть пустым" TextColor="Red" IsVisible="false" x:Name="NullNameTagAlert" Padding="0,0,0,-100"/>
 
-            <Frame BackgroundColor="#444444" Margin="20,20,20,0" CornerRadius="8" Padding="15,15">
+            <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,15">
                 <StackLayout>
                     <Label Text="Выберите цвет вашего тега:" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
@@ -50,7 +50,7 @@
                             <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
                             <Button BackgroundColor="#4FDD1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4FDD1D"/>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" Margin="0,5,0,0">
                             <Button BackgroundColor="#00FFB2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00FFB2"/>
                             <Button BackgroundColor="#10EDD2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10EDD2"/>
                             <Button BackgroundColor="#00A7F0" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00A7F0"/>
@@ -64,14 +64,12 @@
                 </StackLayout>
             </Frame>
 
-            <Frame BackgroundColor="#444444" Margin="20" CornerRadius="8" Padding="15,15">
+            <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,15">
                 <StackLayout>
                     <StackLayout Margin="0,10">
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Все ваши теги:" TextColor="AliceBlue"/>
-                                <ImageButton x:Name="AddButton" Source="add.png" Command="{Binding AddTagCommand}" Clicked="Button_Clicked" IsVisible="true" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
-                                <Label Text="Название тега не может быть пустым" TextColor="Red" IsVisible="false" x:Name="NullNameTagAlert"/>
                             </StackLayout>
                             <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionChanged="CollectionView_SelectionChanged" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
                                 <CollectionView.ItemTemplate>
@@ -96,9 +94,9 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <StackLayout Orientation="Horizontal" x:Name="ConfirmLayout" IsVisible="false">
-                <Button Text="Удалить" Command="{Binding DeleteNewTag}" Clicked="Confirm_Clicked_1"/>
-                <Button Text="Сохранить" Command="{Binding ConfirmTagCommand}" Clicked="Confirm_Clicked_1"/> 
+            <StackLayout Orientation="Horizontal" x:Name="ConfirmLayout" IsVisible="false" HeightRequest="20" HorizontalOptions="EndAndExpand">
+                <Button Text="Удалить" Command="{Binding DeleteNewTag}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#33F80000" TextColor="#F80000" HeightRequest="10" Padding="-10" />
+                <Button Text="Применить" Command="{Binding ConfirmTagCommand}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#3300FF94" TextColor="#00FF94" HeightRequest="10" Padding="-10" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

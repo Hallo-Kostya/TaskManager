@@ -29,7 +29,6 @@ namespace App1.Views.Settings
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            AddButton.IsVisible = false;
             ConfirmLayout.IsVisible = true;
         }
 
@@ -42,14 +41,12 @@ namespace App1.Views.Settings
             else
             {
                 ConfirmLayout.IsVisible = false;
-                AddButton.IsVisible = true;
             }
         }
 
         private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ConfirmLayout.IsVisible = true;
-            AddButton.IsVisible = false;
         }
     }
 }

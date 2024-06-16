@@ -17,13 +17,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
+        <StackLayout Padding="15,50,15,0">
+            <Grid>
                 <ImageButton Source="back.png" Command="{Binding OnBackPressedCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
-                <Button Text="Применить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" />
-            </StackLayout>
+                <Label Text="Дата" FontSize="19" FontAttributes="Bold" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="Применить" CornerRadius="50" BackgroundColor="#33D778E6" Command="{Binding ConfirmCommand}" TextColor="#D778E6" TextTransform="None" HorizontalOptions="EndAndExpand" HeightRequest="10" Padding="-10" />
+            </Grid>
             <StackLayout Margin="0,10,0,0">
-                <Label Text="Дата" FontSize="19" FontAttributes="Bold" TextColor="AliceBlue" HorizontalOptions="Center"/>
                 <DatePicker x:Name="PickDate" Date="{Binding SelectedDate, Mode=TwoWay}"  TextColor="AliceBlue" MinimumDate="{x:Static sys:DateTime.Today}" HorizontalOptions="Center"/>
             </StackLayout>
             <Frame BackgroundColor="#353535" Margin="20" CornerRadius="12" >
