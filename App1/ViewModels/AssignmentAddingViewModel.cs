@@ -103,25 +103,28 @@ namespace App1.ViewModels
         {
             var assignment = Assignment;
 
-            if (string.IsNullOrEmpty(assignment.Name))
+            if (assignment.Name.Length<101 && assignment.Description.Length < 501)
             {
-                assignment.Name = "Без названия";
-            }
-            
-            if (!IsChildAssignment)
-            {
-                await App.AssignmentsDB.AddItemAsync(assignment);
-                await Navigation.PopPopupAsync();
-                MessagingCenter.Send(this, "PopupClosed");
-            }
-            else if (IsChildAssignment)
-            {
-                assignment.IsChild = true;
-                await App.AssignmentsDB.AddItemAsync(assignment);
-                await Navigation.PopPopupAsync();
-                MessagingCenter.Send(assignment, "PopupChildClosed");
-            }
-            MessagingCenter.Send<object>(this, "TaskCountChanged");
+                if (string.IsNullOrEmpty(assignment.Name))
+                {
+                    assignment.Name = "Без названия";
+                }
+
+                if (!IsChildAssignment)
+                {
+                    await App.AssignmentsDB.AddItemAsync(assignment);
+                    await Navigation.PopPopupAsync();
+                    MessagingCenter.Send(this, "PopupClosed");
+                }
+                else if (IsChildAssignment)
+                {
+                    assignment.IsChild = true;
+                    await App.AssignmentsDB.AddItemAsync(assignment);
+                    await Navigation.PopPopupAsync();
+                    MessagingCenter.Send(assignment, "PopupChildClosed");
+                }
+                MessagingCenter.Send<object>(this, "TaskCountChanged");
+            }    
         }
         private async void UpdateTags()
         {

@@ -52,6 +52,8 @@
 
             <StackLayout>
                 <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="20" />
+                <Label x:Name="LongNameAlert" Text="Имя задачи должно быть не длиннее 100 символов" TextColor="Red" IsVisible="false"/>
+                <Label x:Name="LongDescAlert" Text="Описание задачи должно быть не длиннее 500 символов" TextColor="Red" IsVisible="false"/>
                 <Editor Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="100"/>
             </StackLayout>
             <StackLayout Padding="10">

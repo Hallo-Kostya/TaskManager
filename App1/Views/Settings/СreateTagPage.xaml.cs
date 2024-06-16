@@ -42,6 +42,7 @@ namespace App1.Views.Settings
             else
             {
                 ConfirmLayout.IsVisible = false;
+                NullNameTagAlert.IsVisible = false;
             }
         }
     }
