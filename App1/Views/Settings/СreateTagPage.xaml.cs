@@ -30,6 +30,7 @@ namespace App1.Views.Settings
         private void Button_Clicked(object sender, EventArgs e)
         {
             ConfirmLayout.IsVisible = true;
+            NullNameTagAlert.IsVisible = false;
         }
 
         private void Confirm_Clicked_1(object sender, EventArgs e)
@@ -42,11 +43,6 @@ namespace App1.Views.Settings
             {
                 ConfirmLayout.IsVisible = false;
             }
-        }
-
-        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ConfirmLayout.IsVisible = true;
         }
     }
 }
