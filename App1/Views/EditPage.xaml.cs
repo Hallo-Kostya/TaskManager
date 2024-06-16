@@ -52,10 +52,20 @@ namespace App1.Views
         private void ButtonSave_Clicked(object sender, EventArgs e)
             {
             var assign = ((EditViewModel)BindingContext).Assignment;
+            if (assign.Name.Length >= 101)
+            {
+                LongNameAlert.IsVisible = true;
+            }
+            if (assign.Description.Length >= 501)
+            {
+                LongDescAlert.IsVisible = true;
+            }
             if (assign.HasNotification)
             {
                 notificationCenter.SendExtendedNotification(assign);
             }
+            LongDescAlert.IsVisible = false;
+            LongNameAlert.IsVisible = false;
         }
 
     }
