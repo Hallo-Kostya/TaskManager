@@ -100,16 +100,17 @@ namespace App1.ViewModels
         private async void OnSave()
         {
             var assignment = Assignment;
-            if (assignment.Name.Length < 101 && assignment.Description.Length < 501)
+            if (assignment.Name.Length >= 101 && assignment.Description.Length >= 501)
             {
-                if (string.IsNullOrEmpty(assignment.Name))
-                {
-                    assignment.Name = "Без названия";
-                }
-                MessagingCenter.Send<object>(this, "TaskCountChanged");
-                await App.AssignmentsDB.AddItemAsync(assignment);
-                await Navigation.PopAsync();
+                return;
             }
+            if (string.IsNullOrEmpty(assignment.Name))
+            {
+                assignment.Name = "Без названия";
+            }
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
+            await App.AssignmentsDB.AddItemAsync(assignment);
+            await Navigation.PopAsync();
         }
         public async Task OnAppearing()
         {
