@@ -28,7 +28,7 @@
                     <Button Text="За 1 час" Command="{Binding SetNotificationTimeCommand}"  CommandParameter="-60" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
                     <Button Text="За 1 день" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-1440" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
                     <Button Text="Произвольно" Padding="-10" Style="{StaticResource ButtonStyle}" Clicked="Button_Clicked" BackgroundColor="Color.Transparent"/>
-                    <StackLayout x:Name="CustomEntry">
+                    <StackLayout x:Name="CustomEntry" IsVisible="False">
                         <DatePicker Date="{Binding SelectedDate, Mode=TwoWay}" TextColor="AliceBlue" MinimumDate="{x:Static sys:DateTime.Today}" HorizontalOptions="Center"/>
                         <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" TextColor="AliceBlue" VerticalOptions="CenterAndExpand" />
                         <Button Text="Установить" Command="{Binding ConfirmCommand}"/>

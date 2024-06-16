@@ -2,8 +2,9 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification2PopupViewModel"
-                 x:Class="App1.Views.Popups.Notification2PopupPage"
-             BackgroundColor="Color.Transparent">
+             x:Class="App1.Views.Popups.Notification2PopupPage"
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False" >
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
