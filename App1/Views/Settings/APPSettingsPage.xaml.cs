@@ -56,5 +56,10 @@ namespace App1.Views
         {
             CustomTimeLayout.IsVisible = true;
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            CustomTimeLayout.IsVisible = false;
+        }
     }
 }

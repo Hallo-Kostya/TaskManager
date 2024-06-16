@@ -68,11 +68,11 @@ namespace App1.Views
         private void ButtonSave_Clicked(object sender, EventArgs e)
         {
             var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
-            if (assign.Name.Length>=101)
+            if (assign.Name!=null && assign.Name.Length>=101)
             {
                 TooLongNameAlert.IsVisible = true;
             }
-            if (assign.Description.Length >=501)
+            if (assign.Description!=null && assign.Description.Length >=501)
             {
                 TooLongDescAlert.IsVisible = true;
             }

@@ -3,6 +3,7 @@ using Xamarin.Essentials;
 using App1.Services.ArchiveCleanup;
 using System;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Rg.Plugins.Popup.Extensions;
 
 namespace App1.ViewModels
 {
@@ -70,13 +71,15 @@ namespace App1.ViewModels
         }
 
         private void CustomClean()
-        {
-            var tempInterval = int.Parse(CustomTime);
-            if (tempInterval>0 && tempInterval < 367)
+        { 
+            if (int.TryParse(CustomTime, out int interval))
             {
-                CleaningInterval = tempInterval * 24;
+                if (interval > 0 && interval < 367)
+                {
+                    CleaningInterval = interval * 24;
+                }
+                NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
             }
-            NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
         }
         private void EnableCleaning()
         {
