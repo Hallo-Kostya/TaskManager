@@ -71,7 +71,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Все ваши теги:" TextColor="AliceBlue"/>
                             </StackLayout>
-                            <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}" SelectionChanged="CollectionView_SelectionChanged" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
+                            <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout x:DataType="model:TagModel" Margin="5">

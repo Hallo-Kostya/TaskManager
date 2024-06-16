@@ -47,17 +47,23 @@ namespace App1.ViewModels
         }
         private async void OnConfirm()
         {
-            int interval = int.Parse(CustomInterval);
-            if (interval > 0 && interval < 367)
+            if (int.TryParse(CustomInterval, out int interval))
             {
-                Assignment.IsRepeatable = true;
-                Assignment.RepeatitionAdditional = interval;
-                await Navigation.PopPopupAsync();
-                MessagingCenter.Send(Assignment, "RepeatitionSetted");
+                if (interval > 0 && interval < 367)
+                {
+                    Assignment.IsRepeatable = true;
+                    Assignment.RepeatitionAdditional = interval;
+                    await Navigation.PopPopupAsync();
+                    MessagingCenter.Send(Assignment, "RepeatitionSetted");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Ошибка", "Период повторения задачи не может быть больше 366 дней", "OK");
+                }
             }
             else
             {
-                await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Ошибка", "Период повторения задачи не может быть больше 366 дней", "OK");
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Введите корректное число для периода повторения", "OK");
             }
         }
     }
