@@ -103,7 +103,7 @@ namespace App1.ViewModels
         {
             var assignment = Assignment;
 
-            if (assignment.Name.Length>=101 && assignment.Description.Length>=501)
+            if (assignment.Name != null && assignment.Description != null && (assignment.Name.Length >= 101 || assignment.Description.Length >= 501))
             {
                 return;
             }
