@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-  <style name="MainTheme" parent="MainTheme.Base">
-    <!-- As of Xamarin.Forms 4.6 the theme has moved into the Forms binary -->
-    <!-- If you want to override anything you can do that here. -->
-    <!-- Underneath are a couple of entries to get you started. -->
+	<style name="MainTheme" parent="MainTheme.Base">
+		<!-- As of Xamarin.Forms 4.6 the theme has moved into the Forms binary -->
+		<!-- If you want to override anything you can do that here. -->
+		<!-- Underneath are a couple of entries to get you started. -->
 
-    <!-- Set theme colors from https://aka.ms/material-colors -->
-    <!-- colorPrimary is used for the default action bar background -->
-    <!--<item name="colorPrimary">#2196F3</item>-->
-    <!-- colorPrimaryDark is used for the status bar -->
-    <!--<item name="colorPrimaryDark">#1976D2</item>-->
-    <!-- colorAccent is used as the default value for colorControlActivated
+		<!-- Set theme colors from https://aka.ms/material-colors -->
+		<!-- colorPrimary is used for the default action bar background -->
+		<!--<item name="colorPrimary">#2196F3</item>-->
+		<!-- colorPrimaryDark is used for the status bar -->
+		<!--<item name="colorPrimaryDark">#1976D2</item>-->
+		<!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-    <!--<item name="colorAccent">#FF4081</item>-->
-  </style>
+		<!--<item name="colorAccent">#FF4081</item>-->
+		
+	</style>	
+	<style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorAccent">#ffffff</item>
+		<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
+		<item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+	</style>
+
+	<style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">#D778E6</item>
+		<item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+	</style>
+
+	<style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+		<item name="android:headerBackground">#252525</item>
+	</style>
+
+	<style name="TimePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">#D778E6</item>
+		<item name="android:timePickerStyle">@style/TimePickerDialogStyle</item>
+	</style>
+
+	<style name="TimePickerDialogStyle" parent="@android:style/Widget.Material.Light.TimePicker">
+		<item name="colorAccent">#D778E6</item>
+		<item name="android:timePickerMode">clock</item>
+		<item name="android:headerBackground">#252525</item>
+	</style>
 </resources>
