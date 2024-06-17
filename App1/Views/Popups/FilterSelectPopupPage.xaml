@@ -11,10 +11,34 @@
                     <Label Text="Группировать по" TextColor="AliceBlue"/>
                     <Frame BackgroundColor="#202020" CornerRadius="12" Padding="0,5">
                         <StackLayout>
-                            <Button Text="Дате" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Date" TextTransform="None" BackgroundColor="Color.Transparent"/>
-                            <Button Text="Тегу" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Tag" TextTransform="None" BackgroundColor="Color.Transparent"/>
-                            <Button Text="Приоритету" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Priority" TextTransform="None" BackgroundColor="Color.Transparent"/>
-                            <Button Text="Произвольно" HeightRequest="25" Padding="0"  Command="{Binding GroupByCommand}" CommandParameter="None" TextTransform="None" BackgroundColor="Color.Transparent"/>
+                            <Button Text="Дате" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Date" TextTransform="None" BackgroundColor="Color.Transparent">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding}" Value="Date">
+                                        <Setter Property="TextColor" Value="#D778E6" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button Text="Тегу" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Tag" TextTransform="None" BackgroundColor="Color.Transparent">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding}" Value="Tag">
+                                        <Setter Property="TextColor" Value="#D778E6" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button Text="Приоритету" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Priority" TextTransform="None" BackgroundColor="Color.Transparent">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding}" Value="Priority">
+                                        <Setter Property="TextColor" Value="#D778E6" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button Text="Произвольно" HeightRequest="25" Padding="0"  Command="{Binding GroupByCommand}" CommandParameter="None" TextTransform="None" BackgroundColor="Color.Transparent">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding}" Value="None">
+                                        <Setter Property="TextColor" Value="#D778E6" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </StackLayout>
                     </Frame>
                     <Label Text="Сортировать по" TextColor="AliceBlue" Margin="0,10,0,0"/>

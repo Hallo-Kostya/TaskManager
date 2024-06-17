@@ -2,10 +2,11 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
-                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                 xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification1PopupViewModel"
-                 x:Class="App1.Views.Popups.Notification1PopupPage"
-             BackgroundColor="Color.Transparent">
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:Notification1PopupViewModel"
+             x:Class="App1.Views.Popups.Notification1PopupPage"
+             BackgroundColor="Color.Transparent"
+             HasKeyboardOffset="False" >
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -17,9 +18,10 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" Margin="30,150">
-            <Frame BackgroundColor="#2D2D2D" CornerRadius="12" Padding="15" HorizontalOptions="StartAndExpand">
+            <Frame BackgroundColor="#2D2D2D" CornerRadius="12" Padding="30,15" HorizontalOptions="StartAndExpand">
                 <StackLayout x:Name="Layouter" HorizontalOptions="StartAndExpand" Spacing="10">
                     <Button Text="Нет" Command="{Binding SetNotificationTimeCommand}" CommandParameter="none" BackgroundColor="Color.transparent" Padding="-10" Style="{StaticResource ButtonStyle}" Clicked="CancelNotification_Clicked"/>
                     <Button Text="Во время" Command="{Binding SetNotificationTimeCommand}" CommandParameter="0" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
@@ -28,12 +30,14 @@
                     <Button Text="За 1 час" Command="{Binding SetNotificationTimeCommand}"  CommandParameter="-60" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
                     <Button Text="За 1 день" Command="{Binding SetNotificationTimeCommand}" CommandParameter="-1440" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"/>
                     <Button Text="Произвольно" Padding="-10" Style="{StaticResource ButtonStyle}" Clicked="Button_Clicked" BackgroundColor="Color.Transparent"/>
-                    <StackLayout x:Name="CustomEntry" IsVisible="False">
-                        <DatePicker Date="{Binding SelectedDate, Mode=TwoWay}" TextColor="AliceBlue" MinimumDate="{x:Static sys:DateTime.Today}" HorizontalOptions="Center"/>
-                        <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" TextColor="AliceBlue" VerticalOptions="CenterAndExpand" />
-                        <Button Text="Установить" Command="{Binding ConfirmCommand}"/>
-                        <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
-                    </StackLayout>
+                    <Frame x:Name="CustomEntry" IsVisible="False" BackgroundColor="#353535" CornerRadius="12" Padding="5">
+                        <StackLayout>
+                            <DatePicker Date="{Binding SelectedDate, Mode=TwoWay}" TextColor="AliceBlue" MinimumDate="{x:Static sys:DateTime.Today}" HorizontalOptions="CenterAndExpand"/>
+                            <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" TextColor="AliceBlue" />
+                            <Button Text="Установить" Command="{Binding ConfirmCommand}" BackgroundColor="Gray" CornerRadius="50" HeightRequest="20" Padding="-10" TextTransform="None"/>
+                            <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
             </Frame>
         </StackLayout>

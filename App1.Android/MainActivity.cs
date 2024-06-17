@@ -29,10 +29,15 @@ namespace App1.Droid
             Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#000000"));
+            }
             LoadApplication(new App());
             CreateNotificationFromIntent(Intent);
             ScheduleJob();
             RequestPermissions();
+
         }
         void RequestPermissions()
         {

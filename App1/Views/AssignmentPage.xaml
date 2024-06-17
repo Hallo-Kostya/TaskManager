@@ -147,7 +147,7 @@
                                                     </ImageButton>
                                                     <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
                                                         <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16"/>
-                                                        <StackLayout Orientation="Horizontal">
+                                                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                                             <Image Margin="-13,-20" >
                                                                 <Image.Triggers>
                                                                     <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Нет">
@@ -277,6 +277,9 @@
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Frame BackgroundColor="Color.Transparent" HeightRequest="200"/>
                                 </StackLayout>
                             </StackLayout>
                         </CollectionView.Footer>

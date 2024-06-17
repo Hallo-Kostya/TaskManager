@@ -11,26 +11,29 @@
                 <Setter Property="TextColor" Value="AliceBlue"/>
                 <Setter Property="FontSize" Value="17"/>
                 <Setter Property="HeightRequest" Value="20"/>
-                <Setter Property="Margin" Value="0,0,0,10"/>
                 <Setter Property="TextTransform" Value="None"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Frame BackgroundColor="#2D2D2D" Margin="100, 100, 30, 400" Padding="5">
-            <StackLayout x:Name="Layouter">
-                <Button Text="Нет" Padding="-200, 0, 0, 0"  Margin="0,10,0,10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"  Command="{Binding SetRepeatitionCommand}" CommandParameter="0"/>
-                <Button Text="Каждый день" Padding="-120, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="1"/>
-                <Button Text="Каждые 3 дня" Padding="-100, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="3"/>
-                <Button Text="Каждую неделю" Padding="-110, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="7"/>
-                <Button Text="Произвольно" Padding="-130, 0, 0, 0" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
-                <StackLayout x:Name="CustomEntryRepeat" Orientation="Vertical">
-                    <Entry Placeholder="Введите период повторения задачи в днях" Keyboard="Numeric" Text="{Binding CustomInterval}"/>
-                    <Button Text="Установить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue"/>
-                    <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
+        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" Margin="30,150">
+            <Frame BackgroundColor="#2D2D2D" CornerRadius="12" Padding="30,15" HorizontalOptions="StartAndExpand">
+                <StackLayout x:Name="Layouter" HorizontalOptions="StartAndExpand" Spacing="10">
+                    <Button Text="Нет" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent"  Command="{Binding SetRepeatitionCommand}" CommandParameter="0"/>
+                    <Button Text="Каждый день" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="1"/>
+                    <Button Text="Каждые 3 дня" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="3"/>
+                    <Button Text="Каждую неделю" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="7"/>
+                    <Button Text="Произвольно" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
+                    <Frame x:Name="CustomEntryRepeat" BackgroundColor="#353535" CornerRadius="12" Padding="5">
+                        <StackLayout>
+                            <Entry Placeholder="Введите дни" Keyboard="Numeric" Text="{Binding CustomInterval}" PlaceholderColor="Gray" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
+                            <Button Text="Установить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue" BackgroundColor="Gray" CornerRadius="50" HeightRequest="20" Padding="-10" TextTransform="None" HorizontalOptions="CenterAndExpand"/>
+                            <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
-            </StackLayout>
-        </Frame>
+            </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </pages:PopupPage>
