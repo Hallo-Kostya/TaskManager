@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:FolderConfirmationViewModel"
+                 x:Class="App1.Views.FolderConfirmationPage"
+                 BackgroundColor="Color.Transparent">
+    <Frame BackgroundColor="White" Padding="20" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout>
+            <Label Text="Вы уверены, что хотите удалить папку?" FontSize="Medium" HorizontalOptions="Center" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Да" Command="{Binding ConfirmCommand}" Clicked="Button_Clicked" />
+                <Button Text="Отмена" Command="{Binding CancelCommand}" />
+            </StackLayout>
+            <Label Text="Перенести её содержимое в папку 'Мои Дела'?" IsVisible="false" x:Name="RelocateTitle"/>
+            <StackLayout x:Name="RelocateTasks" Orientation="Horizontal" HorizontalOptions="Center" IsVisible="false">
+                <Button Text="ОК" Command="{Binding RelocateCommand}" />
+                <Button Text="Удалить содержимое" Command="{Binding DeleteCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

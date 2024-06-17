@@ -27,9 +27,9 @@
             </Frame>
             <Frame BackgroundColor="#80000000" CornerRadius="25" >
                 <StackLayout Orientation="Horizontal">
-                    <Image Source="clock.png"/>
-                    <Label Text="Дата и время" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
-                    <Image Source="arrow.png" HorizontalOptions="EndAndExpand"/>
+                    <Image Source="folders.png"/>
+                    <Label Text="Управление папками" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <ImageButton Source="arrow.png" HorizontalOptions="EndAndExpand" Command="{Binding CreateFolderCommand}" BackgroundColor="Color.Transparent"/>
                 </StackLayout>
             </Frame>
             <Frame BackgroundColor="#80000000" CornerRadius="25">

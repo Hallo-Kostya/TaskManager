@@ -121,6 +121,85 @@
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                     <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
+                        <CollectionView.Header>
+                            <!--ПРОСРОЧЕННЫЕ ЗАДАЧИ-->
+                            <StackLayout x:Name="OverDueTasksLayout" Padding="10, 10, 10, 0" >
+                                <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Vector_Clicked"/>
+                                        </StackLayout.GestureRecognizers>
+                                        <Image Source="done" />
+                                        <Label Text="Просрочено" TextColor="AliceBlue"/>
+                                        <ImageButton x:Name="VectorButton2" Source="vector_down" Clicked="Vector2_Clicked" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <StackLayout x:Name="OverDueTasks" IsVisible="False">
+                                    <CollectionView ItemsSource="{Binding OverDueAssignments}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout x:DataType="model:AssignmentModel" Padding="0, 0, 0, 10">
+                                                    <SwipeView BackgroundColor="Color.transparent">
+                                                        <SwipeView.GestureRecognizers>
+                                                            <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
+                                                        </SwipeView.GestureRecognizers>
+                                                        <SwipeView.RightItems>
+                                                            <SwipeItems>
+                                                                <SwipeItem />
+                                                            </SwipeItems>
+                                                        </SwipeView.RightItems>
+
+                                                        <SwipeView.Content>
+                                                            <Frame CornerRadius="25" BackgroundColor="#90000000" Padding="15,10,10,10">
+                                                                <StackLayout Orientation="Horizontal">
+                                                                    <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
+                                                                        <ImageButton.Triggers>
+                                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
+                                                                                <Setter Property="Source" Value="done.png" />
+                                                                            </DataTrigger>
+                                                                        </ImageButton.Triggers>
+                                                                    </ImageButton>
+                                                                    <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
+                                                                        <Label Text="{Binding Name}" TextColor="#ADADAD" FontSize="16"/>
+                                                                        <StackLayout Orientation="Horizontal">
+                                                                            <Image Source="clock1.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
+                                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
+                                                                            <!--<Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>-->
+                                                                            <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
+                                                                                <CollectionView.ItemsLayout>
+                                                                                    <GridItemsLayout Orientation="Horizontal" />
+                                                                                </CollectionView.ItemsLayout>
+                                                                                <CollectionView.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <StackLayout x:DataType="model:TagModel" Margin="5">
+                                                                                            <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                                                                <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                                                                                    <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                                                                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                                                                                </StackLayout>
+                                                                                            </Frame>
+                                                                                        </StackLayout>
+                                                                                    </DataTemplate>
+                                                                                </CollectionView.ItemTemplate>
+                                                                            </CollectionView>
+                                                                        </StackLayout>
+                                                                    </StackLayout>
+                                                                </StackLayout>
+                                                            </Frame>
+                                                        </SwipeView.Content>
+                                                    </SwipeView>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Frame BackgroundColor="Color.Transparent" HeightRequest="200"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </CollectionView.Header>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">

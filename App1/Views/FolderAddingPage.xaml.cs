@@ -1,4 +1,5 @@
-﻿using App1.ViewModels;
+﻿using App1.Models;
+using App1.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,17 @@ namespace App1.Views
 			InitializeComponent ();
 			BindingContext = new FolderAddingViewModel(Navigation);
 		}
+        public FolderAddingPage(ListModel folder)
+        {
+            InitializeComponent();
+            BindingContext = new FolderAddingViewModel(Navigation);
+            if (folder != null )
+            {
+                (BindingContext as FolderAddingViewModel).Folder = folder;
+                (BindingContext as FolderAddingViewModel).SelectedIcon = folder.Icon;
+                (BindingContext as FolderAddingViewModel).SelectedColor = Color.FromHex(folder.Color);
+            }
+        }
 
         private void Button_Clicked(object sender, EventArgs e)
         {

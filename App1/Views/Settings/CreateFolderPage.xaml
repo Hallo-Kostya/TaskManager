@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" 
+             xmlns:local="clr-namespace:App1.Effects" xmlns:model="clr-namespace:App1.Models"
+             x:DataType="viewmodels:СreateFolderViewModel"
+             x:Class="App1.Views.Settings.CreateFolderPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ColorStyle" TargetType="ImageButton">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="WidthRequest" Value="30"/>
+                <Setter Property="HeightRequest" Value="30"/>
+            </Style>
+            <Style x:Key="ImageStyle" TargetType="ImageButton">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,15">
+                <StackLayout>
+                    <StackLayout>
+                        <StackLayout Margin="0,0,0,10">
+                            <Label Text="Все ваши папки:" TextColor="AliceBlue"/>
+                        </StackLayout>
+                        <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding FoldersList}" HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout x:DataType="model:ListModel" Margin="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Button_Clicked"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:СreateFolderViewModel}}, Path=FolderSelectedCommand}" CommandParameter="{Binding .}"/>
+                                        </StackLayout.GestureRecognizers>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="{Binding Icon}" x:Name="MyImage" local:TintImageEffect.TintColor="{Binding Color}">
+                                                <Image.Effects>
+                                                    <local:TintImageEffect />
+                                                </Image.Effects>
+                                            </Image>
+                                            <Label TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding Name}"/>
+                                            <Label TextColor="AliceBlue" FontSize="15" HorizontalOptions="FillAndExpand" Text="{Binding Count}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <StackLayout Orientation="Horizontal" x:Name="FolderConfirmLayout" IsVisible="false" HeightRequest="20" HorizontalOptions="EndAndExpand">
+                <Button Text="Удалить" Command="{Binding DeleteFolderCommand}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#33F80000" TextColor="#F80000" HeightRequest="10" Padding="-10" />
+                <Button Text="Редактировать" Command="{Binding EditFolderCommand}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#3300FF94" TextColor="#00FF94" HeightRequest="10" Padding="-10" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -36,7 +36,14 @@ namespace App1.ViewModels
             get => completedAssignments;
             set => SetProperty(ref completedAssignments, value);
         }
-       
+
+        private ObservableCollection<AssignmentModel> _overDueAssignments;
+        public ObservableCollection<AssignmentModel> OverDueAssignments
+        {
+            get => _overDueAssignments;
+            set => SetProperty(ref _overDueAssignments, value);
+        }
+
 
 
         INotificationManager notificationManager;
@@ -48,7 +55,17 @@ namespace App1.ViewModels
             set
             {
                 SetProperty(ref isFilteredByTag, value);
-                Preferences.Set("IsFilteredByTag", value); // Сохраняем состояние в Preferences
+                Preferences.Set("IsFilteredByTag", value); 
+            }
+        }
+        private bool _isOverDueList;
+        public bool IsOverDueList
+        {
+            get => _isOverDueList;
+            set
+            {
+                SetProperty(ref _isOverDueList, value);
+
             }
         }
         private bool isFilteredByPriority;
@@ -128,9 +145,9 @@ namespace App1.ViewModels
             ChangeIsCompletedCommand = new Command<AssignmentModel>(HandleChangeIsCompleted);
             SearchCommand = new Command(OnSearchAssignment);
             SelectedTag = new TagModel();
-            SelectedTag.Name = "без тега";
+            SelectedTag.Name = "Все задачи";
             notificationManager = DependencyService.Get<INotificationManager>();
-           
+            IsOverDueList = Preferences.Get("IsOverDueList", false);
             SelectedFolder = new ListModel();
             SelectedFolder.Name = "Мои дела";
             groupedBy = Preferences.Get("GroupedBy", "None");
@@ -171,7 +188,7 @@ namespace App1.ViewModels
                     filteredAssignments = filteredAssignments.Where(t => t.FolderName == SelectedFolder.Name);
                 }
 
-                if (IsFilteredByTag && SelectedTag.Name != "без тега")
+                if (IsFilteredByTag && SelectedTag.Name != "Все задачи")
                 {
                     filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag.ID == SelectedTag.ID));
                 }
@@ -197,7 +214,7 @@ namespace App1.ViewModels
 
                         var tasksWithoutTags = filteredAssignments
                             .Where(x => !x.Tags.Any())
-                            .GroupBy(x => (object)"Без тега");
+                            .GroupBy(x => (object)"Все задачи");
 
                         groupedAssignments = tasksWithTags.Concat(tasksWithoutTags);
                         break;
@@ -224,8 +241,18 @@ namespace App1.ViewModels
                        return sortedGroup;
                    })
                     .ToList();
-                assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
-                CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
+                if (IsOverDueList == false)
+                {
+                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false).OrderBy(t=> t.IsOverdue));
+                    CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
+                }
+                else
+                {
+                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false && t.IsOverdue==false));
+                    CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
+                    OverDueAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsOverdue == true));
+                }
+                
             }
 
 
@@ -306,7 +333,7 @@ namespace App1.ViewModels
                 {
                     SelectedTag = sender;
 
-                    if (sender.Name != "без тега")
+                    if (sender.Name != "Все задачи")
                     {
                             IsFilteredByTag = true;
                     }

@@ -11,6 +11,6 @@ namespace App1.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
-        public string TagColor { get; set; } = "#BA33BD";
+        public string TagColor { get; set; } = "#6C6C6C";
     }
 }
