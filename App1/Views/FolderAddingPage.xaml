@@ -27,7 +27,7 @@
         <StackLayout Padding="15,50,15,0">
             <Grid>
                 <ImageButton Source="back.png" Command="{Binding OnCancelCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
-                <Button Text="Применить" CornerRadius="50" BackgroundColor="#33D778E6" Command="{Binding AddNewFolderCommand}" TextColor="#D778E6" TextTransform="None" HorizontalOptions="EndAndExpand" HeightRequest="10" Padding="-10" />
+                <Button Text="Применить" Clicked="Button_Clicked"  CornerRadius="50" BackgroundColor="#33D778E6" Command="{Binding AddNewFolderCommand}" TextColor="#D778E6" TextTransform="None" HorizontalOptions="EndAndExpand" HeightRequest="10" Padding="-10" />
             </Grid>
             <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,5">
                 <StackLayout Orientation="Horizontal" >
