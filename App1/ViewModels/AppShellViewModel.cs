@@ -64,12 +64,7 @@ namespace App1.ViewModels
                 await folder.UpdateCount();
             }
         }
-        //private async void OnDeleted()
-        //{
-        //    var folders = (await App.AssignmentsDB.GetListsAsync());
-        //    Folders = new ObservableCollection<ListModel>(folders);
-        //    await OnLoaded();
-        //}
+
         private void ToMain()
         {
             var folder = new ListModel();

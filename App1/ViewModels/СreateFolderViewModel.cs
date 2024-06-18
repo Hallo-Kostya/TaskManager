@@ -38,6 +38,10 @@ namespace App1.ViewModels
             EditFolderCommand = new Command(EditFolder);
             DeleteFolderCommand = new Command(DeleteFolder);
             Task.Run(async () => await OnLoaded());
+            MessagingCenter.Subscribe<object>(this, "UpdateFoldersList", async (sender) =>
+            {
+                await OnLoaded();
+            });
         }
         private async void EditFolder()
         {
