@@ -26,14 +26,14 @@ namespace App1.Views
             BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
             InitializeComponent();
             isOverdueListVisible = Preferences.Get("IsOverDueList", false);
-            if (isOverdueListVisible)
-            {
-                OverDueTasksLayout.IsVisible = true;
-            }
-            else if (!isOverdueListVisible)
-            {
-                OverDueTasksLayout.IsVisible = false;
-            }
+            //if (isOverdueListVisible)
+            //{
+            //    OverDueTasksLayout.IsVisible = true;
+            //}
+            //else if (!isOverdueListVisible)
+            //{
+            //    OverDueTasksLayout.IsVisible = false;
+            //}
 
             if (((AssignmentViewModel)BindingContext).assignments.Count == 0)
             {
@@ -72,14 +72,14 @@ namespace App1.Views
                 ((AssignmentViewModel)BindingContext).SelectedFolder = list;
             }
             isOverdueListVisible = Preferences.Get("IsOverDueList", false);
-            if (isOverdueListVisible)
-            {
-                OverDueTasksLayout.IsVisible = true;
-            }
-            else if (!isOverdueListVisible)
-            {
-                OverDueTasksLayout.IsVisible = false;
-            }
+            //if (isOverdueListVisible)
+            //{
+            //    OverDueTasksLayout.IsVisible = true;
+            //}
+            //else if (!isOverdueListVisible)
+            //{
+            //    OverDueTasksLayout.IsVisible = false;
+            //}
             if (((AssignmentViewModel)BindingContext).assignments.Count == 0)
             {
                 NoTasks.IsVisible = true;
@@ -176,21 +176,21 @@ namespace App1.Views
 
             isExpanded = !isExpanded;
         }
-        private void Vector2_Clicked(object sender, EventArgs e)
-        {
-            if (isExpanded2)
-            {
-                VectorButton2.Source = "vector_down";
-            }
-            else
-            {
-                VectorButton2.Source = "vector_up";
-            }
+        //private void Vector2_Clicked(object sender, EventArgs e)
+        //{
+        //    if (isExpanded2)
+        //    {
+        //        VectorButton2.Source = "vector_down";
+        //    }
+        //    else
+        //    {
+        //        VectorButton2.Source = "vector_up";
+        //    }
 
-            OverDueTasks.IsVisible = !isExpanded2;
+        //    OverDueTasks.IsVisible = !isExpanded2;
 
-            isExpanded2 = !isExpanded2;
-        }
+        //    isExpanded2 = !isExpanded2;
+        //}
 
         private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
         {

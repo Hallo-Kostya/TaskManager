@@ -243,7 +243,7 @@ namespace App1.ViewModels
                     .ToList();
                 if (IsOverDueList == false)
                 {
-                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false).OrderBy(t=> t.IsOverdue));
+                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
                     CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
                 }
                 else
