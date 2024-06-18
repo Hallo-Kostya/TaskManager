@@ -26,7 +26,10 @@ namespace App1.Views
             BindingContext = new FolderAddingViewModel(Navigation);
             if (folder != null )
             {
-                (BindingContext as FolderAddingViewModel).Folder = folder;
+                (BindingContext as FolderAddingViewModel).Folder.ID = folder.ID;
+                (BindingContext as FolderAddingViewModel).NameBeforeEdit = folder.Name;
+                (BindingContext as FolderAddingViewModel).IsEditing = true;
+                (BindingContext as FolderAddingViewModel).WritenName=folder.Name;
                 (BindingContext as FolderAddingViewModel).SelectedIcon = folder.Icon;
                 (BindingContext as FolderAddingViewModel).SelectedColor = Color.FromHex(folder.Color);
             }

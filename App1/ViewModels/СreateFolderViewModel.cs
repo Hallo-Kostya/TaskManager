@@ -58,6 +58,10 @@ namespace App1.ViewModels
         async Task OnLoaded()
         {
             var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
+            foreach (var folder in folders)
+            {
+                await folder.UpdateCount();
+            }
             FoldersList = new ObservableCollection<ListModel>(folders);
         }
     }
