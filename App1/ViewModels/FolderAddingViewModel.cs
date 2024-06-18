@@ -87,7 +87,6 @@ namespace App1.ViewModels
         private void SetColor(string  color)
         {
             SelectedColor = Color.FromHex(color);
-            Folder.Color = color;
         }
         private async void OnAdded()
         {
@@ -95,6 +94,7 @@ namespace App1.ViewModels
             {
                 Folder.Icon = SelectedIcon;
                 Folder.Name = WritenName;
+                Folder.Color = SelectedColor.ToHex();
                 await App.AssignmentsDB.AddListAsync(Folder);
                 if (IsEditing)
                 {
