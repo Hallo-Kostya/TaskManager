@@ -25,7 +25,7 @@ namespace App1.Views
         {
             BindingContext = assignmentViewModel = new AssignmentViewModel(Navigation);
             InitializeComponent();
-            isOverdueListVisible = Preferences.Get("IsOverDueList", false);
+            //isOverdueListVisible = Preferences.Get("IsOverDueList", false);
             //if (isOverdueListVisible)
             //{
             //    OverDueTasksLayout.IsVisible = true;
@@ -71,7 +71,7 @@ namespace App1.Views
             {
                 ((AssignmentViewModel)BindingContext).SelectedFolder = list;
             }
-            isOverdueListVisible = Preferences.Get("IsOverDueList", false);
+            //isOverdueListVisible = Preferences.Get("IsOverDueList", false);
             //if (isOverdueListVisible)
             //{
             //    OverDueTasksLayout.IsVisible = true;
