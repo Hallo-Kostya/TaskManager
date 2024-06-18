@@ -21,6 +21,7 @@ namespace App1.ViewModels
         public Command AddNewFolderCommand { get; }
         public INavigation Navigation { get; set; }
         public bool IsEditing { get; set; }
+        public bool IsAdding {get; set; }
         public string NameBeforeEdit { get; set; } 
         private Color _selectedColor;
         private string _selectedIcon;
@@ -102,6 +103,13 @@ namespace App1.ViewModels
                         assign.FolderName = Folder.Name;
                         await App.AssignmentsDB.AddItemAsync(assign);
                     }
+                    MessagingCenter.Send<object>(this, "UpdateFoldersList");
+                    MessagingCenter.Send<object>(this, "TaskCountChanged");
+                }
+                if (IsAdding)
+                {
+                    MessagingCenter.Send<object>(this, "UpdateFoldersList");
+                    MessagingCenter.Send<object>(this, "TaskCountChanged");
                 }
                 await App.AssignmentsDB.AddListAsync(Folder);
                 await Navigation.PopAsync();

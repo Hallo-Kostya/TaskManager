@@ -47,6 +47,7 @@
 
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                        <Button Command="{Binding AddFolderCommand}" Text="+"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

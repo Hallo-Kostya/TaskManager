@@ -11,6 +11,7 @@ namespace App1.ViewModels
     class СreateFolderViewModel : BaseAssignmentViewModel
     {
         public Command FolderSelectedCommand { get;  }
+        public Command AddFolderCommand { get; }
         public Command EditFolderCommand { get; }
         public Command DeleteFolderCommand { get; }
         public Command LoadFoldersCommand { get; }
@@ -33,7 +34,7 @@ namespace App1.ViewModels
             Navigation = navigation;
             LoadFoldersCommand = new Command(async () => await OnLoaded());
             FoldersList = new ObservableCollection<ListModel>();
-
+            AddFolderCommand = new Command(AddFolder);
             FolderSelectedCommand = new Command<ListModel>(FolderSelected);
             EditFolderCommand = new Command(EditFolder);
             DeleteFolderCommand = new Command(DeleteFolder);
@@ -50,6 +51,10 @@ namespace App1.ViewModels
         private async void DeleteFolder()
         {
             await Navigation.PushPopupAsync(new FolderConfirmationPage(SelectedFolder));
+        }
+        private async void AddFolder()
+        {
+            await Navigation.PushAsync(new FolderAddingPage(true));
         }
         private void FolderSelected(ListModel folder)
         {
