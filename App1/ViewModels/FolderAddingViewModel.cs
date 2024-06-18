@@ -95,6 +95,7 @@ namespace App1.ViewModels
             {
                 Folder.Icon = SelectedIcon;
                 Folder.Name = WritenName;
+                await App.AssignmentsDB.AddListAsync(Folder);
                 if (IsEditing)
                 {
                     var assigns = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.FolderName == NameBeforeEdit);
@@ -111,7 +112,7 @@ namespace App1.ViewModels
                     MessagingCenter.Send<object>(this, "UpdateFoldersList");
                     MessagingCenter.Send<object>(this, "TaskCountChanged");
                 }
-                await App.AssignmentsDB.AddListAsync(Folder);
+                
                 await Navigation.PopAsync();
                 MessagingCenter.Send(this, "FolderClosed");
             }

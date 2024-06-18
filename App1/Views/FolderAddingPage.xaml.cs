@@ -24,7 +24,7 @@ namespace App1.Views
         {
             InitializeComponent();
             BindingContext = new FolderAddingViewModel(Navigation);
-            (BindingContext as FolderAddingViewModel).IsAdding = true;
+            (BindingContext as FolderAddingViewModel).IsAdding = IsFromSettings;
         }
         public FolderAddingPage(ListModel folder)
         {
