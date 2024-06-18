@@ -161,6 +161,13 @@ namespace App1.Models
             {
                 IsCompleted = false;
                 OnPropertyChanged(nameof(IsCompleted));
+                RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(RepeatitionReturnTime));
+                if (HasNotification)
+                {
+                    NotificationTime = NotificationTime.AddDays(RepeatitionAdditional);
+                    OnPropertyChanged(nameof(NotificationTime));
+                }
             }
         }
         public void AddChild(AssignmentModel assignment)
