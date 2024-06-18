@@ -1,5 +1,6 @@
 ﻿using App1.Models;
 using App1.Views;
+using Rg.Plugins.Popup.Extensions;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,10 +33,11 @@ namespace App1.ViewModels
             Navigation = navigation;
             LoadFoldersCommand = new Command(async () => await OnLoaded());
             FoldersList = new ObservableCollection<ListModel>();
-            SelectedFolder = new ListModel();
+
             FolderSelectedCommand = new Command<ListModel>(FolderSelected);
             EditFolderCommand = new Command(EditFolder);
             DeleteFolderCommand = new Command(DeleteFolder);
+            Task.Run(async () => await OnLoaded());
         }
         private async void EditFolder()
         {
@@ -43,7 +45,7 @@ namespace App1.ViewModels
         }
         private async void DeleteFolder()
         {
-            await Navigation.PushAsync(new FolderConfirmationPage(SelectedFolder));
+            await Navigation.PushPopupAsync(new FolderConfirmationPage(SelectedFolder));
         }
         private void FolderSelected(ListModel folder)
         {
