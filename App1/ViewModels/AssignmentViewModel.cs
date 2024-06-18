@@ -147,7 +147,7 @@ namespace App1.ViewModels
             SelectedTag = new TagModel();
             SelectedTag.Name = "Все задачи";
             notificationManager = DependencyService.Get<INotificationManager>();
-            //IsOverDueList = Preferences.Get("IsOverDueList", false);
+            IsOverDueList = Preferences.Get("IsOverDueList", false);
             SelectedFolder = new ListModel();
             SelectedFolder.Name = "Мои дела";
             groupedBy = Preferences.Get("GroupedBy", "None");

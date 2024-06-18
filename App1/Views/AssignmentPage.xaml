@@ -121,9 +121,9 @@
                              Command="{Binding LoadAssignmentCommand}"
                              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                     <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
-                        <!--<CollectionView.Header>-->
+                        <CollectionView.Header>
                             <!--ПРОСРОЧЕННЫЕ ЗАДАЧИ-->
-                            <!--<StackLayout x:Name="OverDueTasksLayout" Padding="10, 10, 10, 0" >
+                            <StackLayout x:Name="OverDueTasksLayout" Padding="10, 10, 10, 0" >
                                 <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
                                     <StackLayout Orientation="Horizontal">
                                         <StackLayout.GestureRecognizers>
@@ -166,7 +166,7 @@
                                                                         <StackLayout Orientation="Horizontal">
                                                                             <Image Source="clock1.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
                                                                             <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
-                                                                            --><!--<Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>--><!--
+                                                                            <Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
                                                                             <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
                                                                                 <CollectionView.ItemsLayout>
                                                                                     <GridItemsLayout Orientation="Horizontal" />
@@ -199,7 +199,7 @@
                                     <Frame BackgroundColor="Color.Transparent" HeightRequest="200"/>
                                 </StackLayout>
                             </StackLayout>
-                        </CollectionView.Header>-->
+                        </CollectionView.Header>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">

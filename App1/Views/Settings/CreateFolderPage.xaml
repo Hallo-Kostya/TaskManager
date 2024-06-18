@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" 
-             xmlns:local="clr-namespace:App1.Effects" xmlns:model="clr-namespace:App1.Models"
-             x:DataType="viewmodels:СreateFolderViewModel"
+             xmlns:local="clr-namespace:App1.Effects" xmlns:model="clr-namespace:App1.Models" x:DataType="viewmodels:СreateFolderViewModel"
              x:Class="App1.Views.Settings.CreateFolderPage">
     <ContentPage.Resources>
         <ResourceDictionary>

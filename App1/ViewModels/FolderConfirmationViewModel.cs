@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace App1.ViewModels
 {
-    public  class FolderConfirmationViewModel:BaseAssignmentViewModel
+    public class FolderConfirmationViewModel: BaseAssignmentViewModel
     {
         INavigation Navigation { get; set; }
         public Command ConfirmCommand { get; }
