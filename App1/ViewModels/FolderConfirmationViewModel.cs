@@ -37,6 +37,8 @@ namespace App1.ViewModels
                     await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
                 }
             await Navigation.PopPopupAsync();
+            MessagingCenter.Send<object>(this, "TaskCountChanged");
+            MessagingCenter.Send<object>(this, "UpdateFoldersList");
         }
         private async void Relocate()
         {
@@ -56,9 +58,9 @@ namespace App1.ViewModels
         }
         private async void Confirm()
         {
-            MessagingCenter.Send<object>(this, "TaskCountChanged");
-            MessagingCenter.Send<object>(this, "UpdateFoldersList");
+            
             await App.AssignmentsDB.DeleteListAsync(SelectedFolder.ID);
+            
         }
     }
 }
