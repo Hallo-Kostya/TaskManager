@@ -39,6 +39,7 @@ namespace App1.ViewModels.StartingPages
         public NickEntryPageViewModel(INavigation _navigation)
         {
             Navigation = _navigation;
+            User=new UserModel();
             SaveUserName = new Command(SaveUser);
         }
         private async void SaveUser()
