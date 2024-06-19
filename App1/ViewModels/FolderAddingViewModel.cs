@@ -25,13 +25,18 @@ namespace App1.ViewModels
         public string NameBeforeEdit { get; set; } 
         private Color _selectedColor;
         private string _selectedIcon;
+        private string _colorForUI;
 
         public Color SelectedColor
         {
             get => _selectedColor;
             set => SetProperty(ref _selectedColor, value);
         }
-
+        public string ColorForUI
+        {
+            get => _colorForUI;
+            set =>SetProperty(ref _colorForUI, value); 
+        }
 
         public string WritenName
         {
@@ -72,6 +77,7 @@ namespace App1.ViewModels
             Folder = new ListModel();
             SelectedIcon = "folders";
             SelectedColor = Color.White;
+            ColorForUI = Folder.Color;
             SelectIconCommand = new Command<string>(SelectIcon);
         }
        
@@ -86,6 +92,7 @@ namespace App1.ViewModels
         }
         private void SetColor(string  color)
         {
+            _colorForUI = color;
             SelectedColor = Color.FromHex(color);
         }
         private async void OnAdded()
