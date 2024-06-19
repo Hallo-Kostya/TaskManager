@@ -13,11 +13,8 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\Новая папка1\**" />
-    <Compile Remove="ViewModels\Новая папка\**" />
     <EmbeddedResource Remove="ViewModels\Новая папка1\**" />
-    <EmbeddedResource Remove="ViewModels\Новая папка\**" />
     <None Remove="ViewModels\Новая папка1\**" />
-    <None Remove="ViewModels\Новая папка\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -153,6 +150,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Settings\СreateTagPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StartingPages\NickEntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

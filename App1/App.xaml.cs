@@ -5,6 +5,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using App1.Data;
 using System.IO;
+using Xamarin.Essentials;
+using App1.Views.StartingPages;
 
 namespace App1
 {
@@ -27,10 +29,19 @@ namespace App1
         public App()
         {
             InitializeComponent();
+            SetupMainPage();
+        }
 
-            
-            MainPage = new AppShell();
-
+        private void SetupMainPage()
+        {
+            if (Preferences.Get("IsFirstLaunch", true))
+            {
+                MainPage = new NavigationPage(new NickEntryPage());
+            }
+            else
+            {
+                MainPage = new AppShell();
+            }
         }
 
         protected override void OnStart()
