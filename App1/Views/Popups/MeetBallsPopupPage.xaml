@@ -5,7 +5,7 @@
                  x:Class="App1.Views.Popups.MeetBallsPopupPage"
              BackgroundColor="Color.Transparent">
     <ContentPage.Content>
-        <StackLayout Margin="150, 80, 15, 300" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand">
+        <StackLayout Margin="0, 80, 15, 0" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand">
             <Frame BackgroundColor="#353535" Padding="15, 5" CornerRadius="8">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">

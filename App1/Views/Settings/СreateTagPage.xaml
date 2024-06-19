@@ -103,8 +103,8 @@
                 </StackLayout>
             </Frame>
             <StackLayout Orientation="Horizontal" x:Name="ConfirmLayout" IsVisible="false" HeightRequest="20" HorizontalOptions="EndAndExpand">
-                <Button Text="Удалить" Command="{Binding DeleteNewTag}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#33F80000" TextColor="#F80000" HeightRequest="10" Padding="-10" />
-                <Button Text="Применить" Command="{Binding ConfirmTagCommand}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#3300FF94" TextColor="#00FF94" HeightRequest="10" Padding="-10" />
+                <Button Text="Удалить" Command="{Binding DeleteNewTag}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#33F80000" TextColor="#F80000" HeightRequest="10" Padding="15,-10" />
+                <Button Text="Применить" Command="{Binding ConfirmTagCommand}" Clicked="Confirm_Clicked_1" TextTransform="None" CornerRadius="50" BackgroundColor="#3300FF94" TextColor="#00FF94" HeightRequest="10" Padding="15,-10" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
