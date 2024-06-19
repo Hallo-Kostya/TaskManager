@@ -92,7 +92,8 @@ namespace App1.ViewModels
         }
         private void SetColor(string  color)
         {
-            _colorForUI = color;
+            ColorForUI = color;
+            OnPropertyChanged(nameof(ColorForUI));
             SelectedColor = Color.FromHex(color);
         }
         private async void OnAdded()

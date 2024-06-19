@@ -15,10 +15,33 @@ namespace App1.Data
         {
             db = new SQLiteAsyncConnection(dbPath);
             db.CreateTableAsync<AssignmentModel>().Wait();
-
+            db.CreateTableAsync<UserModel>().Wait();
             db.CreateTableAsync<TagModel>().Wait();
             db.CreateTableAsync<ListModel>().Wait();
 
+        }
+        public async Task<bool> AddUserAsync(UserModel user)
+        {
+            if (user.ID > 0)
+            {
+                await db.UpdateAsync(user);
+            }
+            else
+                await db.InsertAsync(user);
+            return await Task.FromResult(true);
+        }
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            await db.DeleteAsync<UserModel>(id);
+            return await Task.FromResult(true);
+        }
+        public async Task<UserModel> GetUserAsync(int id)
+        {
+            return await db.Table<UserModel>().Where(x => x.ID == id).FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<UserModel>> GetUsersAsync()
+        {
+            return await Task.FromResult(await db.Table<UserModel>().ToListAsync());
         }
         public async Task<bool> AddListAsync(ListModel list)
         {
