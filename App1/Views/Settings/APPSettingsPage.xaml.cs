@@ -66,6 +66,7 @@ namespace App1.Views
         private void ImageButton_Clicked_1(object sender, EventArgs e)
         {
             CustomTimeLayout.IsVisible = false;
+            ButtonOwnTime.IsVisible = true;
         }
     }
 }

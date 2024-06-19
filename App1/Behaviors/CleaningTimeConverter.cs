@@ -11,7 +11,7 @@ namespace App1.Behaviors
         {
             if (value is int multiplier)
             {
-                if (multiplier == 0)
+                if (multiplier == 24)
                     return "Произвольно";
                 else if (multiplier == 1)
                     return "Каждый день";
