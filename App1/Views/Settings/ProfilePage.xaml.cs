@@ -13,10 +13,11 @@ namespace App1.Views.Settings
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProfilePage : ContentPage
 	{
+        ProfileViewModel viewModel;
 		public ProfilePage ()
 		{
 			InitializeComponent ();
-            BindingContext = new ProfileViewModel(Navigation);
+            BindingContext = viewModel= new ProfileViewModel(Navigation);
         }
     }
 }

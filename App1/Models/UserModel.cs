@@ -11,10 +11,28 @@ namespace App1.Models
     public class UserModel : BaseModel
     {
         private int _exp;
+        private DateTime _lastLaunchDate = DateTime.MinValue;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
+        public DateTime LastLaunchDate
+        {
+            get => _lastLaunchDate;
+            set
+            {
+                if (_lastLaunchDate != value)
+                {
+                    _lastLaunchDate = value;
+                    OnPropertyChanged(nameof(LastLaunchDate));
+                }
+            }
+        }
+        public int DayStreak { get; set; }
+        public int AllOverDue { get; set; }
+        public int OverDueForWeek {  get; set; }
+        public int DoneForWeek {  get; set; }
+        public int DoneAll { get; set; }
         private int _level;
         public int Level
         {
@@ -75,6 +93,27 @@ namespace App1.Models
                 default:
                     break;
             }
+        }
+        public void IncrementDoneForWeek()
+        {
+            DoneForWeek += 1;
+            DoneAll += 1;
+            OnPropertyChanged(nameof(DoneForWeek));
+            OnPropertyChanged(nameof(DoneAll));
+        }
+
+        public void DecrementDoneForWeek()
+        {
+            DoneForWeek -= 1;
+            DoneAll -= 1;
+            OnPropertyChanged(nameof(DoneForWeek));
+            OnPropertyChanged(nameof(DoneAll));
+        }
+
+        public void UpdateAllOverDue(int count)
+        {
+            AllOverDue = count;
+            OnPropertyChanged(nameof(AllOverDue));
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

@@ -43,7 +43,47 @@ namespace App1
                 MainPage = new AppShell();
             }
         }
+        private async void CheckDailyActivity()
+        {
+            
+            var userId = Preferences.Get("CurrentUserId", -1);
+            
+            if (userId != -1)
+            {
+                var user = await App.AssignmentsDB.GetUserAsync(userId);
+                var lastLaunchDate = user.LastLaunchDate;
+                var currentDate = DateTime.Now.Date;
+                if (lastLaunchDate == currentDate.AddDays(-1))
+                {
+                    user.DayStreak += 1;
+                    user.LastLaunchDate = currentDate;
+                }
+                if (lastLaunchDate != DateTime.MinValue && lastLaunchDate < currentDate.AddDays(-1))
+                {
+                    user.DayStreak = 1;
+                    user.LastLaunchDate = currentDate;
+                }
+                await App.AssignmentsDB.AddUserAsync(user);
+            }
+           
+           
+        }
 
+        private async void CheckWeeklyReset()
+        {
+            var userId = Preferences.Get("CurrentUserId", -1);
+            var lastResetDate = Preferences.Get("LastWeeklyResetDate", DateTime.MinValue);
+            var currentDate = DateTime.Now.Date;
+
+            if (lastResetDate == DateTime.MinValue || (currentDate - lastResetDate).TotalDays >= 7 && userId!=-1)
+            {
+                var user = await App.AssignmentsDB.GetUserAsync(userId); 
+                user.OverDueForWeek = 0;
+                user.DoneForWeek = 0;
+                await App.AssignmentsDB.AddUserAsync(user);
+                Preferences.Set("LastWeeklyResetDate", currentDate);
+            }
+        }
         protected override void OnStart()
         {
         }

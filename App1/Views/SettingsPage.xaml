@@ -20,7 +20,7 @@
                 </Frame.GestureRecognizers>
                 <StackLayout Orientation="Horizontal">
                     <ImageButton Source="user.png" BackgroundColor="#D9D9D9" WidthRequest="40" CornerRadius="50" Command="{Binding ProfileCommand}"/>
-                    <Label Text="Имя Фамилия" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center" Margin="10"/>
+                    <Label Text="{Binding User.Name}" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center" Margin="10"/>
                     <ImageButton Source="arrow.png" HorizontalOptions="EndAndExpand" Command="{Binding ProfileCommand}" BackgroundColor="Color.Transparent"/>
                 </StackLayout>
             </Frame>

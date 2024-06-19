@@ -116,8 +116,7 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
 
 
-
-
+        
 
   
         public Command FilterByTagCommand { get; }
@@ -161,6 +160,7 @@ namespace App1.ViewModels
                 SelectedFolder = sender;
                 await ExecuteLoadAssignmentCommand();
             });
+            
         }
 
         public void OnAppearing()
@@ -254,10 +254,6 @@ namespace App1.ViewModels
                 }
                 
             }
-
-
-               
-            
             catch (Exception ex)
             {
 
@@ -267,8 +263,6 @@ namespace App1.ViewModels
             {
                 IsBusy = false;
             }
-
-
         }
        
         private async void HandleChangeIsCompleted(AssignmentModel assignment)
@@ -281,6 +275,7 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             IsBusy = true;
         }
+
         private async void OnAddAssignment()
         {
             if (SelectedFolder.Name != "Мои дела")
@@ -296,10 +291,12 @@ namespace App1.ViewModels
             MessagingCenter.Unsubscribe<AssignmentAddingViewModel>(this, "PopupClosed");
             MessagingCenter.Subscribe<AssignmentAddingViewModel>(this, "PopupClosed", async (sender) => await ExecuteLoadAssignmentCommand());
         }
+
         private async void OnSearchAssignment(object obj)
         {
             await Shell.Current.GoToAsync(nameof(SearchPage));
         }
+
         private async void OnEditAssignment(AssignmentModel assignment)
         {
 
@@ -349,10 +346,12 @@ namespace App1.ViewModels
                 }
             });
         }
+
         public TagModel GetTagById(int id)
         {
             return App.AssignmentsDB.GetTagAsync(id).Result;
         }
+
         private async void ExecuteMeetBallsPopup()
         {
             await Navigation.PushPopupAsync(new MeetBallsPopupPage());
