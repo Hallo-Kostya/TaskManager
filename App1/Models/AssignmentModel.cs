@@ -127,10 +127,7 @@ namespace App1.Models
                 {
                     _isOverdue = value;
                     OnPropertyChanged(nameof(IsOverdue));
-                    if (_isOverdue)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
+                    
                 }
             }
         }
