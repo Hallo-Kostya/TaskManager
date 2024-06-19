@@ -36,7 +36,7 @@
                     <StackLayout Orientation="Horizontal">
                         <Image Source="bell.png" BackgroundColor="Color.Transparent"/>
                         <Label Text="Уведомление" TextColor="AliceBlue" VerticalOptions="CenterAndExpand"/>
-                        <Button Text="{Binding Assignment.NotificationTimeMultiplier,Converter={StaticResource NotificationTimeConverter}}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" TextTransform="None" Command="{Binding Notification1PopupCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand" />
+                        <Button Text="{Binding Assignment.NotificationTime,  StringFormat='{0:dd.MM.yy HH:mm}'}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" TextTransform="None" Command="{Binding Notification1PopupCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Image Source="repeat.png" BackgroundColor="Color.Transparent"/>

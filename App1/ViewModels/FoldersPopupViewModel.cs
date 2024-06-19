@@ -45,6 +45,7 @@ namespace App1.ViewModels
         async Task OnLoaded()
         {
             var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
+            folders.Add(new ListModel { Name = "Мои дела" });
             FoldersList = new ObservableCollection<ListModel>(folders);
         }
         private async void OnSelected()

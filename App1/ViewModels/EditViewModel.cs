@@ -15,6 +15,7 @@ namespace App1.ViewModels
     public class EditViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; }
+        public Command EditAssignmentCommand { get;  }
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         public Command LoadTagPopupCommand { get; }
@@ -78,6 +79,7 @@ namespace App1.ViewModels
             ChildList = new ObservableCollection<AssignmentModel>();
             LoadTagPopupCommand = new Command(ExecuteLoadTagPopup);
             FoldersPopupCommand = new Command(ExecuteFoldersPopup);
+            EditAssignmentCommand = new Command<AssignmentModel>(EditAssignment);
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
             DeleteCommand = new Command(OnDelete);
@@ -112,6 +114,10 @@ namespace App1.ViewModels
             await App.AssignmentsDB.AddItemAsync(assignment);
             await Navigation.PopAsync();
         }
+        private async void EditAssignment(AssignmentModel assign)
+        {
+            await Navigation.PushAsync(new EditPage(assign,false));
+        }
         public async Task OnAppearing()
         {
             await UpdateTags();
@@ -141,8 +147,9 @@ namespace App1.ViewModels
                     ChildList.Add(child);
                 }
             }
-            ChildList.OrderBy(t => t.IsCompleted).ThenByDescending(t => (int)t.Priority);
-
+            ChildList.OrderBy(t => t.ExecutionDate)
+                        .ThenBy(t => t.IsCompleted)
+                        .ThenByDescending(t => (int)t.Priority);
         }
 
         private async void AddChild()
