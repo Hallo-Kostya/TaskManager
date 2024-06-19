@@ -47,15 +47,14 @@ namespace App1.ViewModels.Settings
             Task.Run(async () => await LoadUser());
             MessagingCenter.Subscribe<object>(this, "UpdateOverdue", (sender) =>
             {
+                Console.WriteLine("ВОФВФОВФОФОВФООВОФВОФФОВОВФ");
                 OverDueCount += 1;
-                OnPropertyChanged(nameof(OverDueCount));
                 UpdateUserCounts();
             });
             MessagingCenter.Subscribe<object>(this, "UpdateDone", (sender) =>
             {
                 DoneCount += 1;
                 Console.WriteLine("ЫВФВФВФФЫВФВФВ");
-                OnPropertyChanged(nameof(DoneCount));
                 UpdateUserCounts();
             });
         }
@@ -66,8 +65,8 @@ namespace App1.ViewModels.Settings
             if (userId != -1)
             {
                 User = await App.AssignmentsDB.GetUserAsync(userId);
-                DoneCount = User.DoneForWeek;
-                OverDueCount = User.OverDueForWeek;
+                DoneCount = 0;
+                OverDueCount = 0;
                 OnPropertyChanged(nameof(DoneCount));
                 OnPropertyChanged(nameof(OverDueCount));
             }
