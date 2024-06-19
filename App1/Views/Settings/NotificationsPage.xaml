@@ -2,34 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Views.Settings.NotificationsPage"
-             BackgroundImageSource="background.png"
-             Shell.NavBarIsVisible="False">
+             BackgroundColor="#2F2F2F"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="StartAndExpand">
-            <Frame BackgroundColor="Black" CornerRadius="32" HeightRequest="50" VerticalOptions="EndAndExpand" Margin="0,-20,0,0" Padding="10,40">
-                <Grid>
-                    <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
-                    <Label Text="Звуки и уведомления" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
-                </Grid>
-            </Frame>
+            <Grid Margin="15,40,15,10">
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
+                <Button Text="Применить"  CornerRadius="50" BackgroundColor="#33D778E6" TextColor="#D778E6" TextTransform="None" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Padding="-10" HeightRequest="25"/>
+            </Grid>
 
-            <StackLayout VerticalOptions="StartAndExpand" Padding="10,10,10,0" Spacing="10">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
-                    <Frame BackgroundColor="#80000000" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" HorizontalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">
+                <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="15">
+                    <Frame BackgroundColor="#801E1E1E" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="0">
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
                             <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#80000000" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" HorizontalOptions="FillAndExpand">
+                    <Frame BackgroundColor="#801E1E1E" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <Label Text="Вибрация" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" />
                             <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </Frame>
-                </StackLayout>
-                <Frame BackgroundColor="#80000000" CornerRadius="26" Padding="20">
+                </Grid>
+                <Frame BackgroundColor="#801E1E1E" CornerRadius="26" Padding="20">
                     <StackLayout>
                         <Label Text="Звук уведомления" TextColor="AliceBlue" FontAttributes="Bold"/>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="3">

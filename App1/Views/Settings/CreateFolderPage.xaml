@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" 
              xmlns:local="clr-namespace:App1.Effects" xmlns:model="clr-namespace:App1.Models" x:DataType="viewmodels:СreateFolderViewModel"
              x:Class="App1.Views.Settings.CreateFolderPage"
-             BackgroundImageSource="background.png"
-             NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False">
+             BackgroundColor="#2F2F2F"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,15 +22,12 @@
     
     <ContentPage.Content>
         <StackLayout VerticalOptions="StartAndExpand">
-            <Frame BackgroundColor="Black" CornerRadius="32" HeightRequest="50" VerticalOptions="EndAndExpand" Margin="0,-20,0,0" Padding="10,40">
-                <Grid>
-                    <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
-                    <Label Text="Папки" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
-                </Grid>
-            </Frame>
+            <Grid Margin="15,40,15,10">
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
+            </Grid>
 
-            <StackLayout VerticalOptions="StartAndExpand" Padding="10,10,10,0" Spacing="10">
-                <Frame BackgroundColor="#991E1E1E" Margin="0,20,0,0" CornerRadius="24" Padding="20">
+            <StackLayout VerticalOptions="StartAndExpand" Padding="15,0,15,0" Spacing="10">
+                <Frame BackgroundColor="#801E1E1E" Margin="0,20,0,0" CornerRadius="24" Padding="20">
                     <StackLayout>
                         <StackLayout>
                             <StackLayout Margin="0,0,0,10" Orientation="Horizontal">

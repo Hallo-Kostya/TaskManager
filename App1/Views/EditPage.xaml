@@ -23,13 +23,18 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Padding="15,60,15,0" x:Name="notificationTest">
+        <StackLayout Padding="15,40,15,0" x:Name="notificationTest">
             <StackLayout>
                 <Grid HeightRequest="100">
                     <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelCommand}"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Button Text="{Binding Assignment.FolderName}" Command="{Binding FoldersPopupCommand}" FontSize="20" TextColor="AliceBlue" TextTransform="None" BackgroundColor="Color.Transparent" HorizontalOptions="CenterAndExpand"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FoldersPopupCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="{Binding Assignment.FolderName}" FontSize="20" TextColor="AliceBlue" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="arrow_left_right" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
+                    <Image Source="arrow_left_right" HorizontalOptions="End"/>
                     <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DeleteCommand}"/>
                 </Grid>
             </StackLayout>
