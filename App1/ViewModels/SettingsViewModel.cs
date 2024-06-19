@@ -47,12 +47,9 @@ namespace App1.ViewModels
         }
         private  void Logout()
         {
-            if (UserId != -1)
-            {
-                Preferences.Set("IsFirstLaunch", true);
-                var app = (App)Application.Current;
-                app.SetupMainPage();
-            }
+            Preferences.Set("IsFirstLaunch", true);
+            var app = (App)Application.Current;
+            app.SetupMainPage();
         }
         async Task LoadUser()
         {
