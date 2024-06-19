@@ -45,7 +45,7 @@ namespace App1.ViewModels
             Navigation = _navigation;
             Task.Run(async () => await LoadUser());
         }
-        private async void Logout()
+        private  void Logout()
         {
             if (UserId != -1)
             {
