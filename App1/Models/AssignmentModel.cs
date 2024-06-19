@@ -103,7 +103,7 @@ namespace App1.Models
         public bool IsRepeatable { get; set; }
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }
-        public DateTime NotificationTime { get; set; } = DateTime.Now;
+        public DateTime NotificationTime { get; set; } 
         public EnumPriority Priority { get; set; }
 
         public enum EnumPriority : int
