@@ -37,6 +37,7 @@ namespace App1.Droid
             CreateNotificationFromIntent(Intent);
             ScheduleJob();
             RequestPermissions();
+            SetDailyAlarm();
 
         }
         void RequestPermissions()
@@ -93,7 +94,20 @@ namespace App1.Droid
             }
         }
 
+        private void SetDailyAlarm()
+        {
+            var alarmIntent = new Intent(this, typeof(CheckOverdueReceiver));
+            var pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
+            var alarmManager = (AlarmManager)GetSystemService(AlarmService);
+
+            var calendar = Java.Util.Calendar.Instance;
+            calendar.Set(Java.Util.CalendarField.HourOfDay, 0);
+            calendar.Set(Java.Util.CalendarField.Minute, 0);
+            calendar.Set(Java.Util.CalendarField.Second, 0);
+
+            alarmManager.SetRepeating(AlarmType.RtcWakeup, calendar.TimeInMillis, AlarmManager.IntervalDay, pendingIntent);
+        }
         void ScheduleJob()
         {
             // Получаем интервал из настроек

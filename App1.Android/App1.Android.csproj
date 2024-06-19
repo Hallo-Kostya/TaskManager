@@ -87,6 +87,8 @@
     <Compile Include="Services\ArchiveCleanupReceiver.cs" />
     <Compile Include="Services\ArchiveCleanupScheduler.cs" />
     <Compile Include="Services\ArchiveCleanupSchedulerImplementation.cs" />
+    <Compile Include="Services\BootReceiver.cs" />
+    <Compile Include="Services\CheckOverdueReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

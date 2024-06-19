@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using App1.iOS;
 using App1.iOS.Services;
 using Foundation;
 using UIKit;
@@ -41,7 +42,53 @@ namespace App1.iOS
 
             return base.FinishedLaunching(app, options);
         }
+        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            CheckIfOverdue();
+            completionHandler(UIBackgroundFetchResult.NewData);
+        }
+
+        private void ScheduleDailyNotification()
+        {
+            var content = new UNMutableNotificationContent
+            {
+                Title = "Check Overdue Tasks",
+                Body = "It's time to check your overdue tasks.",
+                Sound = UNNotificationSound.Default
+            };
+
+            var triggerDaily = new NSDateComponents
+            {
+                Hour = 0,
+                Minute = 0
+            };
+
+            var trigger = UNCalendarNotificationTrigger.CreateTrigger(triggerDaily, true);
+
+            var requestID = "dailyCheckOverdue";
+            var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
+
+            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
+            {
+                if (err != null)
+                {
+                    Console.WriteLine($"Failed to schedule notification: {err}");
+                }
+            });
+        }
+
+        public async void CheckIfOverdue()
+        {
+            var assignments = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
+            foreach (var assignment in assignments)
+            {
+                assignment.CheckIfOverdue();
+                await App.AssignmentsDB.AddItemAsync(assignment);
+            }
+        }
     }
+
+
     public class UserNotificationCenterDelegate : UNUserNotificationCenterDelegate
     {
         public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
@@ -51,7 +98,14 @@ namespace App1.iOS
 
         public async  override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
-            await ArchiveCleanupService.ClearArchive();
+            var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
+            if (appDelegate != null)
+            {
+                // Perform overdue check task
+                appDelegate.CheckIfOverdue();
+                // Perform archive cleanup
+                await ArchiveCleanupService.ClearArchive();
+            }
             completionHandler();
         }
     }

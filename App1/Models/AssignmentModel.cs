@@ -163,10 +163,27 @@ namespace App1.Models
                 OnPropertyChanged(nameof(IsCompleted));
                 RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(RepeatitionReturnTime));
+                ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(ExecutionDate));
                 if (HasNotification)
                 {
                     NotificationTime = NotificationTime.AddDays(RepeatitionAdditional);
                     OnPropertyChanged(nameof(NotificationTime));
+                    string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
+                    if (HasChild)
+                    {
+                        string title = $"Уведомление! {tags}";
+                        string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
+                        notificationManager.CancelNotification(ID);
+                        notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                    }
+                    else
+                    {
+                        string title = $"Уведомление! {tags}";
+                        string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}\nТакже не забудьте про подзадачи!";
+                        notificationManager.CancelNotification(ID);
+                        notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                    }
                 }
             }
         }
@@ -195,7 +212,7 @@ namespace App1.Models
             {
                 notificationManager.CancelNotification(ID);
             }
-            if (IsCompleted==false && HasNotification==true && NotificationTime<= ExecutionDate && NotificationTime >= DateTime.Now)
+            else if (IsCompleted==false && HasNotification==true && NotificationTime<= ExecutionDate && NotificationTime >= DateTime.Now)
             {
                 string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
                 if (HasChild)
