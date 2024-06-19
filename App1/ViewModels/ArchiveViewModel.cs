@@ -64,6 +64,7 @@ namespace App1.ViewModels
             assignment.IsDeleted = false;
             if (assignment.NotificationTime>=DateTime.Now && assignment.HasNotification)
             {
+                notificationCenter.CancelNotification(assignment);
                 notificationCenter.SendExtendedNotification(assignment);    
             }
             await App.AssignmentsDB.AddItemAsync(assignment);

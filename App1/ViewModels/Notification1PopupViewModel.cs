@@ -26,6 +26,7 @@ namespace App1.ViewModels
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
                     SelectedTime = _selectedDate.TimeOfDay;
+                    OnPropertyChanged(nameof(SelectedTime));
                 }
             }
         }

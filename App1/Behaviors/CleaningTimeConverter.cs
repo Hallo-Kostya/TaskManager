@@ -13,25 +13,26 @@ namespace App1.Behaviors
             {
                 if (multiplier == 24)
                     return "Произвольно";
-                else if (multiplier == 1)
-                    return "Каждый день";
-                else if (multiplier == 3)
-                    return "Каждые 3 дня";
-                else if (multiplier == 7)
-                    return "Каждую неделю";
+                else if (multiplier == 72)
+                    return "Раз в 3 дня";
+                else if (multiplier == 168)
+                    return "Раз в неделю";
+                else if (multiplier == 720)
+                    return "Раз в 30 дней";
                 else
                 {
-                    if ((multiplier / 10 != 1) && (multiplier % 10 == 2 || multiplier % 10 == 3 || multiplier % 10 == 4))
+                    var muti = multiplier / 24;
+                    if ((muti / 10 != 1) && (muti % 10 == 2 || muti % 10 == 3 || muti % 10 == 4))
                     {
-                        return "Раз в " + multiplier.ToString() + " дня";
+                        return "Раз в " + muti.ToString() + " дня";
                     }
-                    else if (multiplier / 10 == 1 || multiplier % 10 == 0 || multiplier % 10 == 5 || multiplier % 10 == 6 || multiplier % 10 == 7 || multiplier % 10 == 8 || multiplier % 10 == 9)
+                    else if (muti / 10 == 1 || muti % 10 == 0 || muti % 10 == 5 || muti % 10 == 6 || muti % 10 == 7 || muti % 10 == 8 || muti % 10 == 9)
                     {
-                        return "Раз в " + multiplier.ToString() + " дней";
+                        return "Раз в " + muti.ToString() + " дней";
                     }
                     else
                     {
-                        return "Раз в " + multiplier.ToString() + " день";
+                        return "Раз в " + muti.ToString() + " день";
                     }
 
                 }

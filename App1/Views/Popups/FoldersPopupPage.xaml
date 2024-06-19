@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:App1.Behaviors" 
-             xmlns:model="clr-namespace:App1.Models"
-             x:Class="App1.Views.Popups.FoldersPopupPage"
+             xmlns:model="clr-namespace:App1.Models" xmlns:viewmodels="clr-namespace:App1.ViewModels" xmlns:local1="clr-namespace:App1.Effects" x:DataType="viewmodels:FoldersPopupViewModel"
+                 x:Class="App1.Views.Popups.FoldersPopupPage"
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
@@ -18,6 +18,11 @@
                                 <StackLayout x:DataType="model:ListModel" Padding="0, 0, 0,0" Orientation="Horizontal">
                                     <Image Source="align" />
                                     <Label Text="{Binding Name}" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="CenterAndExpand" />
+                                    <Image Source="{Binding Icon}" x:Name="MyImage11" local1:TintImageEffect.TintColor="{Binding Color}">
+                                        <Image.Effects>
+                                            <local1:TintImageEffect />
+                                        </Image.Effects>
+                                    </Image>
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
