@@ -49,26 +49,38 @@ namespace App1.ViewModels.Settings
             {
                 OverDueCount += 1;
                 OnPropertyChanged(nameof(OverDueCount));
+                UpdateUserCounts();
             });
             MessagingCenter.Subscribe<object>(this, "UpdateDone", (sender) =>
             {
                 DoneCount += 1;
+                Console.WriteLine("ЫВФВФВФФЫВФВФВ");
                 OnPropertyChanged(nameof(DoneCount));
+                UpdateUserCounts();
             });
         }
         
         async Task LoadUser()
         {
             int userId = Preferences.Get("CurrentUserID", -1);
-            if (userId!= -1)
+            if (userId != -1)
             {
-                var user = await App.AssignmentsDB.GetUserAsync(userId);
-                user.AllOverDue += OverDueCount;
-                user.OverDueForWeek += OverDueCount;
-                user.DoneForWeek += DoneCount;
-                user.DoneAll += DoneCount;
-                await App.AssignmentsDB.AddUserAsync(user);
-                User= await App.AssignmentsDB.GetUserAsync(userId);
+                User = await App.AssignmentsDB.GetUserAsync(userId);
+                DoneCount = User.DoneForWeek;
+                OverDueCount = User.OverDueForWeek;
+                OnPropertyChanged(nameof(DoneCount));
+                OnPropertyChanged(nameof(OverDueCount));
+            }
+        }
+        private async void UpdateUserCounts()
+        {
+            if (User != null)
+            {
+                User.AllOverDue += OverDueCount;
+                User.OverDueForWeek += OverDueCount;
+                User.DoneForWeek += DoneCount;
+                User.DoneAll += DoneCount;
+                await App.AssignmentsDB.AddUserAsync(User);
                 DoneCount = 0;
                 OverDueCount = 0;
                 OnPropertyChanged(nameof(DoneCount));

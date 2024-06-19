@@ -8,6 +8,7 @@ using System.IO;
 using Xamarin.Essentials;
 using App1.Views.StartingPages;
 using App1.ViewModels.Settings;
+using System.Threading.Tasks;
 
 namespace App1
 {
