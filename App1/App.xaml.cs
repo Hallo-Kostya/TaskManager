@@ -7,12 +7,14 @@ using App1.Data;
 using System.IO;
 using Xamarin.Essentials;
 using App1.Views.StartingPages;
+using App1.ViewModels.Settings;
 
 namespace App1
 {
     public partial class App : Application
     {
         static AssignmentsDB assignmentsDB;
+        public static ProfileViewModel ProfileViewModel { get; private set; }
         public static AssignmentsDB AssignmentsDB
         {
             get
@@ -29,10 +31,12 @@ namespace App1
         public App()
         {
             InitializeComponent();
+            ProfileViewModel = new ProfileViewModel(null);
+            InitializeComponent();
             SetupMainPage();
         }
 
-        private void SetupMainPage()
+        public void SetupMainPage()
         {
             if (Preferences.Get("IsFirstLaunch", true))
             {

@@ -13,6 +13,7 @@ namespace App1.ViewModels
     public  class SettingsViewModel: BaseAssignmentViewModel
     {
         public Command OpenAllAppSettingsCommand { get; }
+        public Command LogoutCommand { get; }
         public Command СreateTagCommand { get; }
         public Command CreateFolderCommand { get; }
         public Command NotificationsCommand { get; }
@@ -31,6 +32,7 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
         public SettingsViewModel(INavigation _navigation)
         {
+            LogoutCommand = new Command(Logout);
             UserId = Preferences.Get("CurrentUserID", -1);
             OpenAllAppSettingsCommand = new Command(OpenAllAppSettings);
             СreateTagCommand = new Command(СreateTag);
@@ -42,6 +44,15 @@ namespace App1.ViewModels
             MoreCommand = new Command(More);
             Navigation = _navigation;
             Task.Run(async () => await LoadUser());
+        }
+        private async void Logout()
+        {
+            if (UserId != -1)
+            {
+                Preferences.Set("IsFirstLaunch", true);
+                var app = (App)Application.Current;
+                app.SetupMainPage();
+            }
         }
         async Task LoadUser()
         {
