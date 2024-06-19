@@ -25,7 +25,7 @@ namespace App1.Behaviors
                     {
                         return "Раз в " + multiplier.ToString() + " дня";
                     }
-                    else if (multiplier / 10 == 1 || multiplier % 10 == 0)
+                    else if (multiplier / 10 == 1 || multiplier % 10 == 0 || multiplier%10==5 || multiplier % 10 == 6 || multiplier % 10 == 7 || multiplier % 10 == 8 || multiplier % 10 == 9)
                     {
                         return "Раз в " + multiplier.ToString() + " дней";
                     }

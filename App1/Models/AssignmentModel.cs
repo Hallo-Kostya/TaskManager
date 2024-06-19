@@ -155,20 +155,18 @@ namespace App1.Models
         }
         public void CheckIfOverdue()
         {
-            IsOverdue = !IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now;
-            OnPropertyChanged(nameof(IsOverdue));
+            
             if (DateTime.Today >= RepeatitionReturnTime && IsRepeatable==true && IsDeleted==false)
             {
                 IsCompleted = false;
                 OnPropertyChanged(nameof(IsCompleted));
-                RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
-                OnPropertyChanged(nameof(RepeatitionReturnTime));
                 ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(ExecutionDate));
+                RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(RepeatitionReturnTime));
+                
                 if (HasNotification)
                 {
-                    NotificationTime = NotificationTime.AddDays(RepeatitionAdditional);
-                    OnPropertyChanged(nameof(NotificationTime));
                     string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
                     if (HasChild)
                     {
@@ -186,6 +184,8 @@ namespace App1.Models
                     }
                 }
             }
+            IsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
+            OnPropertyChanged(nameof(IsOverdue));
         }
         public void AddChild(AssignmentModel assignment)
         {

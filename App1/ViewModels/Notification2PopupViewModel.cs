@@ -38,7 +38,7 @@ namespace App1.ViewModels
                 await Navigation.PopPopupAsync();
                 MessagingCenter.Send(Assignment, "RepeatitionSetted");
             }
-            if (int.TryParse(repeatTime, out int days))
+            else if (int.TryParse(repeatTime, out int days))
             {
                 Assignment.IsRepeatable = true;
                 Assignment.RepeatitionAdditional = days;
