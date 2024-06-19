@@ -186,8 +186,9 @@ namespace App1.Models
                 }
             }
             IsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            if (IsOverdue == true)
+            if (IsOverdue == true )
             {
+                Console.WriteLine("ШШШШШ");
                 MessagingCenter.Send<object>(this, "UpdateOverdue");
             }
             OnPropertyChanged(nameof(IsOverdue));

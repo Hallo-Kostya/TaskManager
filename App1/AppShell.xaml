@@ -52,8 +52,8 @@
                 </LinearGradientBrush>
             </StackLayout.Background>
             <StackLayout Orientation="Horizontal" Margin="20,50" >
-                <Image Source="user.png" BackgroundColor="#D9D9D9" HeightRequest="50"/>
-                <Label Text="Имя Фамилия" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center"/>
+                <ImageButton Source="user.png" BackgroundColor="#D9D9D9" HeightRequest="50" CornerRadius="50"/>
+                <Label Text="Имя" FontSize="12" TextColor="AliceBlue" FontAttributes="Bold" VerticalOptions="Center"/>
             </StackLayout>
         </StackLayout>
     </Shell.FlyoutHeader>

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Views.Settings.NotificationsPage"
-             BackgroundColor="#2F2F2F"
+             BackgroundColor="#292929"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
 
@@ -15,20 +15,20 @@
 
             <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">
                 <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="15">
-                    <Frame BackgroundColor="#801E1E1E" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="0">
+                    <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="0">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
                             <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#801E1E1E" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
+                    <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Вибрация" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" />
                             <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </Frame>
                 </Grid>
-                <Frame BackgroundColor="#801E1E1E" CornerRadius="26" Padding="20">
+                <Frame BackgroundColor="#80444444" CornerRadius="26" Padding="20">
                     <StackLayout>
                         <Label Text="Звук уведомления" TextColor="AliceBlue" FontAttributes="Bold"/>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="3">

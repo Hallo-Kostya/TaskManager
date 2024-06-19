@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:APPSettingsViewModel"
              x:Class="App1.Views.APPSettingsPage"
              xmlns:converters="clr-namespace:App1.Behaviors"
-             BackgroundColor="#2F2F2F"
+             BackgroundColor="#292929"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
     <ContentPage.Resources>
@@ -18,7 +18,7 @@
             </Grid>
 
             <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">
-                <Frame CornerRadius="16" BackgroundColor="#801E1E1E" Padding="15,20" >
+                <Frame CornerRadius="16" BackgroundColor="#80444444" Padding="15,20" >
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Автоочищение архива" TextColor="AliceBlue" FontAttributes="Bold" FontSize="16" HorizontalOptions="StartAndExpand"/>
