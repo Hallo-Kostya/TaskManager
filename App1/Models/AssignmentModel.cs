@@ -127,10 +127,7 @@ namespace App1.Models
                 {
                     _isOverdue = value;
                     OnPropertyChanged(nameof(IsOverdue));
-                    if (_isOverdue)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
+                    
                 }
             }
         }
@@ -188,7 +185,16 @@ namespace App1.Models
                     }
                 }
             }
-            _isOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
+            bool newIsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
+            if (_isOverdue != newIsOverdue)
+            {
+                _isOverdue = newIsOverdue;
+                OnPropertyChanged(nameof(IsOverdue));
+                if (_isOverdue)
+                {
+                    MessagingCenter.Send<object>(this, "UpdateOverdue");
+                }
+            }
         }
         public void AddChild(AssignmentModel assignment)
         {
