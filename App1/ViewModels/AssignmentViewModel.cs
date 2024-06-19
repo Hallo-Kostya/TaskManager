@@ -177,7 +177,7 @@ namespace App1.ViewModels
                 var a = await App.AssignmentsDB.GetItemsAsync();
                 foreach (var assignment in a)
                 {
-                    //assignment.CheckIfOverdue();
+                    assignment.CheckIfOverdue();
                     await assignment.LoadTagsAsync();
                 }
 
