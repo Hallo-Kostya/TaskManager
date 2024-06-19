@@ -13,9 +13,9 @@
                 <Setter Property="HeightRequest" Value="20"/>
                 <Setter Property="TextTransform" Value="None"/>
             </Style>
-            <converters:RepeatitionTimeConverter x:Key="RepeatitionTimeConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" Margin="30,150">
             <Frame BackgroundColor="#2D2D2D" CornerRadius="12" Padding="30,15" HorizontalOptions="StartAndExpand">
@@ -24,7 +24,7 @@
                     <Button Text="Каждый день" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="1"/>
                     <Button Text="Каждые 3 дня" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="3"/>
                     <Button Text="Каждую неделю" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Command="{Binding SetRepeatitionCommand}" CommandParameter="7"/>
-                    <Button Text="{Binding CustomInterval, Converter={StaticResource RepeatitionTimeConverter}}" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="Произвольно" Padding="-10" Style="{StaticResource ButtonStyle}" BackgroundColor="Color.Transparent" Clicked="Button_Clicked"/>
                     <Frame x:Name="CustomEntryRepeat" BackgroundColor="#353535" CornerRadius="12" Padding="5">
                         <StackLayout>
                             <Entry Placeholder="Введите дни" Keyboard="Numeric" Text="{Binding CustomInterval}" PlaceholderColor="Gray" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>

@@ -43,10 +43,5 @@ namespace App1.Views.Popups
         {
             CustomEntryRepeat.IsVisible = true;
         }
-
-        private void Button_Clicked_1(object sender, EventArgs e)
-        {
-            CustomEntryRepeat.IsVisible = false;
-        }
     }
 }
