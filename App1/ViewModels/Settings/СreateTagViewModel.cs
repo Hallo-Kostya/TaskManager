@@ -97,6 +97,7 @@ namespace App1.ViewModels
         public void SetColor(string color)
         {
             Tag.TagColor = color;
+            OnPropertyChanged(nameof(Tag));
             SelectedColor = Color.FromHex(color);
         }
         public  void AddTag()
