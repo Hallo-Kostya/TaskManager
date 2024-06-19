@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.Settings.MorePage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Frame BackgroundColor="Black" CornerRadius="32" HeightRequest="50" VerticalOptions="EndAndExpand" Margin="0,-20,0,0" Padding="10,40">
+                <Grid>
+                    <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
+                    <Label Text="Профиль" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
+                </Grid>
+            </Frame>
+
+            <StackLayout VerticalOptions="StartAndExpand" Padding="10,10,10,0" Spacing="10">
+                <Frame BackgroundColor="#80000000" CornerRadius="25">
+                    <StackLayout>
+                        <Image Source="user.png" BackgroundColor="#D9D9D9" WidthRequest="50" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Имя Фамилия" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0"/>
+                    </StackLayout>
+                </Frame>
+                <Frame BackgroundColor="#80000000" CornerRadius="25" Margin="0,10,0,0" Padding="20">
+                    <StackLayout>
+                        <Label Text="Статистика" TextColor="AliceBlue" FontAttributes="Bold"/>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout HorizontalOptions="StartAndExpand">
+                                <StackLayout Spacing="0" Margin="0,10,0,0">
+                                    <Label Text="Выполнено всего" TextColor="#9D9D9D" FontSize="12"/>
+                                    <Label Text="148" TextColor="AliceBlue" FontAttributes="Bold" FontSize="20" />
+                                </StackLayout>
+                                <StackLayout Spacing="0" Margin="0,10,0,0">
+                                    <Label Text="Просрочено всего" TextColor="#9D9D9D" FontSize="12"/>
+                                    <Label Text="15" TextColor="AliceBlue" FontAttributes="Bold" FontSize="20" />
+                                </StackLayout>
+                                <StackLayout Spacing="0" Margin="0,10,0,0">
+                                    <Label Text="Количество дней, проведенных в приложении" TextColor="#9D9D9D" FontSize="12" />
+                                    <Label Text="52" TextColor="AliceBlue" FontAttributes="Bold" FontSize="20" />
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="EndAndExpand">
+                                <StackLayout Spacing="0" Margin="0,10,0,0">
+                                    <Label Text="Выполнено за неделю" TextColor="#9D9D9D" FontSize="12"/>
+                                    <Label Text="15" TextColor="AliceBlue" FontAttributes="Bold" FontSize="20" />
+                                </StackLayout>
+                                <StackLayout Spacing="0" Margin="0,10,0,0">
+                                    <Label Text="Просрочено за неделю" TextColor="#9D9D9D" FontSize="12"/>
+                                    <Label Text="2" TextColor="AliceBlue" FontAttributes="Bold" FontSize="20" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

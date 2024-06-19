@@ -7,24 +7,36 @@
              BackgroundColor="Color.Transparent">
 
     <ContentPage.Content>
-        <StackLayout Margin="210, 140, 10, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
-            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0,5">
+        <StackLayout Margin="200, 140, 10, 0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" >
+            <Frame BackgroundColor="#202020" CornerRadius="12" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0,5,10,5">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetHighPriority}" />
+                        </StackLayout.GestureRecognizers>
                         <Image Source="high1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
-                        <Button Text="Высокий приоритет" Command="{Binding SetHighPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None" Padding="-10,0,10,0" HeightRequest="1" />
+                        <Label Text="Высокий приоритет" VerticalOptions="Center" TextColor="AliceBlue" FontSize="13"  />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetMediumPriority}" />
+                        </StackLayout.GestureRecognizers>
                         <Image Source="medium1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
-                        <Button Text="Средний приоритет" Command="{Binding SetMediumPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                        <Label Text="Средний приоритет" VerticalOptions="Center" TextColor="AliceBlue" FontSize="13"  />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetLowPriority}" />
+                        </StackLayout.GestureRecognizers>
                         <Image Source="low1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
-                        <Button Text="Низкий приоритет" Command="{Binding SetLowPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                        <Label Text="Низкий приоритет" VerticalOptions="Center" TextColor="AliceBlue" FontSize="13"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetNoPriority}" />
+                        </StackLayout.GestureRecognizers>
                         <Image Source="without1.png" VerticalOptions="Center" HorizontalOptions="StartAndExpand" BackgroundColor="Color.Transparent" Margin="-10"/>
-                        <Button Text="Без приоритета" Command="{Binding SetNoPriority}" BackgroundColor="Color.Transparent" TextColor="AliceBlue" FontSize="13" TextTransform="None"  Padding="-10,0,0,0" HeightRequest="1" />
+                        <Label Text="Без приоритета" VerticalOptions="Center" TextColor="AliceBlue" FontSize="13"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

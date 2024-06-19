@@ -19,9 +19,6 @@
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
                     <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" />
-                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:TagModel" Margin="5">
@@ -42,7 +39,6 @@
                     </CollectionView>
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
-                            
                             <ImageButton Source="add.png" Command="{Binding AddTagCommand}" BackgroundColor="Color.Transparent" />
                         </StackLayout>
 

@@ -20,12 +20,12 @@ namespace App1.Views
             BindingContext = new APPSettingsViewModel(Navigation);
             if ((BindingContext as APPSettingsViewModel).IsArchiveCleaningEnabled == true)
             {
-                NextClean.IsVisible = true;
+                //NextClean.IsVisible = true;
                 ArchiveClean.IsVisible = true;
             }
             else
             {
-                NextClean.IsVisible = false;
+                //NextClean.IsVisible = false;
                 ArchiveClean.IsVisible = false;
             }
             CleaningInterval= Preferences.Get("CleaningInterval", 24);
@@ -43,18 +43,19 @@ namespace App1.Views
         { 
             if ((BindingContext as APPSettingsViewModel).IsArchiveCleaningEnabled == false)
             {
-                NextClean.IsVisible = false;
+                //NextClean.IsVisible = false;
                 ArchiveClean.IsVisible = false;
             }
             else
             {
-                NextClean.IsVisible = true;
+                //NextClean.IsVisible = true;
                 ArchiveClean.IsVisible = true;
             }
         }
         private void ButtonOwnTime_Clicked(object sender, EventArgs e)
         {
             CustomTimeLayout.IsVisible = true;
+            ButtonOwnTime.IsVisible = false;
         }
 
         private void Button_Clicked(object sender, EventArgs e)

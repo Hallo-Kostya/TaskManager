@@ -12,6 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Новая папка1\**" />
+    <Compile Remove="ViewModels\Новая папка\**" />
+    <EmbeddedResource Remove="ViewModels\Новая папка1\**" />
+    <EmbeddedResource Remove="ViewModels\Новая папка\**" />
+    <None Remove="ViewModels\Новая папка1\**" />
+    <None Remove="ViewModels\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\ListsDB.cs" />
     <Compile Remove="Models\Assignment.cs" />
   </ItemGroup>
@@ -126,6 +135,21 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Settings\CreateFolderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings\HelpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings\MorePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings\NotificationsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings\SociaMediaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Settings\СreateTagPage.xaml">

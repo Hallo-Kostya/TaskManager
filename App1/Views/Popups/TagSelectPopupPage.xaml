@@ -13,9 +13,9 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Margin="0,90,0,0">
-            <Frame BackgroundColor="#202020" CornerRadius="12" WidthRequest="100" HorizontalOptions="CenterAndExpand" Padding="10,5">
+            <Frame BackgroundColor="#202020" CornerRadius="12" WidthRequest="150" HorizontalOptions="CenterAndExpand" Padding="10,5">
                 <StackLayout>
-                    <CollectionView SelectionMode="Single" ItemsSource="{Binding TagList}" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}" HeightRequest="150">
+                    <CollectionView SelectionMode="Single" ItemsSource="{Binding TagList}" SelectedItem="{Binding SelectedTag}" SelectionChangedCommand="{Binding FilterByTagCommand}" HeightRequest="200">
                         <CollectionView.Header>
                             <Label Text="Выберите тег:" TextColor="AliceBlue" FontSize="13" FontAttributes="Bold" Padding="5" />
                         </CollectionView.Header>

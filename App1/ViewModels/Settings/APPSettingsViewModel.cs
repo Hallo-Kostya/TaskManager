@@ -14,6 +14,8 @@ namespace App1.ViewModels
         public Command SaveSettingsCommand { get; }
         public Command EnableArchiveCleaningCommand { get; }
         public Command SetCleanUpIntervalCommand { get; }
+        public Command OnCancelCommand { get; }
+
         public INavigation Navigation { get; set; }
         private int _cleaningInterval; 
         private bool _isArchiveCleaningEnabled;
@@ -66,6 +68,7 @@ namespace App1.ViewModels
             SaveSettingsCommand = new Command(SaveSettings);
             CancelSettingsCommand = new Command(CancelSettings);
             CustomTimeCleanCommand = new Command(CustomClean);
+            OnCancelCommand = new Command(OnCancel);
             Console.WriteLine("Initial IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
             NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
         }
@@ -80,6 +83,10 @@ namespace App1.ViewModels
                 }
                 NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
             }
+        }
+        public async void OnCancel()
+        {
+            await Navigation.PopAsync();
         }
         private void EnableCleaning()
         {

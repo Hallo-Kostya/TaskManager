@@ -123,7 +123,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="Очистить архив" BackgroundColor="Red" Command="{Binding ClearArchiveCommand}" CornerRadius="25" Margin="10,0,10,10"/>
+            <Button Text="Очистить архив" BackgroundColor="#75000000" Command="{Binding ClearArchiveCommand}" CornerRadius="18" Margin="10,0,10,10" TextColor="#fe0000"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

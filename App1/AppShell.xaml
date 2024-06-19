@@ -106,8 +106,11 @@
     <Shell.FlyoutFooter>
         <StackLayout>
             <StackLayout Orientation="Horizontal" Padding="20">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddFolderCommand}" />
+                </StackLayout.GestureRecognizers>
                 <ImageButton Source="add_folder" BackgroundColor="Color.Transparent" Command="{Binding AddFolderCommand}" />
-                <Button Text="Создать папку" Command="{Binding AddFolderCommand}" TextTransform="None" FontAttributes="Bold"  BackgroundColor="Color.Transparent" Padding="-1,0"/>
+                <Label Text="Создать папку" FontAttributes="Bold" TextColor="AliceBlue"/>
             </StackLayout>
         </StackLayout>
     </Shell.FlyoutFooter>

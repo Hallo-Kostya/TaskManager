@@ -15,6 +15,7 @@ namespace App1.ViewModels
         public Command EditFolderCommand { get; }
         public Command DeleteFolderCommand { get; }
         public Command LoadFoldersCommand { get; }
+        public Command OnCancelCommand { get; }
         public INavigation Navigation { get; set; }
         private ListModel _selectedFolder;
         public ListModel SelectedFolder
@@ -38,12 +39,18 @@ namespace App1.ViewModels
             FolderSelectedCommand = new Command<ListModel>(FolderSelected);
             EditFolderCommand = new Command(EditFolder);
             DeleteFolderCommand = new Command(DeleteFolder);
+            OnCancelCommand = new Command(OnCancel);
             Task.Run(async () => await OnLoaded());
             MessagingCenter.Subscribe<object>(this, "UpdateFoldersList", async (sender) =>
             {
                 await OnLoaded();
             });
         }
+        public async void OnCancel()
+        {
+            await Navigation.PopAsync();
+        }
+
         private async void EditFolder()
         {
             await Navigation.PushAsync(new FolderAddingPage(SelectedFolder));

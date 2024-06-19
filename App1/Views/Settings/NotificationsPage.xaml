@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.Settings.NotificationsPage"
+             BackgroundImageSource="background.png"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Frame BackgroundColor="Black" CornerRadius="32" HeightRequest="50" VerticalOptions="EndAndExpand" Margin="0,-20,0,0" Padding="10,40">
+                <Grid>
+                    <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
+                    <Label Text="Звуки и уведомления" FontSize="20" TextColor="AliceBlue" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
+                </Grid>
+            </Frame>
+
+            <StackLayout VerticalOptions="StartAndExpand" Padding="10,10,10,0" Spacing="10">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                    <Frame BackgroundColor="#80000000" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#80000000" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <Frame BackgroundColor="#80000000" CornerRadius="26" Padding="20">
+                    <StackLayout>
+                        <Label Text="Звук уведомления" TextColor="AliceBlue" FontAttributes="Bold"/>
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="3">
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Загадка" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Бодрость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Спокойствие" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Рассвет" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Мелодия" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Резкость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Колокольчик" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Праздник" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Перекус Александра" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Утро Константина" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
