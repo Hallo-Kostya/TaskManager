@@ -16,6 +16,7 @@
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="WidthRequest" Value="30"/>
                 <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="Padding" Value="-10"/>
             </Style>
             <Style x:Key="ImageStyle" TargetType="ImageButton">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
@@ -46,7 +47,7 @@
             <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,15" >
                 <StackLayout>
                     <Label Text="Выберите цвет вашей папки:" TextColor="AliceBlue"/>
-                    <Label Text="{Binding ColorForUI}"/>
+                    <Label Text="{Binding ColorForUI}" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
                             <Button BackgroundColor="#FF6F92"  Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#FF6F92">
@@ -56,23 +57,113 @@
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D"/>
-                            <Button BackgroundColor="#D71D1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D71D1D"/>
-                            <Button BackgroundColor="#E18026" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E18026"/>
-                            <Button BackgroundColor="#99BD33" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99BD33"/>
-                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
-                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19"/>
-                            <Button BackgroundColor="#4FDD1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4FDD1D"/>
+                            <Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E01A6D">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#D71D1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D71D1D">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#D71D1D">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#E18026" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E18026">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E18026">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#99BD33" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99BD33">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#99BD33">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E0CC19">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E0CC19">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#4FDD1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#4FDD1D">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#4FDD1D">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Margin="0,5,0,0">
-                            <Button BackgroundColor="#00FFB2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00FFB2"/>
-                            <Button BackgroundColor="#10EDD2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10EDD2"/>
-                            <Button BackgroundColor="#00A7F0" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00A7F0"/>
-                            <Button BackgroundColor="#211ED3" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ED3"/>
-                            <Button BackgroundColor="#D885FF" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D885FF"/>
-                            <Button BackgroundColor="#E11BE5" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E11BE5"/>
-                            <Button BackgroundColor="#8A18E4" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#8A18E4"/>
-                            <Button BackgroundColor="#818181" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#818181"/>
+                            <Button BackgroundColor="#00FFB2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00FFB2">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#00FFB2">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#10EDD2" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#10EDD2">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#10EDD2">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#00A7F0" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#00A7F0">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#00A7F0">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#211ED3" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#211ED3">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#211ED3">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#D885FF" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D885FF">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#D885FF">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#E11BE5" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E11BE5">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E11BE5">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#8A18E4" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#8A18E4">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#8A18E4">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button BackgroundColor="#818181" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#818181">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#818181">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

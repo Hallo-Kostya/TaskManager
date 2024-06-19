@@ -8,8 +8,8 @@
         <StackLayout Margin="0, 80, 15, 0" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand">
             <Frame BackgroundColor="#353535" Padding="15, 15" CornerRadius="8">
                 <StackLayout>
-                    <Label Text="Группировать по" TextColor="AliceBlue"/>
-                    <StackLayout>
+                    <Label Text="Группировать по" TextColor="AliceBlue" FontAttributes="Bold"/>
+                    <StackLayout Margin="10,0,0,0">
                         <StackLayout Orientation="Horizontal">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GroupByCommand}" CommandParameter="Date" />
@@ -21,7 +21,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedGrouping}" Value="Date">
                                         <Setter Property="Source" Value="done" />
@@ -40,7 +40,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedGrouping}" Value="Tag">
                                         <Setter Property="Source" Value="done" />
@@ -59,7 +59,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedGrouping}" Value="Priority">
                                         <Setter Property="Source" Value="done" />
@@ -78,7 +78,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedGrouping}" Value="None">
                                         <Setter Property="Source" Value="done" />
@@ -86,32 +86,9 @@
                                 </Image.Triggers>
                             </Image>
                         </StackLayout>
-                        <!--<Label Text="Тегу" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Tag" TextTransform="None" BackgroundColor="Color.Transparent">
-                                <Label.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding SelectedGrouping}" Value="Tag">
-                                        <Setter Property="TextColor" Value="#D778E6" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Text="Приоритету" HeightRequest="25" Padding="0" Command="{Binding GroupByCommand}" CommandParameter="Priority" TextTransform="None" BackgroundColor="Color.Transparent">
-                                <Label.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding SelectedGrouping}" Value="Priority">
-                                        <Setter Property="TextColor" Value="#D778E6" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Text="Произвольно" HeightRequest="25" Padding="0"  Command="{Binding GroupByCommand}" CommandParameter="None" TextTransform="None" BackgroundColor="Color.Transparent">
-                                <Label.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding SelectedGrouping}" Value="None">
-                                        <Setter Property="TextColor" Value="#D778E6" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                        </StackLayout>-->
                     </StackLayout>
-                    <Label Text="Сортировать по" TextColor="AliceBlue" Margin="0,10,0,0"/>
-                    <Label Text="{Binding SelectedSorting}" TextColor="AliceBlue"/>
-                    <StackLayout>
+                    <Label Text="Сортировать по" TextColor="AliceBlue" FontAttributes="Bold" Margin="0,10,0,0"/>
+                    <StackLayout Margin="10,0,0,0">
                         <StackLayout Orientation="Horizontal">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SortByDateCommand}" CommandParameter="Date" />
@@ -123,7 +100,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedSorting}" Value="Date">
                                         <Setter Property="Source" Value="done" />
@@ -143,7 +120,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedSorting}" Value="Priority">
                                         <Setter Property="Source" Value="done" />
@@ -162,7 +139,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Image Source="circle" HorizontalOptions="EndAndExpand">
+                            <Image Source="priority" HorizontalOptions="EndAndExpand" WidthRequest="20">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding SelectedSorting}" Value="None">
                                         <Setter Property="Source" Value="done" />

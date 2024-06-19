@@ -90,9 +90,10 @@ namespace App1.ViewModels
         {
             SelectedIcon = name;
         }
-        private void SetColor(string  color)
+        private void SetColor(string color)
         {
-            _colorForUI = color;
+            ColorForUI = color;
+            OnPropertyChanged(nameof(ColorForUI));
             SelectedColor = Color.FromHex(color);
         }
         private async void OnAdded()

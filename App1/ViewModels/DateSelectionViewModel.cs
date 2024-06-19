@@ -52,7 +52,7 @@ namespace App1.ViewModels
         }
         public string NotificationTimeString => Assignment.HasNotification
             ? Assignment.NotificationTime.ToString("dd.MM.yy HH:mm")
-            : "нет";
+            : "Нет";
         public DateSelectionViewModel(INavigation navigation)
         {
             Navigation = navigation;
@@ -76,6 +76,7 @@ namespace App1.ViewModels
                     Assignment.HasNotification = sender.HasNotification;
                     Assignment.NotificationTimeMultiplier = sender.NotificationTimeMultiplier;
                     OnPropertyChanged(nameof(Assignment));
+                    OnPropertyChanged(nameof(NotificationTimeString));
                 });
             await Navigation.PushPopupAsync(new Notification1PopupPage(Assignment));
         }
