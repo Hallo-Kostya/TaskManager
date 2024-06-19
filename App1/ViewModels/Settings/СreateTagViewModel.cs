@@ -34,7 +34,12 @@ namespace App1.ViewModels
             get { return _selectedtag; }
             set { _selectedtag = value; OnPropertyChanged(); }
         }
-
+        private Color _selectedColor;
+        public Color SelectedColor
+        {
+            get => _selectedColor;
+            set => SetProperty(ref _selectedColor, value);
+        }
         private ObservableCollection<TagModel> tagList;
         public ObservableCollection<TagModel> TagList
         {
@@ -54,6 +59,7 @@ namespace App1.ViewModels
             SetColorCommand = new Command<string>(SetColor);
             Navigation = navigation;
             Tag = new TagModel();
+            SelectedColor = Color.White;
             TagList=new ObservableCollection<TagModel>();
             OnCancelCommand = new Command(OnCancel);
             ConfirmTagCommand = new Command(ConfirmTag);
@@ -86,11 +92,12 @@ namespace App1.ViewModels
             SelectedTag = tag;
             Tag = tag;
             IsSelected = true;
+            SelectedColor = Color.FromHex(tag.TagColor);
         }
         public void SetColor(string color)
         {
             Tag.TagColor = color;
-            OnPropertyChanged(nameof(Tag.TagColor));
+            SelectedColor = Color.FromHex(color);
         }
         public  void AddTag()
         {

@@ -30,7 +30,7 @@
             </StackLayout>
             <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,5">
                 <StackLayout Orientation="Horizontal" >
-                    <Image Source="tags" x:Name="MyImage" local:TintImageEffect.TintColor="{Binding Tag.TagColor}">
+                    <Image Source="tags" x:Name="MyImage" local:TintImageEffect.TintColor="{Binding SelectedColor}">
                         <Image.Effects>
                             <local:TintImageEffect />
                         </Image.Effects>
