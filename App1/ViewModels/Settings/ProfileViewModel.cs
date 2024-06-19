@@ -45,15 +45,17 @@ namespace App1.ViewModels.Settings
             Navigation = navigation;
             
             Task.Run(async () => await LoadUser());
+            MessagingCenter.Unsubscribe<object>(this, "UpdateOverdue");
+            MessagingCenter.Unsubscribe<object>(this, "UpdateDone");
             MessagingCenter.Subscribe<object>(this, "UpdateOverdue", (sender) =>
             {
                 Console.WriteLine("ВОФВФОВФОФОВФООВОФВОФФОВОВФ");
-                OverDueCount += 1;
+                OverDueCount = 1;
                 UpdateUserCounts();
             });
             MessagingCenter.Subscribe<object>(this, "UpdateDone", (sender) =>
             {
-                DoneCount += 1;
+                DoneCount = 1;
                 Console.WriteLine("ЫВФВФВФФЫВФВФВ");
                 UpdateUserCounts();
             });
@@ -67,8 +69,6 @@ namespace App1.ViewModels.Settings
                 User = await App.AssignmentsDB.GetUserAsync(userId);
                 DoneCount = 0;
                 OverDueCount = 0;
-                OnPropertyChanged(nameof(DoneCount));
-                OnPropertyChanged(nameof(OverDueCount));
             }
         }
         private async void UpdateUserCounts()
