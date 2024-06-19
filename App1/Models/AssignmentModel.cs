@@ -127,6 +127,10 @@ namespace App1.Models
                 {
                     _isOverdue = value;
                     OnPropertyChanged(nameof(IsOverdue));
+                    if (IsOverdue == true)
+                    {
+                        MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    }
                 }
             }
         }
@@ -203,6 +207,10 @@ namespace App1.Models
         {
             IsCompleted = !IsCompleted;
             OnPropertyChanged(nameof(IsCompleted));
+            if (IsCompleted == true)
+            {
+                MessagingCenter.Send<object>(this, "UpdateDone");
+            }
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
             {
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);

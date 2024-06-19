@@ -49,7 +49,7 @@ namespace App1.ViewModels.StartingPages
                 User.Name = Nickname;
                 await App.AssignmentsDB.AddUserAsync(User);
                 Preferences.Set("IsFirstLaunch", false);
-                Preferences.Set("CurrentUserNickname", Nickname);
+                Preferences.Set("CurrentUserID", User.ID);
                 Application.Current.MainPage = new AppShell();
             }
         }

@@ -21,13 +21,13 @@ namespace App1.Views.StartingPages
         }
         private async void AnimateElements()
         {
-            await WelcomeLabel.FadeTo(1, 1000); // Плавное появление текста "Здравствуйте!"
-            await Task.Delay(3000); // Задержка 3 секунды
+            await WelcomeLabel.FadeTo(1, 1000); 
+            await Task.Delay(3000); 
 
             
 
-            await IntroductionLabel.FadeTo(1, 1000); // Плавное появление текста "Давайте Знакомиться!"
-            await Task.Delay(1000); // Задержка 1 секунда
+            await IntroductionLabel.FadeTo(1, 1000); 
+            await Task.Delay(5000); 
             await NameLabel.FadeTo(1, 1000);
             await Task.Delay(1000);
             await NicknameEntry.FadeTo(1, 1000);
@@ -52,12 +52,12 @@ namespace App1.Views.StartingPages
                 if (((NickEntryPageViewModel)BindingContext).IsNicknameNotEmpty)
                 {
                     SaveButton.IsVisible = true;
-                    await SaveButton.FadeTo(1, 1000); // Плавное появление кнопки
+                    await SaveButton.FadeTo(1, 1000); 
                 }
                 else
                 {
                     SaveButton.IsVisible = false;
-                    await SaveButton.FadeTo(0, 1000); // Плавное исчезновение кнопки
+                    await SaveButton.FadeTo(0, 1000); 
                 }
             }
         }
