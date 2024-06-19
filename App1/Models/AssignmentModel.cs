@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using App1.Services.Notifications;
 using SQLite;
@@ -9,19 +10,19 @@ using Xamarin.Forms;
 
 namespace App1.Models
 {
-    public class AssignmentModel : BaseModel
+    public class AssignmentModel:BaseModel       
     {
-        private INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
+        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
         private DateTime _executionDate = DateTime.Now;
-
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
+       
         public DateTime ExecutionDate
         {
             get => _executionDate;
@@ -31,14 +32,14 @@ namespace App1.Models
                 {
                     _executionDate = value;
                     OnPropertyChanged(nameof(ExecutionDate));
-                    if (HasNotification)
+                    if (HasNotification==true)
                         UpdateNotificationTime();
                 }
             }
         }
-
+        
         [Ignore]
-        public List<AssignmentModel> Childs
+        public List<AssignmentModel> Childs 
         {
             get => _childs;
             set
@@ -48,7 +49,6 @@ namespace App1.Models
                 OnPropertyChanged(nameof(ChildsString));
             }
         }
-
         public string ChildsString
         {
             get => string.Join(",", _childs.Select(t => t.ID));
@@ -68,7 +68,6 @@ namespace App1.Models
                 OnPropertyChanged(nameof(Childs));
             }
         }
-
         [Ignore]
         public List<TagModel> Tags
         {
@@ -77,7 +76,7 @@ namespace App1.Models
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString));
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 
@@ -100,12 +99,11 @@ namespace App1.Models
                 OnPropertyChanged(nameof(Tags));
             }
         }
-
         public bool HasNotification { get; set; }
         public bool IsRepeatable { get; set; }
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }
-        public DateTime NotificationTime { get; set; }
+        public DateTime NotificationTime { get; set; } 
         public EnumPriority Priority { get; set; }
 
         public enum EnumPriority : int
@@ -115,12 +113,11 @@ namespace App1.Models
             Средний = 2,
             Высокий = 3
         }
-
         public bool HasChild { get; set; } = false;
         public bool IsChild { get; set; } = false;
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
-
+        
         public bool IsOverdue
         {
             get => _isOverdue;
@@ -137,21 +134,18 @@ namespace App1.Models
                 }
             }
         }
-
         public string FolderName { get; set; } = "Мои дела";
         public int NotificationTimeMultiplier { get; set; } = 1;
-
         private void UpdateNotificationTime()
         {
-            if (HasNotification && NotificationTimeMultiplier == 2 && NotificationTime > ExecutionDate)
+            if (HasNotification==true && NotificationTimeMultiplier==2 && NotificationTime > ExecutionDate)
             {
                 NotificationTime = ExecutionDate;
                 OnPropertyChanged(nameof(NotificationTime));
                 return;
             }
-
             var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
-            if (newTime >= DateTime.Now && newTime <= ExecutionDate)
+            if (newTime != null && newTime >= DateTime.Now && newTime <= ExecutionDate)
             {
                 NotificationTime = newTime;
                 OnPropertyChanged(nameof(NotificationTime));
@@ -161,76 +155,92 @@ namespace App1.Models
                 HasNotification = false;
                 OnPropertyChanged(nameof(HasNotification));
             }
+                
         }
-
         public void CheckIfOverdue()
         {
-            if (IsRepeatable && IsDeleted == false)
+            
+            if (DateTime.Today >= RepeatitionReturnTime && IsRepeatable==true && IsDeleted==false)
             {
-                if (DateTime.Today >= RepeatitionReturnTime)
+                IsCompleted = false;
+                OnPropertyChanged(nameof(IsCompleted));
+                ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(ExecutionDate));
+                RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
+                OnPropertyChanged(nameof(RepeatitionReturnTime));
+                
+                if (HasNotification)
                 {
-                    IsCompleted = false;
-                    OnPropertyChanged(nameof(IsCompleted));
-                    ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
-                    OnPropertyChanged(nameof(ExecutionDate));
-                    RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
-                    OnPropertyChanged(nameof(RepeatitionReturnTime));
-
-                    if (HasNotification)
+                    string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
+                    if (HasChild)
                     {
-                        SendNotification();
+                        string title = $"Уведомление! {tags}";
+                        string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
+                        notificationManager.CancelNotification(ID);
+                        notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                    }
+                    else
+                    {
+                        string title = $"Уведомление! {tags}";
+                        string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}\nТакже не забудьте про подзадачи!";
+                        notificationManager.CancelNotification(ID);
+                        notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
                     }
                 }
             }
-
-            bool newIsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            if (_isOverdue != newIsOverdue)
-            {
-                _isOverdue = newIsOverdue;
-                OnPropertyChanged(nameof(IsOverdue));
-                if (_isOverdue)
-                {
-                    MessagingCenter.Send<object>(this, "UpdateOverdue");
-                }
-            }
+            _isOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
         }
-
         public void AddChild(AssignmentModel assignment)
         {
             HasChild = true;
-            if (Childs.Count < 10 && !Childs.Any(t => t.ID == assignment.ID))
+            if (Childs.Count<10 && !Childs.Any(t=> t.ID == assignment.ID))
             {
                 Childs.Add(assignment);
                 OnPropertyChanged(nameof(Childs));
                 OnPropertyChanged(nameof(ChildsString));
             }
+            
         }
-
+        
         public void ChangeIsCompleted()
         {
             IsCompleted = !IsCompleted;
+            
             OnPropertyChanged(nameof(IsCompleted));
-            if (IsCompleted)
+            if (IsCompleted == true)
             {
                 MessagingCenter.Send<object>(this, "UpdateDone");
             }
 
-            if (IsCompleted && IsRepeatable && IsDeleted == false)
+            if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
             {
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(RepeatitionReturnTime));
             }
-
-            if (IsCompleted && HasNotification)
+            if (IsCompleted==true && HasNotification == true)
             {
                 notificationManager.CancelNotification(ID);
             }
-            else if (!IsCompleted && HasNotification && NotificationTime <= ExecutionDate && NotificationTime >= DateTime.Now)
+            else if (IsCompleted==false && HasNotification==true && NotificationTime<= ExecutionDate && NotificationTime >= DateTime.Now)
             {
-                SendNotification();
+                string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
+                if (HasChild)
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
+                    notificationManager.CancelNotification(ID);
+                    notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                }
+                else
+                {
+                    string title = $"Уведомление! {tags}";
+                    string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}\nТакже не забудьте про подзадачи!";
+                    notificationManager.CancelNotification(ID);
+                    notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+                }
             }
-        }
 
+        }
         public void RemoveChild(AssignmentModel assignment)
         {
             var existingChild = Childs.FirstOrDefault(t => t.ID == assignment.ID);
@@ -243,14 +253,13 @@ namespace App1.Models
             if (Childs.Count == 0)
                 HasChild = false;
         }
-
         public void AddTag(TagModel tag)
         {
             if (Tags.Count < 5 && !Tags.Any(t => t.ID == tag.ID))
             {
                 Tags.Add(tag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString));
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 
@@ -261,7 +270,7 @@ namespace App1.Models
             {
                 Tags.Remove(existingTag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString));
+                OnPropertyChanged(nameof(TagsString)); 
             }
         }
 
@@ -279,7 +288,6 @@ namespace App1.Models
             }
             Tags = tags;
         }
-
         public async Task LoadChildsAsync()
         {
             var childIds = ChildsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
@@ -295,18 +303,6 @@ namespace App1.Models
             Childs = childs;
         }
 
-        private void SendNotification()
-        {
-            string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
-            string title = $"Уведомление! {tags}";
-            string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
-            if (HasChild)
-            {
-                message += "\nТакже не забудьте про подзадачи!";
-            }
-            notificationManager.CancelNotification(ID);
-            notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -315,4 +311,5 @@ namespace App1.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+    
 }
