@@ -37,7 +37,8 @@ namespace App1.Droid
             CreateNotificationFromIntent(Intent);
             ScheduleJob();
             RequestPermissions();
-            SetDailyAlarm();
+            /*SetDailyAlarm*/
+            SetFrequentAlarm();
 
         }
         void RequestPermissions()
@@ -93,7 +94,19 @@ namespace App1.Droid
                 }
             }
         }
+        private void SetFrequentAlarm()
+        {
+            var alarmIntent = new Intent(this, typeof(CheckOverdueReceiver));
+            var pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
+            var alarmManager = (AlarmManager)GetSystemService(AlarmService);
+
+            // Установите время срабатывания через 5 минут
+            long triggerAtMillis = SystemClock.ElapsedRealtime() + 2 * 60 * 1000; // 5 минут в миллисекундах
+            long intervalMillis = 2 * 60 * 1000; // Интервал в 5 минут
+
+            alarmManager.SetRepeating(AlarmType.ElapsedRealtimeWakeup, triggerAtMillis, intervalMillis, pendingIntent);
+        }
         private void SetDailyAlarm()
         {
             var alarmIntent = new Intent(this, typeof(CheckOverdueReceiver));
