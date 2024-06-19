@@ -31,6 +31,7 @@ namespace App1.ViewModels
                 {
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
+                    SelectedTime = SelectedDate.TimeOfDay;
                 }
             }
         }
@@ -59,8 +60,9 @@ namespace App1.ViewModels
             Assignment = new AssignmentModel();
             OnBackPressedCommand = new Command(OnBackPressed);
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
-            SelectedDate = Assignment.ExecutionDate;
+           
             SelectedTime = DateTime.Now.AddHours(1).TimeOfDay;
+            SelectedDate = SelectedDate.Date + SelectedTime;
         }
 
         private async void ExecuteNotification1Popup()
