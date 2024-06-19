@@ -127,10 +127,7 @@ namespace App1.Models
                 {
                     _isOverdue = value;
                     OnPropertyChanged(nameof(IsOverdue));
-                    if (IsOverdue == true)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
+                    
                 }
             }
         }
@@ -189,7 +186,12 @@ namespace App1.Models
                 }
             }
             IsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
+            if (IsOverdue == true)
+            {
+                MessagingCenter.Send<object>(this, "UpdateOverdue");
+            }
             OnPropertyChanged(nameof(IsOverdue));
+
         }
         public void AddChild(AssignmentModel assignment)
         {
@@ -206,11 +208,12 @@ namespace App1.Models
         public void ChangeIsCompleted()
         {
             IsCompleted = !IsCompleted;
-            OnPropertyChanged(nameof(IsCompleted));
             if (IsCompleted == true)
             {
                 MessagingCenter.Send<object>(this, "UpdateDone");
             }
+            OnPropertyChanged(nameof(IsCompleted));
+            
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
             {
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
