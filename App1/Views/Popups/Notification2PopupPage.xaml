@@ -28,7 +28,7 @@
                     <Frame x:Name="CustomEntryRepeat" BackgroundColor="#353535" CornerRadius="12" Padding="5">
                         <StackLayout>
                             <Entry Placeholder="Введите дни" Keyboard="Numeric" Text="{Binding CustomInterval}" PlaceholderColor="Gray" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand"/>
-                            <Button Text="Установить" Clicked="Button_Clicked_1" Command="{Binding ConfirmCommand}" TextColor="AliceBlue" BackgroundColor="Gray" CornerRadius="50" HeightRequest="20" Padding="-10" TextTransform="None" HorizontalOptions="CenterAndExpand"/>
+                            <Button Text="Установить" Command="{Binding ConfirmCommand}" TextColor="AliceBlue" BackgroundColor="Gray" CornerRadius="50" HeightRequest="20" Padding="-10" TextTransform="None" HorizontalOptions="CenterAndExpand"/>
                             <!--<Label x:Name="nullDateAlert" Text="дата уведомления не может быть больше дедлайна задачи" TextColor="red" IsVisible="false"/>-->
                         </StackLayout>
                     </Frame>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace App1.Views.Popups
     {
         public DateSelectionPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
             BindingContext = new DateSelectionViewModel(Navigation);
 
             ToolbarItem completeButton = new ToolbarItem
@@ -25,6 +26,7 @@ namespace App1.Views.Popups
             };
             ToolbarItems.Add(completeButton);
         }
+
         public DateSelectionPage(AssignmentModel assign, bool _isFromPopup)
         {
             InitializeComponent();
