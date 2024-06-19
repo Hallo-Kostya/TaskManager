@@ -174,7 +174,7 @@ namespace App1.ViewModels
             IsBusy = true;
             try
             {
-                var a = await App.AssignmentsDB.GetItemsAsync();
+                var a = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
                 foreach (var assignment in a)
                 {
                     assignment.CheckIfOverdue();
