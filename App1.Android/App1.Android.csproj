@@ -394,7 +394,7 @@
     <AndroidResource Include="Resources\drawable\expired.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\drawable\NickEntry.jpg" />
+    <AndroidResource Include="Resources\drawable\NickEntry.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
