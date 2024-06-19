@@ -51,10 +51,12 @@ namespace App1.Views.StartingPages
             {
                 if (((NickEntryPageViewModel)BindingContext).IsNicknameNotEmpty)
                 {
+                    SaveButton.IsVisible = true;
                     await SaveButton.FadeTo(1, 1000); // Плавное появление кнопки
                 }
                 else
                 {
+                    SaveButton.IsVisible = false;
                     await SaveButton.FadeTo(0, 1000); // Плавное исчезновение кнопки
                 }
             }
