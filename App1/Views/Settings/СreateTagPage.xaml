@@ -48,12 +48,18 @@
                         <StackLayout Orientation="Horizontal">
                             <Button BackgroundColor="#FF6F92" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#FF6F92">
                                 <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding SetColorCommand}" Value="#FF6F92">
+                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedTag.TagColor}" Value="#FF6F92">
                                         <Setter Property="Text" Value="✔" />
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D"/>
+                            <Button BackgroundColor="#E01A6D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E01A6D">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedTag.TagColor}" Value="#E01A6D">
+                                        <Setter Property="Text" Value="✔" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                             <Button BackgroundColor="#D71D1D" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#D71D1D"/>
                             <Button BackgroundColor="#E18026" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E18026"/>
                             <Button BackgroundColor="#99BD33" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#99BD33"/>
