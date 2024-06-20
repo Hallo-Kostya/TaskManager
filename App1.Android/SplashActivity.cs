@@ -16,7 +16,7 @@ namespace App1.Droid
             base.OnCreate(savedInstanceState);
 
             // Retrieve username from preferences
-            string userName = Preferences.Get("UserName", "User");
+            string userName = Preferences.Get("Username", "User");
 
             // Set the splash screen content
             SetContentView(Resource.Layout.SplashScreen);
