@@ -67,6 +67,7 @@ namespace App1.Views
                 tags.IsVisible = false;
                 folders.IsVisible = false;
                 TagsList.IsVisible = false;
+                expand.IsVisible = false;
             }
            
             notificationCenter = new NotificationCenter();

@@ -57,8 +57,8 @@
                 <ImageButton Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand" Padding="-20"/>
             </StackLayout>
 
-            <StackLayout>
-                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="20" />
+            <StackLayout Margin="0,10,0,0">
+                <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="20" HeightRequest="50" />
                 <Label x:Name="LongNameAlert" Text="Имя задачи должно быть не длиннее 100 символов" TextColor="Red" IsVisible="false"/>
                 <Label x:Name="LongDescAlert" Text="Описание задачи должно быть не длиннее 500 символов" TextColor="Red" IsVisible="false"/>
                 <Editor Placeholder="Добавьте дополнительное описание Вашей задачи" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="100"/>
