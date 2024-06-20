@@ -140,7 +140,10 @@ namespace App1.Models
                 {
                     _isOverdue = value;
                     OnPropertyChanged(nameof(IsOverdue));
-                    
+                    if (_isOverdue == true)
+                    {
+                        _hasNotification = false;
+                    }
                 }
             }
         }
@@ -185,7 +188,7 @@ namespace App1.Models
                 }
             }
             bool newIsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            if (IsOverdue != newIsOverdue)
+            if (IsOverdue==false && newIsOverdue==true)
             {
                 _isOverdue = newIsOverdue;
                 

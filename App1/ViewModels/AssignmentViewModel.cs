@@ -158,10 +158,13 @@ namespace App1.ViewModels
                 SelectedFolder = sender;
                 await ExecuteLoadAssignmentCommand();
             });
-            Task.Run(async ()=> await ExecuteLoadAssignmentCommand());
             
         }
 
+        public async void OnAppearing()
+        {
+            await ExecuteLoadAssignmentCommand();
+        }
 
         async Task ExecuteLoadAssignmentCommand()
         {

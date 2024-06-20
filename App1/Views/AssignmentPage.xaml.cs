@@ -84,6 +84,11 @@ namespace App1.Views
             
 
         }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await assignmentViewModel.OnAppearing();
+        }
         public void Update(ListModel list)
         {
             if (list != null)
