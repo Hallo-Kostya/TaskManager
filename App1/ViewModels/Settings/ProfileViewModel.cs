@@ -12,6 +12,7 @@ namespace App1.ViewModels.Settings
     public class ProfileViewModel : BaseAssignmentViewModel
     {
         public Command SetImageCommand { get; }
+        public Command LogoutCommand { get; }
         public Command SaveCommand { get; }
         public Command OnCancelCommand { get; }
         public INavigation Navigation { get; set; }
@@ -44,6 +45,7 @@ namespace App1.ViewModels.Settings
 
         public ProfileViewModel(INavigation navigation)
         {
+            LogoutCommand = new Command(Logout);
             OnCancelCommand = new Command(OnCancel);
             SaveCommand = new Command(Save);
             Navigation = navigation;
@@ -66,6 +68,14 @@ namespace App1.ViewModels.Settings
                 UpdateUserCounts();
             });
         }
+
+        private void Logout()
+        {
+            Preferences.Set("IsFirstLaunch", true);
+            var app = (App)Application.Current;
+            app.SetupMainPage();
+        }
+
         private async void Save() {
             await App.AssignmentsDB.AddUserAsync(User);
         }

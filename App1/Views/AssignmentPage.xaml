@@ -52,14 +52,14 @@
             <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="32" Margin="0, -20, 0, 0" HeightRequest="110">
                 <StackLayout VerticalOptions="End">
                     <StackLayout x:Name="Test" Orientation="Horizontal">
-                        <ImageButton Source="list_collapse.png" Clicked="OnMenuButtonClicked" BackgroundColor="Color.Transparent"/>
+                        <ImageButton Source="list_collapse.png" Clicked="OnMenuButtonClicked" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
                         <!--<Label x:Name="labelMonth" Style="{StaticResource LabelStyle}" Margin="5,0,0,0" Padding="0,5,0,0"/>-->
                         <!--<ImageButton BackgroundColor="Black" x:Name="Filter" Source="filter" Command="{Binding FilterByPriorityCommand}" HeightRequest="30"/>-->
-                        <Label Text="{Binding SelectedFolder.Name}" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,10,0,0" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding SelectedFolder.Name}" Style="{StaticResource LabelStyle}" FontSize="20" Margin="0,10,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                         <!--<Picker x:Name="FilterTag" Title="{Binding SelectedTag}" TextColor="AliceBlue" SelectedItem="{Binding SelectedTag}" ItemsSource="{Binding TagList}" BackgroundColor="White"/>
                         <Button Text="filterByTag" Command="{Binding FilterByTagCommand}" BackgroundColor="White" WidthRequest="30" HeightRequest="20"/>-->
                         <!--<ImageButton Source="search.png" BackgroundColor="Black" Command="{Binding SearchCommand}" HeightRequest="30"/>-->
-                        <ImageButton Source="ellipsis.png" Command="{Binding MeetBallsPopupCommand}" BackgroundColor="Color.Transparent" />
+                        <ImageButton Source="ellipsis.png" Command="{Binding MeetBallsPopupCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                     <Frame BackgroundColor="{Binding SelectedTag.TagColor, Converter={StaticResource StringToColorConverter}}" Padding="5" CornerRadius="50" HeightRequest="10" HorizontalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">

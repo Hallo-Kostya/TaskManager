@@ -19,9 +19,6 @@
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
                     <CollectionView HorizontalScrollBarVisibility="Default" ItemsSource="{Binding TagList}"  HeightRequest="100" HorizontalOptions="StartAndExpand" VerticalScrollBarVisibility="Always">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" />
-                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout x:DataType="model:TagModel" Margin="5">
@@ -29,7 +26,7 @@
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TagPopupViewModel}}, Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                                    <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
 
                                         <StackLayout Orientation="Horizontal" HeightRequest="5">
                                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>

@@ -27,14 +27,13 @@
             <StackLayout>
                 <Grid HeightRequest="100">
                     <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelCommand}"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding FoldersPopupCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Label Text="{Binding Assignment.FolderName}" FontSize="20" TextColor="AliceBlue" VerticalOptions="CenterAndExpand"/>
                         <Image Source="arrow_left_right" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
-                    <Image Source="arrow_left_right" HorizontalOptions="End"/>
                     <ImageButton Source="trash" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand" Command="{Binding DeleteCommand}"/>
                 </Grid>
             </StackLayout>
@@ -50,8 +49,11 @@
                         </DataTrigger>
                     </ImageButton.Triggers>
                 </ImageButton>
-                <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#EE82FF" FontAttributes="Bold" Margin="0,0,0,0" FontSize="16" TextTransform="None" HorizontalOptions="CenterAndExpand"
-                        BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}" />
+                <Label Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#EE82FF" FontAttributes="Bold" FontSize="16" HorizontalOptions="CenterAndExpand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NotificationPopupCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <ImageButton Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" HorizontalOptions="EndAndExpand" Padding="-20"/>
             </StackLayout>
 

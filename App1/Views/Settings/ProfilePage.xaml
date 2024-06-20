@@ -56,7 +56,7 @@
             </StackLayout>
             <Frame BackgroundColor="#80444444" CornerRadius="20" Padding="15" VerticalOptions="End" Margin="15,20">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding}" />
+                    <TapGestureRecognizer Command="{Binding LogoutCommand}" />
                 </Frame.GestureRecognizers>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Выйти из аккаунта" TextColor="#fd0101" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
