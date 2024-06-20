@@ -79,9 +79,9 @@
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19">
+                            <Button BackgroundColor="#964b00 " Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#964b00">
                                 <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding Tag.TagColor}" Value="#E0CC19">
+                                    <DataTrigger TargetType="Button" Binding="{Binding Tag.TagColor}" Value="#964b00">
                                         <Setter Property="Text" Value="✔" />
                                     </DataTrigger>
                                 </Button.Triggers>

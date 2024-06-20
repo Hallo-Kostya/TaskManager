@@ -47,7 +47,6 @@
             <Frame BackgroundColor="#444444" Margin="0,20,0,0" CornerRadius="8" Padding="15,15" >
                 <StackLayout>
                     <Label Text="Выберите цвет вашей папки:" TextColor="AliceBlue"/>
-                    <Label Text="{Binding ColorForUI}" TextColor="AliceBlue"/>
                     <StackLayout Margin="0,10">
                         <StackLayout Orientation="Horizontal">
                             <Button BackgroundColor="#FF6F92"  Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#FF6F92">
@@ -85,9 +84,9 @@
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Button BackgroundColor="#E0CC19" Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#E0CC19">
+                            <Button BackgroundColor="#964b00 " Style="{StaticResource ColorStyle}" CornerRadius="50" Command="{Binding SetColorCommand}" CommandParameter="#964b00">
                                 <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#E0CC19">
+                                    <DataTrigger TargetType="Button" Binding="{Binding ColorForUI}" Value="#964b00">
                                         <Setter Property="Text" Value="✔" />
                                     </DataTrigger>
                                 </Button.Triggers>
