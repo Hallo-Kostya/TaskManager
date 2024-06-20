@@ -161,7 +161,7 @@ namespace App1.ViewModels
             
         }
 
-        public async void OnAppearing()
+        public async Task OnAppearing()
         {
             await ExecuteLoadAssignmentCommand();
         }

@@ -84,7 +84,7 @@ namespace App1.Views
             
 
         }
-        protected async override void OnAppearing()
+        protected override async void  OnAppearing()
         {
             base.OnAppearing();
             await assignmentViewModel.OnAppearing();
