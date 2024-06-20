@@ -23,8 +23,17 @@ namespace App1.Views
         {
             InitializeComponent();
             BindingContext = new AssignmentAddingViewModel(Navigation);
-            
+            EntryName.Focus();
+
             notificationCenter = new NotificationCenter();
+        }
+
+        private void EntryName_Unfocused(object sender, FocusEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                EntryName.Focus();
+            });
         }
         public AssignmentAddingPage(ListModel folder)
         {

@@ -96,6 +96,14 @@
                     <ImageButton  Source="arrow.png" Command="{Binding LogoutCommand}" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent"/>
                 </StackLayout>
             </Frame>
+            <!--<Frame BackgroundColor="#80444444" CornerRadius="20" Padding="15" VerticalOptions="End" Margin="15,20">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Выйти из аккаунта" TextColor="#fd0101" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>-->
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -27,7 +27,7 @@
         <StackLayout VerticalOptions="EndAndExpand">
             <Frame x:Name="AddingTask" BackgroundColor="#161616" CornerRadius="16" Padding="10">
                 <StackLayout>
-                    <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16" Margin="0, -10, 0, 0"/>
+                    <Entry Placeholder="Расскажите, какие у Вас планы?" x:Name="EntryName" Unfocused="EntryName_Unfocused" Text="{Binding Assignment.Name, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" FontSize="16" Margin="0, -10, 0, 0"/>
                     <Label x:Name="TooLongNameAlert" Text="Имя задачи должно быть не длиннее 100 символов" TextColor="Red" IsVisible="false"/>
                     <Editor Placeholder="Добавьте дополнительное описание вашей задаче" Text="{Binding Assignment.Description, Mode=TwoWay}" Style="{StaticResource NoUnderlineEntry}" HeightRequest="70" Margin="0, -20, 0, 0"/>
                     <Label x:Name="TooLongDescAlert" Text="Описание задачи должно быть не длиннее 500 символов" TextColor="Red" IsVisible="false"/>
@@ -51,8 +51,12 @@
                     </CollectionView>
                     <StackLayout Orientation="Horizontal" Margin="0,-20,0,0" VerticalOptions="Start" x:Name="NotificationsStack">
                         <ImageButton x:Name="Date" Source="date.png" BackgroundColor="Color.Transparent" Command="{Binding DatePopupCommand}"/>
-                        <Button Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="-20,0,0,0" FontSize="13" TextTransform="None" BackgroundColor="Color.Transparent" Command="{Binding NotificationPopupCommand}"/>
-                        <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="-20,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
+                        <Label Text="{Binding Assignment.ExecutionDate, Converter={StaticResource DateToTextConverter}}" TextColor="#882EF9" FontAttributes="Bold" Margin="0,0,0,0" FontSize="13" VerticalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NotificationPopupCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <ImageButton x:Name="Priority" Source="{Binding SelectedPriority, Converter={StaticResource PriorityToImageConverter}}"  Margin="10,0,0,0" Padding="-20" BackgroundColor="Color.Transparent" Command="{Binding PriorityPopupCommand}" />
                         <ImageButton x:Name="tags" Source="tags.png" Margin="10,0,0,0" BackgroundColor="Color.Transparent" Command="{Binding LoadTagPopupCommand}">
                             <ImageButton.Triggers>
                                 <Trigger TargetType="ImageButton" Property="IsPressed" Value="True">
