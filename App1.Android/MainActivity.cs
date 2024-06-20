@@ -51,6 +51,18 @@ namespace App1.Droid
                 {
                     permissionsToRequest.Add(Manifest.Permission.PostNotifications);
                 }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.Camera);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.WriteExternalStorage);
+                }
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
+                {
+                    permissionsToRequest.Add(Manifest.Permission.ReadExternalStorage);
+                }
                 if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReceiveBootCompleted) != (int)Permission.Granted)
                 {
                     permissionsToRequest.Add(Manifest.Permission.ReceiveBootCompleted);

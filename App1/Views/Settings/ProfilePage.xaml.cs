@@ -1,10 +1,11 @@
-﻿using App1.ViewModels.Settings;
+﻿using App1.Models;
+using App1.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,5 +20,7 @@ namespace App1.Views.Settings
 			InitializeComponent ();
             BindingContext = viewModel= new ProfileViewModel(Navigation);
         }
+       
+        
     }
 }

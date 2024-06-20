@@ -16,6 +16,7 @@ namespace App1.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
+        public string IconPath { get; set; }
         public DateTime LastLaunchDate
         {
             get => _lastLaunchDate;

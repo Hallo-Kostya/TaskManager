@@ -27,7 +27,7 @@ namespace App1.Views.StartingPages
             
 
             await IntroductionLabel.FadeTo(1, 1000); 
-            await Task.Delay(5000); 
+            await Task.Delay(3000); 
             await NameLabel.FadeTo(1, 1000);
             await Task.Delay(1000);
             await NicknameEntry.FadeTo(1, 1000);

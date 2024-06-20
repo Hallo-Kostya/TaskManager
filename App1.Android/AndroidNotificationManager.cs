@@ -6,6 +6,7 @@ using Android.OS;
 using AndroidX.Core.App;
 using App1.Droid;
 using App1.Services.Notifications;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
@@ -42,29 +43,7 @@ namespace LocalNotifications.Droid
             }
         }
 
-        //public void SendNotification(string title, string message, DateTime? notifyTime = null)
-        //{
-        //    if (!channelInitialized)
-        //    {
-        //        CreateNotificationChannel();
-        //    }
-
-        //    if (notifyTime != null)
-        //    {
-        //        Intent intent = new Intent(AndroidApp.Context, typeof(AlarmHandler));
-        //        intent.PutExtra(TitleKey, title);
-        //        intent.PutExtra(MessageKey, message);
-
-        //        PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, pendingIntentId++, intent, PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable);
-        //        long triggerTime = GetNotifyTime(notifyTime.Value);
-        //        AlarmManager alarmManager = AndroidApp.Context.GetSystemService(Context.AlarmService) as AlarmManager;
-        //        alarmManager.Set(AlarmType.RtcWakeup, triggerTime, pendingIntent);
-        //    }
-        //    else
-        //    {
-        //        Show(title, message);
-        //    }
-        //}
+        
 
         public void ReceiveNotification(string title, string message)
         {
@@ -75,24 +54,15 @@ namespace LocalNotifications.Droid
             };
             NotificationReceived?.Invoke(null, args);
         }
-        //public void CancelNotification(string id)
-        //{
-        //    if (int.TryParse(id, out int notificationId))
-        //    {
-        //        manager.Cancel(notificationId);
-        //        var alarmIntent = new Intent(Forms.Context, typeof(AlarmHandler));
-        //        var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, notificationId, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
-        //        var alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
-        //        alarmManager.Cancel(pendingAlarmIntent);
-        //    }
-        //}
-        //public void Show(string title, string message)
+        
+        //public void Show(string title, string message, int id = -1)
         //{
         //    Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
         //    intent.PutExtra(TitleKey, title);
         //    intent.PutExtra(MessageKey, message);
+        //    int notificationId = id != -1 ? id : pendingIntentId++;
 
-        //    PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId++, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+        //    PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
         //    NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
         //        .SetContentIntent(pendingIntent)
@@ -103,31 +73,15 @@ namespace LocalNotifications.Droid
         //        .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
 
         //    Notification notification = builder.Build();
-        //    manager.Notify(messageId++, notification);
+        //    manager.Notify(notificationId, notification);
         //}
-        public void Show(string title, string message, int id = -1)
-        {
-            Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
-            intent.PutExtra(TitleKey, title);
-            intent.PutExtra(MessageKey, message);
-            int notificationId = id != -1 ? id : pendingIntentId++;
-
-            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
-                .SetContentIntent(pendingIntent)
-                .SetContentTitle(title)
-                .SetContentText(message)
-                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.alarm))
-                .SetSmallIcon(Resource.Drawable.alarm)
-                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
-
-            Notification notification = builder.Build();
-            manager.Notify(notificationId, notification);
-        }
         
         public void SendExtendedNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
         {
+            if (!Preferences.Get("AreNotificationsEnabled", true))
+            {
+                return;
+            }
             if (!channelInitialized)
             {
                 CreateNotificationChannel();
@@ -153,6 +107,10 @@ namespace LocalNotifications.Droid
 
         public void ShowExtendedNotification(string title, string message, int id = -1)
         {
+            if (!Preferences.Get("AreNotificationsEnabled", true))
+            {
+                return;
+            }
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
@@ -160,12 +118,16 @@ namespace LocalNotifications.Droid
 
             PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
+            string soundFileName = Preferences.Get("NotificationSound", "sound1.mp3");
+            Android.Net.Uri soundUri = Android.Net.Uri.Parse($"android.resource://{AndroidApp.Context.PackageName}/raw/{System.IO.Path.GetFileNameWithoutExtension(soundFileName)}");
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
                 .SetContentIntent(pendingIntent)
                 .SetContentTitle(title)
                 .SetContentText(message)
-                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.alarm))
-                .SetSmallIcon(Resource.Drawable.alarm)
+                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, App1.Droid.Resource.Drawable.alarm))
+                .SetSmallIcon(App1.Droid.Resource.Drawable.alarm)
+                .SetSound(soundUri)
                 .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
                 .SetStyle(new NotificationCompat.BigTextStyle().BigText(message));
 

@@ -21,8 +21,8 @@ namespace App1.Views.Popups
 
             ToolbarItem completeButton = new ToolbarItem
             {
-                Text = "Применить", // Текст кнопки
-                Command = new Command(OnCustomToolbarItemPressed), // Команда, которая будет выполняться при нажатии // Параметр команды (в данном случае, передаем саму страницу)
+                Text = "Применить", 
+                Command = new Command(OnCustomToolbarItemPressed),
             };
             ToolbarItems.Add(completeButton);
         }
@@ -39,8 +39,8 @@ namespace App1.Views.Popups
 
             ToolbarItem completeButton = new ToolbarItem
             {
-                Text = "Применить", // Текст кнопки
-                Command = new Command(OnCustomToolbarItemPressed), // Команда, которая будет выполняться при нажатии // Параметр команды (в данном случае, передаем саму страницу)
+                Text = "Применить", 
+                Command = new Command(OnCustomToolbarItemPressed),
             };
             ToolbarItems.Add(completeButton);
         }

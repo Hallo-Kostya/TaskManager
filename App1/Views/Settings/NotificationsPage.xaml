@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:settings="clr-namespace:App1.ViewModels.Settings" x:DataType="settings:NotificationsViewModel"
              x:Class="App1.Views.Settings.NotificationsPage"
              BackgroundColor="#292929"
              Shell.NavBarIsVisible="False"
@@ -17,8 +17,8 @@
                 <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="15">
                     <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="0">
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
-                            <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            <Label Text="Уведомления" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <ImageButton Command="{Binding IsNotificationsCommand}" Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </Frame>
                     <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
@@ -34,43 +34,47 @@
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="3">
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Загадка" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="zagadka.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Бодрость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="bodrost.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Спокойствие" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="spokoistvie.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Рассвет" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rassvet.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Мелодия" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="melody.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Резкость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rezkost.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Колокольчик" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="kolokol.mp3"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Праздник" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="christmas.wav"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Перекус Александра" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="alexander.wav"/>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Утро Константина" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="konstantin.wav"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
+                                <Label Text="Стандартный" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand"/>
+                                <ImageButton Source="done.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="sound1.mp3"/>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>

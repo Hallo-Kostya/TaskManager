@@ -23,7 +23,7 @@ namespace App1.Droid
                 string message = intent.GetStringExtra(AndroidNotificationManager.MessageKey);
 
                 AndroidNotificationManager manager = AndroidNotificationManager.Instance ?? new AndroidNotificationManager();
-                manager.Show(title, message);
+                manager.ShowExtendedNotification(title, message);
             }
         }
       

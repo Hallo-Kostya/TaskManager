@@ -396,6 +396,19 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\NickEntry.png" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\raw\alexander.wav" />
+    <Content Include="Resources\raw\konstantin.wav" />
+    <Content Include="Resources\raw\bodrost.mp3" />
+    <Content Include="Resources\raw\zagadka.mp3" />
+    <Content Include="Resources\raw\kolokol.mp3" />
+    <Content Include="Resources\raw\melody.mp3" />
+    <Content Include="Resources\raw\rassvet.mp3" />
+    <Content Include="Resources\raw\rezkost.mp3" />
+    <Content Include="Resources\raw\christmas.wav" />
+    <Content Include="Resources\raw\spokoistvie.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
