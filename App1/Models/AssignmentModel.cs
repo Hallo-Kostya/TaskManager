@@ -197,7 +197,7 @@ namespace App1.Models
                 OnPropertyChanged(nameof(IsOverdue));
 
                 // Only send message if the task was not overdue previously but is now overdue
-                if (!wasOverdue && _isOverdue)
+                if (!wasOverdue && _isOverdue&&!IsCompleted)
                 {
                     MessagingCenter.Send<object>(this, "UpdateOverdue");
                 }
