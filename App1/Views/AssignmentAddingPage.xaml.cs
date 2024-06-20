@@ -77,14 +77,7 @@ namespace App1.Views
         private void ButtonSave_Clicked(object sender, EventArgs e)
         {
             var assign = ((AssignmentAddingViewModel)BindingContext).Assignment;
-            if (assign.Name!=null && assign.Name.Length>=101)
-            {
-                TooLongNameAlert.IsVisible = true;
-            }
-            if (assign.Description!=null && assign.Description.Length >=501)
-            {
-                TooLongDescAlert.IsVisible = true;
-            }
+            
             if (assign.HasNotification)
             {
                 notificationCenter.CancelNotification(assign);
