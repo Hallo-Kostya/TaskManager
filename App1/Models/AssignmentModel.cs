@@ -191,8 +191,9 @@ namespace App1.Models
             if (IsOverdue==false && newIsOverdue==true)
             {
                 _isOverdue = newIsOverdue;
+                OnPropertyChanged(nameof(IsOverdue));
                 
-                if (_isOverdue && IsCompleted==false&& IsDeleted==false)
+                if (_isOverdue==true && IsCompleted==false&& IsDeleted==false)
                 {
                     MessagingCenter.Send<object>(this, "UpdateOverdue");
                 }
