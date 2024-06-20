@@ -22,6 +22,12 @@
 		<item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
 	</style>
 
+    <style name="MainTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 	<style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">#D778E6</item>
 		<item name="android:datePickerStyle">@style/MyDatePickerStyle</item>

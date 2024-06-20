@@ -89,6 +89,7 @@
     <Compile Include="Services\ArchiveCleanupSchedulerImplementation.cs" />
     <Compile Include="Services\BootReceiver.cs" />
     <Compile Include="Services\CheckOverdueReceiver.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -398,6 +399,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+    <AndroidResource Include="Resources\layout\SplashScreen.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <Content Include="Resources\raw\alexander.wav" />
     <Content Include="Resources\raw\konstantin.wav" />
     <Content Include="Resources\raw\bodrost.mp3" />

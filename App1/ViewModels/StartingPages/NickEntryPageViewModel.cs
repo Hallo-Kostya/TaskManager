@@ -50,6 +50,7 @@ namespace App1.ViewModels.StartingPages
                 await App.AssignmentsDB.AddUserAsync(User);
                 Preferences.Set("IsFirstLaunch", false);
                 Preferences.Set("CurrentUserID", User.ID);
+                Preferences.Set("Username", User.Name);
                 Application.Current.MainPage = new AppShell();
             }
         }

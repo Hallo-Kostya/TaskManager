@@ -176,7 +176,7 @@ namespace App1.Models
             {
                 _isOverdue = newIsOverdue;
                 
-                if (_isOverdue)
+                if (_isOverdue && IsCompleted==false&& IsDeleted==false)
                 {
                     MessagingCenter.Send<object>(this, "UpdateOverdue");
                 }
