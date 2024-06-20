@@ -136,11 +136,41 @@ namespace LocalNotifications.Droid
         }
         public void CancelNotification(int id)
         {
-            manager.Cancel(id);
-            var alarmIntent = new Intent(Forms.Context, typeof(AlarmHandler));
-            var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, id, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
-            var alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
-            alarmManager.Cancel(pendingAlarmIntent);
+            if (manager == null)
+            {
+                manager = (NotificationManager)AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);
+            }
+
+            if (manager != null)
+            {
+                manager.Cancel(id);
+                Console.WriteLine($"Notification with ID {id} cancelled.");
+            }
+            else
+            {
+                Console.WriteLine("NotificationManager is null, cannot cancel notification.");
+            }
+
+            try
+            {
+                var alarmIntent = new Intent(Forms.Context, typeof(AlarmHandler));
+                var pendingAlarmIntent = PendingIntent.GetBroadcast(Forms.Context, id, alarmIntent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+                var alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
+
+                if (alarmManager != null)
+                {
+                    alarmManager.Cancel(pendingAlarmIntent);
+                    Console.WriteLine($"Alarm for notification with ID {id} cancelled.");
+                }
+                else
+                {
+                    Console.WriteLine("AlarmManager is null, cannot cancel alarm.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception while cancelling alarm: {ex.Message}");
+            }
         }
 
         void CreateNotificationChannel()
