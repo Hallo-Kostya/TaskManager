@@ -16,7 +16,7 @@ namespace App1.Models
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
-        private DateTime _executionDate = DateTime.Now;
+        private DateTime _executionDate = DateTime.Now.AddDays(1);
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
@@ -99,7 +99,20 @@ namespace App1.Models
                 OnPropertyChanged(nameof(Tags));
             }
         }
-        public bool HasNotification { get; set; }
+        private bool _hasNotification { get; set; }
+        public bool HasNotification
+        {
+            get => _hasNotification;
+            set
+            {
+                if (_hasNotification != value)
+                {
+                    _hasNotification = value;
+                    OnPropertyChanged(nameof(HasNotification));
+
+                }
+            }
+        }
         public bool IsRepeatable { get; set; }
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }

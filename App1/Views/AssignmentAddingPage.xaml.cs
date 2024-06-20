@@ -80,7 +80,6 @@ namespace App1.Views
             
             if (assign.HasNotification)
             {
-                notificationCenter.CancelNotification(assign);
                 notificationCenter.SendExtendedNotification(assign);
             }
         }

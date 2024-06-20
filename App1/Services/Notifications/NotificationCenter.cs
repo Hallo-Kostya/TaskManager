@@ -26,7 +26,7 @@ namespace App1.Services.Notifications
         public void SendExtendedNotification(AssignmentModel assign)
         {
             string tags = string.Join(", ", assign.Tags.Select(tag => $"#{tag.Name}"));
-            if (assign.HasChild)
+            if (!assign.HasChild)
             {
                 string title = $"Уведомление! {tags}";
                 string message = $"Ваш дедлайн по задаче:{assign.Name} приближается!\nОписание:{assign.Description}\nНе забудьте сделать её до:{assign.ExecutionDate}";
