@@ -57,15 +57,15 @@ namespace App1.ViewModels.Settings
             // Подписываемся на сообщения об обновлении
             MessagingCenter.Subscribe<object>(this, "UpdateOverdue", (sender) =>
             {
-                OverDueCount++;
+                OverDueCount=1;
                 Console.WriteLine("ВОФВФОВФОФОВФООВОФВОФФОВОВФ");
-                UpdateUserCounts();
+                UpdateUserCounts("Overdue");
             });
             MessagingCenter.Subscribe<object>(this, "UpdateDone", (sender) =>
             {
-                DoneCount++;
+                DoneCount=1;
                 Console.WriteLine("ЫВФВФВФФЫВФВФВ");
-                UpdateUserCounts();
+                UpdateUserCounts("Done");
             });
         }
 
@@ -195,14 +195,20 @@ namespace App1.ViewModels.Settings
                 OverDueCount = 0;
             }
         }
-        private async void UpdateUserCounts()
+        private async void UpdateUserCounts(string kind)
         {
             if (User != null)
             {
-                User.AllOverDue += OverDueCount;
-                User.OverDueForWeek += OverDueCount;
-                User.DoneForWeek += DoneCount;
-                User.DoneAll += DoneCount;
+                if (kind == "Done")
+                {
+                    User.DoneForWeek += DoneCount;
+                    User.DoneAll += DoneCount;
+                }
+                else if (kind == "Overdue")
+                {
+                    User.AllOverDue += OverDueCount;
+                    User.OverDueForWeek += OverDueCount;
+                }
                 await App.AssignmentsDB.AddUserAsync(User);
                 DoneCount = 0;
                 OverDueCount = 0;
