@@ -48,11 +48,7 @@ namespace App1.Views
             //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
             //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
             notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            
 
         }
         public AssignmentPage(ListModel list)
@@ -85,11 +81,7 @@ namespace App1.Views
             //SetDayButtonBackground(Day6, startOfWeek.AddDays(5), today);
             //SetDayButtonBackground(Day7, startOfWeek.AddDays(6), today);
             notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.NotificationReceived += (sender, eventArgs) =>
-            {
-                var evtData = (NotificationEventArgs)eventArgs;
-                ShowNotification(evtData.Title, evtData.Message);
-            };
+            
 
         }
         public void Update(ListModel list)
@@ -114,11 +106,7 @@ namespace App1.Views
                 ((AssignmentViewModel)BindingContext).SelectedFolder = folder;
             }
         }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            assignmentViewModel.OnAppearing();
-        }
+ 
         //private void Button_Clicked(object sender, EventArgs e)
         //{
         //    Button clickedButton = (Button)sender;
@@ -181,17 +169,6 @@ namespace App1.Views
 
         }
         
-        void ShowNotification(string title, string message)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                var msg = new Label()
-                {
-                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                };
-                Test.Children.Add(msg);
-            });
-        }
 
         private void OnMenuButtonClicked(object sender, EventArgs e)
         {

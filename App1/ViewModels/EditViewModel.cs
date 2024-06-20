@@ -94,7 +94,6 @@ namespace App1.ViewModels
             NotificationPopupCommand = new Command(ExecuteNotification);
             Navigation = navigation;
             this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
-            Assignment = new AssignmentModel();
             ChangeIsCompletedCommand = new Command<AssignmentModel>(ChangeIsCompleted);
             Task.Run(async () => await UpdateChilds());
             Task.Run(async () => await UpdateTags());

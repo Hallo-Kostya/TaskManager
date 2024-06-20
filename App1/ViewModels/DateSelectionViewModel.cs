@@ -62,7 +62,7 @@ namespace App1.ViewModels
             OnBackPressedCommand = new Command(OnBackPressed);
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
             SelectedDate = Assignment.ExecutionDate;
-            SelectedTime = Assignment.ExecutionDate.AddHours(1).TimeOfDay;
+            SelectedTime = Assignment.ExecutionDate.TimeOfDay;
         }
 
         private async void ExecuteNotification1Popup()

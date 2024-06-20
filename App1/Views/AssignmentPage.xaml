@@ -117,200 +117,195 @@
 
             <!--ЗАДАЧИ-->
             <StackLayout Grid.Row="1">
-                <RefreshView x:DataType="local:AssignmentViewModel" 
-                             Command="{Binding LoadAssignmentCommand}"
-                             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-                    <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
-                        
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
-                                    <SwipeView BackgroundColor="Color.transparent">
-                                        <SwipeView.GestureRecognizers>
-                                            <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
-                                        </SwipeView.GestureRecognizers>
-                                        <SwipeView.RightItems>
-                                            <SwipeItems>
-                                                <SwipeItem />
-                                            </SwipeItems>
-                                        </SwipeView.RightItems>
+                <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:AssignmentModel" Padding="10, 10, 10, 0">
+                                <SwipeView BackgroundColor="Color.transparent">
+                                    <SwipeView.GestureRecognizers>
+                                        <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
+                                    </SwipeView.GestureRecognizers>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
 
-                                        <SwipeView.Content>
-                                            <Frame CornerRadius="25" BackgroundColor="#000000" Padding="15,10,10,10">
-                                                <Frame.Triggers>
-                                                    <DataTrigger TargetType="Frame" Binding="{Binding IsOverdue}" Value="True">
-                                                        <Setter Property="BackgroundColor" Value="#90000000"/>
-                                                    </DataTrigger>
-                                                </Frame.Triggers>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
-                                                        <ImageButton.Triggers>
-                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
-                                                                <Setter Property="Source" Value="done.png" />
+                                    <SwipeView.Content>
+                                        <Frame CornerRadius="25" BackgroundColor="#000000" Padding="15,10,10,10">
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding IsOverdue}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#90000000"/>
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <StackLayout Orientation="Horizontal">
+                                                <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
+                                                    <ImageButton.Triggers>
+                                                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
+                                                            <Setter Property="Source" Value="done.png" />
+                                                        </DataTrigger>
+
+                                                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsOverdue}" Value="True">
+                                                            <Setter Property="Source" Value="expired.png" />
+                                                        </DataTrigger>
+                                                    </ImageButton.Triggers>
+                                                </ImageButton>
+                                                <StackLayout VerticalOptions="Center" Padding="5, 3, 0, 3">
+                                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding IsOverdue}" Value="True">
+                                                                <Setter Property="TextColor" Value="#ADADAD"/>
                                                             </DataTrigger>
-                                                            
-                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding IsOverdue}" Value="True">
-                                                                <Setter Property="Source" Value="expired.png" />
-                                                            </DataTrigger>
-                                                        </ImageButton.Triggers>
-                                                    </ImageButton>
-                                                    <StackLayout VerticalOptions="Center" Padding="5, 3, 0, 3">
-                                                        <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16">
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                                        <Image WidthRequest="20" >
+                                                            <Image.Triggers>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Нет">
+                                                                    <Setter Property="Source" Value="without.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Высокий">
+                                                                    <Setter Property="Source" Value="high.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Средний">
+                                                                    <Setter Property="Source" Value="medium.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Низкий">
+                                                                    <Setter Property="Source" Value="low.png"/>
+                                                                </DataTrigger>
+                                                                <!--<DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                        <Setter Property="Source" Value="eye_gray.png" />
+                                                                    </DataTrigger>-->
+                                                            </Image.Triggers>
+                                                        </Image>
+                                                        <Image BackgroundColor="Color.Transparent" WidthRequest="20">
+                                                            <Image.Triggers>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="False">
+                                                                    <Setter Property="Source" Value="clock_green.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                    <Setter Property="Source" Value="time.png" />
+                                                                </DataTrigger>
+                                                            </Image.Triggers>
+                                                        </Image>
+                                                        <!--<Label Text="{Binding HasChild}" TextColor="AliceBlue"/>-->
+                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="190" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0">
                                                             <Label.Triggers>
                                                                 <DataTrigger TargetType="Label" Binding="{Binding IsOverdue}" Value="True">
                                                                     <Setter Property="TextColor" Value="#ADADAD"/>
                                                                 </DataTrigger>
                                                             </Label.Triggers>
                                                         </Label>
-                                                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                                            <Image WidthRequest="20" >
-                                                                <Image.Triggers>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Нет">
-                                                                        <Setter Property="Source" Value="without.png"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Высокий">
-                                                                        <Setter Property="Source" Value="high.png"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Средний">
-                                                                        <Setter Property="Source" Value="medium.png"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Низкий">
-                                                                        <Setter Property="Source" Value="low.png"/>
-                                                                    </DataTrigger>
-                                                                    <!--<DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
-                                                                        <Setter Property="Source" Value="eye_gray.png" />
-                                                                    </DataTrigger>-->
-                                                                </Image.Triggers>
-                                                            </Image>
-                                                            <Image BackgroundColor="Color.Transparent" WidthRequest="20">
-                                                                <Image.Triggers>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="False">
-                                                                        <Setter Property="Source" Value="clock_green.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
-                                                                        <Setter Property="Source" Value="time.png" />
-                                                                    </DataTrigger>
-                                                                </Image.Triggers>
-                                                            </Image>
-                                                            <!--<Label Text="{Binding HasChild}" TextColor="AliceBlue"/>-->
-                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="190" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0">
-                                                                <Label.Triggers>
-                                                                    <DataTrigger TargetType="Label" Binding="{Binding IsOverdue}" Value="True">
-                                                                        <Setter Property="TextColor" Value="#ADADAD"/>
-                                                                    </DataTrigger>
-                                                                </Label.Triggers>
-                                                            </Label>
-                                                            <!--<Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>-->
-                                                            <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
-                                                                <CollectionView.ItemsLayout>
-                                                                    <GridItemsLayout Orientation="Horizontal" />
-                                                                </CollectionView.ItemsLayout>
-                                                                <CollectionView.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <StackLayout x:DataType="model:TagModel" Margin="5">
-                                                                            <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                                                                <StackLayout Orientation="Horizontal" HeightRequest="5">
-                                                                                    <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
-                                                                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
-                                                                                </StackLayout>
-                                                                            </Frame>
-                                                                        </StackLayout>
-                                                                    </DataTemplate>
-                                                                </CollectionView.ItemTemplate>
-                                                            </CollectionView>
-                                                   
-                                                        </StackLayout>
+                                                        <!--<Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>-->
+                                                        <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
+                                                            <CollectionView.ItemsLayout>
+                                                                <GridItemsLayout Orientation="Horizontal" />
+                                                            </CollectionView.ItemsLayout>
+                                                            <CollectionView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <StackLayout x:DataType="model:TagModel" Margin="5">
+                                                                        <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                                            <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                                                                <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                                                                <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                                                            </StackLayout>
+                                                                        </Frame>
+                                                                    </StackLayout>
+                                                                </DataTemplate>
+                                                            </CollectionView.ItemTemplate>
+                                                        </CollectionView>
+
                                                     </StackLayout>
                                                 </StackLayout>
-                                            </Frame>
-                                        </SwipeView.Content>
-                                    </SwipeView>
+                                            </StackLayout>
+                                        </Frame>
+                                    </SwipeView.Content>
+                                </SwipeView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
+                        <StackLayout  Padding="10, 10, 10, 0" >
+                            <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Vector_Clicked"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Source="done" />
+                                    <Label Text="Выполнено" TextColor="AliceBlue"/>
+                                    <ImageButton x:Name="VectorButton" Source="vector_down" Clicked="Vector_Clicked" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
                                 </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                        <CollectionView.Footer>
-                            <!--ВЫПОЛНЕННЫЕ ЗАДАЧИ-->
-                            <StackLayout  Padding="10, 10, 10, 0" >
-                                <Frame CornerRadius="12" BackgroundColor="#90000000" Padding="15,10,10,10">
-                                    <StackLayout Orientation="Horizontal">
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="Vector_Clicked"/>
-                                        </StackLayout.GestureRecognizers>
-                                        <Image Source="done" />
-                                        <Label Text="Выполнено" TextColor="AliceBlue"/>
-                                        <ImageButton x:Name="VectorButton" Source="vector_down" Clicked="Vector_Clicked" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
-                                    </StackLayout>
-                                </Frame>
+                            </Frame>
 
-                                <StackLayout x:Name="DoneTasks" IsVisible="False">
-                                    <CollectionView ItemsSource="{Binding CompletedAssignments}">
-                                        <CollectionView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackLayout x:DataType="model:AssignmentModel" Padding="0, 0, 0, 10">
-                                                    <SwipeView BackgroundColor="Color.transparent">
-                                                        <SwipeView.GestureRecognizers>
-                                                            <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
-                                                        </SwipeView.GestureRecognizers>
-                                                        <SwipeView.RightItems>
-                                                            <SwipeItems>
-                                                                <SwipeItem />
-                                                            </SwipeItems>
-                                                        </SwipeView.RightItems>
+                            <StackLayout x:Name="DoneTasks" IsVisible="False">
+                                <CollectionView ItemsSource="{Binding CompletedAssignments}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout x:DataType="model:AssignmentModel" Padding="0, 0, 0, 10">
+                                                <SwipeView BackgroundColor="Color.transparent">
+                                                    <SwipeView.GestureRecognizers>
+                                                        <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=DeleteAssignmentCommand}" CommandParameter="{Binding .}" />
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
+                                                    </SwipeView.GestureRecognizers>
+                                                    <SwipeView.RightItems>
+                                                        <SwipeItems>
+                                                            <SwipeItem />
+                                                        </SwipeItems>
+                                                    </SwipeView.RightItems>
 
-                                                        <SwipeView.Content>
-                                                            <Frame CornerRadius="25" BackgroundColor="#90000000" Padding="15,10,10,10">
-                                                                <StackLayout Orientation="Horizontal">
-                                                                    <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
-                                                                        <ImageButton.Triggers>
-                                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
-                                                                                <Setter Property="Source" Value="done.png" />
-                                                                            </DataTrigger>
-                                                                        </ImageButton.Triggers>
-                                                                    </ImageButton>
-                                                                    <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
-                                                                        <Label Text="{Binding Name}" TextColor="#ADADAD" FontSize="16"/>
-                                                                        <StackLayout Orientation="Horizontal">
-                                                                            <Image Source="eye_gray.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                                            <Image Source="clock1.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
-                                                                            <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
-                                                                            <!--<Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>-->
-                                                                            <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
-                                                                                <CollectionView.ItemsLayout>
-                                                                                    <GridItemsLayout Orientation="Horizontal" />
-                                                                                </CollectionView.ItemsLayout>
-                                                                                <CollectionView.ItemTemplate>
-                                                                                    <DataTemplate>
-                                                                                        <StackLayout x:DataType="model:TagModel" Margin="5">
-                                                                                            <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                                                                                <StackLayout Orientation="Horizontal" HeightRequest="5">
-                                                                                                    <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
-                                                                                                    <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
-                                                                                                </StackLayout>
-                                                                                            </Frame>
-                                                                                        </StackLayout>
-                                                                                    </DataTemplate>
-                                                                                </CollectionView.ItemTemplate>
-                                                                            </CollectionView>
-                                                                        </StackLayout>
+                                                    <SwipeView.Content>
+                                                        <Frame CornerRadius="25" BackgroundColor="#90000000" Padding="15,10,10,10">
+                                                            <StackLayout Orientation="Horizontal">
+                                                                <ImageButton Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}}, Path=ChangeIsCompletedCommand}" CommandParameter="{Binding .}" >
+                                                                    <ImageButton.Triggers>
+                                                                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsCompleted}" Value="True">
+                                                                            <Setter Property="Source" Value="done.png" />
+                                                                        </DataTrigger>
+                                                                    </ImageButton.Triggers>
+                                                                </ImageButton>
+                                                                <StackLayout VerticalOptions="Center" Padding="10, 3, 0, 3">
+                                                                    <Label Text="{Binding Name}" TextColor="#ADADAD" FontSize="16"/>
+                                                                    <StackLayout Orientation="Horizontal">
+                                                                        <Image Source="eye_gray.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
+                                                                        <Image Source="clock1.png" BackgroundColor="Color.Transparent" WidthRequest="20"/>
+                                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>
+                                                                        <!--<Label Text="{Binding HasNotification}"  TextColor="#ADADAD" FontSize="12" Padding="-3,3,0,0"/>-->
+                                                                        <CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
+                                                                            <CollectionView.ItemsLayout>
+                                                                                <GridItemsLayout Orientation="Horizontal" />
+                                                                            </CollectionView.ItemsLayout>
+                                                                            <CollectionView.ItemTemplate>
+                                                                                <DataTemplate>
+                                                                                    <StackLayout x:DataType="model:TagModel" Margin="5">
+                                                                                        <Frame  BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,10,8" CornerRadius="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                                                            <StackLayout Orientation="Horizontal" HeightRequest="5">
+                                                                                                <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
+                                                                                                <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
+                                                                                            </StackLayout>
+                                                                                        </Frame>
+                                                                                    </StackLayout>
+                                                                                </DataTemplate>
+                                                                            </CollectionView.ItemTemplate>
+                                                                        </CollectionView>
                                                                     </StackLayout>
                                                                 </StackLayout>
-                                                            </Frame>
-                                                        </SwipeView.Content>
-                                                    </SwipeView>
-                                                </StackLayout>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                    </CollectionView>
-                                </StackLayout>
-                                <StackLayout>
-                                    <Frame BackgroundColor="Color.Transparent" HeightRequest="200"/>
-                                </StackLayout>
+                                                            </StackLayout>
+                                                        </Frame>
+                                                    </SwipeView.Content>
+                                                </SwipeView>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
                             </StackLayout>
-                        </CollectionView.Footer>
-                    </CollectionView>
-                </RefreshView>
+                            <StackLayout>
+                                <Frame BackgroundColor="Color.Transparent" HeightRequest="200"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </CollectionView.Footer>
+                </CollectionView>
             </StackLayout>
         </Grid>
         <Button AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0.97,60,60" x:Name="AddTask" Clicked="AddTask_Clicked" Command="{Binding AddAssignmentCommand}" Text="+" FontSize="30" TextColor="AliceBlue" BackgroundColor="#952EAF" CornerRadius="50"/>

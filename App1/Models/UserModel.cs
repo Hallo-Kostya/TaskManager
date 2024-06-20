@@ -95,27 +95,9 @@ namespace App1.Models
                     break;
             }
         }
-        public void IncrementDoneForWeek()
-        {
-            DoneForWeek += 1;
-            DoneAll += 1;
-            OnPropertyChanged(nameof(DoneForWeek));
-            OnPropertyChanged(nameof(DoneAll));
-        }
+        
 
-        public void DecrementDoneForWeek()
-        {
-            DoneForWeek -= 1;
-            DoneAll -= 1;
-            OnPropertyChanged(nameof(DoneForWeek));
-            OnPropertyChanged(nameof(DoneAll));
-        }
-
-        public void UpdateAllOverDue(int count)
-        {
-            AllOverDue = count;
-            OnPropertyChanged(nameof(AllOverDue));
-        }
+      
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

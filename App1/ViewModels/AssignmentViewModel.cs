@@ -103,7 +103,6 @@ namespace App1.ViewModels
         }
 
 
-        public Command LoadAssignmentCommand { get; }
         public Command LoadTagsCommand { get; }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
@@ -136,7 +135,6 @@ namespace App1.ViewModels
 
         public AssignmentViewModel(INavigation _navigation)
         {
-            LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
@@ -160,18 +158,13 @@ namespace App1.ViewModels
                 SelectedFolder = sender;
                 await ExecuteLoadAssignmentCommand();
             });
+            Task.Run(async ()=> await ExecuteLoadAssignmentCommand());
             
-        }
-
-        public void OnAppearing()
-        {
-            IsBusy = true;
         }
 
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            IsBusy = true;
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
@@ -259,10 +252,6 @@ namespace App1.ViewModels
 
                 Console.WriteLine($"Error in ExecuteLoadAssignmentCommand: {ex.Message}");
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
        
         private async void HandleChangeIsCompleted(AssignmentModel assignment)
@@ -273,7 +262,7 @@ namespace App1.ViewModels
             }
             assignment.ChangeIsCompleted();
             await App.AssignmentsDB.AddItemAsync(assignment);
-            IsBusy = true;
+            await ExecuteLoadAssignmentCommand();
         }
 
         private async void OnAddAssignment()
