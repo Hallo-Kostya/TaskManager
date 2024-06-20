@@ -15,18 +15,17 @@
          which is used to tint widgets -->
 		<!--<item name="colorAccent">#FF4081</item>-->
 		
-	</style>	
+	</style>
+	<style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+		<item name="android:windowBackground">@drawable/splash_screen</item>
+	</style>
 	<style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorAccent">#ffffff</item>
 		<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
 		<item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
 	</style>
 
-    <style name="MainTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
+	
 
 	<style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">#D778E6</item>

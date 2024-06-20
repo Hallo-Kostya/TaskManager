@@ -8,7 +8,7 @@ using AndroidApp = Android.App.Application;
 
 namespace App1.Droid
 {
-    [Activity(Theme = "@style/MainTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "SplashActivity", MainLauncher = true, NoHistory = true, Theme = "@style/SplashTheme")]
     public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
