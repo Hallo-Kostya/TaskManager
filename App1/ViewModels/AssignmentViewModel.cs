@@ -175,7 +175,8 @@ namespace App1.ViewModels
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
-                foreach (var assignment in a)
+                var ass = a.Where(x => !(x.IsCompleted && !x.IsRepeatable));
+                foreach (var assignment in ass)
                 {
                     assignment.CheckIfOverdue();
                     await assignment.LoadTagsAsync();
