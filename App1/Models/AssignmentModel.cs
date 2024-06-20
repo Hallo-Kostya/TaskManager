@@ -172,8 +172,10 @@ namespace App1.Models
         }
         public void CheckIfOverdue()
         {
-            
-            if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime  && IsDeleted==false)
+
+            bool wasOverdue = _isOverdue;
+
+            if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime && IsDeleted == false)
             {
                 IsCompleted = false;
                 OnPropertyChanged(nameof(IsCompleted));
@@ -181,19 +183,21 @@ namespace App1.Models
                 OnPropertyChanged(nameof(ExecutionDate));
                 RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(RepeatitionReturnTime));
-                
+
                 if (HasNotification)
                 {
                     SendNotification();
                 }
             }
+
             bool newIsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            if (IsOverdue==false && newIsOverdue==true)
+            if (_isOverdue != newIsOverdue)
             {
                 _isOverdue = newIsOverdue;
                 OnPropertyChanged(nameof(IsOverdue));
-                
-                if (_isOverdue==true && IsCompleted==false&& IsDeleted==false)
+
+                // Only send message if the task was not overdue previously but is now overdue
+                if (!wasOverdue && _isOverdue)
                 {
                     MessagingCenter.Send<object>(this, "UpdateOverdue");
                 }
