@@ -189,19 +189,22 @@ namespace App1.Models
                     SendNotification();
                 }
             }
-
-            bool newIsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            if (_isOverdue != newIsOverdue)
+            if (!IsCompleted)
             {
-                _isOverdue = newIsOverdue;
-                OnPropertyChanged(nameof(IsOverdue));
-
-                // Only send message if the task was not overdue previously but is now overdue
-                if (!wasOverdue && _isOverdue&&!IsCompleted)
+                bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
+                if (_isOverdue != newIsOverdue)
                 {
-                    MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    _isOverdue = newIsOverdue;
+                    OnPropertyChanged(nameof(IsOverdue));
+
+                    // Only send message if the task was not overdue previously but is now overdue
+                    if (!wasOverdue && _isOverdue && !IsCompleted)
+                    {
+                        MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    }
                 }
             }
+            
         }
         public void AddChild(AssignmentModel assignment)
         {
