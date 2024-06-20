@@ -2,85 +2,66 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:App1.ViewModels" x:DataType="viewmodels:APPSettingsViewModel"
              x:Class="App1.Views.APPSettingsPage"
-             xmlns:converters="clr-namespace:App1.Behaviors"
-             BackgroundColor="#292929"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="False">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:CleaningTimeConverter x:Key="CleaningTimeConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+             BackgroundColor="Black">
+    
     <ContentPage.Content>
-        <StackLayout VerticalOptions="StartAndExpand">
-            <Grid Margin="15,40,15,10">
-                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
-            </Grid>
-
-            <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">
-                <Frame CornerRadius="16" BackgroundColor="#80444444" Padding="15,20" >
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Автоочищение архива" TextColor="AliceBlue" FontAttributes="Bold" FontSize="16" HorizontalOptions="StartAndExpand"/>
-                            <ImageButton Clicked="ImageButton_Clicked" Source="circle.png" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:APPSettingsViewModel}}, Path=EnableArchiveCleaningCommand}" CommandParameter="{Binding .}" >
-                                <ImageButton.Triggers>
-                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsArchiveCleaningEnabled}" Value="True">
-                                        <Setter Property="Source" Value="done.png" />
-                                    </DataTrigger>
-                                </ImageButton.Triggers>
-                            </ImageButton>
-                        </StackLayout>
-                        <StackLayout x:Name="ArchiveClean">
-                            <Label Text="Выберите интервал очистки" FontSize="15" TextColor="AliceBlue" FontAttributes="Bold"/>
-                            <Button Margin="0,5,0,0" Text="Раз в сутки" Clicked="Button_Clicked" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="8" CommandParameter="24" BackgroundColor="Color.transparent" TextTransform="None" HeightRequest="35" Padding="-10">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="24">
-                                        <Setter Property="BackgroundColor" Value="#40E80DE0" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Text="Раз в три дня"  Clicked="Button_Clicked" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="8" CommandParameter="72" BackgroundColor="Color.transparent" TextTransform="None" HeightRequest="35" Padding="-10">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="72">
-                                        <Setter Property="BackgroundColor" Value="#40E80DE0" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Text="Раз в неделю" Clicked="Button_Clicked" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="8" CommandParameter="168" BackgroundColor="Color.transparent" TextTransform="None" HeightRequest="35" Padding="-10">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="168">
-                                        <Setter Property="BackgroundColor" Value="#40E80DE0" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Text="Раз в 30 дней"  Clicked="Button_Clicked" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="8" CommandParameter="720" BackgroundColor="Color.transparent" TextTransform="None" HeightRequest="35" Padding="-10">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="720">
-                                        <Setter Property="BackgroundColor" Value="#40E80DE0" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Frame CornerRadius="8" BackgroundColor="Color.transparent" HeightRequest="25"  Padding="5">
-                                <StackLayout>
-                                    <Button x:Name="ButtonOwnTime" Clicked="ButtonOwnTime_Clicked" Text="{Binding CleaningInterval,Converter={StaticResource CleaningTimeConverter}}" Margin="0,-11,0,0" TextTransform="None" BackgroundColor="Color.transparent">
-                                        <Button.Triggers>
-                                            <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="-1">
-                                                <Setter Property="BackgroundColor" Value="#40E80DE0" />
-                                            </DataTrigger>
-                                        </Button.Triggers>
-                                    </Button>
-                                    <StackLayout x:Name="CustomTimeLayout" Orientation="Horizontal" IsVisible="false" Margin="1,-7,7,0">
-                                        <Entry Placeholder="Введите количество дней..." Text="{Binding CustomTime}" TextColor="AliceBlue" PlaceholderColor="gray" FontSize="15" HorizontalOptions="FillAndExpand" Keyboard="Numeric" />
-                                        <ImageButton Source="add" BackgroundColor="Color.transparent" Command="{Binding CustomTimeCleanCommand}" Clicked="ImageButton_Clicked_1" HorizontalOptions="EndAndExpand"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Frame>
-
-                            <!--<Label x:Name="NextClean" Text="Следующая очистка архива будет:" TextColor="AliceBlue"/>
-                            <Label  Text="{Binding NextCleanDate, StringFormat='{0:dd.MM.yyyy HH:mm}'}" TextColor="AliceBlue"/>-->
-                        </StackLayout>
+        <StackLayout Padding="20" >
+            <Frame CornerRadius="30" BackgroundColor="#252525" >
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Включить автоматическую очистку архива" TextColor="AliceBlue" FontAttributes="Bold" FontSize="16"/>
+                        <ImageButton Clicked="ImageButton_Clicked" Source="circle.png" BackgroundColor="Color.Transparent" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:APPSettingsViewModel}}, Path=EnableArchiveCleaningCommand}" CommandParameter="{Binding .}" >
+                            <ImageButton.Triggers>
+                                <DataTrigger TargetType="ImageButton" Binding="{Binding IsArchiveCleaningEnabled}" Value="True">
+                                    <Setter Property="Source" Value="done.png" />
+                                </DataTrigger>
+                            </ImageButton.Triggers>
+                        </ImageButton>
                     </StackLayout>
-                </Frame>
+                    <StackLayout x:Name="ArchiveClean" Margin="0,10">
+                        <Label Text="Выберите интервал" FontSize="16" TextColor="AliceBlue"/>
+                        <Button Text="Раз в сутки" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="24" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="24">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в три дня" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="72" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="72">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в неделю" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="168" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="168">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="Раз в 30 дней" Command="{Binding SetCleanUpIntervalCommand}" CornerRadius="20" CommandParameter="720" BackgroundColor="#444">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CleaningInterval}" Value="720">
+                                    <Setter Property="BackgroundColor" Value="gray" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button  Clicked="ButtonOwnTime_Clicked"  Text="Выбрать своё время" CornerRadius="20" BackgroundColor="#444"/>
+                        <StackLayout x:Name="CustomTimeLayout" Orientation="Horizontal">
+
+                            <Entry Placeholder="Введите количество дней" Text="{Binding CustomTime}" Keyboard="Numeric"/>
+                            <Button Text="Установить" Command="{Binding CustomTimeCleanCommand}"/>
+                        </StackLayout>
+                        <Label x:Name="NextClean" Text="Следующая очистка архива будет:" TextColor="AliceBlue"/>
+                        <Label  Text="{Binding NextCleanDate, StringFormat='{0:dd.MM.yyyy HH:mm}'}" TextColor="AliceBlue"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+                <StackLayout Orientation="Horizontal" Margin="0, 20">
+                    <Button Text="Отменить" Command="{Binding CancelSettingsCommand}" Padding="30,0" CornerRadius="30" HorizontalOptions="CenterAndExpand"/>
+                    <Button Text="Сохранить" Command="{Binding SaveSettingsCommand}" Padding="30,0" CornerRadius="30" HorizontalOptions="CenterAndExpand" BackgroundColor="Gray"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
