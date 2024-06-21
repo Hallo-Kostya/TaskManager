@@ -48,6 +48,8 @@ namespace App1.Models
                 }
             }
         }
+        public string RequiredExp { get; set; }
+        public string ExpDisplay => $"{Exp}/{RequiredExp}";
         public int Exp
         {
             get => _exp;
@@ -55,20 +57,10 @@ namespace App1.Models
             {
                 if (_exp != value)
                 {
-                    _exp = value < 0 ? 0 : value;
-
-                    if (_exp <= 100)
-                        Level = 0;
-                    else if (_exp <= 250)
-                        Level = 1;
-                    else if (_exp <= 500)
-                        Level = 2;
-                    else if (_exp <= 870)
-                        Level = 3;
-                    else
-                        Level = 4;
-
+                    _exp =value;
+                    
                     OnPropertyChanged(nameof(Exp));
+                    UpdateLevel();
                 }
             }
         }
@@ -94,6 +86,36 @@ namespace App1.Models
                 default:
                     break;
             }
+        }
+        private void UpdateLevel()
+        {
+            if (Exp >= 100)
+            {
+                Level = 1;
+                RequiredExp = "250";
+            }
+            else if (Exp >= 250)
+            {
+                Level = 2;
+                RequiredExp = "430";
+            }
+            else if (Exp >= 430)
+            {
+                Level = 3;
+                RequiredExp = "600";
+            }
+            else if (Exp >= 600)
+            {
+                Level = 4;
+                RequiredExp = "Это максимальный уровень!";
+            }
+            else
+            {
+                Level = 0;
+                RequiredExp = "100";
+            }
+            
+            OnPropertyChanged(nameof(Level));
         }
         
 

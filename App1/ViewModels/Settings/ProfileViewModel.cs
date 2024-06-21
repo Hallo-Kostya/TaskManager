@@ -32,6 +32,16 @@ namespace App1.ViewModels.Settings
 
             }
         }
+        private int _exp;
+        public int Exp
+        {
+            get => _exp;
+            set
+            {
+                SetProperty(ref _exp, value);
+
+            }
+        }
         private int _doneCount;
         public int DoneCount
         {
@@ -53,18 +63,25 @@ namespace App1.ViewModels.Settings
             Task.Run(async () => await LoadUser());
             MessagingCenter.Unsubscribe<object>(this, "UpdateOverdue");
             MessagingCenter.Unsubscribe<object>(this, "UpdateDone");
+            MessagingCenter.Unsubscribe<object>(this, "UpdateExp");
 
             // Подписываемся на сообщения об обновлении
             MessagingCenter.Subscribe<object>(this, "UpdateOverdue", (sender) =>
             {
                 OverDueCount=1;
-                Console.WriteLine("ВОФВФОВФОФОВФООВОФВОФФОВОВФ");
+                Console.WriteLine("OverdueUpdated");
                 UpdateUserCounts("Overdue");
+            });
+            MessagingCenter.Subscribe<object>(this, "UpdateExp", (sender) =>
+            {
+                Exp = 5;
+                Console.WriteLine("ExpUpdated");
+                UpdateUserCounts("Exp");
             });
             MessagingCenter.Subscribe<object>(this, "UpdateDone", (sender) =>
             {
                 DoneCount=1;
-                Console.WriteLine("ЫВФВФВФФЫВФВФВ");
+                Console.WriteLine("DoneUpdated");
                 UpdateUserCounts("Done");
             });
         }
@@ -209,11 +226,17 @@ namespace App1.ViewModels.Settings
                     User.AllOverDue += OverDueCount;
                     User.OverDueForWeek += OverDueCount;
                 }
+                else if (kind == "Exp")
+                {
+                    User.Exp += Exp;
+                }
                 await App.AssignmentsDB.AddUserAsync(User);
                 DoneCount = 0;
                 OverDueCount = 0;
+                Exp = 0;
                 OnPropertyChanged(nameof(DoneCount));
                 OnPropertyChanged(nameof(OverDueCount));
+                OnPropertyChanged(nameof(Exp));
             }
         }
         public async void OnCancel()

@@ -8,7 +8,7 @@ using AndroidApp = Android.App.Application;
 
 namespace App1.Droid
 {
-    [Activity(Label = "SplashActivity", MainLauncher = true, NoHistory = true, Theme = "@style/SplashTheme")]
+    [Activity(Label = "Teyeme", MainLauncher = true, NoHistory = true, Theme = "@style/SplashTheme")]
     public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -16,7 +16,7 @@ namespace App1.Droid
             base.OnCreate(savedInstanceState);
 
             // Retrieve username from preferences
-            string userName = Preferences.Get("UserName", "User");
+            string userName = Preferences.Get("Usern-ame", "User");
 
             // Set the splash screen content
             SetContentView(Resource.Layout.SplashScreen);

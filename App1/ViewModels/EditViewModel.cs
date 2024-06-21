@@ -174,6 +174,7 @@ namespace App1.ViewModels
         private async void DeleteTag(TagModel tag)
         {
             Assignment.RemoveTag(tag);
+            OnPropertyChanged(nameof(Assignment.Tags));
             await UpdateTags();
         }
         private async void OnDelete()

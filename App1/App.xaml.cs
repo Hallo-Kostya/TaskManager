@@ -35,6 +35,8 @@ namespace App1
             ProfileViewModel = new ProfileViewModel(null);
             InitializeComponent();
             SetupMainPage();
+            CheckDailyActivity();
+            CheckWeeklyReset();
         }
 
         public void SetupMainPage()
@@ -62,6 +64,7 @@ namespace App1
                 {
                     user.DayStreak += 1;
                     user.LastLaunchDate = currentDate;
+                    user.Exp += 20;
                 }
                 if (lastLaunchDate != DateTime.MinValue && lastLaunchDate < currentDate.AddDays(-1))
                 {

@@ -226,6 +226,7 @@ namespace App1.Models
             if (IsCompleted)
             {
                 MessagingCenter.Send<object>(this, "UpdateDone");
+                MessagingCenter.Send<object>(this, "UpdateExp");
             }
 
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
@@ -267,7 +268,10 @@ namespace App1.Models
                 OnPropertyChanged(nameof(ChildsString));
             }
             if (Childs.Count == 0)
+            {
                 HasChild = false;
+                OnPropertyChanged(nameof(HasChild));
+            }
         }
         public void AddTag(TagModel tag)
         {

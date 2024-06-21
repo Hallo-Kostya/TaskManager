@@ -58,11 +58,8 @@ namespace App1.ViewModels
             Navigation = navigation;
             Notification1PopupCommand = new Command(ExecuteNotification1Popup);
             Notification2PopupCommand = new Command(ExecuteNotification2Popup);
-            Assignment = new AssignmentModel();
             OnBackPressedCommand = new Command(OnBackPressed);
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
-            SelectedDate = Assignment.ExecutionDate;
-            SelectedTime = Assignment.ExecutionDate.TimeOfDay;
         }
 
         private async void ExecuteNotification1Popup()
@@ -118,6 +115,7 @@ namespace App1.ViewModels
         public  async Task  AcceptAndClose()
         {
             Assignment.ExecutionDate = SelectedDate;
+            OnPropertyChanged(nameof(Assignment.ExecutionDate));
             var assign = Assignment;
             await Navigation.PopAsync();
             if(IsFromPopup)

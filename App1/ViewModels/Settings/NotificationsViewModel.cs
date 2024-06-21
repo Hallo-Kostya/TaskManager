@@ -1,8 +1,11 @@
-﻿using System;
+﻿using App1.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+
+
 
 namespace App1.ViewModels.Settings
 {
@@ -38,7 +41,6 @@ namespace App1.ViewModels.Settings
                 }
             }
         }
-
         public NotificationsViewModel(INavigation navigation)
         {
             OnCancelCommand = new Command(OnCancel);
@@ -55,49 +57,61 @@ namespace App1.ViewModels.Settings
                 case "zagadka.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound= sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "bodrost.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "spokoistvie.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "rassvet.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "melody.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "rezkost.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "kolokol.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "christmas.wav":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "alexander.wav":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "konstantin.wav":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
                 case "sound1.mp3":
                     Preferences.Set("NotificationSound", sound);
                     _choosenSound = sound;
+                    DependencyService.Get<IAudioPlayer>().PlaySound(sound);
                     break;
             }
         }
+        
         public async void OnCancel()
         {
             await Navigation.PopAsync();

@@ -75,7 +75,7 @@ namespace App1.ViewModels
             CancelSettingsCommand = new Command(CancelSettings);
             CustomTimeCleanCommand = new Command(CustomClean);
             OnCancelCommand = new Command(OnCancel);
-            IntervalForUI = CleaningInterval;
+            _intervalForUI = CleaningInterval;
             Console.WriteLine("Initial IsArchiveCleaningEnabled: " + IsArchiveCleaningEnabled);
             NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
         }
@@ -87,7 +87,7 @@ namespace App1.ViewModels
                 if (interval > 0 && interval < 367)
                 {
                     CleaningInterval = interval * 24;
-                    IntervalForUI = -1;
+                    _intervalForUI = -1;
                     NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
                 }
                 
@@ -107,7 +107,7 @@ namespace App1.ViewModels
             if (tempInterval>0 && tempInterval < 746)
             {
                 CleaningInterval = tempInterval;
-                IntervalForUI = tempInterval;
+                _intervalForUI = tempInterval;
                 NextCleanDate = DateTime.Now.AddHours(CleaningInterval);
             }
               
