@@ -55,16 +55,16 @@ namespace App1.ViewModels.Settings
             switch (sound)
             {
                 case "zagadka":
-                case "bodrost.mp3":
-                case "spokoistvie.mp3":
-                case "rassvet.mp3":
-                case "melody.mp3":
-                case "rezkost.mp3":
-                case "kolokol.mp3":
-                case "christmas.wav":
-                case "alexander.wav":
-                case "konstantin.wav":
-                case "sound1.mp3":
+                case "bodrost":
+                case "spokoistvie":
+                case "rassvet":
+                case "melody":
+                case "rezkost":
+                case "kolokol":
+                case "christmas":
+                case "alexander":
+                case "konstantin":
+                case "sound1":
                     Preferences.Set("NotificationSound", sound);
                     ChoosenSound = sound;
                     OnPropertyChanged(nameof(ChoosenSound));

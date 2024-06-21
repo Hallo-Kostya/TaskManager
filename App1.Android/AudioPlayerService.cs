@@ -21,9 +21,9 @@ namespace App1.Droid
 
 
             int resourceId = Android.App.Application.Context.Resources.GetIdentifier(
-                soundFileName,
-                "raw",
-                Android.App.Application.Context.PackageName);
+                   soundFileName.ToLower(),
+                   "raw",
+                   Android.App.Application.Context.PackageName);
 
             if (resourceId != 0)
             {
