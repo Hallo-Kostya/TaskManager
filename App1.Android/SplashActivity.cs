@@ -2,14 +2,15 @@
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
 namespace App1.Droid
 {
-    [Activity(Label = "Teyeme", MainLauncher = true, NoHistory = true, Theme = "@style/SplashTheme")]
-    public class SplashActivity : Activity
+    [Activity(Label = "Teyeme", MainLauncher = true, NoHistory = true, Theme = "@style/MainTheme.Splash")]
+    public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
