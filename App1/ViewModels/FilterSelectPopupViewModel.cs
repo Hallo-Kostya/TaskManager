@@ -31,7 +31,7 @@ namespace App1.ViewModels
                 if (_selectedSorting != value)
                 {
                     _selectedSorting = value;
-                    OnPropertyChanged(nameof(_selectedSorting));
+                    OnPropertyChanged(nameof(SelectedSorting));
                 }
             }
         }

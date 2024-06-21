@@ -267,7 +267,10 @@ namespace App1.Models
                 OnPropertyChanged(nameof(ChildsString));
             }
             if (Childs.Count == 0)
+            {
                 HasChild = false;
+                OnPropertyChanged(nameof(HasChild));
+            }
         }
         public void AddTag(TagModel tag)
         {

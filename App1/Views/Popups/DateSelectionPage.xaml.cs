@@ -34,6 +34,8 @@ namespace App1.Views.Popups
             if (assign != null)
             {
                 (BindingContext as DateSelectionViewModel).Assignment = assign;
+                (BindingContext as DateSelectionViewModel).SelectedDate = assign.ExecutionDate;
+                (BindingContext as DateSelectionViewModel).SelectedTime = assign.ExecutionDate.TimeOfDay;
                 (BindingContext as DateSelectionViewModel).IsFromPopup = _isFromPopup;
             }
 
