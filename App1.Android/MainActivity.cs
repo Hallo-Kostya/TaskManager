@@ -1,22 +1,19 @@
-﻿using System;
+﻿using Android;
 using Android.App;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.OS;
-using App1.Services.Notifications;
-using App1.Droid;
-using Xamarin.Forms;
 using Android.Content;
-using Android.App.Job;
-using App1.Droid.Services;
-using Xamarin.Essentials;
-using Android;
-using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
+using App1.Droid.Services;
+using App1.Services;
+using App1.Services.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using App1.Services;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace App1.Droid
 {
@@ -42,7 +39,6 @@ namespace App1.Droid
             SetDailyAlarm();
             Console.WriteLine("Основная активность запустилась!!!");
             DependencyService.Register<IAudioPlayer, AudioPlayerService>();
-            ;
 
         }
         void RequestPermissions()
