@@ -30,7 +30,15 @@ namespace App1.ViewModels
         public int IntervalForUI
         {
             get => _intervalForUI;
-            set => SetProperty(ref _intervalForUI, value);
+            set
+            {
+                if (_intervalForUI != value)
+                {
+                    _intervalForUI = value;
+                    OnPropertyChanged(nameof(IntervalForUI));
+
+                }
+            }
         }
         private DateTime _nextCleanDate;
         public DateTime NextCleanDate
