@@ -45,7 +45,7 @@ namespace App1.ViewModels.Settings
         {
             OnCancelCommand = new Command(OnCancel);
             Navigation = navigation;
-            _isNotifications = Preferences.Get("AreNotificationsEnabled", false);
+            IsNotifications = Preferences.Get("AreNotificationsEnabled", false);
             ChoosenSound = Preferences.Get("NotificationSound", "sound1.mp3");
             IsNotificationsCommand = new Command(HandleNotifications);
             SetNotificationsSound = new Command<string>(SetSound);
@@ -87,8 +87,9 @@ namespace App1.ViewModels.Settings
         }
         private void HandleNotifications()
         {
-            _isNotifications = !_isNotifications;
-            Preferences.Set("AreNotificationsEnabled", _isNotifications);
+            IsNotifications = !IsNotifications;
+            OnPropertyChanged(nameof(IsNotifications));
+            Preferences.Set("AreNotificationsEnabled", IsNotifications);
         }
     }
 }
