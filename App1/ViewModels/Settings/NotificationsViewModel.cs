@@ -54,7 +54,7 @@ namespace App1.ViewModels.Settings
         {
             switch (sound)
             {
-                case "zagadka.mp3":
+                case "zagadka":
                 case "bodrost.mp3":
                 case "spokoistvie.mp3":
                 case "rassvet.mp3":
