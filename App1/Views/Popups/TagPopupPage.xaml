@@ -11,10 +11,10 @@
         <ResourceDictionary>
             <behaviors:StringToColorConverter x:Key="StringToColorConverter" />
         </ResourceDictionary>
-    </ContentPage.Resources> 
-    
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout Margin="135, 0, 50, 325">
+        <StackLayout Margin="135, 0, 30, 325" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand">
             <Frame BackgroundColor="#202020" CornerRadius="12" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
                 <StackLayout Padding="-10">
                     <Label x:Name="ListOfTags" Text="Теги, которые вы использовали ранее:" FontSize="12" TextColor="AliceBlue"/>
@@ -27,7 +27,7 @@
                                         <TapGestureRecognizer   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TagPopupViewModel}}, Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
                                     <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-                                        
+
                                         <StackLayout Orientation="Horizontal" HeightRequest="5">
                                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                                             <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="16" Margin="0,-10" BackgroundColor="Color.Transparent"/>
@@ -37,11 +37,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <ImageButton Source="add.png" Command="{Binding AddTagCommand}" BackgroundColor="Color.Transparent" />
-                        </StackLayout>
-
+                    <StackLayout HorizontalOptions="StartAndExpand">
+                        <ImageButton Source="add.png" Command="{Binding AddTagCommand}" BackgroundColor="Color.Transparent" />
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -14,7 +14,8 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="StartAndExpand">
             <Grid Margin="15,40,15,10">
-                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding OnCancelCommand}" VerticalOptions="EndAndExpand"/>
+                <ImageButton Source="back.png" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand" Command="{Binding CancelSettingsCommand}" VerticalOptions="EndAndExpand"/>
+                <Button Text="Применить" CornerRadius="50" BackgroundColor="#33D778E6" Command="{Binding SaveSettingsCommand}" TextColor="#D778E6" TextTransform="None" HorizontalOptions="EndAndExpand" HeightRequest="10" Padding="-10" />
             </Grid>
 
             <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">

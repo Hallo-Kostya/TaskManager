@@ -49,7 +49,7 @@
 
 
             <!-- Верхний Frame -->
-            <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="32" Margin="0, -20, 0, 0" HeightRequest="110">
+            <Frame Grid.Row="0" BackgroundColor="Black" CornerRadius="32" Margin="0, -50, 0, 0" HeightRequest="110">
                 <StackLayout VerticalOptions="End">
                     <StackLayout x:Name="Test" Orientation="Horizontal">
                         <ImageButton Source="list_collapse.png" Clicked="OnMenuButtonClicked" BackgroundColor="Color.Transparent" HorizontalOptions="StartAndExpand"/>
@@ -62,6 +62,9 @@
                         <ImageButton Source="ellipsis.png" Command="{Binding MeetBallsPopupCommand}" BackgroundColor="Color.Transparent" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                     <Frame BackgroundColor="{Binding SelectedTag.TagColor, Converter={StaticResource StringToColorConverter}}" Padding="5" CornerRadius="50" HeightRequest="10" HorizontalOptions="CenterAndExpand">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TagSelectPopupCommand}"/>
+                        </Frame.GestureRecognizers>
                         <StackLayout Orientation="Horizontal">
                             <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
                             <Button Text="{Binding SelectedTag.Name}" x:Name="TagList_Button" TextColor="AliceBlue" FontSize="16" Padding="12,0,0,0" Margin="0,-10,0,-8" TextTransform="None" BackgroundColor="Color.Transparent"/>
@@ -181,16 +184,19 @@
                                                         </Image>
                                                         <Image BackgroundColor="Color.Transparent" WidthRequest="20">
                                                             <Image.Triggers>
-                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="False">
+                                                                <DataTrigger TargetType="Image" Binding="{Binding HasNotification}" Value="True">
                                                                     <Setter Property="Source" Value="clock_green.png" />
                                                                 </DataTrigger>
-                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                <DataTrigger TargetType="Image" Binding="{Binding HasNotification}" Value="False">
                                                                     <Setter Property="Source" Value="time.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                    <Setter Property="Source" Value="clock1.png" />
                                                                 </DataTrigger>
                                                             </Image.Triggers>
                                                         </Image>
                                                         <!--<Label Text="{Binding HasChild}" TextColor="AliceBlue"/>-->
-                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="190" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0">
+                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="250" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0">
                                                             <Label.Triggers>
                                                                 <DataTrigger TargetType="Label" Binding="{Binding IsOverdue}" Value="True">
                                                                     <Setter Property="TextColor" Value="#ADADAD"/>

@@ -89,10 +89,10 @@
                                                         </DataTrigger>
                                                     </ImageButton.Triggers>
                                                 </ImageButton>
-                                                <StackLayout VerticalOptions="Center" Padding="5, 3, 0, 3">
+                                                <StackLayout VerticalOptions="Center" Padding="5, 3, 0, 3" Spacing="1">
                                                     <Label Text="{Binding Name}" TextColor="AliceBlue" FontSize="13"/>
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <Image Margin="-13,-20" >
+                                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                                        <Image WidthRequest="15">
                                                             <Image.Triggers>
                                                                 <DataTrigger TargetType="Image" Binding="{Binding Priority}" Value="Нет">
                                                                     <Setter Property="Source" Value="without.png"/>
@@ -108,18 +108,21 @@
                                                                 </DataTrigger>
                                                             </Image.Triggers>
                                                         </Image>
-                                                        <Image BackgroundColor="Color.Transparent" WidthRequest="20">
+                                                        <Image BackgroundColor="Color.Transparent" WidthRequest="15">
                                                             <Image.Triggers>
-                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="False">
+                                                                <DataTrigger TargetType="Image" Binding="{Binding HasNotification}" Value="True">
                                                                     <Setter Property="Source" Value="clock_green.png" />
                                                                 </DataTrigger>
-                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                <DataTrigger TargetType="Image" Binding="{Binding HasNotification}" Value="False">
                                                                     <Setter Property="Source" Value="time.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Image" Binding="{Binding IsOverdue}" Value="True">
+                                                                    <Setter Property="Source" Value="clock1.png" />
                                                                 </DataTrigger>
                                                             </Image.Triggers>
                                                         </Image>
                                                         <!--<Label Text="{Binding HasChild}"/>-->
-                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy}'}" WidthRequest="90" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>
+                                                        <Label Text="{Binding ExecutionDate, StringFormat='{0:dd.MM.yy HH:mm}'}" WidthRequest="90" TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0" VerticalOptions="Center"/>
                                                         <!--<Label Text="{Binding IsOverdue}"  TextColor="AliceBlue" FontSize="12" Padding="-3,3,0,0"/>-->
                                                         <!--<CollectionView  ItemsSource="{Binding Tags}" HeightRequest="10" >
                                                         <CollectionView.ItemsLayout>
@@ -153,7 +156,7 @@
             <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding TagList}" HeightRequest="35">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout x:DataType="model:TagModel" Padding="0, 0, 0,0" Orientation="Horizontal">
+                        <StackLayout Margin="5,0" x:DataType="model:TagModel" Padding="0" Orientation="Horizontal">
                             <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
                                 <Frame.GestureRecognizers> 
                                     <TapGestureRecognizer x:DataType="viewmodels:EditViewModel" Command="{Binding DeleteTagCommand}"/>

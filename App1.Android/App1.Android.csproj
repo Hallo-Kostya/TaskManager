@@ -403,6 +403,8 @@
     <AndroidResource Include="Resources\layout\SplashScreen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\profile_image.png" />
+    <AndroidResource Include="Resources\drawable\profile_name.png" />
     <Content Include="Resources\raw\alexander.wav" />
     <Content Include="Resources\raw\konstantin.wav" />
     <Content Include="Resources\raw\bodrost.mp3" />

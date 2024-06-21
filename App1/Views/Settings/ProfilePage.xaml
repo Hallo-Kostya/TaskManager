@@ -15,11 +15,12 @@
             <StackLayout VerticalOptions="StartAndExpand" Padding="15,10,15,0" Spacing="10">
                 <Frame BackgroundColor="#80444444" CornerRadius="25" Padding="0,10,0,20">
                     <StackLayout>
-                        <Image Source="{Binding User.Icon}" BackgroundColor="#D9D9D9" WidthRequest="50" HorizontalOptions="CenterAndExpand"/>
-                        <Image x:Name="AvatarImage" WidthRequest="100" HeightRequest="100" Aspect="AspectFill" />
-                        <Button Text="Сменить фото" />
+                        <Grid HorizontalOptions="CenterAndExpand">
+                            <ImageButton Command="{Binding SetImageCommand}" CornerRadius="50" Source="{Binding User.Icon}" BackgroundColor="#D9D9D9" WidthRequest="50" HeightRequest="50" HorizontalOptions="Center"/>
+                            <ImageButton Command="{Binding SetImageCommand}" Source="profile_image" BackgroundColor="Color.Transparent" VerticalOptions="Start" HorizontalOptions="Center" Margin="40,0,0,0"/>
+                        </Grid>
                         <Label Text="{Binding User.Name}" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0"/>
-                        <Button Text="Сохранить" Command="{Binding SaveCommand}"/>
+                        <ImageButton Source="profile_name" Command="{Binding SaveCommand}"/>
                     </StackLayout>
                 </Frame>
                 <Frame BackgroundColor="#80444444" CornerRadius="25" Margin="0,10,0,0" Padding="15">

@@ -66,17 +66,57 @@
             </Frame>
 
 
-            <Frame BackgroundColor="#80000000" CornerRadius="20" Margin="0,10,0,0" Padding="15">
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding HelpCommand}" />
-                </Frame.GestureRecognizers>
-                <StackLayout Orientation="Horizontal">
-                    <Image Source="phone.png"/>
-                    <Label Text="Помощь и обратная связь" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
-                    <ImageButton  Source="arrow.png" Command="{Binding HelpCommand}" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent"/>
+            <Frame BackgroundColor="#80000000" CornerRadius="20" Margin="0,10,0,0" Padding="10">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Обратная связь" TextColor="AliceBlue" VerticalOptions="Center" Margin="0,0,0,0"/>
+                        <Frame BackgroundColor="#50FFFFFF" CornerRadius="8" Padding="4">
+                            <Label Text="av.sanya@yandex.ru" TextColor="AliceBlue"/>
+                        </Frame>
+                    </StackLayout>
+                    <Frame BackgroundColor="#50FFFFFF" CornerRadius="12" Padding="12" Margin="0,12">
+                        <Grid>
+                            <StackLayout Grid.Column="0">
+                                <Label Text="Analytics" TextColor="AliceBlue" FontSize="10" />
+                                <Frame BackgroundColor="#50FFFFFF" CornerRadius="5" Padding="5,2">
+                                    <Label Text="@jf5768" TextColor="AliceBlue" FontSize="9" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout  Grid.Column="1">
+                                <Label Text="Designer" TextColor="AliceBlue" FontSize="10" />
+                                <Frame BackgroundColor="#50FFFFFF" CornerRadius="5" Padding="5,2">
+                                    <Label Text="@jek1ti" TextColor="AliceBlue" FontSize="9" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout  Grid.Column="2">
+                                <Label Text="Team-Lead" TextColor="AliceBlue" FontSize="10" />
+                                <Frame BackgroundColor="#50FFFFFF" CornerRadius="5" Padding="5,2">
+                                    <Label Text="@KomotsKe" TextColor="AliceBlue" FontSize="9" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout  Grid.Column="3">
+                                <Label Text="Frontend" TextColor="AliceBlue" FontSize="10"/>
+                                <Frame BackgroundColor="#50FFFFFF" CornerRadius="5" Padding="5,2">
+                                    <Label Text="@Hahsiwq" TextColor="AliceBlue" FontSize="9" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout  Grid.Column="4">
+                                <Label Text="Backend" TextColor="AliceBlue" FontSize="10"/>
+                                <Frame BackgroundColor="#50FFFFFF" CornerRadius="5" Padding="5,2">
+                                    <Label Text="@necessless" TextColor="AliceBlue" FontSize="9" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <Frame BackgroundColor="#50FFFFFF" CornerRadius="8" HorizontalOptions="CenterAndExpand" Padding="12,8">
+                        <StackLayout HorizontalOptions="CenterAndExpand" Spacing="0">
+                            <Label Text="Teyeme to Do" TextColor="AliceBlue" FontSize="16" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                            <Label Text="v0.0.1a" TextColor="AliceBlue" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" />
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
             </Frame>
-            <Frame BackgroundColor="#80000000" CornerRadius="20" Padding="15">
+            <!--<Frame BackgroundColor="#80000000" CornerRadius="20" Padding="15">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SociaMediaCommand}" />
                 </Frame.GestureRecognizers>
@@ -95,7 +135,7 @@
                     <Label Text="О приложении" TextColor="AliceBlue" VerticalOptions="Center" Margin="10,0,0,0"/>
                     <ImageButton  Source="arrow.png" Command="{Binding LogoutCommand}" HorizontalOptions="EndAndExpand" BackgroundColor="Color.Transparent"/>
                 </StackLayout>
-            </Frame>
+            </Frame>-->
             <!--<Frame BackgroundColor="#80444444" CornerRadius="20" Padding="15" VerticalOptions="End" Margin="15,20">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LogoutCommand}" />

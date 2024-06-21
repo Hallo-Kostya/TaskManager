@@ -37,7 +37,9 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                   
+                    <StackLayout HorizontalOptions="StartAndExpand">
+                        <ImageButton Source="add.png" Command="{Binding AddTagCommand}" BackgroundColor="Color.Transparent" />
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </StackLayout>
