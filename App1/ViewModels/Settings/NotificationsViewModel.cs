@@ -46,7 +46,7 @@ namespace App1.ViewModels.Settings
             OnCancelCommand = new Command(OnCancel);
             Navigation = navigation;
             _isNotifications = Preferences.Get("AreNotificationsEnabled", false);
-            _choosenSound = Preferences.Get("NotificationSound", "sound1.mp3");
+            ChoosenSound = Preferences.Get("NotificationSound", "sound1.mp3");
             IsNotificationsCommand = new Command(HandleNotifications);
             SetNotificationsSound = new Command<string>(SetSound);
         }
