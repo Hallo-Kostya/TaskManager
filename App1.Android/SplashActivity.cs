@@ -3,14 +3,15 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
 namespace App1.Droid
 {
-    [Activity(Label = "SplashActivity", MainLauncher = true, NoHistory = true, Theme = "@style/MainTheme.Splash")]
-    public class SplashActivity : AppCompatActivity
+    [Activity(Label = "SplashActivity", MainLauncher = true, NoHistory = true, Theme = "@style/SplashTheme")]
+    public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +33,7 @@ namespace App1.Droid
 
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
+                Console.WriteLine("Сплеш запустился");
             });
         }
     }
