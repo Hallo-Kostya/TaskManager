@@ -36,6 +36,7 @@ namespace App1
             SetupMainPage();
             CheckDailyActivity();
             CheckWeeklyReset();
+            Console.WriteLine("приложение запустилось");
         }
 
         public void SetupMainPage()
@@ -64,7 +65,7 @@ namespace App1
                 {
                     user.DayStreak += 1;
                     user.LastLaunchDate = currentDate;
-                    user.Exp += 20;
+                    //user.Exp += 20;
                 }
                 if (lastLaunchDate != DateTime.MinValue && lastLaunchDate < currentDate.AddDays(-1))
                 {
