@@ -34,7 +34,9 @@
                             <StackLayout Margin="5,0" x:DataType="model:TagModel" Padding="0" Orientation="Horizontal">
                                 <Frame BackgroundColor="{Binding TagColor, Converter={StaticResource StringToColorConverter}}" Padding="2,8,5,8" CornerRadius="50" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer x:DataType="local:AssignmentAddingViewModel" Command="{Binding DeleteTagCommand}"/>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentAddingViewModel}}, Path=DeleteTagCommand}" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
                                     </Frame.GestureRecognizers>
                                     <StackLayout Orientation="Horizontal" HeightRequest="5">
                                         <Image Source="dot.png" VerticalOptions="Center" Margin="3,0,0,0"/>
