@@ -9,7 +9,7 @@ using AndroidApp = Android.App.Application;
 
 namespace App1.Droid
 {
-    [Activity(Label = "Teyeme", MainLauncher = true, NoHistory = true, Theme = "@style/MainTheme.Splash")]
+    [Activity(Label = "SplashActivity", MainLauncher = true, NoHistory = true, Theme = "@style/MainTheme.Splash")]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
