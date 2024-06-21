@@ -47,8 +47,8 @@
                                 </Label>
                                 <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="zagadka.mp3">
                                     <ImageButton.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
-                                            <Setter Property="TextColor" Value="#D778E6" />
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                            <Setter Property="Source" Value="done" />
                                         </DataTrigger>
                                     </ImageButton.Triggers>
                                 </ImageButton>
@@ -61,7 +61,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="bodrost.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="bodrost.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="bodrost.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Спокойствие" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -71,7 +77,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="spokoistvie.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="spokoistvie.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="spokoistvie.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Рассвет" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -81,7 +93,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rassvet.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rassvet.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="rassvet.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Мелодия" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -91,7 +109,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="melody.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="melody.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="melody.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Резкость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -101,7 +125,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rezkost.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="rezkost.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="rezkost.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Колокольчик" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -111,7 +141,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="kolokol.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="kolokol.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="kolokol.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Праздник" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -121,7 +157,13 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="christmas.wav"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="christmas.wav">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="christmas.wav">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Перекус Александра" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
@@ -131,27 +173,45 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="alexander.wav"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="alexander.wav">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="alexander.wav">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Утро Константина" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="konstantin.wav">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="konstantin.wav">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="konstantin.wav"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="konstantin.wav">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="konstantin.wav">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Стандартный" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="sound1.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="sound1.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="sound1.mp3"/>
+                                <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="sound1.mp3">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding ChoosenSound}" Value="sound1.mp3">
+                                            <Setter Property="Source" Value="done" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
