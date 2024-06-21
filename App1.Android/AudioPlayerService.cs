@@ -19,8 +19,9 @@ namespace App1.Droid
                 _mediaPlayer = null;
             }
 
+            string resourceName = System.IO.Path.GetFileNameWithoutExtension(soundFileName);
             int resourceId = Android.App.Application.Context.Resources.GetIdentifier(
-                System.IO.Path.GetFileNameWithoutExtension(soundFileName),
+                resourceName,
                 "raw",
                 Android.App.Application.Context.PackageName);
 

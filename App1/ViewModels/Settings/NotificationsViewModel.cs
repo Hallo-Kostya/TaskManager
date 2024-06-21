@@ -66,7 +66,8 @@ namespace App1.ViewModels.Settings
                 case "konstantin.wav":
                 case "sound1.mp3":
                     Preferences.Set("NotificationSound", sound);
-                    _choosenSound = sound;
+                    ChoosenSound = sound;
+                    OnPropertyChanged(nameof(ChoosenSound));
 
                     var audioPlayer = DependencyService.Get<IAudioPlayer>();
                     if (audioPlayer != null)
