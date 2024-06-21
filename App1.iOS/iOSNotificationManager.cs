@@ -10,7 +10,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(iOSNotificationManager))]
 namespace App1.iOS
 {
-    public class iOSNotificationManager : INotificationManager
+    public class iOSNotificationManager  
     {
         int messageId = -1;
         bool hasNotificationsPermission;
