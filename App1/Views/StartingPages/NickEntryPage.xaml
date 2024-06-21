@@ -2,16 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:startingpages="clr-namespace:App1.ViewModels.StartingPages" x:DataType="startingpages:NickEntryPageViewModel"
              x:Class="App1.Views.StartingPages.NickEntryPage"
-             BackgroundImageSource="NickEntry.png"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="False">
+             BackgroundImageSource="NickEntry.png">
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Label x:Name="WelcomeLabel" Text="Здравствуйте!" FontSize="Large" Opacity="0" TextColor="AliceBlue" />
-            <Label x:Name="IntroductionLabel" Text="Давайте Знакомиться!" FontSize="Large" Opacity="0" TextColor="AliceBlue" />
+            <Label x:Name="WelcomeLabel" Text="Здравствуйте!" FontSize="30" Opacity="0" TextColor="AliceBlue" HorizontalOptions="Center" />
+            <Label x:Name="IntroductionLabel" Text="Давайте Знакомиться!" FontSize="Large" Opacity="0" TextColor="AliceBlue" Margin="0,10,0,0"/>
             <Label x:Name="NameLabel" Text="Введите своё имя ниже:" FontSize="Large" Opacity="0" TextColor="AliceBlue" />
             <Entry x:Name="NicknameEntry" Text="{Binding Nickname}" Placeholder="Пишите здесь..." Opacity="0" TextColor="AliceBlue" PlaceholderColor="Gray" />
-            <Button x:Name="SaveButton" Text="Далее"  Command="{Binding SaveUserName}" IsVisible="False" TextColor="AliceBlue" />
+            <Button x:Name="SaveButton" Text="Далее" BackgroundColor="AliceBlue" TextColor="Black" Command="{Binding SaveUserName}" IsVisible="False" CornerRadius="12" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

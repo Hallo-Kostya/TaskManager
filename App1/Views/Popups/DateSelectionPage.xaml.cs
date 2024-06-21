@@ -37,10 +37,6 @@ namespace App1.Views.Popups
                 (BindingContext as DateSelectionViewModel).SelectedDate = assign.ExecutionDate;
                 (BindingContext as DateSelectionViewModel).SelectedTime = assign.ExecutionDate.TimeOfDay;
                 (BindingContext as DateSelectionViewModel).IsFromPopup = _isFromPopup;
-                if (assign.HasNotification == false)
-                {
-                    (BindingContext as DateSelectionViewModel).NotificationTimeString = "Нет";
-                }
             }
 
             ToolbarItem completeButton = new ToolbarItem

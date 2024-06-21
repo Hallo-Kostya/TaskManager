@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.teyeme.app1" android:installLocation="internalOnly">
-	<uses-sdk android:minSdkVersion="20" android:targetSdkVersion="34" />
-	<application android:label="Teyeme" android:theme="@style/MainTheme" android:icon="@mipmap/icon"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.teyeme1.app1" android:installLocation="internalOnly">
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="33" />
+	<application android:label="Teyeme1" android:theme="@style/MainTheme" android:icon="@mipmap/icon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE" />

@@ -33,13 +33,21 @@ namespace App1
 
         public App()
         {
-
+            Console.WriteLine("0000000000000000000000000000000000000000000000000");
             InitializeComponent();
             ProfileViewModel = new ProfileViewModel(null);
+            //Console.WriteLine("ProfileViewModel11111111111111111111111111111");
+
             SetupMainPage();
+            //Console.WriteLine("SetupMainPage0000000000000000000000000000000000000000000000000");
+
             CheckDailyActivity();
+            //Console.WriteLine("CheckDailyActivity0000000000000000000000000000000000000000000000000");
+
             CheckWeeklyReset();
-           
+            //Console.WriteLine("CheckWeeklyReset0000000000000000000000000000000000000000000000000");
+
+
         }
 
         public void SetupMainPage()
@@ -87,15 +95,19 @@ namespace App1
             var userId = Preferences.Get("CurrentUserID", -1);
             var lastResetDate = Preferences.Get("LastWeeklyResetDate", DateTime.MinValue);
             var currentDate = DateTime.Now.Date;
-
-            if (lastResetDate == DateTime.MinValue || (currentDate - lastResetDate).TotalDays >= 7 && userId!=-1)
+            var user = await App.AssignmentsDB.GetUserAsync(userId);
+            if (user != null)
             {
-                var user = await App.AssignmentsDB.GetUserAsync(userId); 
-                user.OverDueForWeek = 0;
-                user.DoneForWeek = 0;
-                await App.AssignmentsDB.AddUserAsync(user);
-                Preferences.Set("LastWeeklyResetDate", currentDate);
+                if ((lastResetDate == DateTime.MinValue) || (currentDate - lastResetDate).TotalDays >= 7)
+                {
+
+                    user.OverDueForWeek = 0;
+                    user.DoneForWeek = 0;
+                    await App.AssignmentsDB.AddUserAsync(user);
+                    Preferences.Set("LastWeeklyResetDate", currentDate);
+                }
             }
+
             Console.WriteLine("Недельная проверка запустилась");
         }
         protected override void OnStart()
