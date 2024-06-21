@@ -56,7 +56,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Бодрость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="bodrost.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -66,7 +66,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Спокойствие" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="spokoistvie.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -76,7 +76,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Рассвет" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="rassvet.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -86,7 +86,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Мелодия" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="melody.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -96,7 +96,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Резкость" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="rezkost.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -106,7 +106,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Колокольчик" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="kolokol.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -116,7 +116,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Праздник" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="christmas.wav">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -126,7 +126,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Перекус Александра" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding ChoosenSound}" Value="alexander.wav">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -136,7 +136,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Утро Константина" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="konstantin.wav">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>
@@ -146,7 +146,7 @@
                             <StackLayout Spacing="0" Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Text="Стандартный" TextColor="#CCCCCC" FontSize="13" HorizontalOptions="StartAndExpand">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="zagadka.mp3">
+                                        <DataTrigger TargetType="Label" Binding="{Binding }" Value="sound1.mp3">
                                             <Setter Property="TextColor" Value="#D778E6" />
                                         </DataTrigger>
                                     </Label.Triggers>

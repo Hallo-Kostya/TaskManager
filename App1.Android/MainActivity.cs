@@ -4,7 +4,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using App1.Services.Notifications;
-using LocalNotifications.Droid;
+using App1.Droid;
 using Xamarin.Forms;
 using Android.Content;
 using Android.App.Job;
@@ -16,6 +16,7 @@ using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using System.Collections.Generic;
 using System.Linq;
+using App1.Services;
 
 namespace App1.Droid
 {
@@ -40,7 +41,8 @@ namespace App1.Droid
             RequestPermissions();
             SetDailyAlarm();
             Console.WriteLine("Основная активность запустилась!!!");
-;
+            DependencyService.Register<IAudioPlayer, AudioPlayerService>();
+            ;
 
         }
         void RequestPermissions()
