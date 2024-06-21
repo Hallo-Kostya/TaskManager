@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:startingpages="clr-namespace:App1.ViewModels.StartingPages" x:DataType="startingpages:NickEntryPageViewModel"
              x:Class="App1.Views.StartingPages.NickEntryPage"
              BackgroundImageSource="NickEntry.png"
-                          Shell.NavBarIsVisible="False"   >
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Label x:Name="WelcomeLabel" Text="Здравствуйте!" FontSize="Large" Opacity="0" TextColor="AliceBlue" />
