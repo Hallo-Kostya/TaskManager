@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace App1.ViewModels
@@ -33,17 +34,24 @@ namespace App1.ViewModels
                 }
             }
         }
+        private UserModel _user;
+        public UserModel User
+        {
+            get { return _user; }
+            set { _user = value; OnPropertyChanged(); }
+        }
         private ObservableCollection<ListModel> _folders;
         public ObservableCollection<ListModel> Folders
         {
             get => _folders;
             set => SetProperty(ref _folders, value);
         }
+        public int UserId { get; }
         public AppShellViewModel(INavigation navigation)
         {
             ToMainPage = new Command(ToMain);
             Folders = new ObservableCollection<ListModel>();
-            //DeleteFolder = new Command(OnDeleted);
+            UserId = Preferences.Get("CurrentUserID", -1);
             AddFolderCommand = new Command(AddFolder);
             Navigation = navigation;
             SelectedCommand = new Command<ListModel>(OnSelected);
@@ -81,6 +89,12 @@ namespace App1.ViewModels
         {
             try
             {
+                if (UserId != -1)
+                {
+                    var user = await App.AssignmentsDB.GetUserAsync(UserId);
+                    User = user;
+                    OnPropertyChanged(nameof(User));
+                }
                 var folders = (await App.AssignmentsDB.GetListsAsync()).ToList();
                 foreach (var folder in folders)
                 {

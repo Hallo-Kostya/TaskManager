@@ -34,8 +34,8 @@ namespace App1
             InitializeComponent();
             ProfileViewModel = new ProfileViewModel(null);
             SetupMainPage();
-            //CheckDailyActivity();
-            //CheckWeeklyReset();
+            CheckDailyActivity();
+            CheckWeeklyReset();
             Console.WriteLine("приложение запустилось");
         }
 
@@ -54,11 +54,12 @@ namespace App1
         private async void CheckDailyActivity()
         {
             
-            var userId = Preferences.Get("CurrentUserId", -1);
+            var userId = Preferences.Get("CurrentUserID", -1);
             
             if (userId != -1)
             {
                 var user = await App.AssignmentsDB.GetUserAsync(userId);
+ 
                 var lastLaunchDate = user.LastLaunchDate;
                 var currentDate = DateTime.Now.Date;
                 if (lastLaunchDate == currentDate.AddDays(-1))
@@ -80,7 +81,7 @@ namespace App1
 
         private async void CheckWeeklyReset()
         {
-            var userId = Preferences.Get("CurrentUserId", -1);
+            var userId = Preferences.Get("CurrentUserID", -1);
             var lastResetDate = Preferences.Get("LastWeeklyResetDate", DateTime.MinValue);
             var currentDate = DateTime.Now.Date;
 
