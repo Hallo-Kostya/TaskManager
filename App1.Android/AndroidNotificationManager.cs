@@ -119,18 +119,22 @@ namespace LocalNotifications.Droid
             PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
             string soundFileName = Preferences.Get("NotificationSound", "sound1.mp3");
-            Android.Net.Uri soundUri = Android.Net.Uri.Parse($"android.resource://{AndroidApp.Context.PackageName}/raw/{System.IO.Path.GetFileNameWithoutExtension(soundFileName)}");
+            int soundResourceId = AndroidApp.Context.Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(soundFileName), "raw", AndroidApp.Context.PackageName);
+            Android.Net.Uri soundUri = new Android.Net.Uri.Builder()
+                .Scheme(ContentResolver.SchemeAndroidResource)
+                .Authority(AndroidApp.Context.PackageName)
+                .AppendPath(soundResourceId.ToString())
+                .Build();
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
-                .SetContentIntent(pendingIntent)
-                .SetContentTitle(title)
-                .SetContentText(message)
-                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, App1.Droid.Resource.Drawable.alarm))
-                .SetSmallIcon(App1.Droid.Resource.Drawable.alarm)
-                .SetSound(soundUri)
-                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
-                .SetStyle(new NotificationCompat.BigTextStyle().BigText(message));
-
+                 .SetContentIntent(pendingIntent)
+                 .SetContentTitle(title)
+                 .SetContentText(message)
+                 .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, App1.Droid.Resource.Drawable.alarm))
+                 .SetSmallIcon(App1.Droid.Resource.Drawable.alarm)
+                 .SetSound(soundUri)
+                 .SetDefaults((int)NotificationDefaults.Vibrate)
+                 .SetStyle(new NotificationCompat.BigTextStyle().BigText(message));
             Notification notification = builder.Build();
             manager.Notify(notificationId, notification);
         }

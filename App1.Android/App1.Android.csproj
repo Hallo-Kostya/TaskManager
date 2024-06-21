@@ -87,6 +87,7 @@
     <Compile Include="Services\ArchiveCleanupReceiver.cs" />
     <Compile Include="Services\ArchiveCleanupScheduler.cs" />
     <Compile Include="Services\ArchiveCleanupSchedulerImplementation.cs" />
+    <Compile Include="Services\AudioPlayerService.cs" />
     <Compile Include="Services\BootReceiver.cs" />
     <Compile Include="Services\CheckOverdueReceiver.cs" />
     <Compile Include="SplashActivity.cs" />

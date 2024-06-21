@@ -24,6 +24,9 @@
                 </Frame>
                 <Frame BackgroundColor="#80444444" CornerRadius="25" Margin="0,10,0,0" Padding="15">
                     <StackLayout>
+                        <Label Text="Уровень пользователя:"/>
+                        <Label Text="{Binding User.ExpDisplay}"/>
+                        <Label Text="{Binding User.Level}"/>
                         <Label Text="Статистика" TextColor="AliceBlue" FontAttributes="Bold" />
                         <Grid>
                             <StackLayout HorizontalOptions="StartAndExpand">

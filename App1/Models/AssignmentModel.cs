@@ -226,6 +226,7 @@ namespace App1.Models
             if (IsCompleted)
             {
                 MessagingCenter.Send<object>(this, "UpdateDone");
+                MessagingCenter.Send<object>(this, "UpdateExp");
             }
 
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)

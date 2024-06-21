@@ -14,11 +14,11 @@ namespace App1.Behaviors
                 if (multiplier == 24)
                     return "Произвольно";
                 else if (multiplier == 72)
-                    return "Раз в 3 дня";
+                    return "Произвольно";
                 else if (multiplier == 168)
-                    return "Раз в неделю";
+                    return "Произвольно";
                 else if (multiplier == 720)
-                    return "Раз в 30 дней";
+                    return "Произвольно";
                 else
                 {
                     var muti = multiplier / 24;
