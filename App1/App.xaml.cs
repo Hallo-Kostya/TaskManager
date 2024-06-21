@@ -33,7 +33,6 @@ namespace App1
         {
             InitializeComponent();
             ProfileViewModel = new ProfileViewModel(null);
-            InitializeComponent();
             SetupMainPage();
             CheckDailyActivity();
             CheckWeeklyReset();
@@ -49,6 +48,7 @@ namespace App1
             {
                 MainPage = new AppShell();
             }
+            Console.WriteLine("Основная страница  запустилась");
         }
         private async void CheckDailyActivity()
         {
@@ -73,7 +73,7 @@ namespace App1
                 }
                 await App.AssignmentsDB.AddUserAsync(user);
             }
-           
+            Console.WriteLine("Дневная проверка запустилась");
            
         }
 
@@ -91,6 +91,7 @@ namespace App1
                 await App.AssignmentsDB.AddUserAsync(user);
                 Preferences.Set("LastWeeklyResetDate", currentDate);
             }
+            Console.WriteLine("Недельная проверка запустилась");
         }
         protected override void OnStart()
         {
