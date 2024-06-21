@@ -50,14 +50,15 @@ namespace App1.ViewModels
                 }
             }
         }
-        public string NotificationTimeString;
+        public string NotificationTimeString => Assignment.HasNotification
+           ? Assignment.NotificationTime.ToString("dd.MM.yy HH:mm")
+           : "Нет";
         public DateSelectionViewModel(INavigation navigation)
         {
             Navigation = navigation;
             Notification1PopupCommand = new Command(ExecuteNotification1Popup);
             Notification2PopupCommand = new Command(ExecuteNotification2Popup);
             OnBackPressedCommand = new Command(OnBackPressed);
-            NotificationTimeString = Assignment.HasNotification? Assignment.NotificationTime.ToString("dd.MM.yy HH:mm"): "Нет";
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
         }
 
