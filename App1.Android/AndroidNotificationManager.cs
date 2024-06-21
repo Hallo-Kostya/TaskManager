@@ -10,8 +10,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
-[assembly: Dependency(typeof(LocalNotifications.Droid.AndroidNotificationManager))]
-namespace LocalNotifications.Droid
+[assembly: Dependency(typeof(App1.Droid.AndroidNotificationManager))]
+namespace App1.Droid
 {
     public class AndroidNotificationManager : INotificationManager
     {
