@@ -34,8 +34,8 @@ namespace App1
             InitializeComponent();
             ProfileViewModel = new ProfileViewModel(null);
             SetupMainPage();
-            CheckDailyActivity();
-            CheckWeeklyReset();
+            //CheckDailyActivity();
+            //CheckWeeklyReset();
             Console.WriteLine("приложение запустилось");
         }
 
