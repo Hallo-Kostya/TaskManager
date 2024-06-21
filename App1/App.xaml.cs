@@ -39,22 +39,7 @@ namespace App1
             SetupMainPage();
             CheckDailyActivity();
             CheckWeeklyReset();
-            var notificationManager = DependencyService.Get<INotificationManager>();
-            int userId = Preferences.Get("CurrentUserID", -1);
-            string savedTimeString = Preferences.Get("DailyRemindersTime", "12:00"); // 12:00 - значение по умолчанию
-            string[] timeParts = savedTimeString.Split(':');
-            if (timeParts.Length == 2 && int.TryParse(timeParts[0], out int hours) && int.TryParse(timeParts[1], out int minutes))
-            {
-                if (userId != -1)
-                {
-                    notificationManager.ScheduleDailyNotification(userId, hours, minutes); // Уведомление каждый день в указанное время
-                }
-            }
-            else
-            {
-                // Обработка ошибки в случае некорректного формата времени
-                Console.WriteLine("Ошибка: Некорректный формат времени");
-            }
+           
         }
 
         public void SetupMainPage()
