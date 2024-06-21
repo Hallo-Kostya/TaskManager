@@ -9,11 +9,13 @@ using Xamarin.Essentials;
 using App1.Views.StartingPages;
 using App1.ViewModels.Settings;
 using System.Threading.Tasks;
+using App1.Services.Notifications;
 
 namespace App1
 {
     public partial class App : Application
     {
+        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         static AssignmentsDB assignmentsDB;
         public static ProfileViewModel ProfileViewModel { get; private set; }
         public static AssignmentsDB AssignmentsDB
@@ -31,11 +33,19 @@ namespace App1
 
         public App()
         {
+
             InitializeComponent();
             ProfileViewModel = new ProfileViewModel(null);
             SetupMainPage();
             CheckDailyActivity();
             CheckWeeklyReset();
+            var notificationManager = DependencyService.Get<INotificationManager>();
+            int userId = Preferences.Get("CurrentUserID", -1);
+
+            if (userId != -1)
+            {
+                notificationManager.ScheduleDailyNotification(userId, 8, 0); // Уведомление каждый день в 8:00 утра
+            }
             Console.WriteLine("приложение запустилось");
         }
 

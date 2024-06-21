@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -21,6 +23,7 @@ namespace App1.Droid
 
         public const string TitleKey = "title";
         public const string MessageKey = "message";
+        private const int DailyNotificationIdOffset = 1000000;
 
         bool channelInitialized = false;
         int messageId = 0;
@@ -54,28 +57,64 @@ namespace App1.Droid
             };
             NotificationReceived?.Invoke(null, args);
         }
-        
-        //public void Show(string title, string message, int id = -1)
-        //{
-        //    Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
-        //    intent.PutExtra(TitleKey, title);
-        //    intent.PutExtra(MessageKey, message);
-        //    int notificationId = id != -1 ? id : pendingIntentId++;
 
-        //    PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+        public void ScheduleDailyNotification(int userId, int hour, int minute)
+        {
+            if (!Preferences.Get("AreNotificationsEnabled", true)|| !Preferences.Get("AreRemindersEnabled", true))
+            {
+                return;
+            }
 
-        //    NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
-        //        .SetContentIntent(pendingIntent)
-        //        .SetContentTitle(title)
-        //        .SetContentText(message)
-        //        .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.alarm))
-        //        .SetSmallIcon(Resource.Drawable.alarm)
-        //        .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
+            Task.Run(async () =>
+            {
+                var user = await App.AssignmentsDB.GetUserAsync(userId);
+                int tasksCount = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.ExecutionDate == DateTime.Today && x.IsDeleted==false && x.IsCompleted==false && x.IsOverdue==false).Count();
+                if (tasksCount != 0)
+                {
+                    string title = $"{user.Name}, для вас ежедневное напоминание!";
+                    string message = $"У вас целых {tasksCount} задач на сегодня, успевайте сделать их все!";
+                    int dailyNotificationId = userId + DailyNotificationIdOffset;
+                    ScheduleNotification(title, message, hour, minute, dailyNotificationId);
+                }
+                else
+                {
+                    string title = $"{user.Name}, для вас ежедневное напоминание!";
+                    string message = $"На сегодня у вас нет задач!";
+                    int dailyNotificationId = userId + DailyNotificationIdOffset;
+                    ScheduleNotification(title, message, hour, minute, dailyNotificationId);
+                }
+            });
+        }
 
-        //    Notification notification = builder.Build();
-        //    manager.Notify(notificationId, notification);
-        //}
-        
+        private void ScheduleNotification(string title, string message, int hour, int minute, int id)
+        {
+            if (!channelInitialized)
+            {
+                CreateNotificationChannel();
+            }
+
+            Intent intent = new Intent(AndroidApp.Context, typeof(AlarmHandler));
+            intent.PutExtra(TitleKey, title);
+            intent.PutExtra(MessageKey, message);
+
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, id, intent, PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable);
+
+            AlarmManager alarmManager = AndroidApp.Context.GetSystemService(Context.AlarmService) as AlarmManager;
+
+            Java.Util.Calendar calendar = Java.Util.Calendar.Instance;
+            calendar.Set(Java.Util.CalendarField.HourOfDay, hour);
+            calendar.Set(Java.Util.CalendarField.Minute, minute);
+            calendar.Set(Java.Util.CalendarField.Second, 0);
+
+            long triggerTime = calendar.TimeInMillis;
+            if (calendar.TimeInMillis < Java.Lang.JavaSystem.CurrentTimeMillis())
+            {
+                triggerTime += AlarmManager.IntervalDay;
+            }
+
+            alarmManager.SetRepeating(AlarmType.RtcWakeup, triggerTime, AlarmManager.IntervalDay, pendingIntent);
+        }
+
         public void SendExtendedNotification(string title, string message, DateTime? notifyTime = null, int id = -1)
         {
             if (!Preferences.Get("AreNotificationsEnabled", true))

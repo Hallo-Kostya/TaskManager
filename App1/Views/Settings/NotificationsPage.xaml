@@ -28,8 +28,14 @@
                     </Frame>
                     <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Напоминания" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
-                            <ImageButton Command="{Binding IsNotificationsCommand}" Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand"/>
+                            <Label Text="Ежедневные напоминания" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <ImageButton Command="{Binding IsRemindersCommand}" Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand">
+                                <ImageButton.Triggers>
+                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsReminders}" Value="true">
+                                        <Setter Property="Source" Value="done" />
+                                    </DataTrigger>
+                                </ImageButton.Triggers>
+                            </ImageButton>
                         </StackLayout>
                     </Frame>
                 </Grid>
@@ -152,6 +158,23 @@
                                     </Label.Triggers>
                                 </Label>
                                 <ImageButton Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand" Command="{Binding SetNotificationsSound}" CommandParameter="sound1.mp3"/>
+                            </StackLayout>
+                            <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Ежедневные напоминания" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                                    <ImageButton Command="{Binding IsRemindersCommand}" Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand">
+                                        <ImageButton.Triggers>
+                                            <DataTrigger TargetType="ImageButton" Binding="{Binding IsReminders}" Value="true">
+                                                <Setter Property="Source" Value="done" />
+                                            </DataTrigger>
+                                        </ImageButton.Triggers>
+                                    </ImageButton>
+                                </StackLayout>
+                            </Frame>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Выберите, во сколько будут приходить ежедневные уведомления"/>
+                                <TimePicker Format="hh:mm" Time="{Binding DailyRemindersTime, Mode=TwoWay}"/>
+                                <Button Text="Установить" Command="{Binding SetDailyReminderCommand}"/>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
