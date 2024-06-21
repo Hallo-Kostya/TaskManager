@@ -26,18 +26,6 @@
                             </ImageButton>
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#80444444" CornerRadius="16" VerticalOptions="StartAndExpand" Padding="10" Grid.Column="1">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Ежедневные напоминания" TextColor="AliceBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
-                            <ImageButton Command="{Binding IsRemindersCommand}" Source="circle.png" BackgroundColor="Color.transparent" HorizontalOptions="EndAndExpand">
-                                <ImageButton.Triggers>
-                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsReminders}" Value="true">
-                                        <Setter Property="Source" Value="done" />
-                                    </DataTrigger>
-                                </ImageButton.Triggers>
-                            </ImageButton>
-                        </StackLayout>
-                    </Frame>
                 </Grid>
                 <Frame BackgroundColor="#80444444" CornerRadius="26" Padding="20">
                     <StackLayout>

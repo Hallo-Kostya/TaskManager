@@ -169,7 +169,6 @@ namespace App1.ViewModels
 
         async Task ExecuteLoadAssignmentCommand()
         {
-            IsBusy = true;
             try
             {
                 var a = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
@@ -247,10 +246,7 @@ namespace App1.ViewModels
 
                 Console.WriteLine($"Error in ExecuteLoadAssignmentCommand: {ex.Message}");
             }
-            finally
-            {
-                IsBusy = false;
-            }
+
         }
        
         private async void HandleChangeIsCompleted(AssignmentModel assignment)
