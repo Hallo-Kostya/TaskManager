@@ -101,14 +101,14 @@ namespace App1
                 var user = await App.AssignmentsDB.GetUserAsync(userId);
                 if ((lastResetDate == DateTime.MinValue) || (currentDate - lastResetDate).TotalDays >= 7)
                 {
-
+                    
                     user.OverDueForWeek = 0;
                     user.DoneForWeek = 0;
                     await App.AssignmentsDB.AddUserAsync(user);
                     Preferences.Set("LastWeeklyResetDate", currentDate);
                 }
             }
-
+            
             Console.WriteLine("Недельная проверка запустилась");
         }
         protected override void OnStart()
