@@ -102,7 +102,7 @@ namespace App1.ViewModels
             }
         }
 
-
+        public Command LoadAssignmentCommand { get; }
         public Command LoadTagsCommand { get; }
         public Command AddAssignmentCommand { get; }
         public Command EditAssignmentCommand { get; }
@@ -135,6 +135,7 @@ namespace App1.ViewModels
 
         public AssignmentViewModel(INavigation _navigation)
         {
+            LoadAssignmentCommand = new Command(async () => await ExecuteLoadAssignmentCommand());
             AddAssignmentCommand = new Command(OnAddAssignment);
             EditAssignmentCommand = new Command<AssignmentModel>(OnEditAssignment);
             Navigation = _navigation;
@@ -237,24 +238,15 @@ namespace App1.ViewModels
                        return sortedGroup;
                    })
                     .ToList();
-                if (IsOverDueList == false)
-                {
-                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
-                    CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
-                }
-                else
-                {
-                    assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false && t.IsOverdue==false));
-                    CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
-                    OverDueAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsOverdue == true));
-                }
-                
+                assignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == false));
+                CompletedAssignments = new ObservableCollection<AssignmentModel>(sortedAssignments.Where(t => t.IsCompleted == true));
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine($"Error in ExecuteLoadAssignmentCommand: {ex.Message}");
             }
+
         }
        
         private async void HandleChangeIsCompleted(AssignmentModel assignment)

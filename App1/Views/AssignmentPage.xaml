@@ -119,7 +119,8 @@
             </StackLayout>
 
             <!--ЗАДАЧИ-->
-            <StackLayout Grid.Row="1">
+            
+                <StackLayout Grid.Row="1">
                 <CollectionView x:Name="ToDo" ItemsSource="{Binding assignments}" SelectionMode="None" VerticalOptions="FillAndExpand">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

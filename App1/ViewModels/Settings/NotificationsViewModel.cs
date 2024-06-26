@@ -12,7 +12,9 @@ namespace App1.ViewModels.Settings
     public class NotificationsViewModel : BaseAssignmentViewModel
     {
         public Command SetNotificationsSound { get; }
+        public Command SetDailyReminderCommand { get; }
         public Command IsNotificationsCommand { get; }
+        public Command IsRemindersCommand { get; }
         public Command OnCancelCommand { get; }
         public INavigation Navigation { get; set; }
         private bool _isNotifications;
@@ -25,6 +27,33 @@ namespace App1.ViewModels.Settings
                 {
                     _isNotifications = value;
                     OnPropertyChanged(nameof(IsNotifications));
+                }
+            }
+        }
+        private TimeSpan _dailyRemindersTime;
+        public TimeSpan DailyRemindersTime
+        {
+            get => _dailyRemindersTime;
+            set
+            {
+                if (_dailyRemindersTime != value)
+                {
+                    _dailyRemindersTime = value;
+                    OnPropertyChanged(nameof(DailyRemindersTime));
+                    
+                }
+            }
+        }
+        private bool _isReminders;
+        public bool IsReminders
+        {
+            get => _isReminders;
+            set
+            {
+                if (_isReminders != value)
+                {
+                    _isReminders = value;
+                    OnPropertyChanged(nameof(IsReminders));
                 }
             }
         }
@@ -43,12 +72,28 @@ namespace App1.ViewModels.Settings
         }
         public NotificationsViewModel(INavigation navigation)
         {
+            IsRemindersCommand = new Command(OnReminders);
+            IsReminders= Preferences.Get("AreRemindersEnabled", false);
             OnCancelCommand = new Command(OnCancel);
             Navigation = navigation;
-            _isNotifications = Preferences.Get("AreNotificationsEnabled", false);
+            IsNotifications = Preferences.Get("AreNotificationsEnabled", false);
             ChoosenSound = Preferences.Get("NotificationSound", "sound1.mp3");
+            string savedTimeString = Preferences.Get("DailyRemindersTime", "12:00"); // 12:00 - значение по умолчанию
+            DailyRemindersTime = TimeSpan.ParseExact(savedTimeString, "hh\\:mm", null);
             IsNotificationsCommand = new Command(HandleNotifications);
             SetNotificationsSound = new Command<string>(SetSound);
+            SetDailyReminderCommand = new Command(SetDailyTime);
+        }
+        private void SetDailyTime()
+        {
+            string timeString = DailyRemindersTime.ToString("hh\\:mm"); // Форматируем время в формат HH:mm
+            Preferences.Set("DailyRemindersTime", timeString);
+        }
+        private void OnReminders()
+        {
+            IsReminders = !IsReminders;
+            OnPropertyChanged(nameof(IsReminders));
+            Preferences.Set("AreRemindersEnabled", IsReminders);
         }
         private void SetSound(string sound)
         {
@@ -66,7 +111,8 @@ namespace App1.ViewModels.Settings
                 case "konstantin.wav":
                 case "sound1.mp3":
                     Preferences.Set("NotificationSound", sound);
-                    _choosenSound = sound;
+                    ChoosenSound = sound;
+                    OnPropertyChanged(nameof(ChoosenSound));
 
                     var audioPlayer = DependencyService.Get<IAudioPlayer>();
                     if (audioPlayer != null)
@@ -87,8 +133,9 @@ namespace App1.ViewModels.Settings
         }
         private void HandleNotifications()
         {
-            _isNotifications = !_isNotifications;
-            Preferences.Set("AreNotificationsEnabled", _isNotifications);
+            IsNotifications = !IsNotifications;
+            OnPropertyChanged(nameof(IsNotifications));
+            Preferences.Set("AreNotificationsEnabled", IsNotifications);
         }
     }
 }

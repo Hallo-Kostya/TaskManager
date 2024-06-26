@@ -142,6 +142,7 @@ namespace App1.ViewModels
         private void DeleteTag(TagModel tag)
         {
             Assignment.RemoveTag(tag);
+            OnPropertyChanged(nameof(Assignment.Tags));
             UpdateTags();
         }
         private async void ExecuteLoadTagPopup()

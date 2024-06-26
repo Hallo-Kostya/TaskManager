@@ -44,11 +44,23 @@ namespace App1.Models
                 {
                     _level = value;
                     OnPropertyChanged(nameof(Level));
-                    SetPreferencesForLevel(_level);
+                    SetPreferencesForLevel(Level);
                 }
             }
         }
-        public string RequiredExp { get; set; }
+        private int _requiredExp;
+        public int RequiredExp
+        {
+            get => _requiredExp;
+            set
+            {
+                if (_requiredExp != value)
+                {
+                    _requiredExp = value;
+                    OnPropertyChanged(nameof(RequiredExp));
+                }
+            }
+        }
         public string ExpDisplay => $"{Exp}/{RequiredExp}";
         public int Exp
         {
@@ -92,30 +104,31 @@ namespace App1.Models
             if (Exp >= 100)
             {
                 Level = 1;
-                RequiredExp = "250";
+                RequiredExp = 250;
             }
             else if (Exp >= 250)
             {
                 Level = 2;
-                RequiredExp = "430";
+                RequiredExp = 430;
             }
             else if (Exp >= 430)
             {
                 Level = 3;
-                RequiredExp = "600";
+                RequiredExp = 600;
             }
             else if (Exp >= 600)
             {
                 Level = 4;
-                RequiredExp = "Это максимальный уровень!";
+                RequiredExp = 1000;
             }
             else
             {
                 Level = 0;
-                RequiredExp = "100";
+                RequiredExp = 100;
             }
             
             OnPropertyChanged(nameof(Level));
+            OnPropertyChanged(nameof(RequiredExp));
         }
         
 

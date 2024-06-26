@@ -28,6 +28,19 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\raw\zagadka.mp3" />
+		<AndroidResource Include="Resources\raw\bodrost.mp3" />
+		<AndroidResource Include="Resources\raw\spokoistvie.mp3" />
+		<AndroidResource Include="Resources\raw\rassvet.mp3" />
+		<AndroidResource Include="Resources\raw\melody.mp3" />
+		<AndroidResource Include="Resources\raw\rezkost.mp3" />
+		<AndroidResource Include="Resources\raw\kolokol.mp3" />
+		<AndroidResource Include="Resources\raw\christmas.wav" />
+		<AndroidResource Include="Resources\raw\alexander.wav" />
+		<AndroidResource Include="Resources\raw\konstantin.wav" />
+		<AndroidResource Include="Resources\raw\sound1.mp3" />
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Corcav.Behaviors" Version="2.3.7" />

@@ -63,7 +63,7 @@
                             </Button>
                             <Frame CornerRadius="8" BackgroundColor="Color.transparent" HeightRequest="25"  Padding="5">
                                 <StackLayout>
-                                    <Button x:Name="ButtonOwnTime" Clicked="ButtonOwnTime_Clicked" Text="{Binding CleaningInterval,Converter={StaticResource CleaningTimeConverter}}" Margin="0,-11,0,0" TextTransform="None" BackgroundColor="Color.transparent">
+                                    <Button x:Name="ButtonOwnTime" CornerRadius="8" Clicked="ButtonOwnTime_Clicked" Text="{Binding CleaningInterval,Converter={StaticResource CleaningTimeConverter}}" Margin="0,-11,0,0" TextTransform="None" BackgroundColor="Color.transparent">
                                         <Button.Triggers>
                                             <DataTrigger TargetType="Button" Binding="{Binding IntervalForUI}" Value="-1">
                                                 <Setter Property="BackgroundColor" Value="#40E80DE0" />

@@ -51,8 +51,8 @@ namespace App1.ViewModels
             }
         }
         public string NotificationTimeString => Assignment.HasNotification
-            ? Assignment.NotificationTime.ToString("dd.MM.yy HH:mm")
-            : "Нет";
+           ? Assignment.NotificationTime.ToString("dd.MM.yy HH:mm")
+           : "Нет";
         public DateSelectionViewModel(INavigation navigation)
         {
             Navigation = navigation;
