@@ -38,8 +38,6 @@ namespace App1.Droid
             RequestPermissions();
             SetDailyAlarm();
             Console.WriteLine("Основная активность запустилась!!!");
-            DependencyService.Register<IAudioPlayer, AudioPlayerService>();
-
         }
         void RequestPermissions()
         {
