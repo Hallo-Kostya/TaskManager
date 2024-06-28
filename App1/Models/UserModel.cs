@@ -10,14 +10,16 @@ namespace App1.Models
 {
     public class UserModel : BaseModel
     {
-        private int _exp = 0;
-        private int _level = 1;
-        private DateTime _lastLaunchDate = DateTime.MinValue;
+        
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
         public string IconPath { get; set; }
+        private int _exp = 0;
+        private int _level = 1;
+        private int _requiredExp = 100;
+        private DateTime _lastLaunchDate = DateTime.MinValue;
         public DateTime LastLaunchDate
         {
             get => _lastLaunchDate;
@@ -49,7 +51,7 @@ namespace App1.Models
                 }
             }
         }
-        private int _requiredExp;
+ 
         public int RequiredExp
         {
             get => _requiredExp;

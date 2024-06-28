@@ -12,19 +12,17 @@ namespace App1.Models
 {
     public class AssignmentModel:BaseModel       
     {
-        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
-        private bool _isOverdue = false;
-        private bool _wasOverdue = false;
-        private bool _wasDone = false;
-        private List<TagModel> _tags = new List<TagModel>();
-        private List<AssignmentModel> _childs = new List<AssignmentModel>();
-        private DateTime _executionDate = DateTime.Now.AddDays(1);
+        
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
+        private bool _isOverdue = false;
+        private List<TagModel> _tags = new List<TagModel>();
+        private List<AssignmentModel> _childs = new List<AssignmentModel>();
+        private DateTime _executionDate = DateTime.Now.AddDays(1);
 
-       
         public DateTime ExecutionDate
         {
             get => _executionDate;
@@ -125,39 +123,8 @@ namespace App1.Models
         }
         public bool IsRepeatable { get; set; }
 
-        public bool WasOverdue
-        {
-            get => _wasOverdue;
-            set
-            {
-                if (_wasOverdue != value)
-                {
-                    _wasOverdue = value;
-                    OnPropertyChanged(nameof(WasOverdue));
-                    if (_wasOverdue == true)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
-                }
-            }
-        }
-        public bool WasDone
-        {
-            get => _wasDone;
-            set
-            {
-                if (_wasDone != value)
-                {
-                    _wasDone = value;
-                    OnPropertyChanged(nameof(WasDone));
-                    if (_wasDone == true)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateDone");
-                        MessagingCenter.Send<object>(this, "UpdateExp");
-                    }
-                }
-            }
-        }
+        public bool WasOverdue { get; set; } = false;
+        public bool WasDone { get; set; } = false;
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }
         public DateTime NotificationTime { get; set; } 
@@ -188,11 +155,6 @@ namespace App1.Models
                     {
                        HasNotification = false;
                        OnPropertyChanged(nameof(HasNotification));
-                    }
-                    if (_isOverdue==true && WasOverdue == false)
-                    {
-                        WasOverdue = true;
-                        OnPropertyChanged(nameof(WasOverdue));
                     }
                 }
             }
@@ -237,13 +199,19 @@ namespace App1.Models
                     SendNotification();
                 }
             }
-            if (!IsCompleted)
+            if (!IsCompleted && !IsDeleted)
             {
                 bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
                 if (_isOverdue != newIsOverdue)
                 {
                     _isOverdue = newIsOverdue;
                     OnPropertyChanged(nameof(IsOverdue));
+                    if (WasOverdue==false && newIsOverdue == true)
+                    {
+                        WasOverdue = true;
+                        OnPropertyChanged(nameof(WasOverdue));
+                        MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    }
                 }
             }
             
@@ -265,7 +233,12 @@ namespace App1.Models
             IsCompleted = !IsCompleted;
             
             OnPropertyChanged(nameof(IsCompleted));
-
+            if (WasDone==false && IsCompleted == true)
+            {
+                WasDone = true;
+                MessagingCenter.Send<object>(this, "UpdateDone");
+                MessagingCenter.Send<object>(this, "UpdateExp");
+            }
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
             {
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
