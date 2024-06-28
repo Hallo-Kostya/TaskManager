@@ -12,4 +12,4 @@
             <Button x:Name="SaveButton" Text="Далее" BackgroundColor="AliceBlue" TextColor="Black" Command="{Binding SaveUserName}" IsVisible="False" CornerRadius="12" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>ф
+</ContentPage>
