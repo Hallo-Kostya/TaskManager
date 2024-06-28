@@ -97,34 +97,22 @@ namespace App1.ViewModels.Settings
         }
         private void SetSound(string sound)
         {
-            switch (sound)
-            {
-                case "zagadka.mp3":
-                case "bodrost.mp3":
-                case "spokoistvie.mp3":
-                case "rassvet.mp3":
-                case "melody.mp3":
-                case "rezkost.mp3":
-                case "kolokol.mp3":
-                case "christmas.wav":
-                case "alexander.wav":
-                case "konstantin.wav":
-                case "sound1.mp3":
-                    Preferences.Set("NotificationSound", sound);
-                    ChoosenSound = sound;
-                    OnPropertyChanged(nameof(ChoosenSound));
+            Preferences.Set("NotificationSound", sound);
+            ChoosenSound = sound;
+            OnPropertyChanged(nameof(ChoosenSound));
 
-                    var audioPlayer = DependencyService.Get<IAudioPlayer>();
-                    if (audioPlayer != null)
-                    {
-                        audioPlayer.PlaySound(sound);
-                    }
-                    else
-                    {
-                        Console.WriteLine("IAudioPlayer not found.");
-                    }
-                    break;
+            var audioPlayer = DependencyService.Get<IAudioPlayer>();
+            if (audioPlayer != null)
+            {
+                audioPlayer.PlaySound(sound);
             }
+            else
+            {
+                Console.WriteLine("IAudioPlayer not found.");
+            }
+            
+
+
         }
 
         public async void OnCancel()
