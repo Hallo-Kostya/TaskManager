@@ -14,6 +14,8 @@ namespace App1.Models
     {
         INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
+        private bool _wasOverdue = false;
+        private bool _wasDone = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
         private DateTime _executionDate = DateTime.Now.AddDays(1);
@@ -109,11 +111,53 @@ namespace App1.Models
                 {
                     _hasNotification = value;
                     OnPropertyChanged(nameof(HasNotification));
+                    if (_hasNotification == false)
+                    {
+                        notificationManager.CancelNotification(ID);
+                    }
+                    if (_hasNotification)
+                    {
+                        SendNotification();
+                    }
 
                 }
             }
         }
         public bool IsRepeatable { get; set; }
+
+        public bool WasOverdue
+        {
+            get => _wasOverdue;
+            set
+            {
+                if (_wasOverdue != value)
+                {
+                    _wasOverdue = value;
+                    OnPropertyChanged(nameof(WasOverdue));
+                    if (_wasOverdue == true)
+                    {
+                        MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    }
+                }
+            }
+        }
+        public bool WasDone
+        {
+            get => _wasDone;
+            set
+            {
+                if (_wasDone != value)
+                {
+                    _wasDone = value;
+                    OnPropertyChanged(nameof(WasDone));
+                    if (_wasDone == true)
+                    {
+                        MessagingCenter.Send<object>(this, "UpdateDone");
+                        MessagingCenter.Send<object>(this, "UpdateExp");
+                    }
+                }
+            }
+        }
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }
         public DateTime NotificationTime { get; set; } 
@@ -142,7 +186,13 @@ namespace App1.Models
                     OnPropertyChanged(nameof(IsOverdue));
                     if (_isOverdue == true)
                     {
-                        _hasNotification = false;
+                       HasNotification = false;
+                       OnPropertyChanged(nameof(HasNotification));
+                    }
+                    if (_isOverdue==true && WasOverdue == false)
+                    {
+                        WasOverdue = true;
+                        OnPropertyChanged(nameof(WasOverdue));
                     }
                 }
             }
@@ -173,8 +223,6 @@ namespace App1.Models
         public void CheckIfOverdue()
         {
 
-            bool wasOverdue = _isOverdue;
-
             if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime && IsDeleted == false)
             {
                 IsCompleted = false;
@@ -196,12 +244,6 @@ namespace App1.Models
                 {
                     _isOverdue = newIsOverdue;
                     OnPropertyChanged(nameof(IsOverdue));
-
-                    // Only send message if the task was not overdue previously but is now overdue
-                    if (!wasOverdue && _isOverdue && !IsCompleted)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
                 }
             }
             
@@ -223,11 +265,6 @@ namespace App1.Models
             IsCompleted = !IsCompleted;
             
             OnPropertyChanged(nameof(IsCompleted));
-            if (IsCompleted)
-            {
-                MessagingCenter.Send<object>(this, "UpdateDone");
-                MessagingCenter.Send<object>(this, "UpdateExp");
-            }
 
             if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
             {

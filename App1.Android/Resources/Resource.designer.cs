@@ -14,7 +14,7 @@ namespace App1.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.2.2.120")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.2.1.111")]
 	public partial class Resource
 	{
 		
@@ -29153,19 +29153,19 @@ namespace App1.Droid
 			public const int priority = 2131165401;
 			
 			// aapt resource value: 0x7F0700DA
-			public const int profile_image = 2131165402;
+			public const int recover = 2131165402;
 			
 			// aapt resource value: 0x7F0700DB
-			public const int profile_name = 2131165403;
+			public const int repeat = 2131165403;
 			
 			// aapt resource value: 0x7F0700DC
-			public const int recover = 2131165404;
+			public const int save_task = 2131165404;
 			
 			// aapt resource value: 0x7F0700DD
-			public const int repeat = 2131165405;
+			public const int search = 2131165405;
 			
 			// aapt resource value: 0x7F0700DE
-			public const int save_task = 2131165406;
+			public const int settings = 2131165406;
 			
 			// aapt resource value: 0x7F0700DF
 			public const int tags = 2131165407;

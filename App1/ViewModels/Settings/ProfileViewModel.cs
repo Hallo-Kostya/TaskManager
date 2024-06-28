@@ -124,8 +124,10 @@ namespace App1.ViewModels.Settings
                     var stream = await result.OpenReadAsync();
                     var filePath = await SavePhotoToFileAsync(stream);
                     DeleteOldPhoto(User.IconPath);
+                    User.IconPath = filePath;
                     User.Icon = await SavePhotoToDatabase(stream);
                     OnPropertyChanged(nameof(User.Icon));
+                    OnPropertyChanged(nameof(User.IconPath));
                 }
             }
             catch (Exception ex)
@@ -147,8 +149,12 @@ namespace App1.ViewModels.Settings
                 if (result != null)
                 {
                     var stream = await result.OpenReadAsync();
+                    var filePath = await SavePhotoToFileAsync(stream);
+                    DeleteOldPhoto(User.IconPath);
+                    User.IconPath = filePath;
                     User.Icon = await SavePhotoToDatabase(stream);
                     OnPropertyChanged(nameof(User.Icon));
+                    OnPropertyChanged(nameof(User.IconPath));
                 }
             }
             catch (Exception ex)
@@ -196,9 +202,6 @@ namespace App1.ViewModels.Settings
             // Convert byte array to Base64 string
             string photoBase64 = Convert.ToBase64String(photoBytes);
 
-            // Save the Base64 string to the database
-            User.Icon = photoBase64;
-            await App.AssignmentsDB.AddUserAsync(User);
 
             return photoBase64;
         }

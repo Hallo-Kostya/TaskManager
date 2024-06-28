@@ -10,7 +10,8 @@ namespace App1.Models
 {
     public class UserModel : BaseModel
     {
-        private int _exp;
+        private int _exp = 0;
+        private int _level = 1;
         private DateTime _lastLaunchDate = DateTime.MinValue;
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -34,7 +35,7 @@ namespace App1.Models
         public int OverDueForWeek {  get; set; }
         public int DoneForWeek {  get; set; }
         public int DoneAll { get; set; }
-        private int _level;
+
         public int Level
         {
             get => _level;
@@ -80,19 +81,19 @@ namespace App1.Models
         {
             switch (level)
             {
-                case 0:
+                case 1:
                     Preferences.Set("SomeSetting", "ValueForLevel0");
                     break;
-                case 1:
+                case 2:
                     Preferences.Set("SomeSetting", "ValueForLevel1");
                     break;
-                case 2:
+                case 3:
                     Preferences.Set("SomeSetting", "ValueForLevel2");
                     break;
-                case 3:
+                case 4:
                     Preferences.Set("SomeSetting", "ValueForLevel3");
                     break;
-                case 4:
+                case 5:
                     Preferences.Set("SomeSetting", "ValueForLevel4");
                     break;
                 default:
@@ -103,27 +104,27 @@ namespace App1.Models
         {
             if (Exp >= 100)
             {
-                Level = 1;
+                Level = 2;
                 RequiredExp = 250;
             }
             else if (Exp >= 250)
             {
-                Level = 2;
+                Level = 3;
                 RequiredExp = 430;
             }
             else if (Exp >= 430)
             {
-                Level = 3;
+                Level = 4;
                 RequiredExp = 600;
             }
             else if (Exp >= 600)
             {
-                Level = 4;
+                Level = 5;
                 RequiredExp = 1000;
             }
             else
             {
-                Level = 0;
+                Level = 1;
                 RequiredExp = 100;
             }
             

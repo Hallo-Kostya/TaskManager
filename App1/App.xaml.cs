@@ -46,7 +46,7 @@ namespace App1
 
             CheckWeeklyReset();
             //Console.WriteLine("CheckWeeklyReset0000000000000000000000000000000000000000000000000");
-
+            notificationManager.ScheduleDailyNotification();
 
         }
 
@@ -70,8 +70,8 @@ namespace App1
             if (userId != -1)
             {
                 var user = await App.AssignmentsDB.GetUserAsync(userId);
- 
-                var lastLaunchDate = user.LastLaunchDate;
+
+                var lastLaunchDate = user.LastLaunchDate.Date;
                 var currentDate = DateTime.Now.Date;
                 if (lastLaunchDate == currentDate.AddDays(-1))
                 {
@@ -79,7 +79,7 @@ namespace App1
                     user.LastLaunchDate = currentDate;
                     user.Exp += 20;
                 }
-                if (lastLaunchDate != DateTime.MinValue && lastLaunchDate < currentDate.AddDays(-1))
+                else if (lastLaunchDate == DateTime.MinValue || lastLaunchDate < currentDate.AddDays(-1))
                 {
                     user.DayStreak = 1;
                     user.LastLaunchDate = currentDate;
@@ -95,9 +95,10 @@ namespace App1
             var userId = Preferences.Get("CurrentUserID", -1);
             var lastResetDate = Preferences.Get("LastWeeklyResetDate", DateTime.MinValue);
             var currentDate = DateTime.Now.Date;
-            var user = await App.AssignmentsDB.GetUserAsync(userId);
-            if (user != null)
+            
+            if (userId!=-1)
             {
+                var user = await App.AssignmentsDB.GetUserAsync(userId);
                 if ((lastResetDate == DateTime.MinValue) || (currentDate - lastResetDate).TotalDays >= 7)
                 {
 

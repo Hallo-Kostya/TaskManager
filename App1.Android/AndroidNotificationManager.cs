@@ -58,32 +58,46 @@ namespace App1.Droid
             NotificationReceived?.Invoke(null, args);
         }
 
-        public void ScheduleDailyNotification(int userId, int hour, int minute)
+        public void ScheduleDailyNotification()
         {
             if (!Preferences.Get("AreNotificationsEnabled", true)|| !Preferences.Get("AreRemindersEnabled", true))
             {
+                Console.WriteLine("DailyNotificationCanceled");
                 return;
             }
 
-            Task.Run(async () =>
+            var userId = Preferences.Get("CurrentUserID", -1);
+            string savedTimeString = Preferences.Get("DailyRemindersTime", "12:00");
+
+            TimeSpan savedTime = TimeSpan.ParseExact(savedTimeString, "hh\\:mm", null);
+            int hour = savedTime.Hours;
+            int minute = savedTime.Minutes;
+            if (userId != -1)
             {
-                var user = await App.AssignmentsDB.GetUserAsync(userId);
-                int tasksCount = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.ExecutionDate == DateTime.Today && x.IsDeleted==false && x.IsCompleted==false && x.IsOverdue==false).Count();
-                if (tasksCount != 0)
+                Task.Run(async () =>
                 {
-                    string title = $"{user.Name}, для вас ежедневное напоминание!";
-                    string message = $"У вас целых {tasksCount} задач на сегодня, успевайте сделать их все!";
-                    int dailyNotificationId = userId + DailyNotificationIdOffset;
-                    ScheduleNotification(title, message, hour, minute, dailyNotificationId);
-                }
-                else
-                {
-                    string title = $"{user.Name}, для вас ежедневное напоминание!";
-                    string message = $"На сегодня у вас нет задач!";
-                    int dailyNotificationId = userId + DailyNotificationIdOffset;
-                    ScheduleNotification(title, message, hour, minute, dailyNotificationId);
-                }
-            });
+
+                    var user = await App.AssignmentsDB.GetUserAsync(userId);
+                    int tasksCount = (await App.AssignmentsDB.GetItemsAsync()).Where(x => x.ExecutionDate == DateTime.Today && x.IsDeleted == false && x.IsCompleted == false && x.IsOverdue == false).Count();
+                    if (tasksCount != 0)
+                    {
+                        string title = $"{user.Name}, для вас ежедневное напоминание!";
+                        string message = $"У вас целых {tasksCount} задач на сегодня, успевайте сделать их все!";
+                        int dailyNotificationId = userId + DailyNotificationIdOffset;
+                        ScheduleNotification(title, message, hour, minute, dailyNotificationId);
+                        Console.WriteLine($"DailyNotification Scheduled at{hour}:{minute}");
+                    }
+                    else
+                    {
+                        string title = $"{user.Name}, для вас ежедневное напоминание!";
+                        string message = $"На сегодня у вас нет задач!";
+                        int dailyNotificationId = userId + DailyNotificationIdOffset;
+                        ScheduleNotification(title, message, hour, minute, dailyNotificationId);
+                        Console.WriteLine($"DailyNotification Scheduled at{hour}:{minute}");
+                    }
+                });
+            }
+           
         }
 
         private void ScheduleNotification(string title, string message, int hour, int minute, int id)
