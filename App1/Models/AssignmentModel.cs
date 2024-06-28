@@ -12,16 +12,16 @@ namespace App1.Models
 {
     public class AssignmentModel:BaseModel       
     {
-        
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
         INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
         private DateTime _executionDate = DateTime.Now.AddDays(1);
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+       
 
         public DateTime ExecutionDate
         {
