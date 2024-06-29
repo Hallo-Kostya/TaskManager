@@ -199,22 +199,14 @@ namespace App1.Models
                     SendNotification();
                 }
             }
-            if (!IsCompleted && !IsDeleted)
+            IsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
+            OnPropertyChanged(nameof(IsOverdue));
+            if (WasOverdue == false && IsOverdue == true)
             {
-                bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
-                if (_isOverdue != newIsOverdue)
-                {
-                    _isOverdue = newIsOverdue;
-                    OnPropertyChanged(nameof(IsOverdue));
-                    if (WasOverdue==false && newIsOverdue == true)
-                    {
-                        WasOverdue = true;
-                        OnPropertyChanged(nameof(WasOverdue));
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
-                }
+                WasOverdue = true;
+                OnPropertyChanged(nameof(WasOverdue));
+                MessagingCenter.Send<object>(this, "UpdateOverdue");
             }
-            
         }
         public void AddChild(AssignmentModel assignment)
         {
