@@ -12,7 +12,6 @@ namespace App1.Models
 {
     public class AssignmentModel : BaseModel
     {
-        INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
         private List<TagModel> _tags = new List<TagModel>();
         private List<AssignmentModel> _childs = new List<AssignmentModel>();
@@ -126,6 +125,8 @@ namespace App1.Models
             Средний = 2,
             Высокий = 3
         }
+        public bool WasDone { get; set; } = false;
+        public bool WasOverdue { get; set; } = false;
         public bool HasChild { get; set; } = false;
         public bool IsChild { get; set; } = false;
         public bool IsCompleted { get; set; }
@@ -142,7 +143,7 @@ namespace App1.Models
                     OnPropertyChanged(nameof(IsOverdue));
                     if (_isOverdue == true)
                     {
-                        _hasNotification = false;
+                        HasNotification = false;
                     }
                 }
             }
@@ -154,58 +155,55 @@ namespace App1.Models
             if (HasNotification == true && NotificationTimeMultiplier == 2 && NotificationTime > ExecutionDate)
             {
                 NotificationTime = ExecutionDate;
-                OnPropertyChanged(nameof(NotificationTime));
                 return;
             }
             var newTime = ExecutionDate.AddMinutes(NotificationTimeMultiplier);
             if (newTime != null && newTime >= DateTime.Now && newTime <= ExecutionDate)
             {
                 NotificationTime = newTime;
-                OnPropertyChanged(nameof(NotificationTime));
             }
             else
             {
                 HasNotification = false;
-                OnPropertyChanged(nameof(HasNotification));
             }
 
         }
-        public void CheckIfOverdue()
-        {
+        //public void CheckIfOverdue()
+        //{
 
-            bool wasOverdue = _isOverdue;
+        //    bool wasOverdue = _isOverdue;
 
-            if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime && IsDeleted == false)
-            {
-                IsCompleted = false;
-                OnPropertyChanged(nameof(IsCompleted));
-                ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
-                OnPropertyChanged(nameof(ExecutionDate));
-                RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
-                OnPropertyChanged(nameof(RepeatitionReturnTime));
+        //    if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime && IsDeleted == false)
+        //    {
+        //        IsCompleted = false;
+        //        OnPropertyChanged(nameof(IsCompleted));
+        //        ExecutionDate = ExecutionDate.AddDays(RepeatitionAdditional);
+        //        OnPropertyChanged(nameof(ExecutionDate));
+        //        RepeatitionReturnTime = RepeatitionReturnTime.AddDays(RepeatitionAdditional);
+        //        OnPropertyChanged(nameof(RepeatitionReturnTime));
 
-                if (HasNotification)
-                {
-                    SendNotification();
-                }
-            }
-            if (!IsCompleted)
-            {
-                bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
-                if (_isOverdue != newIsOverdue)
-                {
-                    _isOverdue = newIsOverdue;
-                    OnPropertyChanged(nameof(IsOverdue));
+        //        if (HasNotification)
+        //        {
+        //            SendNotification();
+        //        }
+        //    }
+        //    if (!IsCompleted)
+        //    {
+        //        bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
+        //        if (_isOverdue != newIsOverdue)
+        //        {
+        //            _isOverdue = newIsOverdue;
+        //            OnPropertyChanged(nameof(IsOverdue));
 
-                    // Only send message if the task was not overdue previously but is now overdue
-                    if (!wasOverdue && _isOverdue && !IsCompleted)
-                    {
-                        MessagingCenter.Send<object>(this, "UpdateOverdue");
-                    }
-                }
-            }
+        //            // Only send message if the task was not overdue previously but is now overdue
+        //            if (!wasOverdue && _isOverdue && !IsCompleted)
+        //            {
+        //                MessagingCenter.Send<object>(this, "UpdateOverdue");
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
         public void AddChild(AssignmentModel assignment)
         {
             HasChild = true;
@@ -215,7 +213,6 @@ namespace App1.Models
                 OnPropertyChanged(nameof(Childs));
                 OnPropertyChanged(nameof(ChildsString));
             }
-
         }
 
         public void ChangeIsCompleted()
@@ -223,42 +220,24 @@ namespace App1.Models
             IsCompleted = !IsCompleted;
 
             OnPropertyChanged(nameof(IsCompleted));
-            if (IsCompleted)
-            {
-                MessagingCenter.Send<object>(this, "UpdateDone");
-                MessagingCenter.Send<object>(this, "UpdateExp");
-            }
-
-            if (IsCompleted == true && IsRepeatable == true && IsDeleted == false)
-            {
-                RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
-                OnPropertyChanged(nameof(RepeatitionReturnTime));
-            }
-            if (IsCompleted && HasNotification)
-            {
-                notificationManager.CancelNotification(ID);
-            }
-            else if (!IsCompleted && HasNotification && NotificationTime <= ExecutionDate && NotificationTime >= DateTime.Now)
-            {
-                SendNotification();
-            }
-
         }
 
-        private void SendNotification()
-        {
-            string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
-            string title = $"Уведомление! {tags}";
-            string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
-            if (HasChild)
-            {
-                message += "\nТакже не забудьте про подзадачи!";
-            }
-            notificationManager.CancelNotification(ID);
-            notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
-        }
+            //}
 
-        public void RemoveChild(AssignmentModel assignment)
+            //private void SendNotification()
+            //{
+            //    string tags = string.Join(", ", Tags.Select(tag => $"#{tag.Name}"));
+            //    string title = $"Уведомление! {tags}";
+            //    string message = $"Ваш дедлайн по задаче:{Name} приближается!\nОписание:{Description}\nНе забудьте сделать её до:{ExecutionDate}";
+            //    if (HasChild)
+            //    {
+            //        message += "\nТакже не забудьте про подзадачи!";
+            //    }
+            //    notificationManager.CancelNotification(ID);
+            //    notificationManager.SendExtendedNotification(title, message, NotificationTime, ID);
+            //}
+
+            public void RemoveChild(AssignmentModel assignment)
         {
             var existingChild = Childs.FirstOrDefault(t => t.ID == assignment.ID);
             if (existingChild != null)
@@ -294,34 +273,34 @@ namespace App1.Models
             }
         }
 
-        public async Task LoadTagsAsync()
-        {
-            var tagIds = TagsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
-            var tags = new List<TagModel>();
-            foreach (var tagId in tagIds)
-            {
-                var tag = await App.AssignmentsDB.GetTagAsync(tagId);
-                if (tag != null)
-                {
-                    tags.Add(tag);
-                }
-            }
-            Tags = tags;
-        }
-        public async Task LoadChildsAsync()
-        {
-            var childIds = ChildsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
-            var childs = new List<AssignmentModel>();
-            foreach (var childId in childIds)
-            {
-                var child = await App.AssignmentsDB.GetItemtAsync(childId);
-                if (child != null)
-                {
-                    childs.Add(child);
-                }
-            }
-            Childs = childs;
-        }
+        //public async Task LoadTagsAsync()
+        //{
+        //    var tagIds = TagsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+        //    var tags = new List<TagModel>();
+        //    foreach (var tagId in tagIds)
+        //    {
+        //        var tag = await App.AssignmentsDB.GetTagAsync(tagId);
+        //        if (tag != null)
+        //        {
+        //            tags.Add(tag);
+        //        }
+        //    }
+        //    Tags = tags;
+        //}
+        //public async Task LoadChildsAsync()
+        //{
+        //    var childIds = ChildsString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+        //    var childs = new List<AssignmentModel>();
+        //    foreach (var childId in childIds)
+        //    {
+        //        var child = await App.AssignmentsDB.GetItemtAsync(childId);
+        //        if (child != null)
+        //        {
+        //            childs.Add(child);
+        //        }
+        //    }
+        //    Childs = childs;
+        //}
 
 
         public event PropertyChangedEventHandler PropertyChanged;

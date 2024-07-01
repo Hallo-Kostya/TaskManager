@@ -82,7 +82,6 @@ namespace App1.iOS
             var assignments = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
             foreach (var assignment in assignments)
             {
-                assignment.CheckIfOverdue();
                 await App.AssignmentsDB.AddItemAsync(assignment);
             }
         }

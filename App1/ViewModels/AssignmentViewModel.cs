@@ -17,6 +17,7 @@ namespace App1.ViewModels
 {
     public class AssignmentViewModel : BaseAssignmentViewModel
     {
+        private AssignmentMethodsManager _assignManager;
         private ObservableCollection<AssignmentModel> _assignments;
         public ObservableCollection<AssignmentModel> assignments
         {
@@ -154,6 +155,7 @@ namespace App1.ViewModels
             isFilteredByDate = Preferences.Get("IsFilteredByDate", false);
             TagSelectPopupCommand = new Command(ExecuteTagSelectPopup);
             MeetBallsPopupCommand = new Command(ExecuteMeetBallsPopup);
+            _assignManager = new AssignmentMethodsManager();
             MessagingCenter.Subscribe<ListModel>(this, "UpdatePage", async (sender) =>
             {
                 SelectedFolder = sender;
@@ -174,8 +176,8 @@ namespace App1.ViewModels
                 var a = (await App.AssignmentsDB.GetItemsAsync()).Where(x => !x.IsDeleted);
                 foreach (var assignment in a)
                 {
-                    assignment.CheckIfOverdue();
-                    await assignment.LoadTagsAsync();
+                    await _assignManager.CheckIfOverdue(assignment);
+                    await _assignManager.LoadTagsAsync(assignment);
                 }
 
                 IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false && t.IsChild == false);
@@ -255,8 +257,7 @@ namespace App1.ViewModels
             {
                 return;
             }
-            assignment.ChangeIsCompleted();
-            await App.AssignmentsDB.AddItemAsync(assignment);
+            await _assignManager.ChangeIsCompleted(assignment);
             await ExecuteLoadAssignmentCommand();
         }
 

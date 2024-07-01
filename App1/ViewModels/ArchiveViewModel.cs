@@ -1,4 +1,5 @@
-﻿using App1.Models;
+﻿using App1.Data;
+using App1.Models;
 using App1.Services.Notifications;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace App1.ViewModels
 {
     class ArchiveViewModel:BaseAssignmentViewModel
     {
+        private AssignmentMethodsManager _assignManager;
         public Command ClearArchiveCommand { get; }
         public Command LoadArchiveCommand { get; }
         public Command DeleteArchivedAssignmentCommand { get; }
@@ -26,7 +28,7 @@ namespace App1.ViewModels
             ClearArchiveCommand = new Command(ClearArchive);
             LoadArchiveCommand=new Command(async () => await ExecuteLoadArchive());
             Archive = new ObservableCollection<AssignmentModel>();
-            
+            _assignManager = new AssignmentMethodsManager();
         }
 
         public async Task ExecuteLoadArchive()
@@ -37,7 +39,7 @@ namespace App1.ViewModels
                 var assList = (await App.AssignmentsDB.GetItemsAsync()).Where(t => t.IsDeleted == true);///GetSortedByDate(DateTime date);
                 foreach (var ass in assList)
                 {
-                    await ass.LoadTagsAsync();
+                    await _assignManager.LoadTagsAsync(ass);
                     Archive.Add(ass);
                 }
             }

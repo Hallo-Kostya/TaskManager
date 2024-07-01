@@ -1,4 +1,5 @@
-﻿using App1.Models;
+﻿using App1.Data;
+using App1.Models;
 using App1.Views;
 using App1.Views.Popups;
 using App1.Views.Popups.EditPopup;
@@ -14,6 +15,7 @@ namespace App1.ViewModels
 {
     public class EditViewModel : BaseAssignmentViewModel
     {
+        private AssignmentMethodsManager _assignManager;
         public INavigation Navigation { get; }
         public Command EditAssignmentCommand { get;  }
         public Command SaveCommand { get; }
@@ -72,6 +74,7 @@ namespace App1.ViewModels
             AddChildCommand = new Command(AddChild);
             DeleteChildCommand = new Command<AssignmentModel>(DeleteChild);
             isFromPopup = false;
+            _assignManager = new AssignmentMethodsManager();
             HandleChangeIsCompletedCommand = new Command(HandleChangeIsCompleted);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);

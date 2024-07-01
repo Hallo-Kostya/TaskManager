@@ -19,6 +19,7 @@ namespace App1.Models
         private int _exp = 0;
         private int _level = 1;
         private int _requiredExp = 100;
+        private int _daystreak = 1;
         private DateTime _lastLaunchDate = DateTime.MinValue;
         public DateTime LastLaunchDate
         {
@@ -32,7 +33,19 @@ namespace App1.Models
                 }
             }
         }
-        public int DayStreak { get; set; }
+        public int DayStreak
+        {
+            get => _daystreak;
+            set
+            {
+                if (_daystreak != value)
+                {
+                    _daystreak = value;
+                    OnPropertyChanged(nameof(DayStreak));
+                }
+            }
+        }
+
         public int AllOverDue { get; set; }
         public int OverDueForWeek {  get; set; }
         public int DoneForWeek {  get; set; }

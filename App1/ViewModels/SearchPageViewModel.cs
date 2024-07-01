@@ -15,6 +15,7 @@ namespace App1.ViewModels
 {
     public class SearchPageViewModel:BaseAssignmentViewModel
     {
+        private AssignmentMethodsManager _assignManager;
         public INavigation Navigation { get; set; }
         public Command SearchBarTextChangedCommand { get; }
         public Command EditCommand { get; }
@@ -32,6 +33,7 @@ namespace App1.ViewModels
             SearchedAssignments = new ObservableCollection<AssignmentModel>();
             SearchBarTextChangedCommand = new Command(OnSearchBarTextChanged);
             Navigation = navigation;
+            _assignManager = new AssignmentMethodsManager();
         }
 
         private async void OnEdit(AssignmentModel assignment)
@@ -45,7 +47,7 @@ namespace App1.ViewModels
                 SearchedAssignments.Clear();
                 foreach (var item in archives)
                 {
-                    await item.LoadTagsAsync();
+                    await _assignManager.LoadTagsAsync(item);
                     SearchedAssignments.Add(item);
                 }
             }

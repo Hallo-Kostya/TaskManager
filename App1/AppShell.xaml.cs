@@ -21,7 +21,7 @@ namespace App1
             Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
             Routing.RegisterRoute(nameof(ArchivePage), typeof(ArchivePage));
             Routing.RegisterRoute(nameof(FolderAddingPage), typeof(FolderAddingPage));
-            Routing.RegisterRoute(nameof(FolderPage), typeof(FolderPage));
+            
         }
         protected async override void OnAppearing()
         {
