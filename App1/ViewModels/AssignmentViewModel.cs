@@ -55,7 +55,7 @@ namespace App1.ViewModels
             set
             {
                 SetProperty(ref isFilteredByTag, value);
-                Preferences.Set("IsFilteredByTag", value); 
+                Preferences.Set("IsFilteredByTag", value);
             }
         }
         private bool _isOverDueList;
@@ -115,9 +115,9 @@ namespace App1.ViewModels
         public INavigation Navigation { get; set; }
 
 
-        
 
-  
+
+
         public Command FilterByTagCommand { get; }
 
 
@@ -159,7 +159,7 @@ namespace App1.ViewModels
                 SelectedFolder = sender;
                 await ExecuteLoadAssignmentCommand();
             });
-            
+
         }
 
         public async Task OnAppearing()
@@ -178,7 +178,7 @@ namespace App1.ViewModels
                     await assignment.LoadTagsAsync();
                 }
 
-                IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false && t.IsChild==false);
+                IEnumerable<AssignmentModel> filteredAssignments = a.Where(t => t.IsDeleted == false && t.IsChild == false);
 
                 if (SelectedFolder.Name != "Мои дела")
                 {
@@ -190,7 +190,7 @@ namespace App1.ViewModels
                     filteredAssignments = filteredAssignments.Where(t => t.Tags.Any(tag => tag.ID == SelectedTag.ID));
                 }
 
-               
+
                 IEnumerable<IGrouping<object, AssignmentModel>> groupedAssignments;
                 switch (GroupedBy)
                 {
@@ -217,7 +217,7 @@ namespace App1.ViewModels
                         break;
                     default:
                         groupedAssignments = filteredAssignments
-                            .GroupBy(x => (object)null); 
+                            .GroupBy(x => (object)null);
                         break;
                 }
 
@@ -248,7 +248,7 @@ namespace App1.ViewModels
             }
 
         }
-       
+
         private async void HandleChangeIsCompleted(AssignmentModel assignment)
         {
             if (assignment == null)
@@ -297,7 +297,7 @@ namespace App1.ViewModels
 
             if (assignment.HasNotification)
             {
-                notificationManager.CancelNotification(assignment.ID);  
+                notificationManager.CancelNotification(assignment.ID);
             }
             MessagingCenter.Send<object>(this, "TaskCountChanged");
             await App.AssignmentsDB.AddItemAsync(assignment);
@@ -316,7 +316,7 @@ namespace App1.ViewModels
 
                     if (sender.Name != "Все задачи")
                     {
-                            IsFilteredByTag = true;
+                        IsFilteredByTag = true;
                     }
                     else
                     {
@@ -339,8 +339,8 @@ namespace App1.ViewModels
         private async void ExecuteMeetBallsPopup()
         {
             await Navigation.PushPopupAsync(new MeetBallsPopupPage());
-            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel,string>(this, "GroupSelected");
-            MessagingCenter.Subscribe<FilterSelectPopupViewModel,string>(this, "GroupSelected", async (sender,arg) => {
+            MessagingCenter.Unsubscribe<FilterSelectPopupViewModel, string>(this, "GroupSelected");
+            MessagingCenter.Subscribe<FilterSelectPopupViewModel, string>(this, "GroupSelected", async (sender, arg) => {
                 switch (arg)
                 {
                     case "Tag":

@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace App1.Models
 {
-    public class AssignmentModel:BaseModel       
+    public class AssignmentModel : BaseModel
     {
         INotificationManager notificationManager = DependencyService.Get<INotificationManager>();
         private bool _isOverdue = false;
@@ -21,7 +21,7 @@ namespace App1.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-       
+
 
         public DateTime ExecutionDate
         {
@@ -32,14 +32,14 @@ namespace App1.Models
                 {
                     _executionDate = value;
                     OnPropertyChanged(nameof(ExecutionDate));
-                    if (HasNotification==true)
+                    if (HasNotification == true)
                         UpdateNotificationTime();
                 }
             }
         }
-        
+
         [Ignore]
-        public List<AssignmentModel> Childs 
+        public List<AssignmentModel> Childs
         {
             get => _childs;
             set
@@ -76,7 +76,7 @@ namespace App1.Models
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); 
+                OnPropertyChanged(nameof(TagsString));
             }
         }
 
@@ -109,25 +109,14 @@ namespace App1.Models
                 {
                     _hasNotification = value;
                     OnPropertyChanged(nameof(HasNotification));
-                    if (_hasNotification == false)
-                    {
-                        notificationManager.CancelNotification(ID);
-                    }
-                    if (_hasNotification)
-                    {
-                        SendNotification();
-                    }
 
                 }
             }
         }
         public bool IsRepeatable { get; set; }
-
-        public bool WasOverdue { get; set; } = false;
-        public bool WasDone { get; set; } = false;
         public int RepeatitionAdditional { get; set; }
         public DateTime RepeatitionReturnTime { get; set; }
-        public DateTime NotificationTime { get; set; } 
+        public DateTime NotificationTime { get; set; }
         public EnumPriority Priority { get; set; }
 
         public enum EnumPriority : int
@@ -141,7 +130,7 @@ namespace App1.Models
         public bool IsChild { get; set; } = false;
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; } = false;
-        
+
         public bool IsOverdue
         {
             get => _isOverdue;
@@ -153,8 +142,7 @@ namespace App1.Models
                     OnPropertyChanged(nameof(IsOverdue));
                     if (_isOverdue == true)
                     {
-                       HasNotification = false;
-                       OnPropertyChanged(nameof(HasNotification));
+                        _hasNotification = false;
                     }
                 }
             }
@@ -163,7 +151,7 @@ namespace App1.Models
         public int NotificationTimeMultiplier { get; set; } = 1;
         private void UpdateNotificationTime()
         {
-            if (HasNotification==true && NotificationTimeMultiplier==2 && NotificationTime > ExecutionDate)
+            if (HasNotification == true && NotificationTimeMultiplier == 2 && NotificationTime > ExecutionDate)
             {
                 NotificationTime = ExecutionDate;
                 OnPropertyChanged(nameof(NotificationTime));
@@ -180,10 +168,12 @@ namespace App1.Models
                 HasNotification = false;
                 OnPropertyChanged(nameof(HasNotification));
             }
-                
+
         }
         public void CheckIfOverdue()
         {
+
+            bool wasOverdue = _isOverdue;
 
             if (IsRepeatable == true && DateTime.Today >= RepeatitionReturnTime && IsDeleted == false)
             {
@@ -199,39 +189,47 @@ namespace App1.Models
                     SendNotification();
                 }
             }
-            IsOverdue = (!IsDeleted && !IsCompleted && ExecutionDate < DateTime.Now);
-            OnPropertyChanged(nameof(IsOverdue));
-            if (WasOverdue == false && IsOverdue == true)
+            if (!IsCompleted)
             {
-                WasOverdue = true;
-                OnPropertyChanged(nameof(WasOverdue));
-                MessagingCenter.Send<object>(this, "UpdateOverdue");
+                bool newIsOverdue = (!IsDeleted && ExecutionDate < DateTime.Now);
+                if (_isOverdue != newIsOverdue)
+                {
+                    _isOverdue = newIsOverdue;
+                    OnPropertyChanged(nameof(IsOverdue));
+
+                    // Only send message if the task was not overdue previously but is now overdue
+                    if (!wasOverdue && _isOverdue && !IsCompleted)
+                    {
+                        MessagingCenter.Send<object>(this, "UpdateOverdue");
+                    }
+                }
             }
+
         }
         public void AddChild(AssignmentModel assignment)
         {
             HasChild = true;
-            if (Childs.Count<10 && !Childs.Any(t=> t.ID == assignment.ID))
+            if (Childs.Count < 10 && !Childs.Any(t => t.ID == assignment.ID))
             {
                 Childs.Add(assignment);
                 OnPropertyChanged(nameof(Childs));
                 OnPropertyChanged(nameof(ChildsString));
             }
-            
+
         }
-        
+
         public void ChangeIsCompleted()
         {
             IsCompleted = !IsCompleted;
-            
+
             OnPropertyChanged(nameof(IsCompleted));
-            if (WasDone==false && IsCompleted == true)
+            if (IsCompleted)
             {
-                WasDone = true;
                 MessagingCenter.Send<object>(this, "UpdateDone");
                 MessagingCenter.Send<object>(this, "UpdateExp");
             }
-            if (IsCompleted==true && IsRepeatable==true && IsDeleted == false)
+
+            if (IsCompleted == true && IsRepeatable == true && IsDeleted == false)
             {
                 RepeatitionReturnTime = DateTime.Today.AddDays(RepeatitionAdditional);
                 OnPropertyChanged(nameof(RepeatitionReturnTime));
@@ -281,7 +279,7 @@ namespace App1.Models
             {
                 Tags.Add(tag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); 
+                OnPropertyChanged(nameof(TagsString));
             }
         }
 
@@ -292,7 +290,7 @@ namespace App1.Models
             {
                 Tags.Remove(existingTag);
                 OnPropertyChanged(nameof(Tags));
-                OnPropertyChanged(nameof(TagsString)); 
+                OnPropertyChanged(nameof(TagsString));
             }
         }
 
@@ -333,5 +331,5 @@ namespace App1.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    
+
 }
