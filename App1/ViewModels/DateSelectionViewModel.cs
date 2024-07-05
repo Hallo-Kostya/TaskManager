@@ -1,4 +1,5 @@
-﻿using App1.Models;
+﻿using App1.Data;
+using App1.Models;
 using App1.Views;
 using App1.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
@@ -16,6 +17,7 @@ namespace App1.ViewModels
     public class DateSelectionViewModel : BaseAssignmentViewModel
     {
         public INavigation Navigation { get; set; }
+        readonly AssignmentMethodsManager _assignmentManager;
         public Command Notification1PopupCommand { get; }
         public Command Notification2PopupCommand { get; }
         public Command OnBackPressedCommand { get; }
@@ -60,6 +62,7 @@ namespace App1.ViewModels
             Notification2PopupCommand = new Command(ExecuteNotification2Popup);
             OnBackPressedCommand = new Command(OnBackPressed);
             ConfirmCommand = new Command(async ()=> await AcceptAndClose());
+            _assignmentManager = new AssignmentMethodsManager();
         }
 
         private async void ExecuteNotification1Popup()
@@ -115,7 +118,8 @@ namespace App1.ViewModels
         public  async Task  AcceptAndClose()
         {
             Assignment.ExecutionDate = SelectedDate;
-            OnPropertyChanged(nameof(Assignment.ExecutionDate));
+            await _assignmentManager.UpdateNotificationTime(Assignment);
+            OnPropertyChanged(nameof(Assignment));
             var assign = Assignment;
             await Navigation.PopAsync();
             if(IsFromPopup)

@@ -106,5 +106,68 @@ namespace App1.Data
             assign.Childs = childs;
             await App.AssignmentsDB.AddItemAsync(assign);
         }
+        public async Task UpdateNotificationTime(AssignmentModel assign)
+        {
+            if (assign.HasNotification == true && assign.NotificationTimeMultiplier == 2 && assign.NotificationTime > assign.ExecutionDate)
+            {
+                assign.NotificationTime = assign.ExecutionDate;
+                return;
+            }
+            var newTime = assign.ExecutionDate.AddMinutes(assign.NotificationTimeMultiplier);
+            if (newTime != null && newTime >= DateTime.Now && newTime <= assign.ExecutionDate)
+            {
+                assign.NotificationTime = newTime;
+            }
+            else
+            {
+                assign.HasNotification = false;
+            }
+            await App.AssignmentsDB.AddItemAsync(assign);
+        }
+
+        public void AddChild(AssignmentModel child, AssignmentModel assign)
+        {
+            assign.HasChild = true;
+            if (assign.Childs.Count < 10 && !assign.Childs.Any(t => t.ID == child.ID))
+            {
+                assign.Childs.Add(child);
+                //await App.AssignmentsDB.AddItemAsync(assign);
+            }
+        }
+
+
+
+
+        public void RemoveChild(AssignmentModel child, AssignmentModel assign)
+        {
+            var existingChild = assign.Childs.FirstOrDefault(t => t.ID == child.ID);
+            if (existingChild != null)
+            {
+                assign.Childs.Remove(existingChild);
+            }
+            if (assign.Childs.Count == 0)
+            {
+                assign.HasChild = false;
+            }
+            //await App.AssignmentsDB.AddItemAsync(assign);
+        }
+        public void AddTag(TagModel tag, AssignmentModel assign)
+        {
+            if (assign.Tags.Count < 5 && !assign.Tags.Any(t => t.ID == tag.ID))
+            {
+                assign.Tags.Add(tag);
+                //await App.AssignmentsDB.AddItemAsync(assign);
+            }
+        }
+
+        public  void RemoveTag(TagModel tag, AssignmentModel assign)
+        {
+            var existingTag = assign.Tags.FirstOrDefault(t => t.ID == tag.ID);
+            if (existingTag != null)
+            {
+                assign.Tags.Remove(existingTag);
+                //await App.AssignmentsDB.AddItemAsync(assign);
+            }
+        }
     }
 }

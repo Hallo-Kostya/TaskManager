@@ -1,4 +1,5 @@
-﻿using App1.Models;
+﻿using App1.Data;
+using App1.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,7 @@ namespace App1.ViewModels.Settings
 
             }
         }
+        readonly UserMethodsManager _userManager;
 
         public ProfileViewModel(INavigation navigation)
         {
@@ -61,6 +63,7 @@ namespace App1.ViewModels.Settings
             Navigation = navigation;
             SetImageCommand = new Command(SetImage);
             Task.Run(async () => await LoadUser());
+            _userManager = new UserMethodsManager();
             MessagingCenter.Unsubscribe<object>(this, "UpdateOverdue");
             MessagingCenter.Unsubscribe<object>(this, "UpdateDone");
             MessagingCenter.Unsubscribe<object>(this, "UpdateExp");
@@ -232,14 +235,12 @@ namespace App1.ViewModels.Settings
                 else if (kind == "Exp")
                 {
                     User.Exp += Exp;
+                    await _userManager.UpdateLevel(User);
                 }
                 await App.AssignmentsDB.AddUserAsync(User);
                 DoneCount = 0;
                 OverDueCount = 0;
                 Exp = 0;
-                OnPropertyChanged(nameof(DoneCount));
-                OnPropertyChanged(nameof(OverDueCount));
-                OnPropertyChanged(nameof(Exp));
             }
         }
         public async void OnCancel()

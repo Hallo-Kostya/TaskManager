@@ -5,6 +5,7 @@ using App1.Views.Popups;
 using App1.Views.Popups.EditPopup;
 using Rg.Plugins.Popup.Extensions;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -160,7 +161,9 @@ namespace App1.ViewModels
             MessagingCenter.Unsubscribe<AssignmentModel>(this, "PopupChildClosed");
             MessagingCenter.Subscribe<AssignmentModel>(this, "PopupChildClosed", async (sender) =>
             {
-                Assignment.AddChild(sender);
+                //Assignment.AddChild(sender);
+                _assignManager.AddChild(sender, Assignment);
+                OnPropertyChanged(nameof(Assignment));
                 await UpdateChilds();
             });
             await Navigation.PushPopupAsync(new AssignmentAddingPage(true));
@@ -168,7 +171,9 @@ namespace App1.ViewModels
         }
         private async void DeleteChild(AssignmentModel assignment)
         {
-            Assignment.RemoveChild(assignment);
+            //Assignment.RemoveChild(assignment);
+            _assignManager.RemoveChild(assignment, Assignment); 
+            OnPropertyChanged(nameof(Assignment));
             await App.AssignmentsDB.DeleteItemAsync(assignment.ID);
             await UpdateChilds();
         }
@@ -176,7 +181,8 @@ namespace App1.ViewModels
 
         private async void DeleteTag(TagModel tag)
         {
-            Assignment.RemoveTag(tag);
+            //Assignment.RemoveTag(tag);
+            _assignManager.RemoveTag(tag, Assignment);
             OnPropertyChanged(nameof(Assignment.Tags));
             await UpdateTags();
         }
@@ -190,7 +196,8 @@ namespace App1.ViewModels
         }
         private  void HandleChangeIsCompleted()
         {
-            Assignment.ChangeIsCompleted();
+            //Assignment.ChangeIsCompleted();
+            Assignment.IsCompleted = !Assignment.IsCompleted;
             OnPropertyChanged(nameof(Assignment));
         }
         private async void ExecuteLoadTagPopup()
@@ -199,7 +206,9 @@ namespace App1.ViewModels
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
                 async (sender) =>
                 {
-                    Assignment.AddTag(sender);
+                    //Assignment.AddTag(sender);
+                    _assignManager.AddTag(sender, Assignment);
+                    OnPropertyChanged(nameof(Assignment.Tags));
                     await UpdateTags();
                 });
             await Navigation.PushPopupAsync(new EditTagPopupPage());

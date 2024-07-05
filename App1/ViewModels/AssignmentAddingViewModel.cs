@@ -31,7 +31,7 @@ namespace App1.ViewModels
         public Command OpenFullscreenCommand { get; }
 
 
-
+        readonly AssignmentMethodsManager _assignmentManager;
         public Command DeleteTagCommand { get; }
         public ObservableCollection<TagModel> TagList { get; }
         public INavigation Navigation { get; set; }
@@ -84,6 +84,7 @@ namespace App1.ViewModels
             PriorityPopupCommand = new Command(ExecutePriorityPopup);
             SelectedFolder = new ListModel();
             DeleteTagCommand = new Command<TagModel>(DeleteTag);
+            _assignmentManager = new AssignmentMethodsManager();
             DatePopupCommand = new Command((arg) =>
             {
                 var DatePickerDate = arg as DatePicker;
@@ -141,7 +142,8 @@ namespace App1.ViewModels
         }
         private void DeleteTag(TagModel tag)
         {
-            Assignment.RemoveTag(tag);
+            //Assignment.RemoveTag(tag);
+            _assignmentManager.RemoveTag(tag, Assignment);
             OnPropertyChanged(nameof(Assignment.Tags));
             UpdateTags();
         }
@@ -151,7 +153,9 @@ namespace App1.ViewModels
             MessagingCenter.Subscribe<TagModel>(this, "TagChanged",
                 (sender) =>
                 {
-                    Assignment.AddTag(sender);
+                    //Assignment.AddTag(sender);
+                    _assignmentManager.AddTag(sender, Assignment);
+                    OnPropertyChanged(nameof(Assignment.Tags));
                     UpdateTags();
                 });
             await Navigation.PushPopupAsync(new TagPopupPage());
